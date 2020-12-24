@@ -1,0 +1,146 @@
+<div class="box_100" >
+  <table width="200%" cellpadding="0" cellspacing="0" class="table_result table_height" >
+      <thead>
+          <tr>
+              <th width="10px" class="table_result_line"></th>
+              <th width="80px">Locus</th>
+              <th width="80px">Genotype</th>
+              <th width="80px">Filter</th>
+              <th width="80px">Ref</th>
+              <th width="80px" class="left">Observed Allele</th>
+              <th width="80px">Type</th>
+              <th width="80px" style="width:100px !important;">No Call Reason</th>
+              <th width="80px">Genes</th>
+              <th width="80px" style="width: 120px !important;">Location</th>
+              <th width="80px">Loc 1</th>
+              <th width="80px">Loc 2</th>
+              <th width="80px">Loc 3</th>
+              <th width="80px">Loc 4</th>
+              <th width="80px">Loc 5</th>
+              <th width="80px">Loc 6</th>
+              <th width="80px">Loc 7</th>
+              <th width="80px">Length</th>
+              <th width="80px">Info</th>
+              <th width="80px">Variant ID</th>
+              <th width="80px">Variant Name</th>
+              <th width="80px">% Frequency</th>
+              <th width="80px">Strand</th>
+              <th width="80px">Exon</th>
+              <th width="80px">Trascript</th>
+              <th width="80px">Coding</th>
+              <th width="80px">Amino Acid Change</th>
+              <th width="80px">Variant Effect</th>
+              <th width="80px">PhyloP</th>
+              <th width="80px">SIFT</th>
+              <th width="80px">Grantham</th>
+              <th width="80px">PolyPhen</th>
+              <th width="80px" style="width: 120px !important;">FATHMM</th>
+              <th width="80px">PFAM</th>
+              <th width="80px">dbSNP</th>
+              <th width="80px">DGV</th>
+              <th width="80px">MAF</th>
+              <th width="80px">EMAF</th>
+              <th width="80px">AMAF</th>
+              <th width="80px">GMAF</th>
+              <th width="80px">UCSC Common SNPs</th>
+              <th width="80px">ExAC LAF</th>
+              <th width="80px">ExAC EAAF</th>
+              <th width="80px">ExAC OAF</th>
+              <th width="80px">ExAC EFAF</th>
+              <th width="80px">ExAC SAAF</th>
+              <th width="80px">ExAC ENFAF</th>
+              <th width="80px">ExAC AAF</th>
+              <th width="80px">ExAC GAF</th>
+              <th width="80px">COSMIC</th>
+              <th width="80px">OMIM</th>
+              <th width="80px">Gene Ontology</th>
+              <th width="80px">DrugBank</th>
+              <th width="80px">ClinVar</th>
+              <th width="80px">Allele Coverage</th>
+              <th width="80px">Allele Ratio</th>
+              <th width="80px">p-value</th>
+              <th width="80px">Phred QUAL Score</th>
+              <th width="80px">Coverage</th>
+              <th width="150px">Ref+/Ref-/Var+/Var-</th>
+              <th width="100px">Homopolymer Length</th>
+              <th width="100px">Subset of</th>
+              <th width="150px">KRGDB_622_Lukemia</th>
+              <th width="150px">KRGDB_1100_Leukemia</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let tsvList of tsvLists; let i = index">
+              <td class="table_result_line">{{i + 1}}</td>
+              <td>{{tsvList.locus}}</td>
+              <td>{{tsvList.genotype}}</td>
+              <td>{{tsvList.filter}}</td>
+              <td>{{tsvList.ref}}</td>
+              <td>{{tsvList.observed_allele}}</td>
+              <td>{{tsvList.type}}</td>
+              <td>{{tsvList.no_call_reason}}</td>
+              <td>{{tsvList.genes}}</td>
+              <td>{{tsvList.locations}}</td>
+              <td>{{tsvList.loc1}}</td>
+              <td>{{tsvList.loc2}}</td>
+              <td>{{tsvList.loc3}}</td>
+              <td>{{tsvList.loc4}}</td>
+              <td>{{tsvList.loc5}}</td>
+              <td>{{tsvList.loc6}}</td>
+              <td>{{tsvList.loc7}}</td>
+              <td>{{tsvList.length}}</td>
+              <td>{{tsvList.info}}</td>
+              <td>{{tsvList.variant_id}}</td>
+              <td>{{tsvList.variant_name}}</td>
+              <td><div class="fathmm">{{tsvList.frequency}}</div></td>
+              <td>{{tsvList.strand}}</td>
+              <td>{{tsvList.exon}}</td>
+              <td>{{tsvList.transcript}}</td>
+              <td>{{tsvList.coding}}</td>
+              <td>{{tsvList.amino_acid_change}}</td>
+              <td>{{tsvList.variant_effect}}</td>
+              <td><div class="fathmm">{{tsvList.phylop}}</div></td>
+              <td>{{tsvList.sift}}</td>
+              <td>{{tsvList.grantham}}</td>
+              <td>{{tsvList.polyphen}}</td>
+              <td><div class="fathmm">{{tsvList.fathmm}}</div></td>
+              <td><div class="pfam">{{tsvList.pfam}}</div></td>
+              <td>{{tsvList.dbsnp}}</td>
+              <td>{{tsvList.dgv}}</td>
+              <td>{{tsvList.maf}}</td>
+              <td>{{tsvList.emaf}}</td>
+              <td>{{tsvList.amaf}}</td>
+              <td>{{tsvList.gmaf}}</td>
+              <td>{{tsvList.ucsc_common_snps}}</td>
+              <td><div class="fathmm">{{tsvList.exac_laf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_eaaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_oaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_efaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_saaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_enfaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_aaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.exac_gaf}}</div></td>
+              <td><div class="fathmm">{{tsvList.cosmi}}</div></td>
+              <td><div class="fathmm">{{tsvList.omim}}</div></td>
+              <td>
+                <div class="geneOntology">{{tsvList.gene_ontology}}  </div>
+              </td>
+              <td><div class="fathmm">{{tsvList.drugbank}}</div></td>
+              <td>{{tsvList.clinvar}}</td>
+              <td><div class="fathmm">{{tsvList.allele_coverage}}</div></td>
+              <td><div class="fathmm">{{tsvList.allele_ratio}}</div></td>
+              <td>{{tsvList.p_value}}</td>
+              <td>{{tsvList.phred_qual_score}}</td>
+              <td>{{tsvList.coverage}}</td>
+              <td><div class="fathmm">{{tsvList.ref_ref_var_var}}</div></td>
+              <td>{{tsvList.homopolymer_length}}</td>
+              <td>{{tsvList.subset_of}}</td>
+              <td>{{tsvList.krgdb_622_lukemia}}</td>
+              <td>{{tsvList.krgdb_1100_leukemia}}</td>
+          </tr>
+      </tbody>
+  </table>
+  <!-- <p class="txt_02 pd_t10 pt_b20">{{ment}}</p> -->
+</div>
+<div>
+<button type="button" class="excel" (click)="excelDownload()">Excel</button>
+</div>

@@ -1,0 +1,447 @@
+<div class="form1-main">
+  <div class="filtered-container">
+    <h2>Acute Lymphoblastic Leukemia NGS</h2>
+    <div  class="sheet-header">
+      <table class="table filtered-header">
+        <thead class="header-table">
+            <tr>
+                <th></th>
+                <th>Locus</th>
+                <th>Genotype</th>
+                <th>Filter</th> 
+                <th>Ref</th>
+                <th class="left">Observed Allele</th>
+                <th>Type</th>
+                <th>No Call Reason</th>
+                <th  class="left">Genes</th>
+                <th  style="width: 120px !important;">Location</th>
+                <th>Loc 1</th>
+                <th>Loc 2</th>
+                <th>Loc 3</th>
+                <th>Loc 4</th>
+                <th>Loc 5</th>
+                <th>Loc 6</th>
+                <th>Loc 7</th>                
+                <th>Length</th>
+                <th>Info</th>
+                <th>Variant ID</th>
+                <th>Variant Name</th>
+                <th>% Frequency</th>
+                <th>Strand</th>
+                <th>Exon</th>
+                <th>Trascript</th>
+                <th>Coding</th>
+                <th>Amino Acid Change</th>
+                <th>Variant Effect</th>
+                <th>PhyloP</th>
+                <th>SIFT</th>
+                <th>Grantham</th>
+                <th>PolyPhen</th>
+                <th  style="width: 120px !important;">FATHMM</th>
+                <th>PFAM</th>
+                <th>dbSNP</th>
+                <th>DGV</th>
+                <th>MAF</th>
+                <th>EMAF</th>
+                <th>AMAF</th>
+                <th>GMAF</th>
+                <th>UCSC Common SNPs</th>
+                <th>ExAC LAF</th>
+                <th>ExAC EAAF</th>
+                <th>ExAC OAF</th>
+                <th>ExAC EFAF</th>
+                <th>ExAC SAAF</th>
+                <th>ExAC ENFAF</th>
+                <th>ExAC AAF</th>
+                <th>ExAC GAF</th>
+                <th>COSMIC</th>
+                <th>OMIM</th>
+                <th>Gene Ontology</th>
+                <th>DrugBank</th>
+                <th>ClinVar</th>
+                <th>Allele Coverage</th>
+                <th>Allele Ratio</th>
+                <th>p-value</th>
+                <th>Phred QUAL Score</th>
+                <th>Coverage</th>
+                <th>Ref+/Ref-/Var+/Var-</th>
+                <th>Homopolymer Length</th>
+                <th>Subset of</th>
+                <th>KRGDB_622_Lukemia</th>
+                <th>KRGDB_1100_Leukemia</th>             
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tsvList of tsvLists; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{tsvList.locus}}</td>
+              <td>{{tsvList.genotype}}</td>
+              <td>{{tsvList.filter}}</td>
+              <td>{{tsvList.ref}}</td>
+              <td>{{tsvList.observed_allele}}</td>
+              <td>{{tsvList.type}}</td>
+              <td>{{tsvList.no_call_reason}}</td>
+              <td>{{tsvList.genes}}</td>
+              <td>{{tsvList.locations}}</td>
+              <td>{{tsvList.loc1}}</td>
+              <td>{{tsvList.loc2}}</td>
+              <td>{{tsvList.loc3}}</td>
+              <td>{{tsvList.loc4}}</td>
+              <td>{{tsvList.loc5}}</td>
+              <td>{{tsvList.loc6}}</td>
+              <td>{{tsvList.loc7}}</td>
+              <td>{{tsvList.length}}</td>
+              <td>{{tsvList.info}}</td>
+              <td>{{tsvList.variant_id}}</td>
+              <td>{{tsvList.variant_name}}</td>
+              <td>{{tsvList.frequency}}</td>
+              <td>{{tsvList.strand}}</td>
+              <td>{{tsvList.exon}}</td>
+              <td>{{tsvList.transcript}}</td>
+              <td>{{tsvList.coding}}</td>
+              <td>{{tsvList.amino_acid_change}}</td>
+              <td>{{tsvList.variant_effect}}</td>
+              <td>{{tsvList.phylop}}</td>
+              <td>{{tsvList.sift}}</td>
+              <td>{{tsvList.grantham}}</td>
+              <td>{{tsvList.polyphen}}</td>
+              <td><div class="fathmm">{{tsvList.fathmm}}</div></td>
+              <td><div class="pfam">{{tsvList.pfam}}</div></td>
+              <td>{{tsvList.dbsnp}}</td>
+              <td>{{tsvList.dgv}}</td>
+              <td>{{tsvList.maf}}</td>
+              <td>{{tsvList.emaf}}</td>
+              <td>{{tsvList.amaf}}</td>
+              <td>{{tsvList.gmaf}}</td>
+              <td>{{tsvList.ucsc_common_snps}}</td>
+              <td>{{tsvList.exac_laf}}</td>
+              <td>{{tsvList.exac_eaaf}}</td>
+              <td>{{tsvList.exac_oaf}}</td>
+              <td>{{tsvList.exac_efaf}}</td>
+              <td>{{tsvList.exac_saaf}}</td>
+              <td>{{tsvList.exac_enfaf}}</td>
+              <td>{{tsvList.exac_aaf}}</td>
+              <td>{{tsvList.exac_gaf}}</td>
+              <td>{{tsvList.cosmi}}</td>
+              <td>{{tsvList.omim}}</td>
+              <td>
+                <div class="geneOntology">{{tsvList.gene_ontology}}  </div>               
+              </td>
+              <td>{{tsvList.drugbank}}</td>
+              <td>{{tsvList.clinvar}}</td>
+              <td>{{tsvList.allele_coverage}}</td>
+              <td>{{tsvList.allele_ratio}}</td>
+              <td>{{tsvList.p_value}}</td>
+              <td>{{tsvList.phred_qual_score}}</td>
+              <td>{{tsvList.coverage}}</td>
+              <td>{{tsvList.ref_ref_var_var}}</td>
+              <td>{{tsvList.homopolymer_length}}</td>
+              <td>{{tsvList.subset_of}}</td>
+              <td>{{tsvList.krgdb_622_lukemia}}</td>
+              <td>{{tsvList.krgdb_1100_leukemia}}</td>
+            </tr>
+ 
+        </tbody>
+       </table>
+       <p>{{ment}}</p>
+     </div>   
+  </div>
+  <!--   -->
+  <!-- -->
+  <div class="forms-container">
+    <form clrForm class="forms-container-sheet">     
+        <div class="sheet-patient">
+          <label>Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</label>          
+        </div>   
+        
+        <div class="sheet-result">          
+            <div class=" form-control select-box">
+                  <label class="clr-control-label label-result">Result: </label>
+                  <div class="clr-control-container clr-control-inline">
+                    <div class="clr-radio-wrapper">
+                      <input type="radio" id="vertical-radio2" name="radio-full" value="detected" class="clr-radio" (change)="result($event)" checked/>
+                      <label for="vertical-radio2" class="clr-control-label">Detected</label>
+                    </div>
+                    <div class="clr-radio-wrapper">
+                      <input type="radio" id="vertical-radio1" name="radio-full" value="Not detected" class="clr-radio" (change)="result($event)" [checked]="" />                    
+                      <label for="vertical-radio1" class="clr-control-label">Not detected</label>
+                    </div>
+
+                  </div>
+            </div>                     
+            <label class="sheet-result-label">Other molecular and cytogenetic profiles</label>
+        </div>
+
+
+        <div class="sheet-btn-review">
+          <!-- <button class="btn btn-success" (click)="test()">1차의견</button> -->
+        </div>
+        <div class="sheet-btn-send">
+          <button class="btn btn-success" (click)="sendEMR()">EMR송부</button>
+        </div>
+        <div  class="sheet-summary">
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>Leukemia associated fusion</th>
+                    <th>IIKZFI detetion</th>
+                    <th>Chronmosomal analysis</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                      <input type="text" id="basic"   class="clr-input" [(ngModel)]= "fusion" [ngModelOptions]="{standalone: true}"/>
+                    </td>
+                    <td>{{patientInfo.IKZK1Deletion}}</td>
+                    <td>{{patientInfo.chromosomalAnalysis}}</td>                    
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sheet-test">
+          <div class="sheet-test-title">
+             <label>Test Information</label>
+             <table class="table table-margin-top">
+              <tbody>
+                  <tr>
+                      <td>TARGET DISESSE:{{patientInfo.targetDisease}}</td>
+                      <td>METHODS: {{patientInfo.method}}</td>                    
+                  </tr>
+                  <tr>
+                    <td>SPECIMEN: {{patientInfo.specimen}}</td>
+                    <td>REQUEST: {{patientInfo.request}}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="sheet-variants">
+          <label>Detected variants</label>
+
+          <form [formGroup]="tablerowForm">
+            <table class="table table-margin-top">
+              <thead>
+                  <tr>
+                      <th>IGV</th>
+                      <th>Sanger</th>
+                      <th>Type</th>
+                      <th>Gene</th>
+                      <th>Functional Impact</th>
+                      <th>Transcript</th>
+                      <th>Exon/Intron</th>  
+                      <th>Nuceleotide change</th>    
+                      <th>Amino acid change</th> 
+                      <th>Zygosity</th>
+                      <th>VAF %</th> 
+                      <th>Reference(s)</th>      
+                      <th>COSMIC ID</th> 
+                      <th>
+                        <button class="btn btn-success" (click)="addRow()">추가</button>
+                      </th>
+                      <th>Site</th> 
+                      <th>Action</th>   
+                  </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls; let i=index">
+                  <tr  [formGroupName]="i">
+                    <td><input type="text" size="10"  class="clr-input" formControlName="igv"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="sanger"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="type"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="gene"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="functionalImpact"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="transcript"></td> 
+                    <td><input type="text" size="10"  class="clr-input" formControlName="exonIntro"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="nucleotideChange"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="aminoAcidChange"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="zygosity"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="vafPercent"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="references"></td>
+                    <td><input type="text" size="10"  class="clr-input" formControlName="cosmicID"></td>
+                    <td class="trash" (click)="deleteRow(i)">&#10006;</td>
+                    <td>
+                      <select clrSelect name="options" (change)="saveInhouse(i, inhouse.value)" 
+                      *ngIf="checkType(i)" #inhouse>
+                        <option value="mutation" selected>Mutation</option>
+                        <option value="artifacts">Artifacts</option>
+                        <option value="benign">Benign</option>
+                      </select>
+                    </td>
+                    <td  (click)="save(i)" *ngIf="checkType(i)" class="save_mute">저장</td>                   
+                </tr>
+                </ng-container>
+  
+                  
+              </tbody>
+            </table>
+             <!--  <div class="add">
+                <button class="btn btn-success" (click)="addRow()">추가</button>               
+              </div>
+              -->
+            </form>
+            <div>
+              <textarea id="comment"   rows="3" cols="200" [(ngModel)]='ment'  [ngModelOptions]="{standalone: true}">
+                {{ment}}
+              </textarea>
+            </div>
+            
+        </div>
+       <!--  멘트  -->
+       <div class="sheet-comments">
+        <label>Comments</label>
+        <table class="table table-margin-top">
+          <thead>
+              <tr>
+                  <th>Gene</th>
+                  <th>Variants</th>
+                  <th class="left clr-col-5" style="text-align: center;">Comments</th> 
+                  <th class="clr-col-3">Reference</th>         
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>
+                    <input type="text" size="10"  class="clr-input" 
+                    value="commentGene" [(ngModel)]="commentGene" [ngModelOptions]="{standalone: true}"/>
+                  </td>
+                  <td >
+                    <input type="text" size="10" value="commentVariants" class="clr-input" [(ngModel)]="commentVariants" [ngModelOptions]="{standalone: true}"/>
+                  </td>
+                  <td class="left clr-col-6">
+                    <textarea id="comment1"   rows="4" cols="200" [(ngModel)]='comment'  [ngModelOptions]="{standalone: true}"></textarea>
+                  </td>
+                  <td>
+                    <textarea id="comment2"   rows="4" cols="200" [(ngModel)]='commentReference'  [ngModelOptions]="{standalone: true}"></textarea>
+                  </td>                 
+              </tr>
+             
+          </tbody>
+        </table>
+      </div>
+        <!--    -->
+      <!--  <div class="space logo"></div>  --> 
+        <div class="sheet-methods">
+          <label>*Methods</label>
+          <div>
+            <div class="clr-textarea-wrapper">
+              <textarea id="vertical-textarea-basic methods" 
+              [(ngModel)]="methods" [ngModelOptions]="{name: 'method'}"
+              class="clr-textarea form-textarea"></textarea>
+              <!-- <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon> -->
+            </div>
+          </div>
+        </div>
+ 
+        <div class="sheet-general">
+          <label>Genernal limitations of the technique</label>
+          <div>
+            <div class="clr-textarea-wrapper">
+              <textarea id="vertical-textarea-basic general" 
+              [(ngModel)]="general" [ngModelOptions]="{name: 'general'}"
+              class="clr-textarea form-textarea "></textarea>
+              <!-- <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-genes">
+          <label>Target genes</label>
+          <table class="table table-margin-top">
+            <tbody>
+                <tr>
+                    <td>IKZFl</td>
+                    <td>BCOR</td>
+                    <td>CREBBP</td> 
+                    <td>ETV6</td>
+                    <td>GATA3</td>
+                    <td>KIT</td>
+                    <td>NOTCH3</td>
+                    <td>PTEN</td>
+                    <td>SH2B3</td>
+                    <td>TPMT</td>                   
+                </tr>
+                <tr>
+                  <td>JAK2</td>
+                  <td>BRAF</td>
+                  <td>CSF3R</td>
+                  <td>EZH2</td>
+                  <td>HNRNPK</td>
+                  <td>KRAS</td>
+                  <td>NPM1</td>
+                  <td>PTPN11</td>
+                  <td>SMC1A</td>
+                  <td>U2AF1</td>                
+              </tr>  
+              <tr>
+                <td>NRAS</td>
+                <td>CALR</td>
+                <td>DDX41</td>
+                <td>FAM5C</td>
+                <td>IDH1</td>
+                <td>KMT2A</td>
+                <td>NT5C2</td>
+                <td>RAD21</td>
+                <td>SMC3</td>
+                <td>WTI</td>
+              </tr> 
+              <tr>
+                <td>TP53</td>
+                <td>CBL</td>
+                <td>DNMT3A</td>
+                <td>FBXW7</td>
+                <td>IDH2</td>
+                <td>MPL</td>
+                <td>PAX5</td>
+                <td>RUNX1</td>
+                <td>SRSF2</td>
+                <td>ZRSR2</td>
+              </tr> 
+              <tr>
+                <td>RB1</td>
+                <td>CDKN2A</td>
+                <td>EGFR</td>
+                <td>FLT3</td>
+                <td>lL7R</td>
+                <td>MYC</td>
+                <td>PDGFRA</td>
+                <td>SETBP1</td>
+                <td>STAG2</td>
+                <td></td>
+              </tr> 
+              <tr>
+                <td>ANKRD26</td>
+                <td>CDKN2B</td>
+                <td>EP300</td>
+                <td>GATA1</td>
+                <td>JAK1</td>
+                <td>NF1</td>
+                <td>PHF6</td>
+                <td>SETD2</td>
+                <td>TERT</td>
+                <td></td>
+              </tr> 
+              <tr>
+                <td>ASXL1</td>
+                <td>CHK1</td>
+                <td>ERG</td>
+                <td>GATA2</td>
+                <td>KAK3</td>
+                <td>NOTCH1</td>
+                <td>PRAME</td>
+                <td>SF3B1</td>
+                <td>TET2</td>
+                <td></td>
+              </tr>          
+            </tbody>
+          </table>
+        </div>
+        
+
+
+
+    
+    </form>
+  </div>
+</div>
+

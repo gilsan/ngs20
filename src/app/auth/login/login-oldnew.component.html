@@ -1,0 +1,53 @@
+<div class="login-container">
+  <div>
+    <form [formGroup]="loginGroup"  #f ="ngForm">
+     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+           <td height="125" style="padding-left:58px;"><img [src]="'assets/images/login_logo.png'"  /></td>
+       </tr>
+       <tr>
+           <td height="550" align="center" valign="top" bgcolor="#98bfd8">
+               <table width="530" border="0" cellspacing="0" cellpadding="0">
+                   <tr>
+                       <td colspan="3" align="center" valign="top" style="padding-top:88px; padding-bottom:60px;"><img [src]="'assets/images/login_img.png'" /></td>
+                   </tr>
+                   <tr>
+                       <td align="right" valign="top"><img [src]="'assets/images/login_id.png'" vspace="13"/></td>
+                       <td width="315" height="60" align="left" valign="top" style="padding-left:10px;">
+                           <input type="text"  placeholder="LOGIN ID" 
+                           formControlName="user"
+                           style="border:#ccc solid 1px; padding: .5715rem .8571rem; font-size:22px;">
+                       </td>
+                       <td rowspan="2">
+                           <button type="button" 
+                           (click)="login()" [disabled]="loginGroup.invalid"
+                           [class.abled]="loginGroup.valid" [class.disabled]="loginGroup.invalid"
+                           style="color: #fff;  background-color: #325974;  font-size:18px; font-weight:bold;  padding:40px 17px;    border: 1px solid transparent; box-shadow:0 3px 1px -2px rgba(0, 0, 0, .02), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba   (0, 0, 0, .12); cursor: pointer;">로그인</button>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td align="right"><img [src]="'assets/images/login_pw.png'" width="78" height="22" /></td>
+                       <td align="left" valign="top" style="padding-left:10px;">
+                           <input type="password"  placeholder="PASSWORD" 
+                           formControlName="passwd"
+                           style="border:#ccc solid 1px; padding: .571rem .85rem; font-size:22px;">
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>&nbsp;</td>
+                       <td height="35" align="left" valign="bottom" style="color:#FFF; font-weight:bold; font-size:20px; padding-left:10px;">
+                           <input name="" type="radio" #jingum value="diag" name="options"
+                           (change)="result(jingum.value)" />
+                           진검&nbsp;&nbsp;&nbsp;&nbsp;
+                           <input name="" type="radio" #byengri value="path" name="options"
+                           (change)="result(byengri.value)" />
+                           병리</td>
+                       <td>&nbsp;</td>
+                   </tr>
+               </table>
+           </td>
+       </tr>
+     </table>
+    </form> 
+</div>
+</div>

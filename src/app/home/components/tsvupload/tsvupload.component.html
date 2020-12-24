@@ -1,0 +1,50 @@
+<div>
+  <div class="background"></div>
+
+  <div class="card">
+ 
+      <div class="upload-main">
+        <div class="upload-container">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <div class="droparea" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)"
+                [class.active]="isActive">
+                <input type="file" name="userfiles" #uploadfile
+                (change)="onSelectedFile($event)" multiple />
+                <h4>업로드할 파일을 선택하거나 <br />여기에 파일을 올려주세요.</h4>
+              </div>
+              <div class="mt-2" *ngIf="upload.progress > 0 && upload.progress != 100"  >
+                <div class="progress" style="height: 20px; margin-bottom: 20px;">
+                  <div class="progress-bar progress-bar-striped bg-info" roloe="progressbar" [style.width.%]="upload.progress"
+                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    {{upload.progress}}%
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3 file-list">
+                <div class="card-header">파일 목록</div>
+                <ul class="list-group list-group-flush">
+                  <ng-container *ngFor="let item of upload.files">
+                    <li class="list-group-item"> {{item.filename}}  - 상태: <span>업로드 완료</span></li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- <ng-content></ng-content> -->
+          <div>           
+                <button  class="btn btn-button" (click)="onConfirm()" >확 인</button>&nbsp;&nbsp;&nbsp;               
+                <button  class="btn btn-button" (click)="onCancel()">취 소</button>             
+          </div>
+        </div>
+      </div>
+
+
+    <!-- <div class="footer">
+      <button (click)="onCancel.emit()" class="cancel-button">Cancel</button>
+      <button (click)="onSubmit.emit(time)">Ok</button>
+    </div> -->
+  </div>
+
+</div>
+

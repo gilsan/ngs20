@@ -1,0 +1,35 @@
+<div class="main-container main">
+  <header class="header-6">
+    <div class="branding">
+      <a routerLink="/css" class="nav-link">
+        <clr-icon shape="happy-face"></clr-icon>
+        <span class="title">NGS</span>
+      </a>
+    </div>
+    <div class="header-nav" [clr-nav-level]="1">
+      <!-- <a routerLink="fileupload" class="active nav-link" routerLinkActive="active"><span
+          class="nav-text">진검매크로필터</span></a> -->
+
+      <!-- <a routerLink="inhouse_to_db" class="active nav-link" routerLinkActive="active"><span
+            class="nav-text">In-House DB만들기</span></a>  -->
+      <!-- <a routerLink="disease_to_db" class="active nav-link" routerLinkActive="active"><span
+              class="nav-text">병리 DB만들기</span></a>                 -->
+      <!-- <a routerLink="/home/jingum" class="active nav-link" routerLinkActive="active"><span
+          class="nav-text">진검</span></a> -->
+      <!-- <a routerLink="disease_test" class="active nav-link" routerLinkActive="active"><span class="nav-text">병리</span></a> -->
+      <!-- <a routerLink="main" class="active nav-link" routerLinkActive="active"><span
+          class="nav-text">Main</span></a> -->
+    </div>
+    <div class="header-actions">
+      <!-- <a routerLink="/diag" class="nav-link nav-icon" aria-label="settings">
+        <clr-icon shape="image"></clr-icon>
+      </a> -->
+    </div>
+  </header>
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>

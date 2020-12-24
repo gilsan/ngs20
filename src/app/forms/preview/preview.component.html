@@ -1,0 +1,142 @@
+<div id="result">
+ <div class="background">
+    <div id="container">
+        <div id="content">
+            <div class="box pd_20">
+                <div class="sub_title_01">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td class="txt_02" ><span class="fb">Result</span>:  {{result}} </td>                 
+                    </tr>
+                    <tr>
+                        <td class="txt_02"> Other molecular and cytogenetic profiles</td>
+                    </tr>
+                </table>
+                <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
+                    <colgroup>
+                    <col style="width:30%;" />
+                    <col style="width:20%;" />
+                    <col style="width:50%;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="table_result_line">Leukemia associated fusion</th>
+                            <th>FLT3-ITD</th>
+                            <th>Chronmosomal analysis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table_result_line"> {{profile.leukemia}} </td>
+                            <td>{{profile.flt3itd}}</td>
+                            <td>{{profile.chron}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="sub_title">Test Information</div>
+                <table cellpadding="0" cellspacing="0" class="table_result02">
+                    <colgroup>
+                    <col style="width:50%;" />
+                    <col style="width:50%;" />
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>TARGET DISESSE: Acute myeloid leukemia</td>
+                            <td>METHODS: *Massivery parallel sequencing</td>
+                        </tr>
+                        <tr>
+                            <td>SPECIMEN: Genomic DNA isolated from {{specimenMsg}}</td>
+                            <td>REQUEST: {{patientInfo.request}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="sub_title">Detected variants</div>
+                <div class="box pd_20">
+                    <div class="box_50">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_result">
+                          <thead>
+                              <tr>
+                                  <th class="table_result_line">Gene</th>
+                                  <th>Functional Impact</th>
+                                  <th>Transcript</th>
+                                  <th>Exon/Intron</th>
+                                  <th>Nuceleotide change</th>
+                                  <th>Amino acid change</th>
+                                  <th>Zygosity</th>
+                                  <th>VAF %</th>
+                                  <th>Reference(s)</th>
+                                  <th>COSMIC ID</th>
+                                   
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <ng-container   *ngFor="let dt of dts">
+                              <tr>
+                                  <td class="table_result_line txt_c">{{dt.gene}}</td>
+                                  <td class="txt_c">{{dt.functionalImpact}}</td>
+                                  <td class="txt_c">{{dt.transcript}}</td>
+                                  <td class="txt_c">{{dt.exonIntro}}</td>
+                                  <td class="txt_c">{{dt.nucleotideChange}}</td>
+                                  <td class="txt_c">{{dt.aminoAcidChange}}</td>
+                                  <td class="txt_c">{{dt.zygosity}}</td>
+                                  <td class="txt_c">{{dt.vafPercent}}</td>
+                                  <td class="txt_c">{{dt.references}}</td>
+                                  <td class="txt_c">{{dt.cosmicID}}</td>
+                              </tr>
+                              <!-- <tr>
+                                  <td colspan="11" class="table_result_line">
+                                      <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나,       임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에       대한 확인이 필요 합니다.</textarea>
+                                  </td>
+                              </tr> -->
+                          </ng-container>
+                          </tbody>
+                      </table>
+                    </div>
+                    <div>
+                        <div  class="font_14 pd_t15" *ngIf="vusstatus">
+                            <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea>
+                          </div>
+                      </div>
+                </div>
+                              
+                <div class="sub_title" >Comments</div> 
+                <div  class="comment_box_50">             
+                            <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
+                               <colgroup>
+                                      <col style="width:10%;" />
+                                      <col style="width:10%;" />
+                                      <col style="width:40%;" />
+                                      <col style="width:40%;" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th class="table_result_line">Gene</th>
+                                        <th >Variants</th>
+                                        <th> Comments</th>
+                                        <th >Reference</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container  *ngFor="let comment of comments;">
+                                        <tr>
+                                            <td class="table_result_line">{{comment.gene}}</td>
+                                            <td>{{comment.variants}}</td>
+                                            <td class="textarea01">
+                                                <textarea style="width:96%"class="textarea_01">{{comment.comment}}</textarea>
+                                            </td>
+                                            <td class="textarea01">
+                                                <textarea style="width:96%"class="textarea_01">
+                                                    {{comment.reference}}
+                                                </textarea>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                </div>  
+            </div>
+    </div>
+ </div> 
+  
+</div>

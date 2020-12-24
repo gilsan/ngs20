@@ -1,0 +1,29 @@
+.login-form:hover,
+.login-form:active {
+  cursor: pointer;
+}
+
+body {
+  background-color: transparent !important;
+}
+
+
+.field-err-message {
+  color: green;
+}
+
+.valid {
+  border-color: green !important;
+}
+
+.invalid {
+  border-color: red !important;
+}
+
+.abled {
+  color: white !important;
+}
+
+.disabled {
+  color: gray !important;
+}

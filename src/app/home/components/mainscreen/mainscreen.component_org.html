@@ -1,0 +1,70 @@
+<div class="mainscreen-container">
+    <app-tsvupload [hidden]="!isVisible"></app-tsvupload>
+    <div id="container">
+        <div id="content">
+            <div class="box mg_b20 pd_20">
+                <input type="date" id="start" name="trip-start"
+                     (change)="getDate($event)" #start
+                     value="startToday()"
+                     class="input_01"
+                     min="2020-01-01" max="2030-12-31">
+                 <span> ~ </span>
+                     <input type="date" id="end" name="trip-start"
+                     (change)="getDate($event)"
+                     value="endToday()"  #end
+                     class="input_01"
+                     min="2020-01-01" max="2030-12-31">                    
+                 <!-- <input type="text" class="input_01" value="검제번호"/>
+                 <input name="" type="text" value="환자ID" class="input_01" />
+                 <input name="" type="text" value="환자명" class="input_01" /> -->
+                <button type="button" class="btn btn_02"  (click)="search(start.value, end.value)">검색</button>
+            </div> 
+        </div>
+    </div>        
+
+    <div style="margin-top: 20px;"></div> 
+  <table class="table">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>환자이름</th>
+            <th>환자ID</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>검체번호</th>
+            <th>TSV 파일</th>
+            <th>BAM 파일</th>
+            <th>전송상태</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+          <tr *ngFor="let list of (lists$ | async) as lists">
+            <td>{{list.id}}</td>
+            <td >{{list.name}}</td>
+            <td>{{list.patientNum}}</td>
+            <td>{{list.age}}</td>
+            <td>{{list.sex}}</td>    
+            <td >{{list.testedNum}}</td>
+            <td>{{list.tsvFilteredFilename}}</td>
+            <td>{{list.bamFilename}}</td>
+            <td>{{list.tsvFilteredStatus}}</td>                       
+            <td>                        
+                 
+                <button type="button" class="btn btn-button" *ngIf="list.tsvFilteredFilename; else printing"
+                   (click)="goReporter(list.testedNum)">결과지/보고서</button>
+                <ng-template  #printing>
+                    <button type="button" class="btn btn-button" 
+                        (click)="goUploadpage(list.testedNum)">파일등록/변환</button>
+                </ng-template>               
+            </td>
+            <td>
+                <button type="button" class="btn btn-button" *ngIf="list.tsvFilteredFilename;"
+                (click)="goUploadpage(list.testedNum)">재등록/변환</button>               
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>

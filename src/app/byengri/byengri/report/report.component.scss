@@ -1,0 +1,252 @@
+@charset "utf-8";
+/*
+//=============================================================================
+// 로컬정보 (http://www. )                                                      
+// 설  명: NGS 통합관리시스템
+// 작업일: 2020.10.28
+// 작업일: 2020.10.28
+// 수정자: 조현정                                                                    
+//=============================================================================
+*/
+
+
+/*기본 레이아웃----------------------------------------------------------------------*/
+
+/* #wrap{position:relative;zoom:1; width:100%;  margin:0 auto; background:#f5f5f5 url(/images/bg_top.png) repeat-x;} */
+
+
+#wrap {
+  position: relative;
+  zoom: 1;
+  width: 100%;
+  margin: 0 auto;
+  background: #f5f5f5 repeat-x;
+}
+
+#header {
+  margin: 0 auto;
+  width: 100%;
+  height: 134px;
+}
+
+#menu {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+#menu table {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+#menu table td {
+  width: 16%;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+}
+
+
+#container {
+  width: 100%;
+}
+
+#content {
+  width: auto;
+  padding: 15px 30px;
+}
+
+
+.mail_title {
+  background: url('../../../../assets/images/title_bg.png') no-repeat 0 20px;
+  font-size: 20px;
+  color: #000000;
+  padding-left: 20px;
+  height: 55px
+}
+
+.box {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .02), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  background: #FFF;
+}
+
+.main_btn ul {
+  float: right;
+  height: 30px;
+}
+
+.main_btn ul li {
+  float: left;
+  padding-left: 8px;
+}
+
+.input_01 {
+  padding: .5715rem .8571rem;
+  font-size: 12px;
+  font-weight: 400;
+  color: #212121;
+  background-color: #f5f5f5;
+  background-clip: padding-box;
+  border: 1px solid #9acffa;
+  border-radius: .1429rem;
+  box-shadow: none;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  // background-color: transparent;
+  background-color: #306b00;
+  color: white;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: .375rem 1.1428rem;
+  line-height: 1.5;
+  border-radius: .1429rem;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn_01 {
+  color: #fff;
+  background-color: #2090e9;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .02), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.btn_02 {
+  color: #fff;
+  background-color: #8b8b8b;
+  font-size: 12px;
+}
+
+.btn_03 {
+  color: #2196f3;
+  background-color: #deeffd;
+  font-size: 11px;
+}
+
+.btn_04 {
+  color: #9e9eb5;
+  background-color: #f1f1f1;
+  font-size: 11px;
+}
+
+
+.table_list {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #424242;
+  padding: 10px 0;
+}
+
+.table_list th {
+  font-size: 12px;
+  color: #666666;
+  padding: 10px;
+}
+
+.table_list td {
+  font-size: 13px;
+  color: #666666;
+  border-top: #e0e0e0 solid 1px;
+  padding: 10px;
+  line-height: 30px;
+}
+
+.table_bg {
+  background-color: #fafafa;
+}
+
+.txt_01 {
+  color: #2196f3 !important;
+}
+
+
+.btn_num a {
+  display: inline-block;
+  min-width: 8px;
+  height: 28px;
+  margin: 0 2px;
+  border: 1px solid #f5f5f5 !important;
+  border-radius: 2px;
+  line-height: 26px;
+  font-size: 15px;
+  padding: 2px 10px;
+}
+
+.btn_num a:hover,
+.btn_num a:active {
+  display: inline-block;
+  min-width: 8px;
+  height: 28px;
+  margin: 0 2px;
+  border: 1px solid #6a6a6a !important;
+  color: #000;
+  border-radius: 2px;
+  line-height: 26px;
+  font-size: 15px;
+  padding: 2px 10px;
+  ;
+}
+
+.btn_num a:visited {
+  display: inline-block;
+  min-width: 8px;
+  height: 28px;
+  margin: 0 2px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  line-height: 26px;
+  font-size: 15px;
+  padding: 2px 10px;
+}
+
+.btn_select {
+  border: 1px #2090e9 solid;
+  color: #2090e9;
+  border-radius: 2px;
+  font-size: 15px;
+  height: 28px;
+  padding: 7px 10px;
+  font-weight: bold;
+  line-height: 26px;
+}
+
+
+.ico_pre {
+  background: url('../../../../assets/file-excel-solid.svg') no-repeat 10px 8px;
+  text-indent: -9999px;
+}
+
+.ico_next {
+  background: url('../../../../assets/images/ico_next.png') no-repeat 10px 8px;
+  text-indent: -9999px;
+}
+
+
+.paging_mail .btn_page {
+  float: left;
+  width: 28px;
+  height: 28px;
+  margin: 0 3px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+.textareabox {
+  margin-left: -15px;
+  width: 100% !important;
+}

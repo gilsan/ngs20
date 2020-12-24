@@ -1,0 +1,584 @@
+<div id="result">
+  <div id="container">
+      <h2>Actual Myeloid Leukemia NGS</h2>
+      <div id="content">
+          <div class="box pd_20">
+              <div class="box_100 main-table" >
+                  <table width="200%" cellpadding="0" cellspacing="0" class="table_result  fixed_header table_resul_x" style="text-align: center;">
+                      <thead>
+                          <tr>
+                              <th width="10px" class="table_result_line"></th>
+                              <th width="200px">Locus</th>
+                              <th width="200px">Genotype</th>
+                              <th width="80px">Filter</th>
+                              <th width="80px">Ref</th>
+                              <th width="200px">Observed Allele</th>
+                              <th width="80px">Type</th>
+                              <th style="width:100px !important;">No Call Reason</th>
+                              <th width="80px">Genes</th>
+                              <th style="width: 200px !important;">Location</th>
+                              <th width="80px">Loc 1</th>
+                              <th width="80px">Loc 2</th>
+                              <th width="200px">Loc 3</th>
+                              <th width="80px">Loc 4</th>
+                              <th width="80px">Loc 5</th>
+                              <th width="80px">Loc 6</th>
+                              <th width="80px">Loc 7</th>
+                              <th width="80px">Length</th>
+                              <th width="80px">Info</th>
+                              <th width="200px">Variant ID</th>
+                              <th width="80px">Variant Name</th>
+                              <th width="200px">% Frequency</th>
+                              <th width="80px">Strand</th>
+                              <th width="80px">Exon</th>
+                              <th width="200px">Trascript</th>
+                              <th width="200px">Coding</th>
+                              <th width="200px">Amino Acid Change</th>
+                              <th width="200px">Variant Effect</th>
+                              <th width="200px">PhyloP</th>
+                              <th width="80px">SIFT</th>
+                              <th width="80px">Grantham</th>
+                              <th width="80px">PolyPhen</th>
+                              <th width="200px">FATHMM</th>
+                              <th width="200px">PFAM</th>
+                              <th width="200px">dbSNP</th>
+                              <th width="200px">DGV</th>
+                              <th width="200px">MAF</th>
+                              <th width="200px">EMAF</th>
+                              <th width="200px">AMAF</th>
+                              <th width="200px">GMAF</th>
+                              <th width="80px">UCSC Common SNPs</th>
+                              <th width="200px">ExAC LAF</th>
+                              <th width="200px">ExAC EAAF</th>
+                              <th width="200px">ExAC OAF</th>
+                              <th width="200px">ExAC EFAF</th>
+                              <th width="200px">ExAC SAAF</th>
+                              <th width="200px">ExAC ENFAF</th>
+                              <th width="200px">ExAC AAF</th>
+                              <th width="200px">ExAC GAF</th>
+                              <th width="200px">COSMIC</th>
+                              <th width="200px">OMIM</th>
+                              <th width="200px">Gene Ontology</th>
+                              <th width="200px">DrugBank</th>
+                              <th width="200px">ClinVar</th>
+                              <th width="200px">Allele Coverage</th>
+                              <th width="200px">Allele Ratio</th>
+                              <th width="200px">p-value</th>
+                              <th width="200px">Phred QUAL Score</th>
+                              <th width="200px">Coverage</th>
+                              <th width="200px">Ref+/Ref-/Var+/Var-</th>
+                              <th width="200px">Homopolymer<br/>Length</th>
+                              <th width="200px">Subset of</th>
+                              <th width="200px">KRGDB_622_Lukemia</th>
+                              <th width="200px">KRGDB_1100_Leukemia</th>    
+                                                     
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let tsvList of tsvLists; let i = index">
+                              <td class="table_result_line">{{i + 1}}</td>
+                              <td>{{tsvList.locus}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.genotype}}</textarea></td>
+                              <td>{{tsvList.filter}}</td>
+                              <td>{{tsvList.ref}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.observed_allele}}</textarea></td>
+                              <td>{{tsvList.type}}</td>
+                              <td>{{tsvList.no_call_reason}}</td>
+                              <td>{{tsvList.genes}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.locations}}</textarea></td>
+                              <td>{{tsvList.loc1}}</td>
+                              <td>{{tsvList.loc2}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.loc3}}</textarea></td>
+                              <td>{{tsvList.loc4}}</td>
+                              <td>{{tsvList.loc5}}</td>
+                              <td>{{tsvList.loc6}}</td>
+                              <td>{{tsvList.loc7}}</td>
+                              <td>{{tsvList.length}}</td>
+                              <td>{{tsvList.info}}</td>
+                              <td>{{tsvList.variant_id}}</td>
+                              <td>{{tsvList.variant_name}}</td>
+                              <td class="tdbox"><textarea class="textarea_02">{{tsvList.frequency}}</textarea></td>
+                              <td>{{tsvList.strand}}</td>
+                              <td>{{tsvList.exon}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.transcript}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.coding}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.amino_acid_change}}</textarea></td>
+                              <td>{{tsvList.variant_effect}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.phylop}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.sift}}</textarea></td>
+                              <td>{{tsvList.grantham}}</td>
+                              <td>{{tsvList.polyphen}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.fathmm}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.pfam}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.dbsnp}}</textarea></td>
+                              <td>{{tsvList.dgv}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.maf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.emaf}}</textarea></td>
+                              <td>{{tsvList.amaf}}</td>
+                              <td>{{tsvList.gmaf}}</td>
+                              <td>{{tsvList.ucsc_common_snps}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_laf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_eaaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_oaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_efaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_saaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_enfaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_aaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.exac_gaf}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.cosmi}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.omim}}</textarea></td>
+                              <td>
+                                <textarea class="textarea_02">{{tsvList.gene_ontology}}</textarea>
+                              </td>
+                              <td><textarea class="textarea_02">{{tsvList.drugbank}}</textarea></td>
+                              <td>{{tsvList.clinvar}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.allele_coverage}}</textarea></td>
+                              <td><textarea class="textarea_02">{{tsvList.allele_ratio}}</textarea></td>
+                              <td>{{tsvList.p_value}}</td>
+                              <td>{{tsvList.phred_qual_score}}</td>
+                              <td>{{tsvList.coverage}}</td>
+                              <td><textarea class="textarea_02">{{tsvList.ref_ref_var_var}}</textarea></td>
+                              <td>{{tsvList.homopolymer_length}}</td>
+                              <td>{{tsvList.subset_of}}</td>
+                              <td>{{tsvList.krgdb_622_lukemia}}</td>
+                              <td>{{tsvList.krgdb_1100_leukemia}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <!-- <p class="txt_02 pd_t10 pt_b20">{{ment}}</p> -->
+              </div>
+              <div>
+                <button type="button" class="excel" (click)="excelDownload()">Excel</button>
+              </div>
+              <div class="sub_title">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="txt_02" ><span class="fb">Result </span>:
+                        <input type="radio" id="vertical-radio2" name="radio-full" value="detected" [checked]="radioStatus('Detected')" class="clr-radio"  (change)="result($event)">
+                        <label for="vertical-radio2" class="  clr-col-12 clr-col-md-2">Detected</label>
+                        &nbsp;&nbsp;
+                        <input type="radio" id="vertical-radio1" name="radio-full" value="notdetected" class="clr-radio"  (change)="result($event)" [checked]="radioStatus('Not Detected')">
+                        <label for="vertical-radio1" class="  clr-col-12 clr-col-md-2">Not Detected</label>
+                    </td>
+                    <td rowspan="2" class="main_btn">
+                        <ul>
+                            <li>
+                                <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="txt_02"> Other molecular and cytogenetic profiles</td>
+                </tr>
+            </table>
+            <div style="margin-top:5px;"></div>
+            <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
+                <colgroup>
+                <col style="width:30%;" />
+                <col style="width:20%;" />
+                <col style="width:50%;" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="table_result_line">Leukemia associated fusion</th>
+                        <th>FLT3-ITD</th>
+                        <th>Chronmosomal analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table_result_line">
+                            <input type="text" class="input_02"  
+                            [(ngModel)]= "profile.leukemia" [ngModelOptions]="{standalone: true}">
+                        </td>
+                        <td class="table_result_line">
+                            <input type="text" class="input_02"  
+                            [(ngModel)]="profile.flt3itd" [ngModelOptions]="{standalone: true}">
+                        </td>
+                        <td>
+                            <input type="text" class="input_02"  
+                            [(ngModel)]="profile.chron" [ngModelOptions]="{standalone: true}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+               
+              <div class="sub_title">Test Information</div>
+              <table cellpadding="0" cellspacing="0" class="table_result02">
+                  <colgroup>
+                  <col style="width:50%;" />
+                  <col style="width:50%;" />
+                  </colgroup>
+                  <tbody>
+                      <tr>
+                          <!-- <td>TARGET DISESSE:{{patientInfo.targetDisease}}</td> -->
+                          <td>TARGET DISEASE:Acute myeloid leukemia</td>
+                          <td> METHOD:*Massively parallel sequencing</td>
+                          <!-- <td>METHODS: {{patientInfo.method}}</td> -->
+                      </tr>
+                      <tr>
+                          <td> SPECIMEN: Genomic DNA isolated from {{specimenMsg}}</td>
+                          <td> REQUEST: {{patientInfo.request}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="sub_title">Detected variants</div>
+    <div class="box pd_20">
+              <div class="box_100">
+<!--    -------------------------------------                     -->
+<form [formGroup]="tablerowForm"> 
+     
+    <table class="table table-margin-top fixed_header"  style="text-align: center;">
+        <colgroup>           
+            <col style="width:80px"/>
+            <col style="width:80px"/>
+            <col style="width:80px"/>
+            <col style="width:50px"/>
+            <col style="width:100px"/>
+            <col style="width:80px"/>
+            <col style="width:80px"/>
+            <col style="width:80px"/>
+            <col style="width:300px"/>
+            <col style="width:300px"/>
+            <col style="width:100px"/>
+            <col style="width:80px"/> 
+            <col style="width:80px"/>    
+            <col style="width:80px"/>
+            <col style="width:80px"/>
+            <col style="width:80px"/> 
+            <col style="width:80px"/>                 
+            </colgroup>
+      <thead>
+          <tr>
+              <th></th>
+              <th>IGV</th>
+              <th>Sanger</th>
+              <th>Type</th>                  
+              <th>Gene</th>
+              <th>Functional Impact</th>
+              <th>Transcript</th>
+              <th>Exon/Intron</th>  
+              <th>Nuceleotide change</th>    
+              <th>Amino acid change</th> 
+              <th>Zygosity</th>
+              <th>VAF %</th> 
+              <th>Reference(s)</th>      
+              <th>COSMIC ID</th> 
+              <th>
+                <button class="btn btn-success" (click)="addRow()">추가</button>
+              </th> 
+              <th>Site</th>
+              <th>Action</th>                        
+          </tr>
+      </thead>
+      <tbody>
+         
+        <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls; let i=index">
+          <tr  [formGroupName]="i">
+             <td><input type="checkbox"   checked (change)="boxstatus(i, $event)"></td> 
+            <td><input type="text" size="10"  class="clr-input"  formControlName="igv"></td>
+            <td><input type="text" size="10"  class="clr-input"  formControlName="sanger"></td>
+            <td><input type="text" size="10"  class="clr-input"  formControlName="type"></td>
+            <td><input type="text" size="20"  class="clr-input" formControlName="gene"></td>
+            <td><input type="text" size="10"  class="clr-input" formControlName="functionalImpact"></td>
+            <td><input type="text" size="10"  class="clr-input" formControlName="transcript"></td> 
+            <td><input type="text" size="10"  class="clr-input" formControlName="exonIntro"></td>
+            <td><input type="text" size="40"  class="clr-input" formControlName="nucleotideChange"></td>
+            <td><input type="text" size="40"  class="clr-input" formControlName="aminoAcidChange"></td>
+            <td><input type="text" size="20"  class="clr-input" formControlName="zygosity"></td>
+            <td><input type="text" size="10"  class="clr-input" formControlName="vafPercent"></td>
+            <td><input type="text" size="10"  class="clr-input" formControlName="references"></td>
+            <td><input type="text" size="20"  class="clr-input" formControlName="cosmicID"></td>
+            <td class="trash"  (click)="deleteRow(i)">&#10006;</td>
+            <td  class="txt_c">
+              <select class="select_01" name="options" (change)="saveInhouse(i, inhouse.value)" 
+              *ngIf="checkType(i)" #inhouse>
+                <option value="mutation" selected>Mutation</option>
+                <option value="artifacts">Artifacts</option>
+                <option value="benign">Benign</option>
+              </select>                    
+            </td>
+           <td  (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">저장</td>   
+            <!-- <td  class="txt_c">
+                <button type="button" class="btn btn_05"  (click)="save(i)" *ngIf="checkType(i)">저장</button>
+            </td> -->
+            </tr>                               
+          </ng-container>
+          <!-- <tr>
+            <td colspan="11" class="table_result_line">
+            <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea></td>
+        </tr> -->
+      </tbody>
+    </table>
+ 
+  </form>
+ 
+<!---  ---------------------------   -->
+      </div>
+      <div>
+        <!-- <div  class="font_14 pd_t15" *ngIf="vusstatus">
+            <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea>
+          </div> -->
+      </div>
+
+      </div>
+
+      <div>
+      <div *ngIf="comments.length;  else commentbox; " style="overflow: scroll-y">
+        <div class="sub_title" >Comments</div>   
+        <form [formGroup]="tablerowForm">            
+            <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
+               <colgroup>
+                <col style="width:10%;" />
+                <col style="width:25%;" />
+                <col style="width:30%;" />
+                <col style="width:30%;" />
+                <col style="width:5%;" />
+               </colgroup>  
+              <thead>
+                  <tr>
+                      <th class="table_result_line">Gene</th>
+                      <th >Variants</th>
+                      <th> Comments</th>
+                      <th >Reference</th>
+                      <th><button class="btn btn-success" (click)="addNewCommentRow()">추가</button></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- <tr *ngFor="let comment of comments;"> -->
+                  <ng-container formArrayName="commentsRows" *ngFor="let group of commentsRows().controls; let i=index">
+                      <tr  [formGroupName]="i">
+                        <td class="table_result_line"  ><input type="text" style="width:88%" class="input_02" size="10" formControlName="gene" ></td>
+                        <td><input type="text" style="width:88%" class="input_02" size="10" formControlName="variants"></td>
+                        <td class="textarea01"><textarea style="width:96%" class="textarea_01" formControlName="comment"></textarea></td>
+                        <td class="textarea01"><textarea style="width:96%" class="textarea_01" formControlName="reference"></textarea></td> 
+                        <td  align="center">
+                            <img [src]="'assets/images/cancel.png'" (click)="removeCommentRow(i)">
+                        </td>
+                      </tr>
+                 </ng-container>
+              </tbody>
+            </table>
+        </form>    
+      </div>
+    </div>
+      <ng-template  #commentbox> 
+          
+        <div class="sub_title" >Comments</div>  
+        <form [formGroup]="singleCommentForm">         
+        <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
+            <colgroup>
+                <col style="width:10%;" />
+                <col style="width:25%;" />
+                <col style="width:30%;" />
+                <col style="width:30%;" />
+                <col style="width:5%;" />
+            </colgroup>            
+          <thead>
+              <tr>
+                  <th class="table_result_line">Gene</th>
+                  <th >Variants</th>
+                  <th> Comments</th>
+                  <th >Reference</th>
+                  <th><button class="btn btn-success" (click)="addNewSingleCommentRow()">추가</button></th>
+              </tr>
+          </thead>
+          <tbody>
+              
+                <ng-container formArrayName="singleComments" *ngFor="let group of singleCommentsRows().controls; let i=index">               
+                  <tr  [formGroupName]="i">
+                      <td class="table_result_line"  ><input type="text" style="width:88%" 
+                        class="input_02"   size="10" formControlName="gene"></td>
+                      <td>
+                          <input type="text" style="width:88%" class="input_02"  formControlName="variants"   size="10">
+                      </td>
+                      <td class="textarea01">
+                          <textarea style="width:96%"  formControlName="comment" class="textarea_01"></textarea>
+                      </td>
+                      <td class="textarea01">
+                          <textarea style="width:96%" formControlName="reference" class="textarea_01"></textarea>
+                      </td>
+                      <td align="center">
+                        <img [src]="'assets/images/cancel.png'" (click)="removeSingleCommentRow(i)">
+                      </td>
+                  </tr>
+              </ng-container>
+            
+          </tbody>
+      </table> 
+      </form>         
+      </ng-template>
+<!--     -->
+              <div class="sub_title">*Methods</div>
+              <div class="pd_r20">
+                  <textarea class="textarea_01">Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6. </textarea>
+              </div>
+              <div class="sub_title">Genernal limitations of the technique</div>
+              <div class="pd_r20">
+                  <textarea class="textarea_01">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.</textarea>
+              </div>
+              <div class="sub_title">Target genes</div>
+              <table cellpadding="0" cellspacing="0" class="table_result02">
+                  <colgroup>
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  <col style="width:10%;" />
+                  </colgroup>
+                  <tr>
+                      <td>CEBPA</td>
+                      <td>RUNX1</td>
+                      <td>CBL</td>
+                      <td>DNMT3A</td>
+                      <td>FBXW7</td>
+                      <td>JAK1</td>
+                      <td>NOTCH1</td>
+                      <td>PRAME</td>
+                      <td>SF3B1</td>
+                      <td>TET2</td>
+                  </tr>
+                  <tr>
+                      <td>FLT3</td>
+                      <td>TP53</td>
+                      <td>CDKN2A</td>
+                      <td>EGFR</td>
+                      <td>GATA1</td>
+                      <td>JAK3</td>
+                      <td>NOTCH3</td>
+                      <td>PTEN</td>
+                      <td>SH2B3</td>
+                      <td>TPMT</td>
+                  </tr>
+                  <tr>
+                      <td>IDH1</td>
+                      <td>ANKRD26</td>
+                      <td>CDKN2B</td>
+                      <td>EP300</td>
+                      <td>GATA2</td>
+                      <td>KRAS</td>
+                      <td>NRAS</td>
+                      <td>PTPN11</td>
+                      <td>SMC1A</td>
+                      <td>U2AF1</td>
+                  </tr>
+                  <tr>
+                      <td>IDH2</td>
+                      <td>ASXL1</td>
+                      <td>CHK1</td>
+                      <td>ERG</td>
+                      <td>GATA3</td>
+                      <td>KMT2A</td>
+                      <td>NT5C2</td>
+                      <td>RAD21</td>
+                      <td>SMC3</td>
+                      <td>WTI</td>
+                  </tr>
+                  <tr>
+                      <td>JAK2</td>
+                      <td>BCOR</td>
+                      <td>CREBBP</td>
+                      <td>ETV6</td>
+                      <td>HNRNPK</td>
+                      <td>MPL</td>
+                      <td>PAX5</td>
+                      <td>RB1</td>
+                      <td>SRSF2</td>
+                      <td>ZRSR2</td>
+                  </tr>
+                  <tr>
+                      <td>KIT</td>
+                      <td>BRAF</td>
+                      <td>CSF3R</td>
+                      <td>EZH2</td>
+                      <td>IKZF1</td>
+                      <td>MYC</td>
+                      <td>PDGFRA</td>
+                      <td>SETBP1</td>
+                      <td>STAG2</td>
+                      <td></td>
+                  </tr>
+                  <tr>
+                      <td>NPM1</td>
+                      <td>CALR</td>
+                      <td>DDX41</td>
+                      <td>FAM5C</td>
+                      <td>IL7R</td>
+                      <td>NF1</td>
+                      <td>PHF6</td>
+                      <td>SETD2</td>
+                      <td>TERT</td>
+                      <td></td>
+                  </tr>
+              </table>
+  <!--     -->
+  
+  <hr class="mg_t30 mg_b20"/>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+          <td class="txt_l font_16 fb">검사의뢰일/검사보고일: {{requestDate | date: 'yyyy.MM.dd'}}/{{today()}}  </td>
+          <td class="txt_c font_16 fb">검사자:  <input type="text" [(ngModel)]="examin" class="input_02" size="50">
+            <!-- <select #examine class="select_01" (change)="examimed(examine.value)" [value]="'김지혜'">
+                <option value="김지혜" [selected]="examselected('김지혜',1)">김지혜</option>
+                <option value="이건동" [selected]="examselected('이건동',2)">이건동</option>
+            </select>  -->
+                                    
+         </td> 
+          <td class="txt_r font_16 fb">판독의사: <input type="text"   [(ngModel)]="recheck" class="input_02" size="50">
+            <!-- <select class="select_01" #rechecked (change)="checked(rechecked.value)"  [value]="'이호원'">
+                <option value="이호원"   [selected]="recheckselected('이호원',1)" >이호원</option>
+                <option value="김명신" [selected]="recheckselected('김명신',2)">김명신</option>
+                <option value="김용구" [selected]="recheckselected('김용구',3)" >김용구</option>
+            </select>               -->
+              
+          </td>
+      </tr>
+  </table>
+
+  <!--     -->
+          </div>
+
+
+          <br />
+          <div class="foot_btn mg_t30 pd_b30 txt_c main_btn"  *ngIf="preview">
+            <ul>
+                <li>
+                    <button class="btn btn-success" (click)="reset()"
+                    [disabled]="getStatus(4)">수정</button>
+                    <!-- <button  type="button" class="btn btn_07">수정</button> -->
+                </li>
+                <li>
+                    <button class="btn btn-success" (click)="tempSave()">임시저장</button>
+                    <!-- <button  type="button" class="btn btn_07" (click)="tempSave()">임시저장</button> -->
+                </li>
+                <li>
+                    <button class="btn btn-success" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>
+                    <!-- <button type="button" class="btn btn_07"
+                    (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button> -->
+                </li>
+                <li>
+                    <button class="btn btn-success" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>
+                    <!-- <button type="button" class="btn btn_07"
+                    (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button> -->
+                </li>
+                <li>
+                    <button class="btn btn-success" (click)="goEMR()" [disabled]="getStatus(3)">EMR전송</button>
+                    <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
+                </li>
+            </ul>
+        </div>
+      </div>
+  </div>
+  <div>
+      <app-preview *ngIf="isVisible"
+        [result]="resultStatus"
+      ></app-preview>
+  </div>
+</div>

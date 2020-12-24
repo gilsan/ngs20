@@ -1,0 +1,24 @@
+ .main {
+   z-index: 10;
+ }
+
+ button {
+   color: #fff;
+ }
+
+ .dropdown {
+   display: flex;
+   align-items: center;
+
+   &-toggle {
+     color: #fff;
+
+     &:hover {
+       color: lightcoral;
+     }
+   }
+ }
+
+ .content-area {
+   background-color: antiquewhite;
+ }

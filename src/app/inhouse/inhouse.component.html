@@ -1,0 +1,58 @@
+<!-- <div class="inhouse">
+    <div class="sidemenu">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+              <td width="215" align="left" valign="top" class="pd_t30 pd_l25">
+                  <ul class="pd_00">
+                      <li><img [src]="'../../assets/images/side_menu_010_on.png'" alt="Benign" /></li>
+                      <li class="sub_menu02"></li>
+                      <li class="sub_menu03"></li>
+                      <li class="sub_menu04"></li>
+                  </ul>
+              </td>
+          </tr>
+         </table> 
+      </div>
+       <div class="contents">
+        <router-outlet></router-outlet>
+       </div> 
+</div> -->
+
+<div class="inhouse">
+    <div class="sidemenu">
+        <main class="main-content">
+            <aside class="sidebar">
+                    <div class="menu-admin">
+                        <ul class="menu">
+                            <li>
+                                <div class="title">
+                                   <a routerLink="/diag/inhouse/mutation" class="active nav-link" routerLinkActive="active">Mutation</a> 
+                                </div>
+                            </li>
+                            <li>
+                                <div class="title">
+                                   <a routerLink="/diag/inhouse/artifacts" class="active nav-link" routerLinkActive="active">Artifacrts</a> 
+                                </div>
+                            </li>                           
+                            <li>
+                                <div class="title">
+                                    <a routerLink="/diag/inhouse/benign" class="active nav-link" routerLinkActive="active">Benigne</a>
+                                </div>
+                            </li> 
+                            <li>
+                                <div class="title">
+                                    <a routerLink="/diag/inhouse/comments" class="active nav-link" routerLinkActive="active">Comments</a>
+                                </div>
+                            </li>                                  
+                        </ul>
+                    </div>
+            </aside>        
+        </main>
+    </div>
+    <div class="contents">
+        <router-outlet></router-outlet>
+    </div> 
+</div>
+ 
+  
+ 

@@ -1,0 +1,1087 @@
+<div id="result">
+  <div id="container">
+      <div id="content">
+          <div class="select_result_02"> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+               <tr>
+                   <td>
+                    <h1  style="font-weight:bold; font-size: 18px;">NGS 고형암 검사 결과 분석 보고서</h1>
+                   </td>
+                   <!-- <td>
+                    <button type="button" class="btn btn_01" (click)="sendEMR()">EMR송부</button>
+                   </td> -->
+               </tr>
+            </table>    
+               
+            </div>
+          <div class="box pd_20">
+              <table width="100%" cellpadding="0" cellspacing="0" class="table_result03">
+                  <colgroup>
+                  <col style="width:25%;" />
+                  <col style="width:25%;" />
+                  <col style="width:25%;" />
+                  <col style="width:25%;" />
+                  </colgroup>
+                  <tr>
+                      <th class="table_result_line">환자이름</th>
+                      <td class="txt_c">{{patientInfo.name}}</td>
+                      <th>등록번호</th>
+                      <td class="txt_c">{{patientInfo.patientID}}</td>
+                  </tr>
+                  <tbody>
+                      <tr>
+                          <th class="table_result_line">성별/나이
+                              </th>
+                          <td class="txt_c">{{patientInfo.gender}}/{{patientInfo.age}}</td>
+                          <th class="txt_c">분자병리번호</th>
+                          <td class="txt_c">{{patientInfo.pathology_num}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="main_title mg_t20 mg_b10">검체정보</div>
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_result">
+                  <thead>
+                      <tr>
+                          <th class="table_result_line">DNA and RNA extraction</th>
+                          <th>관련병리번호</th>
+                          <th>Key block</th>
+                          <th>Tumor cell percentage</th>
+                          <th>Organ</th>
+                          <th>Tumor type</th>
+                          <th>Pathological diagnosis</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td class="table_result_line txt_c">
+                            <input type="text" size="10" #dnarnaext class="clr-input" [value]="'FFPE'" (change)="setDNAandRNAextraction(dnarnaext.value)">
+                        </td>
+                          <td class="txt_c">
+                            <input type="text" size="10"  class="clr-input" [value]="extraction.managementNum">
+                          </td>
+                          <td class="txt_c">
+                            <input type="text" size="10" #keyblock  class="clr-input" [value]="extraction.keyblock" (change)="setKeyblock(keyblock.value)">
+                          </td>
+                          <td class="txt_c">
+                             
+                            <input type="text" size="5" #tumorpercentage class="clr-input" [value]="extraction.tumorcellpercentage + '%'" (change)="setTumorpercentage(tumorpercentage.value)">
+                          </td>
+                          <td class="txt_c">
+                            <input type="text" size="10" #organ class="clr-input" [value]="extraction.organ"
+                             (change)="setOrgan(organ.value)">
+                            </td>
+                          <td class="txt_c">
+                            <input type="text" size="25" #tumortype class="clr-input" [value]="extraction.tumortype"
+                             (change)="setTumorType(tumortype.value)">
+                          </td>
+                          <td class="txt_c">
+                            <input type="text" size="30" #diagnosis class="clr-input" [value]="extraction.diagnosis" (change)="setDiagnosis(diagnosis.value)">
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="main_title  mg_t20">검사결과</div>
+              <div class="sub_title_03_E">Clinically significant biomarkers</div>
+              <div class="pd_r20">
+                  <div class="sub_title_04"> (1) Mutation: <span *ngIf="!mutation.length" class="sub_title_04">None</span>                     
+                  </div>
+                 <div  *ngIf="mutation.length;">
+                <form  [formGroup]="mutationForm">
+                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35"> 
+                       <thead >
+                           <tr>
+                               <th class="table_result_line">Gene</th>
+                               <th>Amino acid change</th>
+                               <th>Nucleotide change</th>
+                               <th>Variant allele frequency</th>
+                               <th>ID</th>
+                               <th>Tier</th>
+                               <th>
+                                <button class="btn btn-success" (click)="addMutation()">추가</button>
+                               </th>
+                           </tr>
+                       </thead>
+                       <tbody >
+                        <ng-container formArrayName="mutationLists" *ngFor="let group of mutationLists().controls; let i=index">
+                           <tr  [formGroupName]="i">
+                               <td class="table_result_line txt_c" >
+                                   <input type="text" size="10"  class="clr-input"  formControlName="gene" style="color: red;">
+                               </td>
+                               <td class="txt_c">
+                                   <input type="text" size="10"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
+                               </td>
+                               <td class="txt_c">
+                                   <input type="text" size="10"  class="clr-input"  formControlName="nucleotideChange">
+                               </td>
+                               <td class="txt_c">
+                                   <input type="text" size="10"  class="clr-input"  formControlName="variantAlleleFrequency"> 
+                               </td>
+                               <td class="txt_c">
+                                   <input type="text" size="10"  class="clr-input"  formControlName="ID">
+                               </td>                           
+                               <td class="txt_c">
+                                   <input type="text" size="10"  class="clr-input"  formControlName="tier"  style="color: red;">
+                               </td>
+                               <td align="center">
+                                <img [src]="'assets/images/cancel.png'" (click)="removeMutation(i)">
+                            </td>                               
+                           </tr>
+                         </ng-container>
+                       </tbody>
+                   </table>
+                </form> 
+                </div> 
+
+                  <div class="sub_title_04"> (2) Amplification:  <span *ngIf="!amplifications.length" class="sub_title_04">None</span></div> 
+                  <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
+                  <div   *ngIf="amplifications.length;">
+                  <form  [formGroup]="amplificationsForm">
+                  <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
+                      <thead >
+                          <tr>
+                              <th class="table_result_line">Gene</th>
+                              <th>Region </th>
+                              <th>Estimated copy number </th>
+                              <th>Tier</th>
+                              <th>
+                                <button class="btn btn-success" (click)="addAmplifications()">추가</button>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <ng-container  formArrayName="amplificationsLists" *ngFor="let group of amplificationsLists().controls; let i=index">
+                          <tr  [formGroupName]="i">
+                              <td class="table_result_line txt_c">
+                                <input type="text" size="10"  class="clr-input" formControlName="gene"  style="color: red;"></td>
+                              <td class="txt_c"><input type="text" size="30"  class="clr-input" formControlName="region"></td>
+                              <td class="txt_c">
+                                <input type="text" size="10"  class="clr-input" formControlName="copynumber"  style="color: red;"></td>
+                              <td class="txt_c">
+                                <input type="text" size="10"  class="clr-input" formControlName="tier">
+                              </td>
+                              <td align="center">
+                                <img [src]="'assets/images/cancel.png'"  (click)="removeAmplifications(i)">
+                              </td>                              
+                          </tr>
+                          </ng-container>
+                      </tbody>
+                  </table>
+                  </form>
+                  </div>
+
+                  <div class="sub_title_04 mg_t15 mg_b05"> (3) Fusion: <span *ngIf="!fusion.length" class="sub_title_04">None</span></div>
+                  <div  *ngIf="fusion.length;">
+                  <form [formGroup]="fusionForm">
+                  <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+                      <thead >
+                          <tr>
+                              <th class="table_result_line">Gene (exon)</th>
+                              <th>Breakpoint </th>
+                              <th>Function</th>
+                              <th>Tier </th>
+                              <th>
+                                <button class="btn btn-success" (click)="addFusion()">추가</button>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody >
+                          <ng-container  formArrayName="fusionLists" *ngFor="let group of fusionLists().controls; let i=index">
+                          <tr  [formGroupName]="i">
+                              <td class="table_result_line txt_c">
+                                <input type="text" size="20"  class="clr-input" formControlName="gene"  style="color: red;">
+                              </td>
+                              <td class="txt_c">
+                                <input type="text" size="30"  class="clr-input" formControlName="breakpoint"> 
+                              </td>
+                              <td class="txt_c">
+                                <input type="text" size="10"  class="clr-input" formControlName="functions">
+                              </td>
+                              <td class="txt_c">
+                                <input type="text" size="10"  class="clr-input" formControlName="tier">
+                              </td>
+                              <td align="center">
+                                <img [src]="'assets/images/cancel.png'"  (click)="removeFusion(i)">
+                              </td> 
+                          </tr>
+                          </ng-container>
+                      </tbody>
+                  </table>
+                  </form>
+                </div>
+              </div>
+
+              <div class="sub_title_03_E">Prevalent cancer biomarkers of unknown significance</div>
+              <div class="sub_title_04">(1) Mutation: <span *ngIf="!imutation.length" class="sub_title_04">None</span></div>
+              <div  *ngIf="imutation.length;">
+                  <form [formGroup]="imutationForm">
+                      <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+                          <thead >
+                              <tr>
+                                  <th class="table_result_line">Gene</th>
+                                  <th>Amino acid change</th>
+                                  <th>Nucleotide change</th>
+                                  <th>Variant allele frequency</th>
+                                  <th>ID</th>
+                                  <th>Tier</th>
+                                  <th>
+                                    <button class="btn btn-success" (click)="addIMutation()">추가</button>
+                                  </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                             <ng-container   formArrayName="imutationLists" *ngFor="let group of imutationLists().controls; let i=index"> 
+                              <tr [formGroupName]="i">
+                                  <td class="table_result_line txt_c">
+                                      <input type="text" size="10"  class="clr-input" formControlName="gene">
+                                  </td>
+                                  <td class="txt_c">
+                                      <input type="text" size="10"  class="clr-input" formControlName="aminoAcidChange">
+                                  </td>
+                                  <td class="txt_c">
+                                      <input type="text" size="10"  class="clr-input" formControlName="nucleotideChange">
+                                  </td>
+                                  <td class="txt_c">
+                                      <input type="text" size="10"  class="clr-input" formControlName="variantAlleleFrequency">    
+                                  </td>
+                                  <td class="txt_c">
+                                      <input type="text" size="10"  class="clr-input" formControlName="ID">
+                                  </td>                           
+                                  <td class="txt_c">
+                                      <input type="text" size="10"  class="clr-input" formControlName="tier">
+                                  </td>
+                                  <td align="center">
+                                   <img [src]="'assets/images/cancel.png'" (click)="removeIMutation(i)">
+                                 </td>
+                              </tr>
+                            </ng-container>  
+                          </tbody>
+                      </table>
+                    </form>  
+             </div>
+            
+              <div class="sub_title_04">(2) Amplification: <span *ngIf="!iamplifications.length" class="sub_title_04">None</span></div>
+              <div class="font_14 pd_l35 pd_b10"> * Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
+              <div *ngIf="iamplifications.length;">
+                  <form  [formGroup]="iamplificationsForm">
+                 <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
+                     <thead>
+                         <tr>
+                             <th class="table_result_line">Gene</th>
+                             <th>Region </th>
+                             <th>Estimated copy number </th>
+                             <th>Note </th>
+                             <th>
+                                <button class="btn btn-success" (click)="addIAmplifications()">추가</button>
+                             </th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <ng-container formArrayName="iamplificationsLists" *ngFor="let group of iamplificationsLists().controls; let i=index">
+                            <tr  [formGroupName]="i">
+                                <td class="table_result_line txt_c">
+                                  <input type="text" size="10"  class="clr-input" formControlName="gene">
+                               </td>
+                                <td class="txt_c">
+                                  <input type="text" size="30"  class="clr-input" formControlName="region">  
+                                </td>
+                                <td class="txt_c">
+                                  <input type="text" size="10"  class="clr-input" formControlName="copynumber">
+                                </td>
+                                 
+                                <td class="txt_c">
+                                  <input type="text" size="10"  class="clr-input"  formControlName="note">
+                                </td>
+                                <td align="center">
+                                    <img [src]="'assets/images/cancel.png'" (click)="removeIAmplifications(i)">
+                                </td>
+
+                            </tr>
+                        </ng-container>
+                     </tbody>
+                 </table>
+                </form>
+            </div>
+
+              <div class="sub_title_04">(3) Fusion: <span *ngIf="!ifusion.length" class="sub_title_04">None</span></div>
+              <div *ngIf="ifusion.length;">
+                <form [formGroup]="ifusionForm">
+                  <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
+                   <thead >
+                       <tr>
+                           <th class="table_result_line">Gene (exon)</th>
+                           <th>Breakpoint </th>
+                           <th>Function</th>
+                           <th>Note</th>
+                           <th>
+                            <button class="btn btn-success" (click)="addIFusion()">추가</button>
+                           </th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <ng-container formArrayName="ifusionLists" *ngFor="let group of ifusionLists().controls; let i=index">
+                         <tr [formGroupName]="i">
+                             <td class="table_result_line txt_c">
+                                 <input type="text" size="20"  class="clr-input" formControlName="gene">
+                             </td>
+                             <td class="txt_c">
+                                 <input type="text" size="30"  class="clr-input" formControlName="breakpoint">
+                             </td>
+                             <td class="txt_c">
+                                 <input type="text" size="10"  class="clr-input" formControlName="functions">
+                             </td>
+                             <td class="txt_c">
+                                 <input type="text" size="10"  class="clr-input" placeholder="Note">        
+                             </td>
+                             <td align="center">
+                                <img [src]="'assets/images/cancel.png'" (click)="removeIFusion(i)">
+                            </td>                             
+                         </tr>
+                      </ng-container>
+                   </tbody>
+                 </table>
+               </form>
+            </div>
+
+              <div class="sub_title_03_E">Tumor Mutational Burden (Mutations/Mb): {{tumorMutationalBurden}}</div>
+              <div class="sub_title_03_E">MSI Score: {{msiScore}} (MSS)</div>
+              <div class="sub_title_03_E">Essential genomic alterations involving following genes were not found.</div>
+              <div  class="list_01">
+                  <textarea rows="4" cols="250" style="margin-left: 35px;width:97%;" [(ngModel)]="specialment">
+                  </textarea>
+              </div>
+              <div class="sub_title_04">[NOTE]</div>
+              <div class="font_14 pd_l35 pd_b10">
+                <textarea rows="5" cols="200" [(ngModel)]="notement" style="width:99%;">
+                </textarea>               
+                </div>
+              <hr class="mg_t30"/>
+              <div class="main_title mg_t20 mg_b10">해석적 보고</div>
+              <div  class="list_01 textareabox">
+                <textarea  rows="20" cols="200"   [(ngModel)]="generalReport" style="margin-left: 42px; width:97%;">
+                </textarea>
+              </div>
+              <hr class="mg_t30"/>
+              <div class="main_title mg_t20 mg_b10">검사보고</div>
+              <div class="sub_title_03"> 검사시약</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>Oncomine Comprehensive Assay plus (ThermoFisher scientific)</li>
+                  </ul>
+              </div>
+              <div class="sub_title_03">검사기기</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>Ion S5 XL sequencer (ThermoFisher scientific)</li>
+                      <li>Ion CHEF (ThermoFisher scientific)</li>
+                  </ul>
+              </div>
+              <div class="sub_title_03_E">Reference genome: hg19</div>
+              <div class="sub_title_03">분석 소프트웨어</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>Torrent suite v5.10.2</li>
+                      <li>Ion Reporter v5.12</li>
+                      <li>Oncomine knowledgebase reporter v4.7</li>
+                  </ul>
+              </div>
+              <div class="sub_title_03">돌연변이 검출 기준치</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>Minimum allele frequency of hotspot variant: ≥ 4%</li>
+                      <li>Minimum allele frequency of indel variant: ≥ 5%</li>
+                      <li>Minimum allele frequency of SNP variant: ≥ 5%</li>
+                      <li>Minimum read counts for fusions: ≥ 40</li>
+                      <li>CNV gain threshold: 4</li>
+                      <li>Gain confidence level: 0.05</li>
+                      <li>Max fold difference for loss: 0.7</li>
+                  </ul>
+              </div>
+              <div class="sub_title_03_E">Tier classification (Reference: J Mol Diagn. 2017 Jan;19(1):4-23.)</div>
+              <div class="sub_title_04"> (1) I</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>Biomarker predicts response or resistance to EMA or FDA approved therapies in this cancer type</li>
+                      <li>Biomarker is included in ESMO or NCCN guidelines that predict response or resistance to
+                          therapies in this cancer type</li>
+                  </ul>
+              </div>
+              <div class="sub_title_04">(2) II</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>Biomarker predicts response or resistance to EMA or FDA approved therapies in other cancer
+                          types</li>
+                      <li>Biomarker is included in ESMO or NCCN guidelines that predict response or resistance to
+                          therapies in other cancer types</li>
+                      <li>Biomarker is an inclusion criteria for clinical trials</li>
+                  </ul>
+              </div>
+              <div class="sub_title_04">[Comment]</div>
+              <div  class="list_01">
+                  <ul>
+                      <li>상기 검사 방법, 시약의 정도 관리 및 검사 결과는 병리과 전문의에 의해 확인되었습니다.</li>
+                      <li>상기 검사는 종양조직만을 이용하기 때문에 도출된 염기서열 변이가 생식세포 변이인지 체세포 변이
+                          인지 구분이 어렵습니다.</li>
+                      <li>돌연변이가 존재하더라도 검출 기준치 미만인 경우 검출이 어려울 수 있습니다.</li>
+                  </ul>
+              </div>
+              <hr class="mg_t30"/>
+              <div class="main_title mg_t20 mg_b10">타겟 유전자 목록</div>
+              <div class="sub_title_03_E">Oncomine Comprehensive Assay plus (ThermoFisher scientific)</div>
+              <table border="0" cellspacing="0" cellpadding="0" class="table_result04 pd_l20">
+                  <tr>
+                      <th colspan="3" class="table_result_line">Hotspot genes (165개) </th>
+                      <th colspan="4">Full-coding DNA sequence (227개) </th>
+                      <th>CNV gain  only (19개)</th>
+                      <th>Fusion  (51개)</th>
+                      <th colspan="2">TMB only genes (86개)</th>
+                  </tr>
+                  <tr>
+                      <td rowspan="2" valign="top" class="table_result_line">
+                          <ul>
+                            <li>ACVR1</li>
+                            <li>ATP1A1</li>
+                            <li>BCR</li>
+                            <li>BMP5</li>
+                            <li>BTK</li>
+                            <li>CACNA1D</li>
+                            <li>CD79B</li>
+                            <li>CSF1R</li>
+                            <li>CTNNB1</li>
+                            <li>CUL1</li>
+                            <li>CYSLTR2</li>
+                            <li>DGCR8</li>
+                            <li>DROSHA</li>
+                            <li>E2F1</li>
+                            <li>EPAS1</li>
+                            <li>FGF7</li>
+                            <li>FOXL2</li>
+                            <li>FOXO1</li>
+                            <li>GLI1</li>
+                            <li>GNA11</li>
+                            <li>GNAQ</li>
+                            <li>HIF1A</li>
+                            <li>HIST1H2BD</li>
+                            <li>HIST1H3B</li>
+                            <li>HRAS</li>
+                            <li>IDH1</li>
+                            <li>IL6ST</li>
+                            <li>IRF4</li>
+                            <li>IRS4</li>
+                            <li>KLF4</li>
+                            <li>KNSTRN</li>
+                            <li>MAP2K2</li>
+                            <li>MED12</li>
+                            <li>MYOD1</li>
+                            <li>NSD2</li>
+                            <li>NT5C2</li>
+                            <li>NTRK2</li>
+                            <li>NUP93</li>
+                            <li>PAX5</li>
+                            <li>PIK3CD</li>
+                            <li>PIK3CG</li>
+                            <li>PTPRD</li>
+                            <li>RGS7</li>
+                            <li>RHOA</li>
+                            <li>RPL10</li>
+                            <li>SIX1</li>
+                            <li>SIX2</li>
+                            <li>SNCAIP</li>
+                            <li>SOS1</li>
+                            <li>SOX2</li>
+                            <li>SRSF2</li>
+                            <li>STAT5B</li>
+                            <li>TAF1</li>
+                            <li>TGFBR1</li>
+                            <li>TRRAP</li>
+                            <li>TSHR</li>
+                            <li>WAS</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result_line table_result04_bg" >
+                          <ul>
+                              <li class="fb">+ CNV </li>
+                              <li> ABL1</li>
+                              <li> ABL2</li>
+                              <li> AKT1</li>
+                              <li> AKT2</li>
+                              <li> AKT3</li>
+                              <li> ALK</li>
+                              <li> AR</li>
+                              <li> ARAF</li>
+                              <li> AURKA</li>
+                              <li> AURKC</li>
+                              <li> AXL</li>
+                              <li> BCL2</li>
+                              <li> BCL2L12</li>
+                              <li> BCL6</li>
+                              <li> BRAF</li>
+                              <li> CARD11</li>
+                              <li> CBL</li>
+                              <li> CCND1</li>
+                              <li> CCND2</li>
+                              <li> CCND3</li>
+                              <li> CCNE1</li>
+                              <li> CDK4</li>
+                              <li> CDK6</li>
+                              <li> CHD4</li>
+                              <li> DDR2</li>
+                              <li> EGFR</li>
+                              <li> EIF1AX</li>
+                              <li> ERBB2</li>
+                              <li> ERBB3</li>
+                              <li> ERBB4</li>
+                              <li> ESR1</li>
+                              <li> EZH2</li>
+                              <li> FAM135B</li>
+                              <li> FGFR1</li>
+                              <li> FGFR2</li>
+                              <li> FGFR3</li>
+                              <li> FGFR4</li>
+                              <li> FLT3</li>
+                              <li> FLT4</li>
+                              <li> FOXA1</li>
+                              <li> GATA2</li>
+                              <li> GNAS</li>
+                              <li> H3F3A</li>
+                              <li> H3F3B</li>
+                              <li> IDH2</li>
+                              <li> IKBKB</li>
+                              <li> IL7R</li>
+                              <li> KDR</li>
+                              <li> KIT</li>
+                              <li> KLF5</li>
+                              <li> KRAS</li>
+                              <li> MAGOH</li>
+                              <li> MAP2K1</li>
+                              <li> MAPK1</li>
+                              <li> MAX</li>
+                              <li> MDM4</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result04_bg ">
+                          <ul>
+                            <li> +MECOM</li>
+                            <li> MEF2B</li>
+                            <li> MET</li>
+                            <li> MITF</li>
+                            <li> MPL</li>
+                            <li> MTOR</li>
+                            <li> MYC</li>
+                            <li> MYCN</li>
+                            <li> MYD88</li>
+                            <li> NFE2L2</li>
+                            <li> NRAS</li>
+                            <li> NTRK1</li>
+                            <li> NTRK3</li>
+                            <li> PCBP1</li>
+                            <li> PDGFRA</li>
+                            <li> PDGFRB</li>
+                            <li> PIK3C2B</li>
+                            <li> PIK3CA</li>
+                            <li> PIK3CB</li>
+                            <li> PIK3R2</li>
+                            <li> PIM1</li>
+                            <li> PLCG1</li>
+                            <li> PPP2R1A</li>
+                            <li> PPP6C</li>
+                            <li> PRKACA</li>
+                            <li> PTPN11</li>
+                            <li> PXDNL</li>
+                            <li> RAC1</li>
+                            <li> RAF1</li>
+                            <li> RARA</li>
+                            <li> RET</li>
+                            <li> RHEB</li>
+                            <li> RICTOR</li>
+                            <li> RIT1 </li>
+                            <li> ROS1</li>
+                            <li> SETBP1</li>
+                            <li> SF3B1</li>
+                            <li> SLCO1B3</li>
+                            <li> SMC1A</li>
+                            <li> SMO</li>
+                            <li> SPOP</li>
+                            <li> SRC</li>
+                            <li> STAT3</li>
+                            <li> STAT6</li>
+                            <li> TERT</li>
+                            <li> TOP1</li>
+                            <li> TPMT</li>
+                            <li> U2AF1</li>
+                            <li> USP8</li>
+                            <li> XPO1</li>
+                            <li> ZNF217</li>
+                            <li> ZNF429</li>
+                          </ul>
+                      </td>
+                      <td valign="top" class="table_result_line table_result_right">
+                          <ul>
+                              <li>CALR </li>
+                              <li>CIITA</li>
+                              <li>CYP2D6 </li>
+                              <li>ERCC5 </li>
+                              <li>FAS </li>
+                              <li>ID3 </li>
+                              <li>KLHL13 </li>
+                              <li>MTUS2 </li>
+                              <li>PSMB10 </li>
+                              <li>PSMB8</li>
+                              <li>PSMB9 </li>
+                              <li>RNASEH2C</li>
+                              <li>RPL22 </li>
+                              <li>RPL5 </li>
+                              <li>RUNX1T1 </li>
+                              <li>SDHC </li>
+                              <li>SOCS1</li>
+                              <li>STAT1 </li>
+                              <li>TMEM132D </li>
+                              <li>UGT1A1 </li>
+                              <li>ZBTB20</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result04_bg ">
+                          <ul>
+                            <li>CDK12</li>
+                            <li>CDKN1A</li>
+                            <li>CDKN1B</li>
+                            <li>CDKN2A</li>
+                            <li>CDKN2B</li>
+                            <li>CDKN2C</li>
+                            <li>CHEK1</li>
+                            <li>CHEK2</li>
+                            <li>CIC</li>
+                            <li>CREBBP</li>
+                            <li>CSMD3</li>
+                            <li>CTCF</li>
+                            <li>CTLA4</li>
+                            <li>CUL3</li>
+                            <li>CUL4A</li>
+                            <li>CUL4B</li>
+                            <li>CYLD</li>
+                            <li>CYP2C9</li>
+                            <li>DAXX</li>
+                            <li>DDX3X</li>
+                            <li>DICER1</li>
+                            <li>DNMT3A</li>
+                            <li>DOCK3</li>
+                            <li>DPYD</li>
+                            <li>DSC1</li>
+                            <li>DSC3</li>
+                            <li>ELF3</li>
+                            <li>ENO1</li>
+                            <li>EP300</li>
+                            <li>EPCAM</li>
+                            <li>EPHA2</li>
+                            <li>ERAP1</li>
+                            <li>ERAP2</li>
+                            <li>ERCC2</li>
+                            <li>ERCC4</li>
+                            <li>ERRFI1</li>
+                            <li>ETV6</li>
+                            <li>FANCA</li>
+                            <li>FANCC</li>
+                            <li>FANCD2</li>
+                            <li>FANCE</li>
+                            <li>FANCF</li>
+                            <li>FANCG</li>
+                            <li>FANCI</li>
+                            <li>FANCL</li>
+                            <li>FANCM</li>
+                            <li>FAT1</li>
+                            <li>FBXW7</li>
+                            <li>FUBP1</li>
+                            <li>GATA3</li>
+                            <li>GNA13</li>
+                            <li>GPS2</li>
+                            <li>HDAC2</li>
+                            <li>HDAC9</li>
+                            <li>HLA-A</li>
+                            <li>HLA-B</li>
+                            <li>HNF1A</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result04_bg ">
+                          <ul>
+                            <li>INPP4B</li>
+                            <li>JAK1</li>
+                            <li>JAK2</li>
+                            <li>JAK3</li>
+                            <li>KDM5C</li>
+                            <li>KDM6A</li>
+                            <li>KEAP1</li>
+                            <li>KMT2A</li>
+                            <li>KMT2B</li>
+                            <li>KMT2C</li>
+                            <li>KMT2D</li>
+                            <li>LARP4B</li>
+                            <li>LATS1</li>
+                            <li>LATS2</li>
+                            <li>MAP2K4</li>
+                            <li>MAP2K7</li>
+                            <li>MAP3K1</li>
+                            <li>MAP3K4</li>
+                            <li>MAPK8</li>
+                            <li>MEN1</li>
+                            <li>MGA</li>
+                            <li>MLH1</li>
+                            <li>MLH3</li>
+                            <li>MRE11</li>
+                            <li>MSH2</li>
+                            <li>MSH3</li>
+                            <li>MSH6</li>
+                            <li>MTAP</li>
+                            <li>MUTYH</li>
+                            <li>NBN</li>
+                            <li>NCOR1</li>
+                            <li>NF1</li>
+                            <li>NF2</li>
+                            <li>NOTCH1</li>
+                            <li>NOTCH2</li>
+                            <li>NOTCH3</li>
+                            <li>NOTCH4</li>
+                            <li>PALB2</li>
+                            <li>PARP1</li>
+                            <li>PARP2</li>
+                            <li>PARP3</li>
+                            <li>PARP4</li>
+                            <li>PBRM1</li>
+                            <li>PDCD1</li>
+                            <li>PDCD1LG2</li>
+                            <li>PDIA3</li>
+                            <li>PGD</li>
+                            <li>PHF6</li>
+                            <li>PIK3R1</li>
+                            <li>PMS1</li>
+                            <li>PMS2</li>
+                            <li>POLD1</li>
+                            <li>POLE</li>
+                            <li>POT1</li>
+                            <li>PPM1D</li>
+                            <li>PPP2R2A</li>
+                            <li>PRDM1</li>                            
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result04_bg ">
+                          <ul>
+                            <li>PRKM9</li>
+                            <li>PRKAR1A</li>
+                            <li>PTCH1</li>
+                            <li>PTEN </li>
+                            <li>PTPRT</li>
+                            <li>RAD50</li>
+                            <li>RAD51</li>
+                            <li>RAD51B</li>
+                            <li>RAD51C</li>
+                            <li>RAD51D</li>
+                            <li>RAD52</li>
+                            <li>RAD54L</li>
+                            <li>RASA1</li>
+                            <li>RASA2</li>
+                            <li>RB1</li>
+                            <li>RBM10</li>
+                            <li>RECQL4</li>
+                            <li>RNASEH2A</li>
+                            <li>RNASEH2B</li>
+                            <li>RNF43</li>
+                            <li>RPA1</li>
+                            <li>RUNX1</li>
+                            <li>MLH1</li>
+                            <li>SDHA</li>
+                            <li>SDHB</li>
+                            <li>SDHD</li>
+                            <li>SETD2</li>
+                            <li>SLX4</li>
+                            <li>SMAD2</li>
+                            <li>SMAD4</li>
+                            <li>SMARCA4</li>
+                            <li>SMARCB1</li>
+                            <li>SOX9</li>
+                            <li>SPEN</li>
+                            <li>STAG2</li>
+                            <li>STK11</li>
+                            <li>SUFU</li>
+                            <li>TAP1</li>
+                            <li>TAP2</li>
+                            <li>TBX3</li>
+                            <li>TCF7L2</li>
+                            <li>TET2</li>
+                            <li>TGFBR2</li>
+                            <li>TNFAIP3</li>
+                            <li>TNFRSF14</li>
+                            <li>TP53</li>
+                            <li>TP63</li>
+                            <li>TPP2</li>
+                            <li>TSC1</li>
+                            <li>TSC2</li>
+                            <li>USP9X</li>
+                            <li>VHL</li>
+                            <li>WT1</li>
+                            <li>XRCC2</li>
+                            <li>XRCC3</li>
+                            <li>ZFHX3</li>
+                            <li>ZMYM3</li>
+                            <li>ZRSR2</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result_line">
+                          <ul>
+                              <li>ABCB1</li>
+                              <li>CTNND2</li>
+                              <li>DDR1</li>
+                              <li>EMSY</li>
+                              <li>FGF19</li>
+                              <li>FGF23</li>
+                              <li>FGF3</li>
+                              <li>FGF4</li>
+                              <li>FGF9</li>
+                              <li>FYN</li>
+                              <li>GLI3</li>
+                              <li>IGF1R</li>
+                              <li>MCL1</li>
+                              <li>MDM2</li>
+                              <li>MYCL</li>
+                              <li>RPS6KB1</li>
+                              <li>RPTOR </li>
+                              <li>YAP1</li>
+                              <li>YES1</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result_line">
+                          <ul>
+                            <li>AKT2</li>
+                            <li>ALK</li>
+                            <li>AR</li>
+                            <li>AXL</li>
+                            <li>BRAF</li>
+                            <li>BRCA1</li>
+                            <li>BRCA2</li>
+                            <li>CDKN2A</li>
+                            <li>EGFR</li>
+                            <li>ERBB2</li>
+                            <li>ERBB4</li>
+                            <li>ERG</li>
+                            <li>ESR1</li>
+                            <li>ETV1</li>
+                            <li>ETV4</li>
+                            <li>ETV5</li>
+                            <li>FGFR1</li>
+                            <li>FGFR2</li>
+                            <li>FGFR3</li>
+                            <li>FGR</li>
+                            <li>FLT3</li>
+                            <li>JAK2</li>
+                            <li>KRAS</li>
+                            <li>MDM4</li>
+                            <li>MET</li>
+                            <li>MYB</li>
+                            <li>MYBL1</li>
+                            <li>NF1</li>
+                            <li>NOTCH1</li>
+                            <li>NOTCH4</li>
+                            <li>NTRK1</li>
+                            <li>NTRK2</li>
+                            <li>NTRK3</li>
+                            <li>NUTM1</li>
+                            <li>PDGFRA</li>
+                            <li>PDGFRB</li>
+                            <li>PIK3CA</li>
+                            <li>PPARG</li>
+                            <li>PRKACA</li>
+                            <li>PRKACB </li>
+                            <li>PTEN</li>
+                            <li>RAD51B</li>
+                            <li>RAF1</li>
+                            <li>RB1</li>
+                            <li>RELA</li>
+                            <li>RET</li>
+                            <li>ROS1</li>
+                            <li>RSPO2</li>
+                            <li>RSPO3</li>
+                            <li>TERT</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result_line">
+                          <ul>
+                            <li>A1CF</li>
+                            <li>ACSM2B</li>
+                            <li>ADAM18</li>
+                            <li>ANO4</li>
+                            <li>ARMC4</li>
+                            <li>BRINP3</li>
+                            <li>C6</li>
+                            <li>C8A</li>
+                            <li>C8B</li>
+                            <li>CANX</li>
+                            <li>CASR</li>
+                            <li>CD163</li>
+                            <li>CNTN6</li>
+                            <li>CNTNAP4</li>
+                            <li>NTNAP5</li>
+                            <li>COL11A1</li>
+                            <li>DCAF4L2</li>
+                            <li>DCDC1</li>
+                            <li>GALNT17</li>
+                            <li>GPR158</li>
+                            <li>GRID2</li>
+                            <li>HCN1</li>
+                            <li>HLA-C</li>
+                            <li>KCND2</li>
+                            <li>KCNH7</li>
+                            <li>KEL</li>
+                            <li>KIR3DL1</li>
+                            <li>KRTAP2-1</li>
+                            <li>KRTAP6-2</li>
+                            <li>LRRC7</li>
+                            <li>MARCO</li>
+                            <li>NLRC5</li>
+                            <li>NOL4</li>
+                            <li>NRXN1</li>
+                            <li>NYAP2</li>
+                            <li>OR10G8</li>
+                            <li>OR2G6</li>
+                            <li>OR2L13</li>
+                            <li>OR2L2</li>
+                            <li>OR2L8</li>
+                            <li>OR2M3</li>
+                            <li>OR2T3</li>
+                            <li>OR2T33</li>
+                            <li>OR2T4</li>
+                            <li>OR2W3</li>
+                            <li>OR4A15</li>
+                            <li>OR4C15</li>
+                            <li>OR4C6</li>
+                            <li>OR4M1</li>
+                            <li>OR4M2</li>
+                            <li>OR5D18</li>
+                            <li>OR5F1</li>
+                            <li>OR5L1</li>
+                            <li>OR5L2</li>
+                            <li>OR6F1</li>
+                            <li>OR8H2</li>
+                            <li>OR8I2</li>
+                          </ul>
+                      </td>
+                      <td rowspan="2" valign="top" class="table_result_right">
+                          <ul>
+                            <li>OP8U1</li>
+                            <li>ORC4</li>
+                            <li>PAK5</li>
+                            <li>PCDH17</li>
+                            <li>PDE1A</li>
+                            <li>PDE1C</li>
+                            <li>PLXDC2</li>
+                            <li>POM121L12</li>
+                            <li>PPFIA2</li>
+                            <li>RBP3</li>
+                            <li>REG1A</li>
+                            <li>REG1B</li>
+                            <li>REG3A</li>
+                            <li>REG3G</li>
+                            <li>RPTN</li>
+                            <li>RUNDC3B</li>
+                            <li>SH3RF2</li>
+                            <li>SLC15A2</li>
+                            <li>SLC8A1</li>
+                            <li>SYT10</li>
+                            <li>SYT16</li>
+                            <li>TAPBP</li>
+                            <li>TPTE</li>
+                            <li>TRHDE</li>
+                            <li>TRIM48</li>
+                            <li>TRIM51</li>
+                            <li>ZIM3</li>
+                            <li>ZNF479</li>
+                            <li>ZNF536</li>
+                          </ul>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="table_result_line table_result04_bg">
+                          <ul>
+                              <li class="fb">+ CNV Loss </li>
+                              <li>ABRAXAS1</li>
+                              <li>ACVR1B</li>
+                              <li>ACVR2A</li>
+                              <li>ADAMTS12</li>
+                              <li>ADAMTS2</li>
+                              <li>AMER1</li>
+                              <li>APC</li>
+                              <li>ARHGAP35</li>
+                              <li>ARID1A</li>
+                              <li>ARID1B</li>
+                              <li>ARID2</li>
+                              <li>ARID5B</li>
+                              <li>ASXL1</li>
+                              <li>ASXL2</li>
+                              <li>ATM</li>
+                              <li>ATR</li>
+                              <li>ATRX</li>
+                              <li>AXIN1</li>
+                              <li>AXIN2</li>
+                              <li>B2M</li>
+                              <li>BAP1</li>
+                              <li>BARD1</li>
+                              <li>BCOR</li>
+                              <li>BLM</li>
+                              <li>BMPR2</li>
+                              <li>BRCA1</li>
+                              <li>BRCA2</li>
+                              <li>BRIP1</li>
+                              <li>CASP8</li>
+                              <li>CBFB</li>
+                              <li>CD274</li>
+                              <li>CD276</li>
+                              <li>CDC73</li>
+                              <li>CDH1</li>
+                              <li>CDH10</li>
+                          </ul>
+                      </td>
+                  </tr>
+              </table>
+              <div class="sub_title_03_E">Comment</div>
+              <div class="font_14 pd_l30">본 검사는 위 목록의 약 500 여개 유전자에 대한 검출 알고리즘을 사용하며, 포함되지 않은 유전자에 대해서는 별도의 추가 검사가 필요할 수 있습니다.</div>
+              <hr class="mg_t30 mg_b20"/>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                      <td class="txt_l font_16 fb">Date of report : {{today()}} </td>
+                      <td class="txt_c font_16 fb">Examined by : 
+ 
+                        <select #examine class="select_01" (change)="examimed(examine.value)" [value]="'10405461_황삼노'" >
+                            <option [value]="part.user_id + '_' + part.user_nm" [selected]="part.pickselect === 'Y'" *ngFor="let part of mt;let i = index;">{{part.user_nm}}</option>
+                        </select>
+                     </td>
+                      <td class="txt_r font_16 fb">Rechecked by : 
+                        <select #rechecked class="select_01" (change)="checked(rechecked.value)" [value]="'21300990_강준'" >
+                            <option [value]="part.user_id + '_' + part.user_nm" [selected]="part.pickselect === 'Y'" *ngFor="let part of dt;let i = index;">{{part.user_nm}}</option>
+                        </select>                          
+
+                      </td>
+                  </tr>
+              </table>
+          </div>
+<!--   ---------------------------------  -->
+  
+<!--  ---------------      -->
+<div class="foot_btn mg_t30 pd_b30 txt_c main_btn">
+    <ul>
+        <li>
+            <button type="button" class="btn btn-success"  [disabled]="getStatus(1)"
+            (click)="savePathologyData()">1차저장</button>
+        </li>
+        <li>
+            <button type="button" class="btn btn-success" [disabled]="getStatus(2)"
+            (click)="updatePathologyData()"
+            >2차저장</button>
+        </li>
+        <li>
+            <button type="button" class="btn btn-success" [disabled]="getStatus(3)"
+            (click)="sendEMR()"
+            >EMR전송</button>
+        </li>
+    </ul>
+</div>
+<!--  ----------------     -->
+      </div>
+
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div id="wrap1111">
+  <app-tsvupload [hidden]="isVisible" (onSelected)="onSelected()" [specimenNo]="specimenNo"
+    [patientid]="patientID" (onCanceled)="onCanceled()">
+  </app-tsvupload>
+  <div id="container">
+    <div id="content">
+      <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+                <tr>
+                    <td  class="mail_title">Main Tilte_InHouse Benign</td>
+                    <td class="main_btn"> </td>
+                </tr>
+            </table> -->
+      <div class="box mg_b20 pd_20">
+        <!-- <input type="text" class="input_01"  #testedID
+                  (change)="getTestedID(testedID.value)"  placeholder="검체번호"/>&nbsp;&nbsp;
+                <input name="" type="text" placeholder="환자ID" #patient
+                   (change)="getPatientID(patient.value)" class="input_01" />&nbsp;&nbsp; -->
+
+        <input type="text" class="input_01" #testedID placeholder="검체번호" />&nbsp;&nbsp;
+        <input name="" type="text" placeholder="환자ID" #patient class="input_01" />&nbsp;&nbsp;
+
+        <input type="date" [value]="startToday()" (change)="getDate(start.value)" #start class="input_01"
+          style="width:150px;" />
+        ~
+        <input type="date" class="input_01" (change)="getDate(end.value)" #end [value]="endToday()"
+          style="width:150px;">
+        <!-- <input type="text"  class="input_01" value="MM/DD" style="width:40px;"/> -->
+        <button type="button" class="btn btn_02" style="margin-left: 10px;"
+          (click)="search(start.value, end.value, testedID.value, patient.value)">조 회</button>
+      </div>
+      <div class="box">
+        <div class="box_100">
+        <table border="0" cellpadding="0" cellspacing="0" class="table_list  fixed_header table_resul_x">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>검사일</th>
+              <th>환자이름</th>
+              <th>나이</th>
+              <th>성별</th>
+              <th>환자ID</th>
+              <th>검사명</th>
+              <th>검체번호</th>
+              <th>TSV 파일</th>
+              <th>BAM 파일</th>
+              <th>진행상태</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <div></div>
+          <tbody>
+            <tr [ngClass]="toggle(i)" *ngFor="let list of  lists; let i = index;">
+              <td class="txt_c">{{ i + 1}}</td>
+              <td class="txt_c">{{list.prescription_date}}</td>
+              <td class="txt_c">{{list.name}}</td>
+              <td class="txt_c">{{list.age}}</td>
+              <td class="txt_c">{{list.gender}}</td>
+              <td class="txt_c">{{list.patientID}}</td>
+              <td class="txt_c">{{list.test_code}}</td>
+              <td class="txt_c">{{list.specimenNo}}</td>
+              <td class="txt_c"><a [href]="getUrl(list)" [download]="list.tsvFilteredFilename">{{list.tsvFilteredFilename}}</a></td>
+              <td class="txt_c">{{list.bamFilename}}</td>
+              <td class="txt_c">{{processingStatus(i)}}</td>
+              <td class="txt_c">
+                <button type="button" class="btn btn_03" *ngIf="list.tsvFilteredFilename.trim(); else printing"
+                  (click)="goReporter(i)">결과지/보고서</button>
+                <ng-template #printing>
+                  <button type="button" class="btn btn_03" (click)="goUploadpage(list.specimenNo, list.patientID)">파일등록/변환</button>
+                </ng-template>
+              </td>
+              <td class="txt_c">
+                <button type="button" class="btn btn_05" *ngIf="list.tsvFilteredFilename;"
+                  (click)="goUploadpage(list.specimenNo, list.patientID)">재등록</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

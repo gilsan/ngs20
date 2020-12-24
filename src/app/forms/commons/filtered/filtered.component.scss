@@ -1,0 +1,82 @@
+td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.preview__button {
+  background-color: #f0e5e5;
+  height: 2rem;
+  width: 7rem;
+  position: fixed;
+  top: 0.1rem;
+  right: 0.5rem;
+  border-radius: 10px;
+  // border-radius: 50%;
+  z-index: 2000;
+  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.geneOntology {
+  width: 100%;
+  height: 80px;
+  overflow-y: scroll;
+}
+
+.fathmm {
+  width: 200px;
+  height: 80px;
+  // height: 100%;
+  overflow: scroll;
+}
+
+.pfam {
+  width: 200px;
+  height: 80px;
+  overflow: scroll;
+}
+
+.save_mute {
+  cursor: pointer;
+}
+
+.textarea_01 {
+  padding: 0 !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.textarea01 {
+  padding: 0 !important;
+}
+
+.table_height {
+  height: 20px;
+}
+
+.th {
+  padding: 0 !important;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+.excel {
+  color: black;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  background-color: #f0e5e5;
+  cursor: pointer;
+  padding: 2px 20px;
+}

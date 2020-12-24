@@ -1,0 +1,241 @@
+<div class="form1-main">
+  <div class="forms-container">
+    <form clrForm class="forms-container-sheet">     
+        <div class="sheet-patient">
+          <label>Patient: 김은숙, 35222972 (F/51)</label>          
+        </div>   
+        
+        <div class="sheet-result">          
+            <div class=" form-control select-box">
+                  <label class="clr-control-label label-result">Result: </label>
+                  <div class="clr-control-container clr-control-inline">
+                    <div class="clr-radio-wrapper">
+                      <input type="radio" id="vertical-radio2" name="radio-full" value="detected" class="clr-radio" (change)="result($event)" checked/>
+                      <label for="vertical-radio2" class="clr-control-label">Detected</label>
+                    </div>
+                    <div class="clr-radio-wrapper">
+                      <input type="radio" id="vertical-radio1" name="radio-full" value="Not detected" class="clr-radio" (change)="result($event)" [checked]="" />                    
+                      <label for="vertical-radio1" class="clr-control-label">Not detected</label>
+                    </div>
+
+                  </div>
+            </div>                     
+            <label class="sheet-result-label">Other molecular and cytogenetic profiles</label>
+        </div>
+
+
+        <div class="sheet-btn-review">
+          <button class="btn btn-success">1차의견</button>
+        </div>
+        <div class="sheet-btn-send">
+          <button class="btn btn-success">보내기</button>
+        </div>
+        <div  class="sheet-summary">
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>Leukemia associated fusion</th>
+                    <th>IIKZFI detetion</th>
+                    <th>Chronmosomal analysis</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                      <input type="text" id="basic"   class="clr-input" />
+                    </td>
+                    <td>46.XX(20)</td>
+                    <td>46.XX(20)</td>                    
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sheet-test">
+          <div class="sheet-test-title">
+             <label>Test Information</label>
+             <table class="table table-margin-top">
+              <tbody>
+                  <tr>
+                      <td>TARGET DISESSE: Acute lymphobiasstic leukemia</td>
+                      <td>METHODS: *Massivery parallel sequencing</td>                    
+                  </tr>
+                  <tr>
+                    <td>SPECIMEN: Genomic DNA isolated from Bone marrow</td>
+                    <td>REQUEST: 서울성모병원 혈액내과 윤재호 M.D.</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="sheet-variants">
+          <label>Detected variants</label>
+          <table class="table table-margin-top">
+            <thead>
+                <tr>
+                    <th>Gene</th>
+                    <th>Functional Impact</th>
+                    <th>Transcript</th>
+                    <th>Exon/Intron</th>  
+                    <th>Nuceleotide change</th>    
+                    <th>Amino acid change</th> 
+                    <th>Zygosity</th>
+                    <th>VAF %</th> 
+                    <th>Reference(s)</th>      
+                    <th>COSMIC ID</th>     
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>NRAS</td>
+                    <td>Pathogenic</td>
+                    <td>NM_002524.4</td> 
+                    <td>E3</td>
+                    <td>c.181C>A</td>
+                    <td>p.Gln61lys</td>
+                    <td>Heterozygous</td>
+                    <td>14.46</td>
+                    <td>rs121913254</td>
+                    <td>COMSM580</td>                   
+                </tr>
+                <tr>
+                  <td>NRAS</td>
+                  <td>Pathogenic</td>
+                  <td>NM_002834.4</td> 
+                  <td>E3</td>
+                  <td>c.181A>1</td>
+                  <td>p.Asp61Val</td>
+                  <td>Heterozygous</td>
+                  <td>5.35</td>
+                  <td>rs121918461</td>
+                  <td>COMSM13022</td>                   
+              </tr>                
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="space logo"></div>
+        <div class="sheet-methods">
+          <label>*Methods</label>
+          <div>
+            <div class="clr-textarea-wrapper">
+              <textarea id="vertical-textarea-basic methods" 
+              [(ngModel)]="methods" [ngModelOptions]="{name: 'method'}"
+              class="clr-textarea form-textarea"></textarea>
+              <!-- <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon> -->
+            </div>
+          </div>
+        </div>
+ 
+        <div class="sheet-general">
+          <label>Genernal limitations of the technique</label>
+          <div>
+            <div class="clr-textarea-wrapper">
+              <textarea id="vertical-textarea-basic general" 
+              [(ngModel)]="general" [ngModelOptions]="{name: 'general'}"
+              class="clr-textarea form-textarea "></textarea>
+              <!-- <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-genes">
+          <label>Target genes</label>
+          <table class="table table-margin-top">
+            <tbody>
+                <tr>
+                    <td>IKZFl</td>
+                    <td>BCOR</td>
+                    <td>CREBBP</td> 
+                    <td>ETV6</td>
+                    <td>GATA3</td>
+                    <td>KIT</td>
+                    <td>NOTCH3</td>
+                    <td>PTEN</td>
+                    <td>SH2B3</td>
+                    <td>TPMT</td>                   
+                </tr>
+                <tr>
+                  <td>JAK2</td>
+                  <td>BRAF</td>
+                  <td>CSF3R</td>
+                  <td>EZH2</td>
+                  <td>HNRNPK</td>
+                  <td>KRAS</td>
+                  <td>NPM1</td>
+                  <td>PTPN11</td>
+                  <td>SMC1A</td>
+                  <td>U2AF1</td>                
+              </tr>  
+              <tr>
+                <td>NRAS</td>
+                <td>CALR</td>
+                <td>DDX41</td>
+                <td>FAM5C</td>
+                <td>IDH1</td>
+                <td>KMT2A</td>
+                <td>NT5C2</td>
+                <td>RAD21</td>
+                <td>SMC3</td>
+                <td>WTI</td>
+              </tr> 
+              <tr>
+                <td>TP53</td>
+                <td>CBL</td>
+                <td>DNMT3A</td>
+                <td>FBXW7</td>
+                <td>IDH2</td>
+                <td>MPL</td>
+                <td>PAX5</td>
+                <td>RUNX1</td>
+                <td>SRSF2</td>
+                <td>ZRSR2</td>
+              </tr> 
+              <tr>
+                <td>RB1</td>
+                <td>CDKN2A</td>
+                <td>EGFR</td>
+                <td>FLT3</td>
+                <td>lL7R</td>
+                <td>MYC</td>
+                <td>PDGFRA</td>
+                <td>SETBP1</td>
+                <td>STAG2</td>
+                <td></td>
+              </tr> 
+              <tr>
+                <td>ANKRD26</td>
+                <td>CDKN2B</td>
+                <td>EP300</td>
+                <td>GATA1</td>
+                <td>JAK1</td>
+                <td>NF1</td>
+                <td>PHF6</td>
+                <td>SETD2</td>
+                <td>TERT</td>
+                <td></td>
+              </tr> 
+              <tr>
+                <td>ASXL1</td>
+                <td>CHK1</td>
+                <td>ERG</td>
+                <td>GATA2</td>
+                <td>KAK3</td>
+                <td>NOTCH1</td>
+                <td>PRAME</td>
+                <td>SF3B1</td>
+                <td>TET2</td>
+                <td></td>
+              </tr>          
+            </tbody>
+          </table>
+        </div>
+        
+
+
+
+    
+    </form>
+  </div>
+</div>
+

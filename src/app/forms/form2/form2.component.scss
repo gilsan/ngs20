@@ -1,0 +1,171 @@
+ table {
+   table-layout: fixed;
+ }
+
+
+ /*** 테이블 헤더 고정 ***/
+ .fixed_header th {
+   position: sticky;
+   top: 0;
+   background-color: #fff;
+ }
+
+ /*** /테이블 헤더 고정 ***/
+ .table_height {
+   height: 20px;
+ }
+
+ .preview__button {
+   color: red;
+   background-color: #f0e5e5;
+   height: 2rem;
+   width: 7rem;
+   position: fixed;
+   top: 0.1rem;
+   right: 0.5rem;
+   border-radius: 10px;
+   z-index: 2000;
+   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+   text-align: center;
+   cursor: pointer;
+ }
+
+
+ .excel {
+   color: black;
+   font-size: 1rem;
+   font-weight: 500;
+   border: none;
+   background-color: #f0e5e5;
+   cursor: pointer;
+   padding: 2px 20px;
+ }
+
+ h2 {
+   font-size: 16px;
+   font-weight: bold;
+   text-align: center;
+ }
+
+ td {
+   padding-left: 0 !important;
+   padding-right: 0 !important;
+   padding-bottom: 0 !important;
+   padding-top: 0 !important;
+ }
+
+ input[type="text"] {
+   width: 100%;
+   box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+ }
+
+ .save_mute {
+   cursor: pointer;
+   vertical-align: middle;
+   background-color: lightblue;
+ }
+
+
+
+ /*
+.tdbox {
+  width: 120px !important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+td {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.preview__button {
+  background-color: #f0e5e5;
+  height: 2rem;
+  width: 7rem;
+  position: fixed;
+  top: 0.1rem;
+  right: 0.5rem;
+  border-radius: 10px;
+  // border-radius: 50%;
+  z-index: 2000;
+  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.geneOntology {
+  width: 100%;
+  height: 80px;
+  overflow-y: scroll;
+}
+
+.fathmm {
+  width: 200px;
+  height: 80px;
+  overflow: scroll;
+}
+
+.pfam {
+  width: 200px;
+  height: 80px;
+  overflow: scroll;
+}
+
+
+
+.textarea_01 {
+  padding: 0 !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.textarea01 {
+  padding: 0 !important;
+}
+
+
+
+.th {
+  padding: 0 !important;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+.trash:hover {
+  cursor: pointer;
+}
+
+
+*/
+ /*
+ table {
+   border-collapse: collapse;
+   border-spacing: 0;
+   width: 100%;
+   table-layout: fixed;
+ }
+
+ 
+ td {
+   vertical-align: middle;
+   padding: 5px;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+ }
+ */

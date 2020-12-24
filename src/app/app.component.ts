@@ -1,3 +1,8 @@
+// Local project package: 
+// npm install --save-dev @angular/cli@latest
+// npm install
+
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +11,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ngs';
+
 }

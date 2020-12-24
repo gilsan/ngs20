@@ -1,0 +1,36 @@
+
+<div class="main-container">
+  <table class="table">
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>이름</th>
+            <th>검체번호</th>
+            <th>TSV데이터저장</th>
+            <th>TSV데이터변환</th>
+            <th>결과지</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let list of (list$ | async) as lists"> -->
+          <tr >
+            <td>1</td>
+            <td >2</td>
+            <td>3</td>
+            <td>             
+                <!-- <input type="file" name="userfiles"/> -->
+                <input  type='file' 
+                 style="display: none"
+                 (change)="onFileSelected($event)"
+                #fileInput/> 
+                <button type="button" (click)="fileInput.click()">파일선택</button> 
+                <button type="button" (click)="onUpload()">파일전송</button>       
+            </td>
+            <td>No</td>
+            <td>1</td>
+        </tr>
+    </tbody>
+</table>
+
+
+</div>

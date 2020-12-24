@@ -1,0 +1,17 @@
+.form-main {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .selected {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  option {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
