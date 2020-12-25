@@ -1,3 +1,4 @@
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
 <div id="container">
     <div id="content">
         
@@ -24,58 +25,76 @@
             <input type="text" class="input_01" placeholder="Genes" #genes>
             <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
         </div>
-
+    <div> Total: {{listArtfacts.length}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
     <div class="table-box-wrap">
         <div class="table-box box"> 
             <table border="0" cellpadding="0" cellspacing="0" class="table_list " style="max-height:36px;"> 
+                <colgroup> 
+                </colgroup>    
                 <thead>
                     <tr>
-                        <th class="txt_c" >No.</th>
+                        <th class="txt_l">No.</th>
                         <th class="txt_l">Genes</th>
                         <th class="txt_l">Location</th>
                         <th class="txt_l">Exon</th>
                         <th class="txt_l">Transcript</th>
                         <th class="txt_l">Coding</th>
                         <th class="txt_l">Amino Acid Change</th>
-                        <th class="txt_c">수정/삭제</th>
-                         
+                        <th class="txt_c">수정/삭제</th> 
                     </tr>
                 </thead>
-                <tbody id="benign-list">
+                <tbody >
                     <tr class="table_bg" *ngFor="let list of lists; let i = index">
-                        <td class="txt_c">
-                            <input type="hidden" value="R" #status >   
-                            <p *ngIf="status.value === 'R'">
-                                <td style="width:120px;" class="txt_c" >{{i + 1}}</td> 
-                                <td style="width:180px;"><span class="wid120 bdnone">{{list.genes}}</span></td>
-                                <td style="width:180px;"><span class="wid120 bdnone">{{list.location}}</span></td> 
-                                <td style="width:180px;"><span class="wid120 bdnone">{{list.exon}}</span></td>
-                                <td style="width:180px;"><span class="wid120 bdnone">{{list.transcript}}</span></td>
-                                <td style="width:180px;"><span class="wid120 bdnone">{{list.coding}}</span></td>
-                                <td style="width:180px;"><span class="wid120 bdnone">{{list.amino_acid_change}}</span></td> 
-                                <td style="width:180px;" class="text-right">
-                                    <a class="btn-edit" (click)="status.value='U'">수정</a>
-                                    <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>
-                                </td>
-                            </p>
-                            <p *ngIf="status.value === 'U'">
-                                <td style="width:120px;" class="txt_c" >{{i + 1}}</td> 
-                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.genes}}" #genes > </td>
-                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.location}}" #location  > </td> 
-                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.exon}}" #exon  >  </td>
-                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.transcript}}" #transcript  >  </td>
-                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.coding}}" #coding  >  </td>
-                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.amino_acid_change}}" #amino_acid_change  >   </td> 
-                                <td style="width:180px;" class="text-right">
-                                    <a class="btn-cancel" (click)="status.value='R'">취소</a> 
-                                    <a class="btn-save" (click)="updateRow(list.id, genes.value, location.value, exon.value, transcript.value, coding.value, amino_acid_change.value)">저장</a>
-                                </td>    
-                            </p>
+                        <input type="hidden" value="R" #status id="status{{i+1}}" >    
+                        <td class="txt_l bdnone" >{{ (curPage-1)*10 + i + 1}}</td> 
+                        <td ><span class="bdnone txt_l" *ngIf="status.value === 'R'">{{list.genes}}</span>
+                             <span class="bdnone txt_l" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.genes}}" id="genes{{list.id}}" ></span>
                         </td>
-                    </tr> 
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.location}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.location}}" id="location{{list.id}}" ></span>   
+                        </td> 
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.exon}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.exon}}"  id="exon{{list.id}}" ></span>   
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.transcript}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.transcript}}" id="transcript{{list.id}}" ></span>   
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.coding}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.coding}}" id="coding{{list.id}}" ></span>   
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.amino_acid_change}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.amino_acid_change}}" id="aminoAcidChange{{list.id}}" ></span>
+                        </td> 
+                        <td class="text-right">
+                            <span class="bdnone" *ngIf="status.value === 'R' ">
+                                <a class="btn-edit" (click)="status.value='U'">수정</a>
+                                <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>
+                            </span>
+                            <span class="wid120 bdnone" *ngIf="status.value === 'U' ">
+                                <a class="btn-cancel" (click)="status.value='R'">취소</a> 
+                                <a class="btn-save" (click)="updateRow(list.id)">저장</a>   
+                            </span>        
+                        </td>
+                    </tr>   
+
                 </tbody> 
             </table>
         </div>
+        
+        <div class="txt_c pd_t20 btn_num">
+                <a class="ico_pre" (click)="goPage('<')" >이전</a>   
+                <span *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">  
+                    <span   *ngIf="i + (pageLine*10) <= totPage">   
+                        <span *ngIf="i + (pageLine*10) == curPage">
+                            <a  (click)="goPage(i + (pageLine*10))"><span class="btn_select">{{i + (pageLine*10)}}</span></a>
+                        </span>
+                        <span *ngIf="i + (pageLine*10) != curPage">
+                            <a  (click)="goPage(i + (pageLine*10))"><span>{{i + (pageLine*10)}}</span></a>
+                        </span> 
+                    </span>    
+                </span> 
+                <a class="ico_next" (click)="goPage('>')" >다음</a> 
+        </div>   
         </div>
     </div>
 </div>

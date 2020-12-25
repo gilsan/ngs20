@@ -24,54 +24,76 @@
             <input type="text" class="input_01" placeholder="Genes" #genes>
             <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
         </div>
-
+    <div> Total: {{listComments.length}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
     <div class="table-box-wrap">
         <div class="table-box box">
     
             <table border="0" cellpadding="0" cellspacing="0" class="table_list " style="max-height:36px;">
-
+                <colgroup>
+                    <col width="3%" />
+                    <col width="7%" />
+                    <col width="10%" />
+                    <col width="30%" />
+                    <col width="30%" />
+                    <col width="%" />
+                </colgroup>
                 <thead>
                     <tr>
-                        <th style="width:20px;" class="txt_c">No</th>
-                        <th style="width:80px;" class="txt_l">Type</th>
-                        <th style="width:80px;" class="txt_l">Gene</th>
-                        <th style="width:400px;" class="txt_l">Comment</th> 
-                        <th style="width:400px;" class="txt_l">Reference</th>
-                        <th style="width:120px;" class="txt_c">수정/삭제</th>
-                         
+                        <th style ="width:2px;" class="txt_l">No</th>
+                        <th style ="width:5px;" class="txt_l">Type</th>
+                        <th style ="width:50px;" class="txt_l">Gene</th>
+                        <th class="txt_l">Comment</th> 
+                        <th class="txt_l">Reference</th>
+                        <th class="txt_c">수정/삭제</th> 
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="table_bg" *ngFor="let list of lists; let i = index">
-                        <td class="txt_c">
                             <input type="hidden" value="R" #status >   
-                            <p *ngIf="status.value === 'R'">
-                                <td style="width:20px;" class="txt_c" >{{i + 1}}</td> 
-                                <td style="width:80px;"><span class="wid120 bdnone">{{list.type}}</span></td>
-                                <td style="width:80px;"><span class="wid120 bdnone">{{list.gene}}</span></td>  
-                                <td style="width:500px;"><span class="wid400 bdnone">{{list.comment}}</span></td>
-                                <td style="width:500px;"><span class="wid400 bdnone">{{list.reference}}</span></td> 
-                                <td style="width:120px;" class="text-right">
+                            <td class="txt_c" >{{i + 1}}</td> 
+                            <td>
+                                <span class="bdnone" *ngIf="status.value === 'R'">{{list.type}}</span>
+                                <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input wid120" value="{{list.type}}" id="type{{list.id}}"  ></span> 
+                            </td>
+                            <td>
+                                <span class="bdnone" *ngIf="status.value === 'R'">{{list.gene}}</span>
+                                <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input wid120" value="{{list.gene}}" id="gene{{list.id}}"   ></span>
+                            </td>  
+                            <td>
+                                <span class="bdnone" *ngIf="status.value === 'R'">{{list.comment}}</span>
+                                <span class="bdnone" *ngIf="status.value === 'U'"><textarea rows="10"  cols="70" class="wid500" id="comment{{list.id}}"  >{{list.comment}}</textarea></span>
+                            </td>
+                            <td>
+                                <span class="bdnone" *ngIf="status.value === 'R'">{{list.reference}}</span>
+                                <span class="bdnone" *ngIf="status.value === 'U'"><textarea rows="10"  cols="70" class="wid500" id="reference{{list.id}}"   >{{list.reference}}</textarea></span>
+                            </td>
+                            <td class="text-right">
+                                <span class="bdnone" *ngIf="status.value === 'R'">
                                     <a class="btn-edit" (click)="status.value='U'">수정</a>
                                     <a class="btn-delete" (click)="deleteRow(list.id, list.gene)">삭제</a>
-                                </td>
-                            </p>
-                            <p *ngIf="status.value === 'U'">
-                                <td style="width:20px;" class="txt_c" >{{i + 1}}</td> 
-                                <td style="width:80px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.type}}" #commentsType > </td>
-                                <td style="width:80px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.gene}}" #gene  > </td> 
-                                <td style="width:500px; height:200px;" class="txt_l"><textarea rows="10"  cols="50" class="wid400" #comment  >{{list.comment}}</textarea></td>
-                                <td style="width:500px; height:200px;" class="txt_l"><textarea rows="10"  cols="50" class="wid400" #reference >{{list.reference}}</textarea> </td> 
-                                <td style="width:120px;" class="text-right">
+                                </span>
+                                <span class="bdnone" *ngIf="status.value === 'U'">
                                     <a class="btn-cancel" (click)="status.value='R'">취소</a> 
-                                    <a class="btn-save" (click)="updateRow(list.id, commentsType.value, gene.value, comment.value, reference.value)">저장</a>
-                                </td>    
-                            </p>
-                        </td>
+                                    <a class="btn-save" (click)="updateRow(list.id)">저장</a>  
+                                </span> 
+                            </td>
                     </tr>
-                 
                 </tbody>
             </table>
+        </div>
+        <div class="txt_c pd_t20 btn_num">
+            <a class="ico_pre" (click)="goPage('<')" >이전</a>   
+            <span *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">  
+                <span   *ngIf="i + (pageLine*10) <= totPage">   
+                    <span *ngIf="i + (pageLine*10) == curPage">
+                        <a  (click)="goPage(i + (pageLine*10))"><span class="btn_select">{{i + (pageLine*10)}}</span></a>
+                    </span>
+                    <span *ngIf="i + (pageLine*10) != curPage">
+                        <a  (click)="goPage(i + (pageLine*10))"><span>{{i + (pageLine*10)}}</span></a>
+                    </span> 
+                </span>    
+            </span> 
+            <a class="ico_next" (click)="goPage('>')" >다음</a> 
         </div>
         </div>
     </div>

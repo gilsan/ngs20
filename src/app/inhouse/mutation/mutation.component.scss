@@ -1,31 +1,15 @@
 caption {
-  position: absolute;
-  font-size: 0;
-  left: -99999px;
-}
-.table-box-wrap {
-    position: relative;
-    /*width:509px;*/
-    margin-top: 20px;
-    padding-top: 60px;
-  
-}
-.table-box-wrap .table-box {
-    max-height: 858px;
-    overflow: auto;
-    overflow-x: hidden;
-}
-.table-box-wrap .table-box table {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0;
-    border-collapse: collapse;
-}
-.table-box-wrap .table-box table thead tr {
     position: absolute;
-    top: 0;
-}
-.table-box-wrap .table-box table thead tr th {
+    font-size: 0;
+    left: -99999px;
+  }
+  .table-box-wrap {
+      position: relative;
+      /*width:509px;*/
+      margin-top: 20px;    
+  }
+
+  .table-box-wrap .table-box table thead tr th {
     font-weight: normal;
     width: 120px;
     height: 40px;
@@ -33,84 +17,60 @@ caption {
     color:#fff;
 }
 
-.table-box-wrap .table-box table td {
-    text-align: left;
-    height: 40px;
-    border-top: 1px solid #ccc;
-}
-
-.table-box-wrap .table-box table tr {
-    display: inline-table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.table-box-wrap .table-box table tbody tr {
-   display: table-row;
-}
-
-.clr-input.wid120 {
-    width: 50px !important;
-}
-
-.clr-input.wid120.bdnone {
-    border: none;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.btn-edit, .btn-delete, .btn-cancel, .btn-save {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    font-size: 0;
-    margin-left: 3px;
-    border-radius: 3px;
-}
-
-.btn-edit {
-    background: url(../images/edit.png);
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
-  //  background-color: #2090e9;
-}
-
-.btn-delete {
-    background: url(../images/trash.png);
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
- //   background-color: rgb(141, 141, 141);
-}
-
-.btn-cancel {
-    background: url(../images/cancel.png);
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
-  //  background-color: rgb(141, 141, 141);
-}
-
-.btn-save {
-    background: url(../images/save.png);
-    background-size: 20px;
-    background-position: center;
-    background-repeat: no-repeat;
- //   background-color: #2090e9;
-}
-
-.table_bg > .txt_c {
-    padding: 0;
-    border-top: none !important;
-}
-
-.txt_c > p {
-    margin-top: 0;
-}
-.input_01 {
-   height: 30px;
-   margin : 10px;
-}
+  .text-right {
+      text-align: right;
+  }
+  
+  .btn-edit, .btn-delete, .btn-cancel, .btn-save {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      font-size: 0;
+      margin-left: 3px;
+      border-radius: 3px;
+  }
+  
+  .btn-edit {
+      background: url(../images/edit.png);
+      background-size: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+  //    background-color: #2090e9;
+  }
+  
+  .btn-delete {
+      background: url(../images/trash.png);
+      background-size: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+  //    background-color: rgb(141, 141, 141);
+  }
+  
+  .btn-cancel {
+      background: url(../images/cancel.png);
+      background-size: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+  //    background-color: rgb(141, 141, 141);
+  }
+  
+  .btn-save {
+      background: url(../images/save.png);
+      background-size: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+  //    background-color: #2090e9;
+  }
+  
+  .table_bg > .txt_c {
+      padding: 0;
+      border-top: none !important;
+  }
+  
+  .txt_c > p {
+      margin-top: 0;
+  }
+  .input_01 {
+     height: 30px;
+     margin : 10px;
+  }
