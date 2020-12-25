@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent, HttpEventType, HttpParams } from '@angular/common/http';
+import { combineLatest, from, Observable, of, Subject, } from 'rxjs';
+import { concatMap, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { IBenign } from 'src/app/inhouse/models/benign';
+import { emrUrl } from 'src/app/config';
 
 
 @Injectable({
@@ -7,18 +11,31 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BenignService {
 
+  benignInfo: IBenign[];
+  private apiUrl = emrUrl;
+
   constructor(
     private http: HttpClient
   ) { }
 
-  deleteBenignList(id: string, genes: string): any { }
-  updateBenignList(
-    id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string): any { }
+  public getBenignList(genes: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/benign/list`, { genes });
+  }
 
-  insertBenignList(
+  public insertBenignList(
     id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string
-  ): any { }
+  ): Observable<any> {
+    return this.http.post(`${this.apiUrl}/benign/insert`, { id, genes, locat, exon, transcript, coding, aminoAcidChange });
+  }
 
-  getBenignList(genes: string): any { }
+  public updateBenignList(
+    id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string
+  ): Observable<any> {
+    return this.http.post(`${this.apiUrl}/benign/update`, { id, genes, locat, exon, transcript, coding, aminoAcidChange });
+  }
+
+  public deleteBenignList(id: string, genes: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/benign/delete`, { id });
+  }
 
 }

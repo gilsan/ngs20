@@ -624,7 +624,7 @@
                       
                 
               <div  class="list_01 textareabox">
-                <textarea  class="textarea_01" rows="20" cols="200"   [(ngModel)]="generalReport" style="margin-left: 42px; width:97%;">
+                <textarea  class="textarea_01" rows="20" cols="200" #report  [(ngModel)]="generalReport" style="margin-left: 42px; width:97%;">
                 </textarea>
               </div>
               <hr class="mg_t30"/>
@@ -1331,6 +1331,14 @@
 <!--  ---------------      -->
 <div class="foot_btn mg_t30 pd_b30 txt_c main_btn">
     <ul>
+        <li>
+            <button type="button" class="btn btn-success"  
+             >수정</button>
+        </li>
+        <li>
+            <button type="button" class="btn btn-success"  
+             >임시저장</button>
+        </li>                
         <li>
             <button type="button" class="btn btn-success"  [disabled]="getStatus(1)"
             (click)="savePathologyData()">1차저장</button>

@@ -31,6 +31,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('examine', { static: true }) examine: ElementRef;
   @ViewChild('rechecked', { static: true }) rechecked: ElementRef;
+  @ViewChild('report', { static: true }) report: ElementRef;
+
   polymorphismList: Ipolymorphism[];
 
   ments: IMent[] = mentlists;
@@ -134,6 +136,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
 
   ngOnInit(): void {
+    // this.pathologyService.getPatientList().subscribe();
     this.loadForm();
     // this.getParams();
     this.checker();
@@ -162,8 +165,9 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.route.paramMap.pipe(
       map(route => route.get('pathologyNum'))
     ).subscribe(pathologyNum => {
-      console.log('[119][getParams]', pathologyNum);
+      console.log('[167][getParams]', pathologyNum);
       this.patientInfo = this.pathologyService.patientInfo.filter(item => item.pathology_num === pathologyNum)[0];
+      console.log('[169]', this.patientInfo);
       this.init(pathologyNum);
     });
   }
@@ -264,6 +268,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checker(): void {
+    this.report.nativeElement.selectionEnd = 5;
     const medi$ = this.searchService.listPath().pipe(
       shareReplay()
     );
