@@ -1,1 +1,81 @@
-<p>benign works!</p>
+<div id="container">
+    <div id="content">
+        
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+            <tr>
+                <td  class="mail_title">InHouse Benign</td> 
+                <td class="main_btn">
+                    <ul>
+                        <li>
+                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                        </li>
+                        <!--
+                        <li>
+                            <button type="button" class="btn btn_01">저장</button>
+                        </li>
+                        -->
+                    </ul>
+                </td> 
+            </tr>
+        </table>
+        
+        <div class="box mg_b20 pd_20">
+            <input type="text" class="input_01" placeholder="Genes" #genes>
+            <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
+        </div>
+
+    <div class="table-box-wrap">
+        <div class="table-box box">
+    
+            <table border="0" cellpadding="0" cellspacing="0" class="table_list " style="max-height:36px;"> 
+                <thead>
+                    <tr>
+                        <th class="txt_c" >No.</th>
+                        <th class="txt_l">Genes</th>
+                        <th class="txt_l">Location</th>
+                        <th class="txt_l">Exon</th>
+                        <th class="txt_l">Transcript</th>
+                        <th class="txt_l">Coding</th>
+                        <th class="txt_l">Amino Acid Change</th>
+                        <th class="txt_c">수정/삭제</th>
+                         
+                    </tr>
+                </thead>
+                <tbody id="benign-list">
+                    <tr class="table_bg" *ngFor="let list of lists; let i = index">
+                        <td class="txt_c">
+                            <input type="hidden" value="R" #status >   
+                            <p *ngIf="status.value === 'R'">
+                                <td style="width:120px;" class="txt_c" >{{i + 1}}</td> 
+                                <td style="width:180px;"><span class="wid120 bdnone">{{list.genes}}</span></td>
+                                <td style="width:180px;"><span class="wid120 bdnone">{{list.location}}</span></td> 
+                                <td style="width:180px;"><span class="wid120 bdnone">{{list.exon}}</span></td>
+                                <td style="width:180px;"><span class="wid120 bdnone">{{list.transcript}}</span></td>
+                                <td style="width:180px;"><span class="wid120 bdnone">{{list.coding}}</span></td>
+                                <td style="width:180px;"><span class="wid120 bdnone">{{list.amino_acid_change}}</span></td> 
+                                <td style="width:180px;" class="text-right">
+                                    <a class="btn-edit" (click)="status.value='U'">수정</a>
+                                    <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>
+                                </td>
+                            </p>
+                            <p *ngIf="status.value === 'U'">
+                                <td style="width:120px;" class="txt_c" >{{i + 1}}</td> 
+                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.genes}}" #genes > </td>
+                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.location}}" #location  > </td> 
+                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.exon}}" #exon  >  </td>
+                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.transcript}}" #transcript  >  </td>
+                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.coding}}" #coding  >  </td>
+                                <td style="width:180px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.amino_acid_change}}" #amino_acid_change  >   </td> 
+                                <td style="width:180px;" class="text-right">
+                                    <a class="btn-cancel" (click)="status.value='R'">취소</a> 
+                                    <a class="btn-save" (click)="updateRow(list.id, genes.value, location.value, exon.value, transcript.value, coding.value, amino_acid_change.value)">저장</a>
+                                </td>    
+                            </p>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>

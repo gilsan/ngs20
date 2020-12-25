@@ -1,1 +1,78 @@
-<p>comments works!</p>
+<div id="container">
+    <div id="content">
+        
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+            <tr>
+                <td  class="mail_title">InHouse Comments</td>
+                
+                <td class="main_btn">
+                    <ul>
+                        <li>
+                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                        </li>
+                        <!--
+                        <li>
+                            <button type="button" class="btn btn_01">저장</button>
+                        </li>
+                        -->
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        
+        <div class="box mg_b20 pd_20">
+            <input type="text" class="input_01" placeholder="Genes" #genes>
+            <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
+        </div>
+
+    <div class="table-box-wrap">
+        <div class="table-box box">
+    
+            <table border="0" cellpadding="0" cellspacing="0" class="table_list " style="max-height:36px;">
+
+                <thead>
+                    <tr>
+                        <th style="width:20px;" class="txt_c">No</th>
+                        <th style="width:80px;" class="txt_l">Type</th>
+                        <th style="width:80px;" class="txt_l">Gene</th>
+                        <th style="width:400px;" class="txt_l">Comment</th> 
+                        <th style="width:400px;" class="txt_l">Reference</th>
+                        <th style="width:120px;" class="txt_c">수정/삭제</th>
+                         
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table_bg" *ngFor="let list of lists; let i = index">
+                        <td class="txt_c">
+                            <input type="hidden" value="R" #status >   
+                            <p *ngIf="status.value === 'R'">
+                                <td style="width:20px;" class="txt_c" >{{i + 1}}</td> 
+                                <td style="width:80px;"><span class="wid120 bdnone">{{list.type}}</span></td>
+                                <td style="width:80px;"><span class="wid120 bdnone">{{list.gene}}</span></td>  
+                                <td style="width:500px;"><span class="wid400 bdnone">{{list.comment}}</span></td>
+                                <td style="width:500px;"><span class="wid400 bdnone">{{list.reference}}</span></td> 
+                                <td style="width:120px;" class="text-right">
+                                    <a class="btn-edit" (click)="status.value='U'">수정</a>
+                                    <a class="btn-delete" (click)="deleteRow(list.id, list.gene)">삭제</a>
+                                </td>
+                            </p>
+                            <p *ngIf="status.value === 'U'">
+                                <td style="width:20px;" class="txt_c" >{{i + 1}}</td> 
+                                <td style="width:80px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.type}}" #commentsType > </td>
+                                <td style="width:80px;" class="txt_l"><input type="text"  class="clr-input wid120" value="{{list.gene}}" #gene  > </td> 
+                                <td style="width:500px; height:200px;" class="txt_l"><textarea rows="10"  cols="50" class="wid400" #comment  >{{list.comment}}</textarea></td>
+                                <td style="width:500px; height:200px;" class="txt_l"><textarea rows="10"  cols="50" class="wid400" #reference >{{list.reference}}</textarea> </td> 
+                                <td style="width:120px;" class="text-right">
+                                    <a class="btn-cancel" (click)="status.value='R'">취소</a> 
+                                    <a class="btn-save" (click)="updateRow(list.id, commentsType.value, gene.value, comment.value, reference.value)">저장</a>
+                                </td>    
+                            </p>
+                        </td>
+                    </tr>
+                 
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
