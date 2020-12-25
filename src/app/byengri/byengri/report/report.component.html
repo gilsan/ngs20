@@ -51,7 +51,7 @@
                   <tbody>
                       <tr>
                         <td class="table_result_line txt_c">
-                            <input type="text" size="10" #dnarnaext class="clr-input" [value]="'FFPE'" (change)="setDNAandRNAextraction(dnarnaext.value)">
+                            <input type="text" size="10" #dnarnaext class="clr-input" [value]="extraction.dnarna" (change)="setDNAandRNAextraction(dnarnaext.value)">
                         </td>
                           <td class="txt_c">
                             <input type="text" size="10"  class="clr-input" [value]="extraction.managementNum">
@@ -72,7 +72,7 @@
                              (change)="setTumorType(tumortype.value)">
                           </td>
                           <td class="txt_c">
-                            <input type="text" size="30" #diagnosis class="clr-input" [value]="extraction.diagnosis" (change)="setDiagnosis(diagnosis.value)">
+                            <input type="text" size="30" #diagnosis class="clr-input"   [value]="extraction.diagnosis" (change)="setDiagnosis(diagnosis.value)">
                           </td>
                       </tr>
                   </tbody>
@@ -88,13 +88,13 @@
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                             <thead >
                                 <tr>
-                                    <th class="table_result_line">Gene</th>
-                                    <th>Amino acid change</th>
-                                    <th>Nucleotide change</th>
-                                    <th>Variant allele frequency</th>
-                                    <th>ID</th>
-                                    <th>Tier</th>
-                                    <th>
+                                    <th class="table_result_line"  style="width: 10%;">Gene</th>
+                                    <th  style="width: 25%;">Amino acid change</th>
+                                    <th  style="width: 30%;">Nucleotide change</th>
+                                    <th  style="width: 15%;">Variant allele frequency</th>
+                                    <th  style="width: 10%;">ID</th>
+                                    <th  style="width: 5%;">Tier</th>
+                                    <th  style="width: 5%;">
                                      <button class="btn btn-success" (click)="addMutation()">추가</button>
                                     </th>
                                 </tr>
@@ -106,10 +106,10 @@
                                             <input type="text" size="10"  class="clr-input"  formControlName="gene" style="color: red;">
                                         </td>
                                         <td class="txt_c">
-                                            <input type="text" size="15"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
+                                            <input type="text" size="40"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
                                         </td>
                                         <td class="txt_c">
-                                            <input type="text" size="25"  class="clr-input"  formControlName="nucleotideChange">
+                                            <input type="text" size="40"  class="clr-input"  formControlName="nucleotideChange">
                                         </td>
                                         <td class="txt_c">
                                             <input type="text" size="5"  class="clr-input"  formControlName="variantAlleleFrequency"> 
@@ -118,7 +118,7 @@
                                             <input type="text" size="10"  class="clr-input"  formControlName="ID">
                                         </td>                           
                                         <td class="txt_c">
-                                            <input type="text" size="10"  class="clr-input"  formControlName="tier"  style="color: red;">
+                                            <input type="text" size="5"  class="clr-input"  formControlName="tier"  style="color: red;">
                                         </td>
                                         <td align="center">
                                          <img [src]="'assets/images/cancel.png'" (click)="removeMutation(i)">
@@ -135,13 +135,13 @@
                      <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35"> 
                        <thead >
                            <tr>
-                               <th class="table_result_line">Gene</th>
-                               <th>Amino acid change</th>
-                               <th>Nucleotide change</th>
-                               <th>Variant allele frequency</th>
-                               <th>ID</th>
-                               <th>Tier</th>
-                               <th>
+                               <th class="table_result_line"  style="width: 10%;">Gene</th>
+                               <th  style="width: 25%;">Amino acid change</th>
+                               <th  style="width: 30%;">Nucleotide change</th>
+                               <th  style="width: 15%;">Variant allele frequency</th>
+                               <th  style="width: 10%;">ID</th>
+                               <th  style="width: 5%;">Tier</th>
+                               <th  style="width: 5%;">
                                 <button class="btn btn-success" (click)="addMutation()">추가</button>
                                </th>
                            </tr>
@@ -153,10 +153,10 @@
                                    <input type="text" size="10"  class="clr-input"  formControlName="gene" style="color: red;">
                                </td>
                                <td class="txt_c">
-                                   <input type="text" size="15"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
+                                   <input type="text" size="40"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
                                </td>
                                <td class="txt_c">
-                                   <input type="text" size="25"  class="clr-input"  formControlName="nucleotideChange">
+                                   <input type="text" size="40"  class="clr-input"  formControlName="nucleotideChange">
                                </td>
                                <td class="txt_c">
                                    <input type="text" size="5"  class="clr-input"  formControlName="variantAlleleFrequency"> 
@@ -165,7 +165,7 @@
                                    <input type="text" size="10"  class="clr-input"  formControlName="ID">
                                </td>                           
                                <td class="txt_c">
-                                   <input type="text" size="10"  class="clr-input"  formControlName="tier"  style="color: red;">
+                                   <input type="text" size="5"  class="clr-input"  formControlName="tier"  style="color: red;">
                                </td>
                                <td align="center">
                                 <img [src]="'assets/images/cancel.png'" (click)="removeMutation(i)">
@@ -186,11 +186,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                             <thead >
                                 <tr>
-                                    <th class="table_result_line">Gene</th>
-                                    <th>Region </th>
-                                    <th>Estimated copy number </th>
-                                    <th>Tier</th>
-                                    <th>
+                                    <th class="table_result_line"  style="width: 10%;">Gene</th>
+                                    <th style="width: 40%;">Region </th>
+                                    <th style="width: 30%;">Estimated copy number </th>
+                                    <th style="width: 10%;">Tier</th>
+                                    <th style="width: 10%;">
                                       <button class="btn btn-success" (click)="addAmplifications()">추가</button>
                                     </th>
                                 </tr>
@@ -201,9 +201,9 @@
                                 <tr  [formGroupName]="i">
                                     <td class="table_result_line txt_c">
                                       <input type="text" size="10"  class="clr-input" formControlName="gene"  style="color: red;"></td>
-                                    <td class="txt_c"><input type="text" size="30"  class="clr-input" formControlName="region"></td>
+                                    <td class="txt_c"><input type="text" size="50"  class="clr-input" formControlName="region"></td>
                                     <td class="txt_c">
-                                      <input type="text" size="10"  class="clr-input" formControlName="copynumber"  style="color: red;"></td>
+                                      <input type="text" size="20"  class="clr-input" formControlName="copynumber"  style="color: red;"></td>
                                     <td class="txt_c">
                                       <input type="text" size="10"  class="clr-input" formControlName="tier">
                                     </td>
@@ -239,7 +239,7 @@
                               <td class="txt_c">
                                 <input type="text" size="10"  class="clr-input" formControlName="copynumber"  style="color: red;"></td>
                               <td class="txt_c">
-                                <input type="text" size="10"  class="clr-input" formControlName="tier">
+                                <input type="text" size="10"  class="clr-input" formControlName="tier"  style="color: red;">
                               </td>
                               <td align="center">
                                 <img [src]="'assets/images/cancel.png'"  (click)="removeAmplifications(i)">
@@ -258,11 +258,11 @@
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                             <thead >
                                 <tr>
-                                    <th class="table_result_line">Gene (exon)</th>
-                                    <th>Breakpoint </th>
-                                    <th>Function</th>
-                                    <th>Tier </th>
-                                    <th>
+                                    <th class="table_result_line" style="width: 15%;">Gene (exon)</th>
+                                    <th style="width: 30%;">Breakpoint </th>
+                                    <th style="width: 30%;">Function</th>
+                                    <th style="width: 15%;">Tier</th>
+                                    <th style="width: 10%;">
                                       <button class="btn btn-success" (click)="addFusion()">추가</button>
                                     </th>
                                 </tr>
@@ -271,16 +271,16 @@
                                 <ng-container  formArrayName="fusionLists" *ngFor="let group of fusionLists().controls; let i=index">
                                     <tr  [formGroupName]="i">
                                         <td class="table_result_line txt_c">
-                                          <input type="text" size="20"  class="clr-input" formControlName="gene"  style="color: red;">
+                                          <input type="text" size="10"  class="clr-input" formControlName="gene"  style="color: red;">
                                         </td>
                                         <td class="txt_c">
                                           <input type="text" size="30"  class="clr-input" formControlName="breakpoint"> 
                                         </td>
                                         <td class="txt_c">
-                                          <input type="text" size="10"  class="clr-input" formControlName="functions">
+                                          <input type="text" size="20"  class="clr-input" formControlName="functions">
                                         </td>
                                         <td class="txt_c">
-                                          <input type="text" size="10"  class="clr-input" formControlName="tier">
+                                          <input type="text" size="5"  class="clr-input" formControlName="tier"  style="color: red;">
                                         </td>
                                         <td align="center">
                                           <img [src]="'assets/images/cancel.png'"  (click)="removeFusion(i)">
@@ -297,11 +297,11 @@
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                       <thead >
                           <tr>
-                              <th class="table_result_line">Gene (exon)</th>
-                              <th>Breakpoint </th>
-                              <th>Function</th>
-                              <th>Tier </th>
-                              <th>
+                            <th class="table_result_line" style="width: 15%;">Gene (exon)</th>
+                            <th style="width: 30%;">Breakpoint </th>
+                            <th style="width: 30%;">Function</th>
+                            <th style="width: 15%;">Tier</th>
+                            <th style="width: 10%;">
                                 <button class="btn btn-success" (click)="addFusion()">추가</button>
                               </th>
                           </tr>
@@ -310,16 +310,16 @@
                           <ng-container  formArrayName="fusionLists" *ngFor="let group of fusionLists().controls; let i=index">
                           <tr  [formGroupName]="i">
                               <td class="table_result_line txt_c">
-                                <input type="text" size="20"  class="clr-input" formControlName="gene"  style="color: red;">
+                                <input type="text" size="10"  class="clr-input" formControlName="gene"  style="color: red;">
                               </td>
                               <td class="txt_c">
                                 <input type="text" size="30"  class="clr-input" formControlName="breakpoint"> 
                               </td>
                               <td class="txt_c">
-                                <input type="text" size="10"  class="clr-input" formControlName="functions">
+                                <input type="text" size="20"  class="clr-input" formControlName="functions">
                               </td>
                               <td class="txt_c">
-                                <input type="text" size="10"  class="clr-input" formControlName="tier">
+                                <input type="text" size="5"  class="clr-input" formControlName="tier">
                               </td>
                               <td align="center">
                                 <img [src]="'assets/images/cancel.png'"  (click)="removeFusion(i)">
@@ -340,13 +340,13 @@
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                         <thead>
                             <tr>
-                                <th class="table_result_line">Gene</th>
-                                <th>Amino acid change</th>
-                                <th>Nucleotide change</th>
-                                <th>Variant allele frequency</th>
-                                <th>ID</th>
-                                <th>Note</th>
-                                <th>
+                                <th class="table_result_line"  style="width: 10%;">Gene</th>
+                                <th  style="width: 25%;">Amino acid change</th>
+                                <th  style="width: 30%;">Nucleotide change</th>
+                                <th  style="width: 15%;">Variant allele frequency</th>
+                                <th  style="width: 10%;">ID</th>
+                                <th  style="width: 5%;">Note</th>
+                                <th  style="width: 5%;">
                                   <button class="btn btn-success" (click)="addIMutation()">추가</button>
                                 </th>
                             </tr>                            
@@ -358,10 +358,10 @@
                                         <input type="text" size="10"  class="clr-input" formControlName="gene">
                                     </td>
                                     <td class="txt_c">
-                                        <input type="text" size="15"  class="clr-input" formControlName="aminoAcidChange">
+                                        <input type="text" size="40"  class="clr-input" formControlName="aminoAcidChange">
                                     </td>
                                     <td class="txt_c">
-                                        <input type="text" size="25"  class="clr-input" formControlName="nucleotideChange">
+                                        <input type="text" size="40"  class="clr-input" formControlName="nucleotideChange">
                                     </td>
                                     <td class="txt_c">
                                         <input type="text" size="5"  class="clr-input" formControlName="variantAlleleFrequency">    
@@ -370,7 +370,7 @@
                                         <input type="text" size="10"  class="clr-input" formControlName="ID">
                                     </td>                           
                                     <td class="txt_c">
-                                        <input type="text" size="10"  class="clr-input" formControlName="tier">
+                                        <input type="text" size="5"  class="clr-input" formControlName="tier">
                                     </td>
                                     <td align="center">
                                      <img [src]="'assets/images/cancel.png'" (click)="removeIMutation(i)">
@@ -388,13 +388,13 @@
                       <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                           <thead >
                               <tr>
-                                  <th class="table_result_line">Gene</th>
-                                  <th>Amino acid change</th>
-                                  <th>Nucleotide change</th>
-                                  <th>Variant allele frequency</th>
-                                  <th>ID</th>
-                                  <th>Note</th>
-                                  <th>
+                                  <th class="table_result_line" style="width:10%">Gene</th>
+                                  <th style="width:20%">Amino acid change</th>
+                                  <th style="width:30%">Nucleotide change</th>
+                                  <th style="width:15%">Variant allele frequency</th>
+                                  <th style="width:10%">ID</th>
+                                  <th style="width:10%">Note</th>
+                                  <th style="width:5%">
                                     <button class="btn btn-success" (click)="addIMutation()">추가</button>
                                   </th>
                               </tr>
@@ -406,10 +406,12 @@
                                       <input type="text" size="10"  class="clr-input" formControlName="gene">
                                   </td>
                                   <td class="txt_c">
-                                      <input type="text" size="15"  class="clr-input" formControlName="aminoAcidChange">
+                                      <!-- <input type="text" size="15"  class="clr-input" formControlName="aminoAcidChange"> -->
+                                      <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="aminoAcidChange"></textarea>
                                   </td>
                                   <td class="txt_c">
-                                      <input type="text" size="25"  class="clr-input" formControlName="nucleotideChange">
+                                      <!-- <input type="text" size="25"  class="clr-input" formControlName="nucleotideChange"> -->
+                                      <textarea class="textarea_01" style="width: 100%; height: 100%; border: none" formControlName="nucleotideChange"></textarea>
                                   </td>
                                   <td class="txt_c">
                                       <input type="text" size="5"  class="clr-input" formControlName="variantAlleleFrequency">    
@@ -418,7 +420,7 @@
                                       <input type="text" size="10"  class="clr-input" formControlName="ID">
                                   </td>                           
                                   <td class="txt_c">
-                                      <input type="text" size="10"  class="clr-input" formControlName="tier">
+                                      <input type="text" size="5"  class="clr-input" formControlName="tier">
                                   </td>
                                   <td align="center">
                                    <img [src]="'assets/images/cancel.png'" (click)="removeIMutation(i)">
@@ -438,11 +440,11 @@
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
                         <thead>
                             <tr>
-                                <th class="table_result_line">Gene</th>
-                                <th>Region </th>
-                                <th>Estimated copy number </th>
-                                <th>Note </th>
-                                <th>
+                                <th class="table_result_line" style="width: 10%;">Gene</th>
+                                <th style="width: 40%;">Region </th>
+                                <th style="width: 30%;">Estimated copy number </th>
+                                <th style="width: 10%;">Note </th>
+                                <th style="width: 10%;">
                                    <button class="btn btn-success" (click)="addIAmplifications()">추가</button>
                                 </th>
                             </tr>
@@ -454,10 +456,10 @@
                                       <input type="text" size="10"  class="clr-input" formControlName="gene">
                                    </td>
                                     <td class="txt_c">
-                                      <input type="text" size="30"  class="clr-input" formControlName="region">  
+                                      <input type="text" size="50"  class="clr-input" formControlName="region">  
                                     </td>
                                     <td class="txt_c">
-                                      <input type="text" size="10"  class="clr-input" formControlName="copynumber">
+                                      <input type="text" size="20"  class="clr-input" formControlName="copynumber">
                                     </td>
                                      
                                     <td class="txt_c">
@@ -478,11 +480,11 @@
                  <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
                      <thead>
                          <tr>
-                             <th class="table_result_line">Gene</th>
-                             <th>Region </th>
-                             <th>Estimated copy number </th>
-                             <th>Note </th>
-                             <th>
+                            <th class="table_result_line" style="width: 10%;">Gene</th>
+                            <th style="width: 40%;">Region </th>
+                            <th style="width: 30%;">Estimated copy number </th>
+                            <th style="width: 10%;">Note </th>
+                            <th style="width: 10%;">
                                 <button class="btn btn-success" (click)="addIAmplifications()">추가</button>
                              </th>
                          </tr>
@@ -494,10 +496,10 @@
                                   <input type="text" size="10"  class="clr-input" formControlName="gene">
                                </td>
                                 <td class="txt_c">
-                                  <input type="text" size="30"  class="clr-input" formControlName="region">  
+                                  <input type="text" size="50"  class="clr-input" formControlName="region">  
                                 </td>
                                 <td class="txt_c">
-                                  <input type="text" size="10"  class="clr-input" formControlName="copynumber">
+                                  <input type="text" size="20"  class="clr-input" formControlName="copynumber">
                                 </td>
                                  
                                 <td class="txt_c">
@@ -520,11 +522,11 @@
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                         <thead >
                             <tr>
-                                <th class="table_result_line">Gene (exon)</th>
-                                <th>Breakpoint </th>
-                                <th>Function</th>
-                                <th>Note</th>
-                                <th>
+                                <th class="table_result_line" style="width: 15%;">Gene (exon)</th>
+                                <th style="width: 30%;">Breakpoint </th>
+                                <th style="width: 30%;">Function</th>
+                                <th style="width: 15%;">Note</th>
+                                <th style="width: 10%;">
                                  <button class="btn btn-success" (click)="addIFusion()">추가</button>
                                 </th>
                             </tr>
@@ -533,13 +535,13 @@
                             <ng-container formArrayName="ifusionLists" *ngFor="let group of ifusionLists().controls; let i=index">
                               <tr [formGroupName]="i">
                                   <td class="table_result_line txt_c">
-                                      <input type="text" size="20"  class="clr-input" formControlName="gene">
+                                      <input type="text" size="10"  class="clr-input" formControlName="gene">
                                   </td>
                                   <td class="txt_c">
                                       <input type="text" size="30"  class="clr-input" formControlName="breakpoint">
                                   </td>
                                   <td class="txt_c">
-                                      <input type="text" size="10"  class="clr-input" formControlName="functions">
+                                      <input type="text" size="20"  class="clr-input" formControlName="functions">
                                   </td>
                                   <td class="txt_c">
                                       <input type="text" size="10"  class="clr-input" placeholder="Note">        
@@ -559,11 +561,11 @@
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                    <thead >
                        <tr>
-                           <th class="table_result_line">Gene (exon)</th>
-                           <th>Breakpoint </th>
-                           <th>Function</th>
-                           <th>Note</th>
-                           <th>
+                           <th class="table_result_line" style="width: 15%;">Gene (exon)</th>
+                           <th style="width: 30%;">Breakpoint </th>
+                           <th style="width: 30%;">Function</th>
+                           <th style="width: 15%;">Note</th>
+                           <th style="width: 10%;">
                             <button class="btn btn-success" (click)="addIFusion()">추가</button>
                            </th>
                        </tr>
@@ -572,13 +574,13 @@
                        <ng-container formArrayName="ifusionLists" *ngFor="let group of ifusionLists().controls; let i=index">
                          <tr [formGroupName]="i">
                              <td class="table_result_line txt_c">
-                                 <input type="text" size="20"  class="clr-input" formControlName="gene">
+                                 <input type="text" size="10"  class="clr-input" formControlName="gene">
                              </td>
                              <td class="txt_c">
                                  <input type="text" size="30"  class="clr-input" formControlName="breakpoint">
                              </td>
                              <td class="txt_c">
-                                 <input type="text" size="10"  class="clr-input" formControlName="functions">
+                                 <input type="text" size="20"  class="clr-input" formControlName="functions">
                              </td>
                              <td class="txt_c">
                                  <input type="text" size="10"  class="clr-input" placeholder="Note">        
@@ -604,12 +606,12 @@
 
               <div class="sub_title_03_E">Essential genomic alterations involving following genes were not found.</div>
               <div  class="list_01">
-                  <textarea rows="4" cols="250" style="margin-left: 35px;width:97%;" [(ngModel)]="specialment">
+                  <textarea  class="textarea_01" rows="4" cols="250" style="margin-left: 35px;width:97%;" [(ngModel)]="specialment">
                   </textarea>
               </div>
               <div class="sub_title_04">[NOTE]</div>
               <div class="font_14 pd_l35 pd_b10">
-                <textarea rows="5" cols="200" [(ngModel)]="notement" style="width:99%;">
+                <textarea  class="textarea_01" rows="5" cols="200" [(ngModel)]="notement" style="width:99%;">
                 </textarea>               
                 </div>
               <hr class="mg_t30"/>
@@ -622,7 +624,7 @@
                       
                 
               <div  class="list_01 textareabox">
-                <textarea  rows="20" cols="200"   [(ngModel)]="generalReport" style="margin-left: 42px; width:97%;">
+                <textarea  class="textarea_01" rows="20" cols="200"   [(ngModel)]="generalReport" style="margin-left: 42px; width:97%;">
                 </textarea>
               </div>
               <hr class="mg_t30"/>

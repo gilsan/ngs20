@@ -11,6 +11,7 @@ import { ReportComponent } from './byengri/report/report.componen';
 import { ClarityModule } from '@clr/angular';
 import { UploadComponent } from './upload/upload.component';
 import { PathReportComponent } from './path-report/path-report.component';
+import { MaterialModule } from '../material.module';
 
 
 
@@ -33,7 +34,8 @@ import { PathReportComponent } from './path-report/path-report.component';
     ReactiveFormsModule,
     FormsModule,
     ByengriRouting,
-    ClarityModule
+    ClarityModule,
+    MaterialModule
   ]
 })
 export class ByengriModule { }

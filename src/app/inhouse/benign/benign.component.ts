@@ -7,7 +7,11 @@ import { IBenign } from '../models/benign';
 import { BenignService } from 'src/app/services/benign.service';
 import { $ } from 'protractor';
 
-
+@Component({
+  selector: 'app-benign',
+  templateUrl: './benign.component.html',
+  styleUrls: ['./benign.component.scss']
+})
 export class BenignComponent implements OnInit {
 
 

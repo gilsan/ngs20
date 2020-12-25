@@ -466,12 +466,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   initByDB(pathologynum: string): void {
-    console.log('[448][initByDB][tsv화일 올린후]', pathologynum);
+    console.log('[469][initByDB][tsv화일 올린후]', pathologynum);
 
     const filteredOriginaData$ = this.filteredService.getfilteredOriginDataList(pathologynum)
       .pipe(
+        tap(itemlists => console.log('[473][tab]', itemlists)),
         map((orgitems) => orgitems.filter(item => item.OncomineVariant !== 'Deletion')),
-        tap(itemlists => console.log('[458][tab]', itemlists))
+        tap(itemlists => console.log('[475][tab]', itemlists))
       );
 
     const msiscore$ = this.filteredService.getMsiScroe(pathologynum);
@@ -520,6 +521,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log('[보고서][환자정보]', this.patientInfo);
 
         // 검체정보
+        this.extraction.dnarna = 'FFPE tissue';
         this.extraction.managementNum = this.patientInfo.rel_pathology_num;
         this.extraction.keyblock = this.patientInfo.key_block;
         if (this.tumorcellpercentage === undefined || this.tumorcellpercentage === null) {
@@ -527,7 +529,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.extraction.tumorcellpercentage = this.tumorcellpercentage;
         }
-
+        this.extraction.organ = this.patientInfo.organ;
         this.extraction.tumortype = tumortypes;
         if (this.patientInfo.pathological_dx === undefined || this.patientInfo.pathological_dx === null) {
           this.patientInfo.pathological_dx = '';
