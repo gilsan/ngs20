@@ -50,7 +50,7 @@ export class MutationComponent implements OnInit {
 
   updateRow(id: string): void {
    
-    debugger; 
+  /*
     const buccal			= document.getElementById("buccal"+id).value;
     const patientName			= document.getElementById("patientName"+id).value;	
     const registerNumber		= document.getElementById("registerNumber"+id).value;
@@ -88,7 +88,8 @@ export class MutationComponent implements OnInit {
         alert("저장 되었습니다.");
         this.search(genes);
       }); 
-    }   
+    } 
+*/  
   }
 
   insertRow(){ 

@@ -53,7 +53,7 @@ export class CommentsComponent implements OnInit {
   }
 
   updateRow(id: string): void {  
-    
+ /* 
     const commentsType = document.getElementById("type"+id).value;
     const gene         = document.getElementById("gene"+id).value;
     const comment      = document.getElementById("comment"+id).value;
@@ -74,6 +74,7 @@ export class CommentsComponent implements OnInit {
           this.search('');
         });
     }    
+*/
   }
 
   insertRow(){  

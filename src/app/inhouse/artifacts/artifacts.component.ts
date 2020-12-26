@@ -54,7 +54,6 @@ export class ArtifactsComponent implements OnInit {
   }
 
   updateRow(id: string): void {  
-    debugger;   
     /*
     if(id!==""){  
           this.artifactsService.updateArtifactsList(id, document.getElementById("genes"+id).value
@@ -76,8 +75,8 @@ export class ArtifactsComponent implements OnInit {
           alert("저장 되었습니다.");
           this.search(document.getElementById("genes"+id).value);
         });  
-    } 
-    */
+    }  
+*/
   }
   insertRow(){ 
     this.lists.push({'id':'', 'genes':'', 'location':'', 'exon':'', 'transcript':'', 'coding':'', 'amino_acid_change':''});  
