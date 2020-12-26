@@ -23,11 +23,13 @@ export class CommentsService {
     return this.http.post(`${this.apiUrl}/comments/list`, { genes });
   }
 
-  public insertCommentsList(id: string, commentsType: string, gene: string, comment: string, reference: string): Observable<any> {  
+  public insertCommentsList(id: string, commentsType: string, gene: string, 
+      comment: string, reference: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/comments/insert`, { id, commentsType, gene, comment, reference }); 
   }
 
-  public updateCommentsList(id: string, commentsType: string, gene: string, comment: string, reference: string): Observable<any> {  
+  public updateCommentsList(id: string, commentsType: string, gene: string, 
+    comment: string, reference: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/comments/update`, { id, commentsType, gene, comment, reference }); 
   }
    

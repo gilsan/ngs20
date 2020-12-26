@@ -23,12 +23,16 @@ export class ArtifactsService {
     return this.http.post(`${this.apiUrl}/artifacts/list`, { genes });
   }
 
-  public insertArtifactsList(id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/artifacts/insert`, { id, genes, locat, exon, transcript, coding, aminoAcidChange }); 
+  public insertArtifactsList(id: string, genes: string, locat: string, exon: string, transcript: 
+        string, coding: string, aminoAcidChange: string): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/artifacts/insert`, { id, genes, locat, exon, transcript, 
+        coding, aminoAcidChange }); 
   }
 
-  public updateArtifactsList(id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/artifacts/update`, { id, genes, locat, exon, transcript, coding, aminoAcidChange }); 
+  public updateArtifactsList(id: string, genes: string, locat: string, exon: string, transcript: 
+        string, coding: string, aminoAcidChange: string): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/artifacts/update`, { id, genes, locat, exon, transcript, 
+        coding, aminoAcidChange }); 
   }
 
   public deleteArtifactsList(id: String, genes: string): Observable<any> {  

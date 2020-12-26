@@ -19,19 +19,23 @@ export class BenignService {
     private http: HttpClient
   ) { }
 
-  public getBenignList(genes: String): Observable<any> {  
+  public getBenignList(genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/benign/list`, { genes });
   }
 
-  public insertBenignList(id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/benign/insert`, { id, genes, locat, exon, transcript, coding, aminoAcidChange }); 
+  public insertBenignList(id: string, genes: string, locat: string, exon: string, 
+      transcript: string, coding: string, aminoAcidChange: string): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/benign/insert`, { id, genes, locat, exon, transcript, 
+      coding, aminoAcidChange }); 
   }
 
-  public updateBenignList(id: string, genes: string, locat: string, exon: string, transcript: string, coding: string, aminoAcidChange: string): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/benign/update`, { id, genes, locat, exon, transcript, coding, aminoAcidChange }); 
+  public updateBenignList(id: string, genes: string, locat: string, exon: string, 
+      transcript: string, coding: string, aminoAcidChange: string): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/benign/update`, { id, genes, locat, exon, transcript, 
+      coding, aminoAcidChange }); 
   }
 
-  public deleteBenignList(id: String, genes: string): Observable<any> {  
+  public deleteBenignList(id: string, genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/benign/delete`, { id });
   }
  
