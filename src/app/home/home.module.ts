@@ -16,13 +16,19 @@ import { DiseaseToDbComponent } from './components/disease-to-db/disease-to-db.c
 
 import { MainscreenComponent } from './components/mainscreen/mainscreen.component';
 import { TsvuploadComponent } from './components/tsvupload/tsvupload.component';
+import { ManageStatisticsComponent } from './components/manage-statistics/manage-statistics.component';
+import { ManageFunctionsComponent } from './components/manage-functions/manage-functions.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
     HomeComponent, FileuploadComponent, DiseaseformComponent, ExcelDownloadComponent,
     InhouseToDbComponent, WorkflowComponent, DiseaseToDbComponent,
     MainscreenComponent,
-    TsvuploadComponent
+    TsvuploadComponent,
+    ManageStatisticsComponent,
+    ManageFunctionsComponent,
+    ManageUsersComponent
   ],
   imports: [
     CommonModule,

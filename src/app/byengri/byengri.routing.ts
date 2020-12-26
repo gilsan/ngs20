@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ByengriComponent } from './byengri/byengri.component';
+import { ManageStatisticsComponent } from './byengri/manage-statistics/manage-statistics.component';
+import { ManageUsersComponent } from './byengri/manage-users/manage-users.component';
 import { ReportComponent } from './byengri/report/report.componen';
 
 import { FileuploadComponent } from './fileupload/fileupload.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
       { path: 'fileupload', component: FileuploadComponent },
       { path: 'fileupload/:id', component: FileuploadComponent },
       { path: 'report', component: ReportComponent },
+      { path: 'managestatistics', component: ManageStatisticsComponent },
+      { path: 'manageusers', component: ManageUsersComponent },
       { path: 'report/:pathologyNum', component: ReportComponent },
       { path: 'sheet', component: PathReportComponent }
 

@@ -6,6 +6,9 @@ import { FileuploadComponent } from './components/fileupload/fileupload.componen
 import { InhouseToDbComponent } from './components/inhouse-to-db/inhouse-to-db.component';
 import { MainComponent } from './components/main/main.component';
 import { MainscreenComponent } from './components/mainscreen/mainscreen.component';
+import { ManageFunctionsComponent } from './components/manage-functions/manage-functions.component';
+import { ManageStatisticsComponent } from './components/manage-statistics/manage-statistics.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [
@@ -22,6 +25,9 @@ const routes: Routes = [
       },
       { path: 'jingum/:id', loadChildren: () => import('../forms/forms.module').then((m) => m.SaintFormsModule) },
       { path: 'inhouse', loadChildren: () => import('../inhouse/inhouse.module').then((m) => m.InhouseModule) },
+      { path: 'managestatistics', component: ManageStatisticsComponent },
+      { path: 'managefunctions', component: ManageFunctionsComponent },
+      { path: 'manageusers', component: ManageUsersComponent },
       { path: 'disease_test', component: DiseaseformComponent },
       { path: '**', component: MainscreenComponent },
 

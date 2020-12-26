@@ -83,6 +83,7 @@
                   <div class="sub_title_04"> (1) Mutation: <span *ngIf="!mutation.length" class="sub_title_04">None</span>                     
                   </div>
                 <!-- -------------------------------------  -->
+                <!-- 
                  <ng-template #mutationbox>
                     <form  [formGroup]="mutationForm">
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
@@ -129,8 +130,9 @@
                         </table>    
                     </form>    
                  </ng-template>
+                -->
                 <!-- -------------------------------------  -->
-                 <div  *ngIf="mutation.length; else mutationbox;">
+                 <div  *ngIf="mutation.length">
                 <form  [formGroup]="mutationForm">
                      <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35"> 
                        <thead >
@@ -181,6 +183,7 @@
                   <div class="sub_title_04"> (2) Amplification:  <span *ngIf="!amplifications.length" class="sub_title_04">None</span></div> 
                   <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
                <!-- ------------------------------------------ -->
+               <!--
                   <ng-template #amplificationbox>
                     <form  [formGroup]="amplificationsForm">
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
@@ -215,8 +218,9 @@
                         </tbody>   
                     </form>    
                   </ng-template>
+                -->
                 <!-- ------------------------------------------ -->
-                  <div   *ngIf="amplifications.length; else amplificationbox">
+                  <div   *ngIf="amplifications.length">
                   <form  [formGroup]="amplificationsForm">
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                       <thead >
@@ -253,6 +257,7 @@
 
                   <div class="sub_title_04 mg_t15 mg_b05"> (3) Fusion: <span *ngIf="!fusion.length" class="sub_title_04">None</span></div>
                 <!-- --------------------------------------- -->
+                <!--
                   <ng-template #fusionbox>
                     <form [formGroup]="fusionForm">
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
@@ -291,8 +296,9 @@
                         </table>
                     </form>
                   </ng-template>
+                   -->
                 <!-- ---------------------------------------- -->
-                  <div  *ngIf="fusion.length; else fusionbox;">
+                  <div  *ngIf="fusion.length">
                   <form [formGroup]="fusionForm">
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                       <thead >
@@ -335,6 +341,7 @@
               <div class="sub_title_03_E">Prevalent cancer biomarkers of unknown significance</div>
               <div class="sub_title_04">(1) Mutation: <span *ngIf="!imutation.length" class="sub_title_04">None</span></div>
            <!-- -----------------------------------  -->
+           <!-- 
               <ng-template  #imutationbox>
                  <form [formGroup]="imutationForm">
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
@@ -381,9 +388,10 @@
                     </table>
                  </form>
               </ng-template>
+              -->
            <!-- ----------------------------------   -->
 
-              <div  *ngIf="imutation.length; else imutationbox;">
+              <div  *ngIf="imutation.length">
                   <form [formGroup]="imutationForm">
                       <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                           <thead >
@@ -435,6 +443,7 @@
               <div class="sub_title_04">(2) Amplification: <span *ngIf="!iamplifications.length" class="sub_title_04">None</span></div>
               <div class="font_14 pd_l35 pd_b10"> * Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
               <!-- ------------------------------   -->
+              <!-- 
               <ng-template #iaplificationbox>
                 <form  [formGroup]="iamplificationsForm">
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
@@ -474,8 +483,9 @@
                      </table>   
                 </form>
               </ng-template>
+              -->
               <!-- ------------------------------    -->
-              <div *ngIf="iamplifications.length; else iaplificationbox;">
+              <div *ngIf="iamplifications.length">
                   <form  [formGroup]="iamplificationsForm">
                  <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
                      <thead>
@@ -517,6 +527,7 @@
 
               <div class="sub_title_04">(3) Fusion: <span *ngIf="!ifusion.length" class="sub_title_04">None</span></div>
             <!-- -------------------------------  -->
+            <!-- 
               <ng-template  #ifusionbox>
                 <form [formGroup]="ifusionForm">
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
@@ -555,8 +566,9 @@
                     </table>
                 </form>
               </ng-template>
+              -->
             <!--  -------------------------------   -->
-              <div *ngIf="ifusion.length; else ifusionbox;">
+              <div *ngIf="ifusion.length">
                 <form [formGroup]="ifusionForm">
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                    <thead >
