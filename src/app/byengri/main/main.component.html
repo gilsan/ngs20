@@ -67,12 +67,12 @@
                         <td class="txt_c">{{list.gender}}</td>                      
                         <td class="txt_c">{{list.patientID}}</td>
                         <td class="txt_c">{{list.pathology_num}}</td>
-                        <td class="txt_c"><a  [href]="getUrl(list, 'IR')" [download]="list.tsvirfilename">
-                            <button mat-stroked-button [matTooltip]="list.tsvirfilename">IR파일</button>
+                        <td class="txt_c"><a  [href]="getUrl(list, 'IR')" [download]="list.tsvirfilename" *ngIf="list.tsvirfilename">
+                            <button class="btn btn_03" [matTooltip]="list.tsvirfilename">IR파일</button>
                         </a></td>
                         <td class="txt_c">
-                            <a  [href]="getUrl(list, 'OR')" [download]="list.tsvorfilename">
-                               <button mat-stroked-button [matTooltip]="list.tsvorfilename">OR파일</button>
+                            <a  [href]="getUrl(list, 'OR')" [download]="list.tsvorfilename" *ngIf="list.tsvorfilename">
+                               <button class="btn btn_03" [matTooltip]="list.tsvorfilename">OR파일</button>
                            </a></td>
                         <td class="txt_c">{{processingStatus(i)}}</td>
                         <td class="txt_c">
