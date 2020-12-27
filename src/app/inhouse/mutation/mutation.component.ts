@@ -50,25 +50,25 @@ export class MutationComponent implements OnInit {
 
   updateRow(id: string): void {
    
-  /*
-    const buccal			= document.getElementById("buccal"+id).value;
+    debugger; 
+    const buccal			    = document.getElementById("buccal"+id).value;
     const patientName			= document.getElementById("patientName"+id).value;	
-    const registerNumber		= document.getElementById("registerNumber"+id).value;
-    const fusion			= document.getElementById("fusion"+id).value;
-    const gene				= document.getElementById("gene"+id).value;
-    const functionalImpact		= document.getElementById("functionalImpact"+id).value;
+    const registerNumber	= document.getElementById("registerNumber"+id).value;
+    const fusion			    = document.getElementById("fusion"+id).value;
+    const gene				    = document.getElementById("gene"+id).value;
+    const functionalImpact= document.getElementById("functionalImpact"+id).value;
     const transcript			= document.getElementById("transcript"+id).value;
-    const exonIntro			= document.getElementById("exonIntro"+id).value;
-    const nucleotideChange		= document.getElementById("nucleotideChange"+id).value;
-    const aminoAcidChange		= document.getElementById("aminoAcidChange"+id).value;	
-    const zygosity			= document.getElementById("zygosity"+id).value;
-    const vaf				= document.getElementById("vaf"+id).value;
-    const reference			= document.getElementById("reference"+id).value;
-    const cosmicId			= document.getElementById("cosmicId"+id).value;
+    const exonIntro			  = document.getElementById("exonIntro"+id).value;
+    const nucleotideChange= document.getElementById("nucleotideChange"+id).value;
+    const aminoAcidChange	= document.getElementById("aminoAcidChange"+id).value;	
+    const zygosity			  = document.getElementById("zygosity"+id).value;
+    const vaf				      = document.getElementById("vaf"+id).value;
+    const reference			  = document.getElementById("reference"+id).value;
+    const cosmicId			  = document.getElementById("cosmicId"+id).value;
     const siftPolyphenMutationTaster	= document.getElementById("siftPolyphenMutationTaster"+id).value;	
-    const buccal2			= document.getElementById("buccal2"+id).value; 
-    const igv				= document.getElementById("igv"+id).value;
-    const sanger			= document.getElementById("sanger"+id).value;
+    const buccal2			    = document.getElementById("buccal2"+id).value; 
+    const igv				      = document.getElementById("igv"+id).value;
+    const sanger			    = document.getElementById("sanger"+id).value;
 
     if(id!==""){
       this.mutationService.updateMutationList(id, buccal, patientName, registerNumber, fusion, gene,
@@ -88,8 +88,7 @@ export class MutationComponent implements OnInit {
         alert("저장 되었습니다.");
         this.search(genes);
       }); 
-    } 
-*/  
+    }   
   }
 
   insertRow(){ 

@@ -54,7 +54,7 @@ export class BenignComponent implements OnInit {
   }
 
   updateRow(id: string): void {  
- /*   
+     
     if(id!==""){ 
           this.benignService.updateBenignList(id, document.getElementById("genes"+id).value
             , document.getElementById("location"+id).value, document.getElementById("exon"+id).value
@@ -75,8 +75,7 @@ export class BenignComponent implements OnInit {
           alert("저장 되었습니다.");
           this.search(document.getElementById("genes"+id).value);
         });  
-    }
-*/   
+    }   
   }
 
   insertRow(){   
