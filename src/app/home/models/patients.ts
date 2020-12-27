@@ -226,8 +226,10 @@ export interface IComment {
   gene: string;
   comment: string;
   reference: string;
-  variants: string;
+  variant_id: string;
+  variants?: string;
   id?: string;
+  type?: string;
 }
 
 export interface IIComment {
@@ -236,6 +238,7 @@ export interface IIComment {
   report_date: string;
   specimenNo: string;
   variants: string;
+  type?: string;
 }
 
 export interface IList {

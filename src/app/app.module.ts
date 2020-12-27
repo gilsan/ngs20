@@ -10,6 +10,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './services/authguard.service';
+import { PathAuthGuard } from './services/pathguard.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { AuthGuard } from './services/authguard.service';
     BrowserAnimationsModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard, PathAuthGuard
   ],
   bootstrap: [AppComponent]
 })

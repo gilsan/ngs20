@@ -59,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody class="bodytable">
-                    <tr class="table_bg"  *ngFor="let list of (lists$ | async) as lists; let i = index">
+                    <tr [ngClass]="toggle(i)"  *ngFor="let list of (lists$ | async) as lists; let i = index">
                         <td class="txt_c">{{i + 1}}</td>
                         <td class="txt_c">{{list.prescription_date}}</td>
                         <td class="txt_c">{{list.name}}</td>
@@ -68,11 +68,11 @@
                         <td class="txt_c">{{list.patientID}}</td>
                         <td class="txt_c">{{list.pathology_num}}</td>
                         <td class="txt_c"><a  [href]="getUrl(list, 'IR')" [download]="list.tsvirfilename" *ngIf="list.tsvirfilename">
-                            <button class="btn btn_03" [matTooltip]="list.tsvirfilename">IR파일</button>
+                            <button class="btn btn_03" style="font-size: 14px;" [matTooltip]="list.tsvirfilename">IR파일</button>
                         </a></td>
                         <td class="txt_c">
                             <a  [href]="getUrl(list, 'OR')" [download]="list.tsvorfilename" *ngIf="list.tsvorfilename">
-                               <button class="btn btn_03" [matTooltip]="list.tsvorfilename">OR파일</button>
+                               <button class="btn btn_03"  style="font-size: 14px;" [matTooltip]="list.tsvorfilename">OR파일</button>
                            </a></td>
                         <td class="txt_c">{{processingStatus(i)}}</td>
                         <td class="txt_c">

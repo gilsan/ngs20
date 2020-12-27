@@ -17,6 +17,9 @@ import { DetectedVariantsService } from 'src/app/home/services/detectedVariants'
 import { StoreService } from '../store.current';
 import { ExcelService } from 'src/app/home/services/excelservice';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DialogOverviewExampleDialogComponent } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+
 @Component({
   selector: 'app-form2',
   templateUrl: './form2.component.html',
@@ -50,7 +53,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   selectedItem = '';
   tsvInfo: IFilteredTSV;
   profile: IProfile = { leukemia: '', flt3itd: '', chron: '' };
-  variants: string;
+  // tslint:disable-next-line:variable-name
+  variant_id: string;
   tempid: string;
   ment = '';
 
@@ -84,6 +88,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   examin = ''; // 검사자
   recheck = ''; // 확인자
 
+  animal: string;
+  name: string;
+
   // vusmsg =`VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
 
 
@@ -94,7 +101,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     private fb: FormBuilder,
     private variantsService: DetectedVariantsService,
     private store: StoreService,
-    private excel: ExcelService
+    private excel: ExcelService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -186,10 +194,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   recoverDetected(): void {
-    // 디비에서 detected variants 와 comments 가져오기
+    // 디비에서 detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
-      console.log('[192][form2][detected variants]', this.recoverVariants);
+      console.log('[192][form2][detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // detected variant 저장
       this.recoverVariants.forEach(item => {
         this.recoverVariant(item);  // 354
@@ -208,10 +216,15 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.subs.sink = this.variantsService.screenComment(this.form2TestedId)
       .subscribe(dbComments => {
         if (dbComments !== undefined && dbComments !== null && dbComments.length > 0) {
-          console.log('[188][COMMENT 가져오기]', dbComments);
+          console.log('[219][COMMENT 가져오기]', dbComments);
           dbComments.forEach(comment => {
-            this.comments.push(comment);
-            this.commentsRows().push(this.createCommentRow(comment));
+
+            this.comments.push(
+              { gene: comment.gene, comment: comment.comment, reference: comment.reference, variant_id: comment.variants }
+            );
+            this.commentsRows().push(this.createCommentRow(
+              { gene: comment.gene, comment: comment.comment, reference: comment.reference, variant_id: comment.variants }
+            ));
           });
           this.store.setComments(this.comments); // comments 저장
         }
@@ -303,11 +316,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
           // comments 분류
           if (data.mtype === 'M') {
-            // console.log('[281][코멘트]', data, data.commentList1, data.commentList2);
+            console.log('[314][코멘트]', data, data.commentList1, data.commentList2);
             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
               if (parseInt(data.comments1Count, 10) > 0) {
-                const variants = data.tsv.amino_acid_change;
-                const comment = { ...data.commentList1, variants };
+                const variant_id = data.tsv.amino_acid_change;
+                const comment = { ...data.commentList1, variant_id };
                 // console.log('[286][코멘트]', comment);
                 this.comments.push(comment);
                 this.store.setComments(this.comments); // 멘트 저장
@@ -320,7 +333,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
               }
             } else if (typeof data.commentList2 !== 'undefined' && data.commentList2 !== 'none') {
               if (data.comments2Count > 0) {
-                const comment = { ...data.commentList2 as any, variants: '' };
+                const comment = { ...data.commentList2 as any, variant_id: '' };
                 this.comments.push(comment);
                 this.store.setComments(this.comments); // 멘트 저장
                 let tempArray = new Array();
@@ -532,7 +545,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       gene: comment.gene,
       comment: comment.comment,
       reference: comment.reference,
-      variants: comment.variants
+      variant_id: comment.variant_id
     });
   }
 
@@ -541,7 +554,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       gene: '',
       comment: '',
       reference: '',
-      variants: ''
+      variant_id: '',
+      type: 'AML'
     });
   }
 
@@ -564,7 +578,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       gene: comment.gene,
       comment: comment.comment,
       reference: comment.reference,
-      variants: comment.variants
+      variant_id: comment.variant_id
     });
   }
 
@@ -573,7 +587,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       gene: '',
       comment: '',
       reference: '',
-      variants: ''
+      variant_id: '',
+      type: 'AML'
     });
   }
 
@@ -944,8 +959,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   getCommentComment(comment): void {
     this.tempCommentComment = comment;
   }
-  getCommentVariants(variants): void {
-    this.tempCommentVariants = variants;
+  // tslint:disable-next-line:variable-name
+  getCommentVariants(variant_id: string): void {
+    this.tempCommentVariants = variant_id;
   }
 
   getCommentRef(ref): void {
@@ -1024,13 +1040,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
 
   tempSave(): void {
-    console.log('[1004][tempSave]');
+    console.log('[1037][tempSave]');
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    console.log('[1023]', formData);
-    console.log('[1024]', this.checkboxStatus);
+    console.log('[1040][tableerowForm]', formData);
+    console.log('[1041][checkbox]', this.checkboxStatus);
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1026]', reformData);
+    console.log('[1043][detected variants]', reformData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1041,7 +1057,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.store.setComments(this.comments);
     this.patientInfo.recheck = this.recheck;
     this.patientInfo.examin = this.examin;
-    console.log('[1013][tempSave]', this.patientInfo, reformData, this.comments);
+    console.log('[1054][tempSave]patient,reform,comment]', this.patientInfo, reformData, this.comments);
 
     this.store.setRechecker(this.patientInfo.recheck);
     this.store.setExamin(this.patientInfo.examin);
@@ -1052,7 +1068,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // tslint:disable-next-line:max-line-length
     this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
-        console.log('[1025]', data);
+        console.log('[1065]', data);
         alert('저장되었습니다.');
       });
   }
@@ -1077,6 +1093,47 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
+  /////////////////////////////////////////////////////////////////////
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
+      width: '1200px',
+      height: '900px',
+      maxWidth: '95vw',
+      maxHeight: '100vh',
+      panelClass: ['textarea_02', 'table_result_line', 'font_14', 'pd_t15', 'table_result_line'],
+      data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+  ///////////////////////////////////////////////////////////////////////
+  // commentsRows()
+  saveComments(): any {
+    console.log('saveComments');
+    const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
+    this.comments = commentControl.getRawValue();
+
+    this.comments.forEach(item => {
+      this.commentsRows().push(this.createCommentRow(item));
+    });
+
+    // this.createCommentRow(this.comments[0]);
+    this.patientsListService.insertComments(this.comments)
+      .subscribe(data => {
+        console.log('[1110][saveComments]', this.comments);
+        console.log(data);
+      });
+  }
+
+  // this.commentsRows().push(this.createCommentRow(comment));
+  // const control = this.tablerowForm.get('tableRows') as FormArray;
+  // control.push(this.addTableRowGroup());
+  // patientsListService
+  //////////////////////////////////////////////////////////////////////
 
 }

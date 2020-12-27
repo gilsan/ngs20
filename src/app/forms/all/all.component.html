@@ -328,7 +328,7 @@
                   <ng-container formArrayName="commentsRows" *ngFor="let group of commentsRows().controls; let i=index">
                       <tr  [formGroupName]="i">
                         <td class="table_result_line"  ><input type="text" style="width:88%" class="input_02" size="10" formControlName="gene" ></td>
-                        <td><input type="text" style="width:88%" class="input_02" size="10" formControlName="variants"></td>
+                        <td><input type="text" style="width:88%" class="input_02" size="10" formControlName="variant_id"></td>
                         <td class="textarea01"><textarea style="width:96%"class="textarea_01" formControlName="comment"></textarea></td>
                         <td class="textarea01"><textarea style="width:96%"class="textarea_01" formControlName="reference"></textarea></td> 
                         <td  align="center">
@@ -369,7 +369,7 @@
                       <td class="table_result_line"  ><input type="text" style="width:88%" 
                         class="input_02"   size="10" formControlName="gene"></td>
                       <td>
-                          <input type="text" style="width:88%" class="input_02"  formControlName="variants"   size="10">
+                          <input type="text" style="width:88%" class="input_02"  formControlName="variant_id"   size="10">
                       </td>
                       <td class="textarea01">
                           <textarea style="width:96%"  formControlName="comment" class="textarea_01"></textarea>

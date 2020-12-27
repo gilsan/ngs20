@@ -167,7 +167,7 @@ export function makeALLForm(
 		commentContent = commentContent + `
 		<Row>
 		<Col id="gene">${comment[i].gene}</Col>
-		<Col id="variants">${comment[i].variants}</Col>
+		<Col id="variants">${comment[i].variant_id}</Col>
 		<Col id="comments">${comment[i].comment}</Col>
 		<Col id="reference">${comment[i].reference}</Col>
 	</Row>`;

@@ -13,6 +13,8 @@ import { ClarityModule } from '@clr/angular';
 import { PreviewComponent } from './preview/preview.component';
 import { AllComponent } from './all/all.component';
 import { FilteredComponent } from './commons/filtered/filtered.component';
+import { MaterialModule } from '../material.module';
+import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 // import { TestformComponent } from './testform/testform.component';
 
 @NgModule({
@@ -25,6 +27,7 @@ import { FilteredComponent } from './commons/filtered/filtered.component';
     PreviewComponent,
     AllComponent,
     FilteredComponent,
+    DialogOverviewExampleDialogComponent,
     //  TestformComponent
   ],
   imports: [
@@ -34,6 +37,8 @@ import { FilteredComponent } from './commons/filtered/filtered.component';
     ReactiveFormsModule,
     FormsModule,
     ClarityModule,
+    MaterialModule
+
   ]
 })
 export class SaintFormsModule { }

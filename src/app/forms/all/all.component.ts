@@ -49,7 +49,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedItem = '';
   tsvInfo: IFilteredTSV;
   profile: IProfile = { leukemia: '', flt3itd: '', chron: '' };
-  variants: string;
+  variant_id: string;
   tempid: string;
   ment = 'VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.';
 
@@ -193,11 +193,11 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   recoverDetected(): void {
-    // 디비에서 detected variants 와 comments 가져오기
+    // 디비에서 detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
 
-      // console.log('[151][form2][detected variants]', this.recoverVariants);
+      // console.log('[151][form2][detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // detected variant 저장
       this.recoverVariants.forEach(item => {
         this.recoverVariant(item);  // 354
@@ -315,8 +315,8 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
             // console.log('[281][코멘트]', data, data.commentList1, data.commentList2);
             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
               if (parseInt(data.comments1Count, 10) > 0) {
-                const variants = data.tsv.amino_acid_change;
-                const comment = { ...data.commentList1, variants };
+                const variant_id = data.tsv.amino_acid_change;
+                const comment = { ...data.commentList1, variant_id };
                 // console.log('[286][코멘트]', comment);
                 this.comments.push(comment);
                 this.store.setComments(this.comments); // 멘트 저장
@@ -329,7 +329,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
               }
             } else if (typeof data.commentList2 !== 'undefined' && data.commentList2 !== 'none') {
               if (data.comments2Count > 0) {
-                const comment = { ...data.commentList2 as any, variants: '' };
+                const comment = { ...data.commentList2 as any, variant_id: '' };
                 this.comments.push(comment);
                 this.store.setComments(this.comments); // 멘트 저장
                 let tempArray = new Array();
@@ -586,7 +586,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
       gene: comment.gene,
       comment: comment.comment,
       reference: comment.reference,
-      variants: comment.variants
+      variant_id: comment.variant_id
     });
   }
 
@@ -595,7 +595,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
       gene: '',
       comment: '',
       reference: '',
-      variants: ''
+      variant_id: ''
     });
   }
 
@@ -618,7 +618,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
       gene: comment.gene,
       comment: comment.comment,
       reference: comment.reference,
-      variants: comment.variants
+      variant_id: comment.variant_id
     });
   }
 
@@ -627,7 +627,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
       gene: '',
       comment: '',
       reference: '',
-      variants: ''
+      variant_id: ''
     });
   }
 
@@ -920,7 +920,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
     //   this.tempCommentreference.length) {
     //   this.comments.push({
     //     gene: this.tempCommentGene,
-    //     variants: this.tempCommentVariants,
+    //     variant_id: this.tempCommentVariants,
     //     comment: this.tempCommentComment,
     //     reference: this.tempCommentreference
     //   });
@@ -984,8 +984,8 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
   getCommentComment(comment): void {
     this.tempCommentComment = comment;
   }
-  getCommentVariants(variants): void {
-    this.tempCommentVariants = variants;
+  getCommentVariants(variant_id): void {
+    this.tempCommentVariants = variant_id;
   }
 
   getCommentRef(ref): void {

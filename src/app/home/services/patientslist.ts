@@ -509,5 +509,9 @@ export class PatientsListService {
     return this.http.post(`${this.apiUrl}/patients_diag/screenstatus`, { specimenNo });
   }
 
+  // 코멘트 저장 하기
+  insertComments(comments: IComment[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/comments/insert`, { comments });
+  }
 
 }
