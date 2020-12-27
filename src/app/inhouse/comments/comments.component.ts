@@ -53,25 +53,25 @@ export class CommentsComponent implements OnInit {
   }
 
   updateRow(id: string): void {  
-    
-    const commentsType = document.getElementById("type"+id).value;
-    const gene         = document.getElementById("gene"+id).value;
-    const comment      = document.getElementById("comment"+id).value;
-    const reference    = document.getElementById("reference"+id).value;
+  
+    const commentsType : HTMLInputElement = document.getElementById("type"+id) as HTMLInputElement;
+    const gene: HTMLInputElement = document.getElementById("gene"+id) as HTMLInputElement; 
+    const comment: HTMLInputElement = document.getElementById("comment"+id) as HTMLInputElement;
+    const reference: HTMLInputElement = document.getElementById("reference"+id) as HTMLInputElement;
 
     if(id!==""){
-        this.commentsService.updateCommentsList(id, commentsType, gene, comment, reference)
+        this.commentsService.updateCommentsList(id, commentsType.value, gene.value, comment.value, reference.value)
           .subscribe((data) => {
           console.log('[170][benign 수정]', data); 
           alert("수정 되었습니다.");
-          this.search(gene);
+          this.search(gene.value);
         }); 
     }else{
-        this.commentsService.insertCommentsList(id, commentsType, gene, comment, reference)
+        this.commentsService.insertCommentsList(id, commentsType.value, gene.value, comment.value, reference.value)
           .subscribe((data) => {
           console.log('[170][benign 저장]', data); 
           alert("저장 되었습니다."); 
-          this.search('');
+          this.search(gene.value);
         });
     }    
   }

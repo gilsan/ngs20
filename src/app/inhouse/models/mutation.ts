@@ -1,5 +1,5 @@
 export interface IMutation {
-  id?: number;
+  id: string;
   buccal: string;
   patient_name: string;
   register_number: string;

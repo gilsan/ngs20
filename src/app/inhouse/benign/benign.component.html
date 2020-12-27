@@ -45,27 +45,27 @@
                             <input type="hidden" value="R" #status id="status{{i+1}}" >    
                             <td class="wid120 bdnone" >{{i + 1}}</td> 
                             <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.genes}}</span>
-                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.genes}}" id="genes{{list.id}}" ></span>
+                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text" class="clr-input " value="{{list.genes}}" id="genes{{list.id}}" ></span>
                             </td>
                             <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.location}}</span>
-                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.location}}" id="location{{list.id}}" ></span>   
+                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text" class="clr-input " value="{{list.location}}" id="location{{list.id}}" ></span>   
                             </td> 
                             <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.exon}}</span>
-                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.exon}}"  id="exon{{list.id}}" ></span>   
+                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text" class="clr-input " value="{{list.exon}}"  id="exon{{list.id}}" ></span>   
                             </td>
                             <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.transcript}}</span>
-                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.transcript}}" id="transcript{{list.id}}" ></span>   
+                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text" class="clr-input " value="{{list.transcript}}" id="transcript{{list.id}}" ></span>   
                             </td>
                             <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.coding}}</span>
-                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.coding}}" id="coding{{list.id}}" ></span>   
+                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text" class="clr-input " value="{{list.coding}}" id="coding{{list.id}}" ></span>   
                             </td>
                             <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.amino_acid_change}}</span>
-                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input " value="{{list.amino_acid_change}}" id="aminoAcidChange{{list.id}}" ></span>
+                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text" class="clr-input " value="{{list.amino_acid_change}}" id="aminoAcidChange{{list.id}}" ></span>
                             </td> 
                             <td class="text-right">
                                 <span class="bdnone" *ngIf="status.value === 'R' ">
                                     <a class="btn-edit" (click)="status.value='U'">수정</a>
-                                    <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>
+                                    <a class="btn-delete" (click)="deleteRow(list.id)">삭제</a>
                                 </span>
                                 <span class="bdnone" *ngIf="status.value === 'U' ">
                                     <a class="btn-cancel" (click)="status.value='R'">취소</a> 

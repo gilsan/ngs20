@@ -54,30 +54,34 @@ export class ArtifactsComponent implements OnInit {
   }
 
   updateRow(id: string): void {  
-    debugger;   
-    
-    if(id!==""){  
-          this.artifactsService.updateArtifactsList(id, document.getElementById("genes"+id).value
-            , document.getElementById("location"+id).value, document.getElementById("exon"+id).value
-            , document.getElementById("transcript"+id).value, document.getElementById("coding"+id).value
-            , document.getElementById("aminoAcidChange"+id).value )
+
+    const genes: HTMLInputElement = document.getElementById("genes"+id) as HTMLInputElement; 
+    const location: HTMLInputElement = document.getElementById("location"+id) as HTMLInputElement; 
+    const exon: HTMLInputElement = document.getElementById("exon"+id) as HTMLInputElement; 
+    const transcript: HTMLInputElement = document.getElementById("transcript"+id) as HTMLInputElement; 
+    const coding: HTMLInputElement = document.getElementById("coding"+id) as HTMLInputElement; 
+    const aminoAcidChange: HTMLInputElement = document.getElementById("aminoAcidChange"+id) as HTMLInputElement;  
+
+    if(id!==""){ 
+          this.artifactsService.updateArtifactsList(id, genes.value, location.value, exon.value, transcript.value,
+            coding.value, aminoAcidChange.value )
           .subscribe((data) => {
             console.log('[170][benign 수정]', data); 
             alert("수정 되었습니다."); 
-            this.search(document.getElementById("genes"+id).value);
+            this.search(genes.value);
           }); 
     } else{
-        this.artifactsService.insertArtifactsList(id, document.getElementById("genes"+id).value
-        , document.getElementById("location"+id).value, document.getElementById("exon"+id).value
-        , document.getElementById("transcript"+id).value, document.getElementById("coding"+id).value
-        , document.getElementById("aminoAcidChange"+id).value)
+        this.artifactsService.insertArtifactsList(id, genes.value, location.value, exon.value, transcript.value,
+           coding.value, aminoAcidChange.value)
         .subscribe((data) => {
           console.log('[170][benign 저장]', data); 
           alert("저장 되었습니다.");
-          this.search(document.getElementById("genes"+id).value);
+          this.search(genes.value);
         });  
-    }  
+    }
   }
+
+
   insertRow(){ 
     this.lists.push({'id':'', 'genes':'', 'location':'', 'exon':'', 'transcript':'', 'coding':'', 'amino_acid_change':''});  
   } 
@@ -95,7 +99,7 @@ export class ArtifactsComponent implements OnInit {
           this.curPage = Number(page); 
      }
      page =  this.curPage +""; 
-     this.lists =  this.listArtfacts.slice((Number(page)-1)*10,(Number(page))*10); 
+     this.lists =  this.listArtfacts.slice((Number(page)-1)*10, (Number(page))*10); 
   }  
 
   search(genes: string): void {   

@@ -50,45 +50,44 @@ export class MutationComponent implements OnInit {
 
   updateRow(id: string): void {
    
-    debugger; 
-    const buccal			    = document.getElementById("buccal"+id).value;
-    const patientName			= document.getElementById("patientName"+id).value;	
-    const registerNumber	= document.getElementById("registerNumber"+id).value;
-    const fusion			    = document.getElementById("fusion"+id).value;
-    const gene				    = document.getElementById("gene"+id).value;
-    const functionalImpact= document.getElementById("functionalImpact"+id).value;
-    const transcript			= document.getElementById("transcript"+id).value;
-    const exonIntro			  = document.getElementById("exonIntro"+id).value;
-    const nucleotideChange= document.getElementById("nucleotideChange"+id).value;
-    const aminoAcidChange	= document.getElementById("aminoAcidChange"+id).value;	
-    const zygosity			  = document.getElementById("zygosity"+id).value;
-    const vaf				      = document.getElementById("vaf"+id).value;
-    const reference			  = document.getElementById("reference"+id).value;
-    const cosmicId			  = document.getElementById("cosmicId"+id).value;
-    const siftPolyphenMutationTaster	= document.getElementById("siftPolyphenMutationTaster"+id).value;	
-    const buccal2			    = document.getElementById("buccal2"+id).value; 
-    const igv				      = document.getElementById("igv"+id).value;
-    const sanger			    = document.getElementById("sanger"+id).value;
+    const buccal: HTMLInputElement  = document.getElementById("buccal"+id) as HTMLInputElement;
+    const patientName: HTMLInputElement			    = document.getElementById("patientName"+id) as HTMLInputElement;	
+    const registerNumber: HTMLInputElement	    = document.getElementById("registerNumber"+id) as HTMLInputElement;
+    const fusion: HTMLInputElement			        = document.getElementById("fusion"+id) as HTMLInputElement;
+    const gene: HTMLInputElement				        = document.getElementById("gene"+id) as HTMLInputElement;
+    const functionalImpact: HTMLInputElement    = document.getElementById("functionalImpact"+id) as HTMLInputElement;
+    const transcript: HTMLInputElement			    = document.getElementById("transcript"+id) as HTMLInputElement;
+    const exonIntro: HTMLInputElement			      = document.getElementById("exonIntro"+id) as HTMLInputElement;
+    const nucleotideChange: HTMLInputElement    = document.getElementById("nucleotideChange"+id) as HTMLInputElement;
+    const aminoAcidChange: HTMLInputElement	    = document.getElementById("aminoAcidChange"+id) as HTMLInputElement;	
+    const zygosity: HTMLInputElement			      = document.getElementById("zygosity"+id) as HTMLInputElement;
+    const vaf: HTMLInputElement				          = document.getElementById("vaf"+id) as HTMLInputElement;
+    const reference: HTMLInputElement			      = document.getElementById("reference"+id) as HTMLInputElement;
+    const cosmicId: HTMLInputElement			      = document.getElementById("cosmicId"+id) as HTMLInputElement;
+    const siftPolyphen: HTMLInputElement	= document.getElementById("siftPolyphenMutationTaster"+id) as HTMLInputElement;	
+    const buccal2: HTMLInputElement			        = document.getElementById("buccal2"+id) as HTMLInputElement; 
+    const igv: HTMLInputElement				          = document.getElementById("igv"+id) as HTMLInputElement;
+    const sanger: HTMLInputElement			        = document.getElementById("sanger"+id) as HTMLInputElement;
 
     if(id!==""){
-      this.mutationService.updateMutationList(id, buccal, patientName, registerNumber, fusion, gene,
-        functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference, 
-        siftPolyphenMutationTaster, buccal2, igv, sanger  )
+      this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
+        functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
+        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value )
         .subscribe((data) => {
           console.log('[170][Mutation 수정]', data); 
         alert("수정 되었습니다.");
-        this.search(gene);
+        this.search(gene.value);
       }); 
     }else{
-      this.mutationService.insertMutationList(id, buccal, patientName, registerNumber, fusion, gene,
-        functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference, 
-        siftPolyphenMutationTaster, buccal2, igv, sanger)
+      this.mutationService.insertMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
+        functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
+        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value )
         .subscribe((data) => {
         console.log('[170][Mutation 저장]', data); 
         alert("저장 되었습니다.");
-        this.search(genes);
+        this.search(gene.value);
       }); 
-    }   
+    }  
   }
 
   insertRow(){ 
