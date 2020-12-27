@@ -41,7 +41,7 @@ export class MutationService {
       siftPolyphenMutationTaster, buccal2, igv, sanger }); 
   }
 
-  public deleteMutationList(id: String, genes: string): Observable<any> {  
+  public deleteMutationList(id: string, genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/mutation/delete`, { id });
   }
  

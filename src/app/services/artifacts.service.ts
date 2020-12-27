@@ -19,7 +19,7 @@ export class ArtifactsService {
     private http: HttpClient
   ) { }
 
-  public getArtifactsList(genes: String): Observable<any> {  
+  public getArtifactsList(genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/artifacts/list`, { genes });
   }
 
@@ -35,7 +35,7 @@ export class ArtifactsService {
         coding, aminoAcidChange }); 
   }
 
-  public deleteArtifactsList(id: String, genes: string): Observable<any> {  
+  public deleteArtifactsList(id: string, genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/artifacts/delete`, { id });
   }
  

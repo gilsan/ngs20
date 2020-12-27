@@ -19,7 +19,7 @@ export class CommentsService {
     private http: HttpClient
   ) { }
 
-  public getCommentsList(genes: String): Observable<any> {  
+  public getCommentsList(genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/comments/list`, { genes });
   }
 
@@ -33,7 +33,7 @@ export class CommentsService {
     return this.http.post(`${this.apiUrl}/comments/update`, { id, commentsType, gene, comment, reference }); 
   }
    
-  public deleteCommentsList(id: String, genes: string): Observable<any> {  
+  public deleteCommentsList(id: string, genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/comments/delete`, { id });
   }
  
