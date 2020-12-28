@@ -84,7 +84,7 @@
                                        
                   </div>
                 <!-- -------------------------------------  -->
-                 
+                 <!--  
                  <ng-template #mutationbox>
                     <form  [formGroup]="mutationForm">
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
@@ -131,9 +131,9 @@
                         </table>    
                     </form>    
                  </ng-template>
-                
+                -->
                 <!-- -------------------------------------  -->
-                 <div  *ngIf="mutation.length; else mutationbox">
+                 <div>
                 <form  [formGroup]="mutationForm">
                      <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35"> 
                        <thead >
@@ -153,22 +153,22 @@
                         <ng-container formArrayName="mutationLists" *ngFor="let group of mutationLists().controls; let i=index">
                            <tr  [formGroupName]="i">
                                <td class="table_result_line txt_c" >
-                                   <input type="text" size="7"  class="clr-input"  formControlName="gene" style="color: red;">
+                                   <input type="text" size="10"  class="clr-input"  formControlName="gene" style="color: red;">
                                </td>
                                <td class="txt_c">
-                                   <input type="text" size="55"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
+                                   <input type="text" size="30"  class="clr-input"  formControlName="aminoAcidChange"  style="color: red;">
                                </td>
                                <td class="txt_c">
-                                   <input type="text" size="45"  class="clr-input"  formControlName="nucleotideChange">
+                                   <input type="text" size="30"  class="clr-input"  formControlName="nucleotideChange">
                                </td>
                                <td class="txt_c">
                                    <input type="text" size="5"  class="clr-input"  formControlName="variantAlleleFrequency"> 
                                </td>
                                <td class="txt_c">
-                                   <input type="text" size="10"  class="clr-input"  formControlName="ID">
+                                   <input type="text" size=""  class="clr-input"  formControlName="ID">
                                </td>                           
                                <td class="txt_c">
-                                   <input type="text" size="5"  class="clr-input"  formControlName="tier"  style="color: red;">
+                                   <input type="text" size="3"  class="clr-input"  formControlName="tier"  style="color: red;">
                                </td>
                                <td align="center">
                                 <img [src]="'assets/images/cancel.png'" (click)="removeMutation(i)">
@@ -181,10 +181,12 @@
                 </div> 
 
                   <br>
-                  <div class="sub_title_04"> (2) Amplification:  <span *ngIf="!amplifications.length" class="sub_title_04">None</span></div> 
+                  <div class="sub_title_04"> (2) Amplification:  <span *ngIf="!amplifications.length" class="sub_title_04">None</span>
+                    
+                </div> 
                   <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
                <!-- ------------------------------------------ -->
-                
+                <!-- 
                   <ng-template #amplificationbox>
                     <form  [formGroup]="amplificationsForm">
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
@@ -195,7 +197,7 @@
                                     <th class="fontsize">Estimated copy number </th>
                                     <th  style="width:130px;font-size: 14px;">Tier</th>
                                     <th  style="width:130px;">
-                                      <button class="btn btn_01" (click)="addAmplifications()">추가</button>
+                                      <button class="btn btn_01" (click)="addAmplifications()">추가2</button>
                                     </th>                                    
                                 </tr>
                             </thead>                          
@@ -204,10 +206,13 @@
                             <ng-container  formArrayName="amplificationsLists" *ngFor="let group of amplificationsLists().controls; let i=index">
                                 <tr  [formGroupName]="i">
                                     <td class="table_result_line txt_c">
-                                      <input type="text" size="10"  class="clr-input" formControlName="gene"  style="color: red;"></td>
-                                    <td class="txt_c"><input type="text" size="50"  class="clr-input" formControlName="region"></td>
+                                      <input type="text" size="10"  class="clr-input" formControlName="gene"  style="color: red;">
+                                    </td>
+                                    <td class="txt_c"><input type="text" size="50"  class="clr-input" formControlName="region">
+                                    </td>
                                     <td class="txt_c">
-                                      <input type="text" size="10"  class="clr-input" formControlName="copynumber"  style="color: red;"></td>
+                                      <input type="text" size="10"  class="clr-input" formControlName="copynumber"  style="color: red;">
+                                    </td>
                                     <td class="txt_c">
                                       <input type="text" size="10"  class="clr-input" formControlName="tier">
                                     </td>
@@ -215,13 +220,13 @@
                                       <img [src]="'assets/images/cancel.png'"  (click)="removeAmplifications(i)">
                                     </td>                              
                                 </tr>
-                                </ng-container>                            
+                            </ng-container>                            
                         </tbody>   
                     </form>    
                   </ng-template>
-                 
+                 -->
                 <!-- ------------------------------------------ -->
-                  <div   *ngIf="amplifications.length; else amplificationbox">
+                  <div>
                   <form  [formGroup]="amplificationsForm">
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                       <thead >
@@ -235,7 +240,7 @@
                               </th>
                           </tr>
                       </thead>
-                      <tbody>
+                      <tbody>                      
                           <ng-container  formArrayName="amplificationsLists" *ngFor="let group of amplificationsLists().controls; let i=index">
                           <tr  [formGroupName]="i">
                               <td class="table_result_line txt_c">
@@ -258,7 +263,7 @@
 
                   <div class="sub_title_04 mg_t15 mg_b05"> (3) Fusion: <span *ngIf="!fusion.length" class="sub_title_04">None</span></div>
                 <!-- --------------------------------------- -->
-                
+                  <!-- 
                   <ng-template #fusionbox>
                     <form [formGroup]="fusionForm">
                         <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
@@ -297,9 +302,9 @@
                         </table>
                     </form>
                   </ng-template>
-                  
+                   -->
                 <!-- ---------------------------------------- -->
-                  <div  *ngIf="fusion.length; else fusionbox">
+                  <div>
                   <form [formGroup]="fusionForm">
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                       <thead >
@@ -342,19 +347,19 @@
               <div class="sub_title_03_E">Prevalent cancer biomarkers of unknown significance</div>
               <div class="sub_title_04">(1) Mutation: <span *ngIf="!imutation.length" class="sub_title_04">None</span></div>
            <!-- -----------------------------------  -->
-          
+              <!-- 
               <ng-template  #imutationbox>
                  <form [formGroup]="imutationForm">
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                         <thead>
                             <tr>
-                                <th class="table_result_line"  style="width: 10%;">Gene</th>
-                                <th  style="width: 25%;">Amino acid change</th>
-                                <th  style="width: 30%;">Nucleotide change</th>
-                                <th  style="width: 15%;">Variant allele frequency</th>
-                                <th  style="width: 10%;">ID</th>
-                                <th  style="width: 5%;">Note</th>
-                                <th  style="width: 5%;">
+                                <th class="table_result_line fontsize"  style="width:130px;">Gene</th>
+                                <th class="fontsize">Amino acid change</th>
+                                <th class="fontsize">Nucleotide change</th>
+                                <th class="fontsize" style="width: 10%">Variant allele frequency</th>
+                                <th style="width: 130px;font-size: 14x;">ID</th>
+                                <th  style="width:130px;font-size: 14px">Note</th>
+                                <th  style="width:130px;">
                                   <button class="btn btn_01" (click)="addIMutation()">추가</button>
                                 </th>
                             </tr>                            
@@ -389,10 +394,10 @@
                     </table>
                  </form>
               </ng-template>
-              
+              -->
            <!-- ----------------------------------   -->
 
-              <div  *ngIf="imutation.length; else imutationbox">
+              <div>
                   <form [formGroup]="imutationForm">
                       <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                           <thead>
@@ -412,14 +417,14 @@
                              <ng-container   formArrayName="imutationLists" *ngFor="let group of imutationLists().controls; let i=index"> 
                               <tr [formGroupName]="i">
                                   <td class="table_result_line txt_c">
-                                      <input type="text" size="7"  class="clr-input" formControlName="gene">
+                                      <input type="text" size="10"  class="clr-input" formControlName="gene">
                                   </td>
                                   <td class="txt_c">
-                                      <input type="text" size="55"  class="clr-input" formControlName="aminoAcidChange">
+                                      <input type="text" size="30"  class="clr-input" formControlName="aminoAcidChange">
                                       <!-- <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="aminoAcidChange"></textarea> -->
                                   </td>
                                   <td class="txt_c">
-                                      <input type="text" size="55"  class="clr-input" formControlName="nucleotideChange">
+                                      <input type="text" size="30"  class="clr-input" formControlName="nucleotideChange">
                                       <!-- <textarea class="textarea_01" style="width: 100%; height: 100%; border: none" formControlName="nucleotideChange"></textarea> -->
                                   </td>
                                   <td class="txt_c">
@@ -429,7 +434,7 @@
                                       <input type="text" size="7"  class="clr-input" formControlName="ID">
                                   </td>                           
                                   <td class="txt_c">
-                                      <input type="text" size="5"  class="clr-input" formControlName="tier">
+                                      <input type="text" size="3"  class="clr-input" formControlName="tier">
                                   </td>
                                   <td align="center">
                                    <img [src]="'assets/images/cancel.png'" (click)="removeIMutation(i)">
@@ -442,12 +447,12 @@
              </div>
               <br>
               <div class="sub_title_04">(2) Amplification: <span *ngIf="!iamplifications.length" class="sub_title_04">None</span>&nbsp;&nbsp;</div>
-              <div class="font_14 pd_l35 pd_b10"> * Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
+              <div class="font_14 pd_l35 pd_b15"> * Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div>
               <!-- ------------------------------   -->
-              
+              <!--
               <ng-template #iaplificationbox>
                 <form  [formGroup]="iamplificationsForm">
-                    <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
+                    <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                         <thead>
                             <tr>
                                 <th class="table_result_line fontsize" style="width:130px;">Gene</th>
@@ -484,9 +489,9 @@
                      </table>   
                 </form>
               </ng-template>
-             
+                -->
               <!-- ------------------------------    -->
-              <div  class="sub_title_04" *ngIf="iamplifications.length; else iaplificationbox">
+              <div>
                   <form  [formGroup]="iamplificationsForm">
                  <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10" >
                      <thead>
@@ -528,7 +533,7 @@
 
               <div class="sub_title_04">(3) Fusion: <span *ngIf="!ifusion.length" class="sub_title_04">None</span></div>
             <!-- -------------------------------  -->
-             
+               <!-- 
               <ng-template  #ifusionbox>
                 <form [formGroup]="ifusionForm">
                     <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
@@ -567,9 +572,9 @@
                     </table>
                 </form>
               </ng-template>
-               
+               -->
             <!--  -------------------------------   -->
-              <div  class="sub_title_04" *ngIf="ifusion.length; else ifusionbox;">
+              <div>
                 <form [formGroup]="ifusionForm">
                   <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35" >
                    <thead >
@@ -623,8 +628,8 @@
                   </textarea>
               </div>
               <div class="sub_title_04">[NOTE]</div>
-              <div class="font_14 pd_l35 pd_b10">
-                <textarea  class="textarea_01" rows="8" cols="200" [(ngModel)]="notement" style="width:99%;">
+              <div class="list_01 textareabox">
+                <textarea  class="textarea_01" rows="8" cols="200" [(ngModel)]="notement" style="margin-left: 42px;margin-right:5px; width:98%;">
                 </textarea>               
                 </div>
               <hr class="mg_t30"/>
@@ -637,7 +642,7 @@
                       
                 
               <div  class="list_01 textareabox">
-                <textarea  class="textarea_01" rows="20" cols="200" #report  [(ngModel)]="generalReport" style="margin-left: 42px; width:96%;">
+                <textarea  class="textarea_01" rows="20" cols="200" #report  [(ngModel)]="generalReport" style="margin-left: 42px;margin-right:5px; width:98%;">
                 </textarea>
               </div>
               <hr class="mg_t30"/>
@@ -1345,10 +1350,10 @@
 <div class="foot_btn mg_t30 pd_b30 txt_c main_btn">
     <ul> 
         <li>
-            <button type="button" class="btn btn_01" >수정</button>
+            <button type="button" class="btn btn_01" disabled>수 정</button>
         </li>
         <li>
-            <button type="button" class="btn btn_01"  (click)="tempSave()">임시저장</button>
+            <button type="button" class="btn btn_01" disabled (click)="tempSave()">임시저장</button>
         </li>               
         <li>
             <button type="button" class="btn btn_01"  [disabled]="getStatus(1)"

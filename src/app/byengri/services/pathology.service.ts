@@ -341,6 +341,16 @@ export class PathologyService {
     return this.prevalent;
   }
 
+  // 검진 수정버튼 누를때 screenstatus 번호 변경
+  resetscreenstatus(pathologyNum: string, num): any {
+    return this.http.post(`${this.apiUrl}/patients_path/resetPath`, { pathologyNum, num });
+  }
+
+  // 현재 설정된 screenstatus qjsg 가져오기
+  getScreenStatus(pathologyNum: string): any {
+    return this.http.post(`${this.apiUrl}/patients_path/screenstatusPath`, { pathologyNum });
+  }
+
 
 }
 
