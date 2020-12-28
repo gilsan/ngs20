@@ -1,1 +1,87 @@
-<p>register works!</p>
+<style>
+.form-input {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.143rem - 10px);
+    padding: 10px 10px;
+    font-size: 30;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #212121;
+    background-color: #f5f5f5;
+    background-clip: padding-box;
+    border: 1px solid #2196f3;
+    border-radius: 0.1429rem;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-group {
+    margin-bottom: 12px;
+}
+.form-select {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.143rem - 10px);
+    padding: 0px 0px;
+    font-size: 30;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #212121;
+    background-color: #f5f5f5;
+    background-clip: padding-box;
+    border: 1px solid #2196f3;
+    border-radius: 0.1429rem;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}    
+</style>
+
+<div class="container py-5 vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col col-sm-9 col-md-7 col-lg-5 col-xl-4 mx-auto px-md-0">
+            <div class="card overflow-hidden mb-6">
+                <header class="bg-primary px-3 pb-3 pt-8">
+                    <h1 class="text-lg text-white mb-0">NGS통합관리시스템 사용자 등록</h1>
+                </header>
+                <div class="card-body pt-5 pb-8">
+                    <form action="https://www.matter.alexandonie.com/register/#" method="POST">
+                        <div class="form-group">
+                            <label for="userid"  style="font-weight: 500;" >아이디</label>
+                            <input type="text" class="form-input" id="user_id">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" style="font-weight: 500;">Password</label>
+                            <input type="password" class="form-input" id="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword" style="font-weight: 500;">Password 확인</label>
+                            <input type="password" class="form-input" id="confirmPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="username" style="font-weight: 500;">이름</label>
+                            <input type="text" class="form-input" id="user_nm">
+                        </div>
+                        <div class="form-group">
+                            <label for="department" style="font-weight: 500;">부서</label>
+                            <select class="form-select" id="dept">
+                                <option value="D">진검</option>
+                                <option value="P">병리</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="part" style="font-weight: 500;">업무</label>
+                            <select class="form-select" id="part">
+                                <option value="D">의사</option>
+                                <option value="T">기사</option>
+                            </select>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary" style="padding-top: 2px;" (click)="register()" >사용자등록</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-primary pt-1"></div>
+            </div>
+        </div>
+    </div>
+</div>

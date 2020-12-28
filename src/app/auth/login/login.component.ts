@@ -79,12 +79,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   register(): void {
-    console.log('등록');
-    this.router.navigateByUrl('/register');
-    // this.subs.sink = this.authService.register(this.loginGroup.value.user, this.loginGroup.value.passwd)
-    //   .subscribe((data) => {
-    //     this.router.navigateByUrl('./register');
-    //   });
+
+    const url = "http://"+window.location.host+"/#/register" ;
+    window.open(url, "사용자등록", "top=100, left=200, width=510, height=610, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+
   }
 
 
