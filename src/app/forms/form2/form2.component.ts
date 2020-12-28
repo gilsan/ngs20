@@ -50,7 +50,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   methods = METHODS;
   general = GENERAL;
   indexNum = 0;
-  selectedItem = '';
+  selectedItem = 'mutation';
   tsvInfo: IFilteredTSV;
   profile: IProfile = { leukemia: '', flt3itd: '', chron: '' };
   // tslint:disable-next-line:variable-name
@@ -93,8 +93,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   // vusmsg =`VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
 
-
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
+  @ViewChild('box100', { static: true }) box100: ElementRef;
   constructor(
     private patientsListService: PatientsListService,
     private router: Router,
@@ -108,6 +108,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // console.log('[commentbox][83]', this.commentbox);
     //  let item: IDetectedVariants;
+
+    this.box100.nativeElement.scrollLeft += 300;
+
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
       this.recoverDetected();
@@ -464,7 +467,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         cosmicID: ''
       };
     }
-
+    //
     this.detactedVariants = [...this.detactedVariants, tempvalue];
     this.mockData = this.detactedVariants;
     this.store.setDetactedVariants(this.detactedVariants);
@@ -679,7 +682,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   save(index: number) {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
-    // console.log('[549] ', row, this.patientInfo);
+
+    console.log('[682][mutation/artifacts] ', row, this.patientInfo);
 
     if (this.selectedItem === 'mutation') {
       this.subs.sink = this.patientsListService.saveMutation(
@@ -698,29 +702,29 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         row.references,
         row.cosmicID
       ).subscribe((data: any) => {
-        if (data.insertId) {
-          alert('mutation에 추가 했습니다.');
-          // const mutationControl = this.tablerowForm.get('tableRows') as FormArray;
-          // mutationControl.removeAt(index);
-        }
+
+        alert('mutation에 추가 했습니다.');
+
       });
     } else if (this.selectedItem === 'artifacts') {
+      console.log('[708][save][artifacts] ', row);
       this.subs.sink = this.patientsListService.insertArtifacts(
-        row.gene, row.item.loc2, row.item.exon, row.item.transcript, row.coding, row.item.amino_acid_change
+        row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        if (data.insertId) {
-          alert('artifacts에 추가 했습니다.');
-        }
+        console.log('[708][result][artifacts] ', data);
+        alert('artifacts에 추가 했습니다.');
+
+      });
+    } else if (this.selectedItem === 'benign') {
+      console.log('[719][save][benign] ', row);
+      this.subs.sink = this.patientsListService.insertBenign(
+        row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
+      ).subscribe((data: any) => {
+        console.log('[719][save][benign] ', data);
+        alert('benign에 추가 했습니다.');
+
       });
 
-    } else if (this.selectedItem === 'benign') {
-      this.subs.sink = this.patientsListService.insertBenign(
-        row.gene, row.item.loc2, row.item.exon, row.item.transcript, row.coding, row.item.amino_acid_change
-      ).subscribe((data: any) => {
-        if (data.insertId) {
-          alert('benign에 추가 했습니다.');
-        }
-      });
     }
 
   }
@@ -729,7 +733,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   saveInhouse(i: number, selecteditem: string) {
     this.indexNum = i;
     this.selectedItem = selecteditem;
-    // console.log('[524] ', this.indexNum, this.selectedItem);
+    console.log('[732][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
   }
 
   // tslint:disable-next-line: typedef

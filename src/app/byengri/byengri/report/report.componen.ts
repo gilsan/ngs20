@@ -543,30 +543,39 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.extraction.diagnosis = this.patientInfo.pathological_dx;
         }
-
+        // OR파일에서 가져온 유전자 정보
         // tslint:disable-next-line:prefer-const
         this.clinically.forEach(item => {
           const members = item.trim().split(' ');
           const gene = members[0].trim().replace(/"/g, '');
           const type = members[1].trim().replace(/"/g, '');
-          // console.log('[516][clinically]: ', item, gene, type);
-          if (type.charAt(0) === 'p') {
+          console.log('====[552][clinically]: ', item, gene, type);
+          if (type.charAt(0) === 'p' || type === 'exon') {
             // const indexm = this.findGeneInfo(gene);
-
+            let indexm: number;
+            let nucleotideChange: string;
             let customid = '';
             let variantAlleleFrequency = '';
             const tier = this.findTier(gene);  // clinical 에서 gene, tier, frequency 찿기
 
             const itemMembers = item.split(' ');
+
             let aminoAcidChange = itemMembers[1];
             const tempAminoAcidChange = itemMembers[1];
-            const nucleotideChange = itemMembers[2];
+            if (type === 'exon') {
+              nucleotideChange = '';
+            } else {
+              nucleotideChange = itemMembers[2];
+            }
 
             variantAlleleFrequency = this.findFrequency(gene);
-            // 유전자, nucleotideChange 조합으로 유전자 전체 정보를 찿음.
-            const indexm = this.withGeneCoding(gene, nucleotideChange);
-            // console.log('[541][유전자]' + gene + '[인덱스]' + indexm);
-            console.log(this.filteredOriginData[indexm]);
+            if (type === 'exon') {
+              indexm = this.findGeneInfo(gene);
+              nucleotideChange = this.filteredOriginData[indexm].coding;
+            } else {
+              indexm = this.withGeneCoding(gene, nucleotideChange);
+            }
+
             if (indexm !== -1) {
               customid = this.filteredOriginData[indexm].variantID;
               if (customid === undefined || customid === null) { customid = ''; }
@@ -620,10 +629,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           } else if (type === 'fusion') {
             let oncomine;
-            if (gene === 'PTPRZ1-MET') {
-              // gene = 'PTPRZ1(1) - MET(2)';
-            }
-            const index = this.findGeneInfo(gene);
+            // if (gene === 'PTPRZ1-MET') {
+            //   // gene = 'PTPRZ1(1) - MET(2)';
+            // }
+            // const index = this.findGeneInfo(gene);
+            const index = this.findFusionInfo(gene);
             const ftier = this.findTier(gene);
             // console.log('====[576][fusion]', type, gene, index, tier);
 
@@ -641,7 +651,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
                 functions: oncomine,
                 tier: ftier
               });
-              // console.log('=====[592][fusion]', this.fusion);
+              // console.log('=====[645][fusion]', this.fusion);
             }
 
           }
@@ -748,9 +758,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           } else if (type === 'fusion') {
             let oncomine;
-            if (gene === 'PTPRZ1-MET') {
-              // gene = 'PTPRZ1(1) - MET(2)';
-            }
+            // if (gene === 'PTPRZ1-MET') {
+            // gene = 'PTPRZ1(1) - MET(2)';
+            // }
+
             const index = this.findGeneInfo(gene);
             if (index > 0) {
               if (this.filteredOriginData[index].oncomine === 'Loss-of-function') {
@@ -800,6 +811,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const idx = this.filteredOriginData.findIndex(item => item.gene === gene && item.coding === coding);
     return idx;
   }
+  // Fusion 검색은 variant ID 값을 파싱하여 비교한다.
+  //
+  findFusionInfo(gene: string): number {
+    const idx = this.filteredOriginData.findIndex(item => gene === item.variantID.split('.')[0]);
+    return idx;
+  }
+
 
   findGeneInfo(gene: string): number {
     let tempGene;
@@ -1094,8 +1112,26 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////
+  tempSave() {
+    this.convertFormData();
 
-  ////////////////////////////////////////////////////////////////////
+    console.log('[1119][report][updatePathologyData][환자정보][this.basicInfo]', this.basicInfo);
+    console.log('[1119][updatePathologyData][환자정보][patientInfo]', this.patientInfo);
+    console.log('[1119][report][updatePathologyData][검체정보][extraction]', this.extraction);
+    console.log('[1119][report][updatePathologyData][mutaion]', this.mutation);
+    console.log('[1119][report][updatePathologyData][amplifications]', this.amplifications);
+    console.log('[1119][report][updatePathologyData][fusion]', this.fusion);
+    console.log('[1119][report][updatePathologyData][imutation]', this.imutation);
+    console.log('[1119][report][updatePathologyData][iamplifications]', this.iamplifications);
+    console.log('[1119][report][updatePathologyData][ifusion]', this.ifusion);
+    console.log('[1119][report][updatePathologyData][멘트][ment]', this.generalReport, this.specialment, this.notement);
+    console.log('[1119][updatePathologyData][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////
   // mutationForm
 
   createMutaion(mutation: IMutation): FormGroup {

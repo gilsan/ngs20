@@ -37,6 +37,9 @@ export class TsvuploadComponent implements OnInit {
 
   onCancel(): void {
     this.onCanceled.emit(null);
+    // 파일 취소후 초기화
+    this.upload.files = [];
+    this.uploadfile.nativeElement.value = '';
   }
 
   onDragOver(event: any): void {

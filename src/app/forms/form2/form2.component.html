@@ -191,15 +191,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="table_result_line">
+                        <td class="table_result_line" style="text-align: center;">
                             <input type="text" class="input_02 textcenter"  
                             [(ngModel)]= "profile.leukemia" [ngModelOptions]="{standalone: true}">
                         </td>
-                        <td class="table_result_line">
+                        <td class="table_result_line"  style="text-align: center;">
                             <input type="text" class="input_02  textcenter"  
                             [(ngModel)]="profile.flt3itd" [ngModelOptions]="{standalone: true}">
                         </td>
-                        <td>
+                        <td  style="text-align: center;">
                             <input type="text" class="input_02 textcenter"  
                             [(ngModel)]="profile.chron" [ngModelOptions]="{standalone: true}">
                         </td>
@@ -229,7 +229,7 @@
               </table>
               <div class="sub_title">Detected variants</div>
     <div class="box pd_20">
-              <div class="box_100">
+              <div class="box_100" #box100>
 <!--    -------------------------------------                     -->
 <form [formGroup]="tablerowForm"> 
      
@@ -337,7 +337,7 @@
                 </li>
                 <li>&nbsp;&nbsp;</li>
                 <li>
-                    <button type="button" class="btn btn_01">저장1</button>
+                    <button type="button" class="btn btn_01">저장</button>
                 </li>
             </ul>            
             </div> 
@@ -388,7 +388,7 @@
                 </li>
                 <li>&nbsp;&nbsp;</li>
                 <li>
-                    <button type="button" class="btn btn_01" (click)="saveComments()">저장2</button>
+                    <button type="button" class="btn btn_01" (click)="saveComments()">저장</button>
                 </li>
             </ul>              
         </div>  

@@ -211,17 +211,26 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-              console.log('[220][allOR]', list);
+
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {
                 const filteredlist = list[0].trim().split(' ');
                 const tier = list[2].substring(0, list[2].length - 1);
-
-                if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
-                  this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
-                  this.clinically.push(list[0]); // 유전자
+                // filteredlist 길이
+                const filteredlistLen = filteredlist.length;
+                if (filteredlistLen === 2 || filteredlistLen === 3) {
+                  if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
+                    this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
+                    this.clinically.push(list[0]); // 유전자
+                  }
+                } else if (filteredlistLen === 4) {
+                  if (filteredlist.includes('exon')) {
+                    this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });
+                    this.clinically.push(list[0]);
+                  }
                 }
+
               } else if (len > 1) {
                 const tempGene = list[0].split(';');
                 const tempfre = list[3].split('(')[0].split(';');

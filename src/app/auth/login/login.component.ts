@@ -79,10 +79,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   register(): void {
-    this.subs.sink = this.authService.register(this.loginGroup.value.user, this.loginGroup.value.passwd)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    console.log('등록');
+    this.router.navigateByUrl('/register');
+    // this.subs.sink = this.authService.register(this.loginGroup.value.user, this.loginGroup.value.passwd)
+    //   .subscribe((data) => {
+    //     this.router.navigateByUrl('./register');
+    //   });
   }
 
 
@@ -95,7 +97,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else {
       console.log('병리', this.loginGroup.value, this.type);
       this.ngZone.run(() => {
-        this.router.navigateByUrl('/register');
+        this.router.navigateByUrl('/pathology');
       });
     }
   }

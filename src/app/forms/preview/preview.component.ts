@@ -29,9 +29,9 @@ export class PreviewComponent implements OnInit {
     this.specimenMsg = this.store.getSpecimenMsg();
     this.vusstatus = this.store.getVUSstatus();
     this.comments = this.store.getComments();
-    // console.log('[30][프로파일]', this.profile);
-    // console.log('[31][preview][mockData]\n', this.dts, this.specimenMsg, this.vusstatus);
-    // console.log('[32][preview][comments]\n', this.comments);
+    console.log('[30][프로파일]', this.profile);
+    console.log('[31][preview][mockData]\n', this.dts, this.specimenMsg, this.vusstatus);
+    console.log('[32][preview][comments]\n', this.comments);
   }
 
 }

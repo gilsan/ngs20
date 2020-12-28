@@ -1,0 +1,16 @@
+12.28작업
+ 수정
+ - mutationRouter.js
+ - mutation.js
+ 에러
+ screenList.js 
+ 652 const result1 = messageHandlerStat_log(pathologyNum, name, patientID, prescription_date);
+ result => result1 변경
+
+ geneInfolist.js
+ artifacts
+ benign 삽입
+ mutation.js 87 줄
+ gene => req
+ patient_name => NVarChar
+ 

@@ -62,7 +62,9 @@ export class PatientsListService {
       shareReplay()
     );
   }
-  public insertArtifacts(gene: string, loc2: string, exon: string, transcript: string, coding: string, aminoAcidChange: string) {
+
+  // artifacts 삽입
+  public insertArtifacts(gene: string, loc2: string = '', exon: string = '', transcript: string, coding: string, aminoAcidChange: string) {
     return this.http.post(`${this.apiUrl}/artifactsInsert/insert`, {
       gene, loc2, exon, transcript, coding, aminoAcidChange
     }).pipe(
@@ -84,7 +86,7 @@ export class PatientsListService {
       shareReplay()
     );
   }
-
+  // benign 저장
   public insertBenign(gene: string, loc2: string, exon: string, transcript: string, coding: string, aminoAcidChange: string) {
     return this.http.post(`${this.apiUrl}/benignInsert/insert`, { gene, loc2, exon, transcript, coding, aminoAcidChange }).pipe(
       shareReplay()
@@ -513,5 +515,53 @@ export class PatientsListService {
   insertComments(comments: IComment[]): Observable<any> {
     return this.http.post(`${this.apiUrl}/comments/insert`, { comments });
   }
+
+  // gene 로 mutation 에 있는지 확인 숫자로 옴
+  findMutationBygene(gene: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/mutation/searchbygene`, { gene });
+  }
+
+  // artifacts 저장
+  /*  artifacts/insert
+    const gene              = req.body.gene;
+    const locat             = req.body.loc2;
+    const exon              = req.body.exon;
+    const transcript        = req.body.transcript;
+    const coding            = req.body.coding;
+  const amion_acid_change = req.body.aminoAcidChange;
+  */
+  saveArfitacts(
+    gene: string,
+    transcript: string,
+    coding: string,
+    aminoAcidChange: string,
+    loc2 = '',
+    exon = '',
+  ): Observable<any> {
+    return this.http.post(`${this.apiUrl}/artifacts/insert`, { gene, transcript, coding, aminoAcidChange, loc2, exon });
+  }
+
+
+  // benign 저장
+  /*
+    benign/insert
+     const gene              = req.body.gene;
+     const locat             = req.body.loc2;
+     const exon              = req.body.exon;
+     const transcript        = req.body.transcript;
+     const coding            = req.body.coding;
+     const amion_acid_change = req.body.aminoAcidChange;
+  */
+  saveBenign(
+    gene: string,
+    transcript: string,
+    coding: string,
+    aminoAcidChange: string,
+    loc2 = '',
+    exon = '',
+  ): Observable<any> {
+    return this.http.post(`${this.apiUrl}/artifacts/insert`, { gene, transcript, coding, aminoAcidChange, loc2, exon });
+  }
+
 
 }
