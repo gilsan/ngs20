@@ -133,5 +133,14 @@ export class ManageUsersComponent implements OnInit {
       });   
     }
   } 
+  
+  toggle(i: number): any {
+
+    if (i % 2 === 0) {
+      return { table_bg: true };
+    }
+    return { table_bg: false };
+  }
+
 
 }

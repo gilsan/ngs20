@@ -13,4 +13,5 @@ export interface IManageUsers {
   part: string; 
   part_nm: string; 
   login_date: string;
+  approved: string;
 }
