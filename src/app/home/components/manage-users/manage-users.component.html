@@ -14,6 +14,7 @@
             <input type="text" placeholder="사용자명" class="input_01" #userNm />&nbsp;&nbsp;
             <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >SEARCH</button>
         </div>
+        <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>    
         <div class="box">
             <table border="0" cellpadding="0" cellspacing="0" class="table_list">
                 <colgroup>
@@ -48,13 +49,13 @@
                         <td ><span class="txt_c" >{{list.user_nm}}</span></td>
                         <td ><span class="txt_c" >{{list.reg_date}}</span></td>
                         <td ><span class="txt_c" >{{list.login_date}}</span></td>  
-                        <td ><span class="text_right" *ngIf="list.user_id ==''" >
-                            <input type="radio"  [checked]='true'   name="pick{{list.id}}" id="confirm{{list.id}}">&nbsp;&nbsp;승인
-                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="confirm{{list.id}}" name="pick{{list.id}}">&nbsp;&nbsp;미승인
+                        <td ><span class="text_right" *ngIf="list.approved =='Y'" >
+                            <input type="radio"  [checked]='true'   name="pick{{list.id}}" id="confirm{{list.id}}" (click)="confirm(list.id,'Y')">&nbsp;&nbsp;승인
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="confirm{{list.id}}" name="pick{{list.id}}" (click)="confirm(list.id,'N')">&nbsp;&nbsp;미승인
                             </span>
-                            <span class="text_right" *ngIf="list.user_id !=''" >
-                                <input type="radio"   name="pick{{list.id}}" id="confirm{{list.id}}">&nbsp;&nbsp;승인
-                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" [checked]='true' id="confirm{{list.id}}" name="pick{{list.id}}">&nbsp;&nbsp;미승인
+                            <span class="text_right" *ngIf="list.approved =='N'" >
+                                <input type="radio"   name="pick{{list.id}}" id="confirm{{list.id}}" (click)="confirm(list.id,'Y')">&nbsp;&nbsp;승인
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" [checked]='true' id="confirm{{list.id}}" name="pick{{list.id}}" (click)="confirm(list.id,'N')">&nbsp;&nbsp;미승인
                              </span>
                         </td> 
                     </tr>  

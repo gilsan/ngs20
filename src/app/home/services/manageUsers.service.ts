@@ -23,6 +23,12 @@ export class ManageUsersService {
     return this.http.post(`${this.apiUrl}/manageUsers/list`, { startDay, endDay, userId, userNm });
   }
 
+  
+  public setManageUsersApproved(id: string, approved: string): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/manageUsers/approved`, {  id, approved }); 
+  }
+
+  /*
   public insertManageUsersList(id: string, userId: string, password: string, userNm: string, userGb: 
         string, dept: string, uuid: string, regDate: string, pickselect: string, part: string ): Observable<any> {  
     return this.http.post(`${this.apiUrl}/manageUsers/insert`, { id, userId, password, userNm, userGb, 
@@ -38,5 +44,6 @@ export class ManageUsersService {
   public deleteManageUsersList(id: String, genes: string): Observable<any> {  
     return this.http.post(`${this.apiUrl}/manageUsers/delete`, { id });
   } 
+  */
 }
 
