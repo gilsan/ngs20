@@ -25,6 +25,7 @@ export class ArtifactsComponent implements OnInit {
   curPage:  number;
   totPage:  number;
   pageLine: number;
+  totRecords: number;
 
   private apiUrl = emrUrl;
  
@@ -61,6 +62,29 @@ export class ArtifactsComponent implements OnInit {
     const transcript: HTMLInputElement = document.getElementById("transcript"+id) as HTMLInputElement; 
     const coding: HTMLInputElement = document.getElementById("coding"+id) as HTMLInputElement; 
     const aminoAcidChange: HTMLInputElement = document.getElementById("aminoAcidChange"+id) as HTMLInputElement;  
+
+    if(genes.value ==""){
+      alert("genes 값은 필수 입니다.");
+      return;
+    }
+   
+    if(location.value ==""){
+      alert("location 값은 필수 입니다.");
+      return;
+    }
+    if(exon.value ==""){
+      alert("exon 값은 필수 입니다.");
+      return;
+    }
+    if(coding.value ==""){
+      alert("coding 값은 필수 입니다.");
+      return;
+    }
+    if(aminoAcidChange.value ==""){
+      alert("Amino Acid Change 값은 필수 입니다.");
+      return;
+    }
+
 
     if(id!==""){ 
           this.artifactsService.updateArtifactsList(id, genes.value, location.value, exon.value, transcript.value,
@@ -103,6 +127,7 @@ export class ArtifactsComponent implements OnInit {
   }  
 
   search(genes: string): void {   
+    this.totRecords =0;
     this.lists$ = this.artifactsService.getArtifactsList(genes);
     this.lists$.subscribe((data) => {
       console.log('[170][benign 검색]', data);
@@ -110,7 +135,8 @@ export class ArtifactsComponent implements OnInit {
       this.lists = data.slice(0,10);
       this.curPage = 1;
       this.totPage = Math.ceil(this.listArtfacts.length/10);  
-      this.pageLine = 0; 
+      this.pageLine = 0;
+      this.totRecords = this.listArtfacts.length; 
     }); 
   }  
 }
