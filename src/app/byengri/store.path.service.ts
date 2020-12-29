@@ -19,6 +19,7 @@ export class StorePathService {
   rechecker = 'none';   // 확인자
   recheckerid = '';     // 검사자 아이디
 
+  usesearch = 'N';
 
   // list.pathology_num, i, 'N')">파일등록/변환
   // 화일등록/변환 저장
@@ -107,7 +108,7 @@ export class StorePathService {
 
   // type
   public setType(type: string): void {
-    console.log('[140][pathlogy.service][type]', type);
+    // console.log('[140][pathlogy.service][type]', type);
     this.type = type;
   }
 
@@ -143,6 +144,15 @@ export class StorePathService {
   public getRechecker(): string {
     return this.rechecker + '_' + this.recheckerid;
   }
+
+  public setUseSearch(type: string): void {
+    this.usesearch = type;
+  }
+
+  public getUseSearch(): string {
+    return this.usesearch;
+  }
+
 
 
 

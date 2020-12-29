@@ -31,7 +31,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('examine', { static: true }) examine: ElementRef;
   @ViewChild('rechecked', { static: true }) rechecked: ElementRef;
-  @ViewChild('report', { static: true }) report: ElementRef;
+  @ViewChild('report', { static: true }) report: HTMLTextAreaElement;
+  @ViewChild('diagnosis', { static: true }) diagnosis: HTMLTextAreaElement;
 
   polymorphismList: Ipolymorphism[];
 
@@ -50,7 +51,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   prevalent = [];
   status = false;
   screenstatus: string;
-
+  pathologyNum: string;  // 검체번호
   basicInfo: IBasicInfo = {
     name: '',
     registerNum: '',
@@ -111,6 +112,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 [NOTE2]
 종양세포밀도가 50% 미만(XX%)의 검체에서 얻어진 결과이므로, amplification 해석에 주의가 필요합니다.`; // note
 
+  noneMu = 'None';
+  noneAm = 'None';
+  noneFu = 'None';
+  noneIMu = 'None';
+  noneIAm = 'None';
+  noneIFu = 'None';
 
   constructor(
     private pathologyService: PathologyService,
@@ -138,6 +145,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
 
   ngOnInit(): void {
+
     // this.pathologyService.getPatientList().subscribe();
     this.loadForm();
     // this.getParams();
@@ -168,6 +176,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       map(route => route.get('pathologyNum'))
     ).subscribe(pathologyNum => {
       console.log('[167][getParams]', pathologyNum);
+      this.pathologyNum = pathologyNum; // 검체번호 저장
       this.patientInfo = this.pathologyService.patientInfo.filter(item => item.pathology_num === pathologyNum)[0];
       console.log('[169]', this.patientInfo);
       this.init(pathologyNum);
@@ -270,7 +279,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checker(): void {
-    this.report.nativeElement.selectionEnd = 5;
+    // this.report.nativeElement.selectionEnd = 5;
+    this.report.selectionStart += 200;
     const medi$ = this.searchService.listPath().pipe(
       shareReplay()
     );
@@ -549,7 +559,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           const members = item.trim().split(' ');
           const gene = members[0].trim().replace(/"/g, '');
           const type = members[1].trim().replace(/"/g, '');
-          console.log('====[552][clinically]: ', item, gene, type);
+          // console.log('====[552][clinically]: ', item, gene, type);
           if (type.charAt(0) === 'p' || type === 'exon') {
             // const indexm = this.findGeneInfo(gene);
             let indexm: number;
@@ -562,6 +572,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
             let aminoAcidChange = itemMembers[1];
             const tempAminoAcidChange = itemMembers[1];
+            // console.log('====[569][clinically]: ', gene, tempAminoAcidChange);
             if (type === 'exon') {
               nucleotideChange = '';
             } else {
@@ -575,12 +586,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             } else {
               indexm = this.withGeneCoding(gene, nucleotideChange);
             }
-
+            // console.log('==== [582][indexm]', gene, type, indexm);
             if (indexm !== -1) {
               customid = this.filteredOriginData[indexm].variantID;
               if (customid === undefined || customid === null) { customid = ''; }
-
-
+              console.log('==== [586][]', gene, tempAminoAcidChange, type);
               if (gene === 'TERT' && tempAminoAcidChange === 'p.(?)') {
                 aminoAcidChange = 'Promotor mutant';
               } else if (gene !== 'TERT' && tempAminoAcidChange === 'p.(?)') {
@@ -588,11 +598,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               } else {
                 // aminoAcidChange 값이 없으면 원래것을 사용
                 aminoAcidChange = this.filteredOriginData[indexm].aminoAcidChange;
-                if (aminoAcidChange === undefined || aminoAcidChange === null || aminoAcidChange === '') {
-                  aminoAcidChange = tempAminoAcidChange;
-                }
+                // if (aminoAcidChange === undefined || aminoAcidChange === null || aminoAcidChange === '') {
+                //   aminoAcidChange = tempAminoAcidChange;
+                // }
               }
             } else {
+              if (gene === 'TERT' && tempAminoAcidChange === 'p.(?)') {
+                aminoAcidChange = 'Promotor mutant';
+              } else if (gene !== 'TERT' && tempAminoAcidChange === 'p.(?)') {
+                aminoAcidChange = 'Splicing mutant';
+              }
               customid = '';
             }
             // console.log('[557][유전자]' + gene, aminoAcidChange, nucleotideChange);
@@ -628,6 +643,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               });
             }
           } else if (type === 'fusion') {
+
             let oncomine;
             // if (gene === 'PTPRZ1-MET') {
             //   // gene = 'PTPRZ1(1) - MET(2)';
@@ -635,7 +651,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             // const index = this.findGeneInfo(gene);
             const index = this.findFusionInfo(gene);
             const ftier = this.findTier(gene);
-            // console.log('====[576][fusion]', type, gene, index, tier);
+            console.log('====[654][IFUSION][', type, gene, index);
 
             if (index !== -1) {  // 여기주의
               if (this.filteredOriginData[index].oncomine === 'Loss-of-function') {
@@ -724,6 +740,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
               }
             } else {
+              if (gene === 'TERT' && tempaminoAcidchange === 'p.(?)') {
+                aminoAcidchange = 'Promotor mutant';
+              } else if (gene !== 'TERT' && tempaminoAcidchange === 'p.(?)') {
+                aminoAcidchange = 'Splicing mutant';
+              }
               customid = '';
             }
 
@@ -761,9 +782,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             // if (gene === 'PTPRZ1-MET') {
             // gene = 'PTPRZ1(1) - MET(2)';
             // }
+            const index = this.findFusionInfo(gene);
 
-            const index = this.findGeneInfo(gene);
-            if (index > 0) {
+            // const index = this.findGeneInfo(gene);
+
+            if (index !== -1) {
               if (this.filteredOriginData[index].oncomine === 'Loss-of-function') {
                 oncomine = 'Loss';
               } else if (this.filteredOriginData[index].oncomine === 'Gain-of-function') {
@@ -878,12 +901,27 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.extraction.dnarna = dna;
   }
 
+  // tslint:disable-next-line:variable-name
+  setManagementNum(rel_pathology_num: string): void {
+    this.extraction.managementNum = rel_pathology_num;
+    console.log('********* [906][환자병리번호]', this.extraction.managementNum);
+  }
+
   setKeyblock(keyblock: string): void {
     this.extraction.keyblock = keyblock;
   }
 
   setTumorpercentage(percentage): void {
-    this.extraction.tumorcellpercentage = percentage;
+    // const temp = percentage[percentage.length - 1];
+    // console.log('[909][PERCENTAGE] ', percentage);
+    // if (temp === '%') {
+    //   this.extraction.tumorcellpercentage = percentage.slice(0, -1);
+    // } else {
+    // 
+    // }
+    const per = percentage.replace('/\%/g', '');
+    this.extraction.tumorcellpercentage = per;
+    console.log('******* [916][PERCENTAGE] ', this.extraction.tumorcellpercentage);
   }
   setOrgan(organ: string): void {
     // console.log('[672][setDNAandRNAextraction]', organ);
@@ -895,7 +933,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setDiagnosis(diagnosis: string): void {
+    console.log('[901][diagnosis]', diagnosis);
     this.extraction.diagnosis = diagnosis;
+  }
+  diagnosisFocus(): void {
+    this.diagnosis.selectionStart += 30;
+    console.log('======= [diagnosi]', this.extraction.diagnosis);
   }
 
   convertFormData(): void {
@@ -950,6 +993,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.notement
     );
     console.log(form);
+    // this.searchService.resetscreenstatus(this.pathologyNum, '3')
+    //   .subscribe(data => {
+    //     this.screenstatus = '3';
+    //   });
 
     // NU로 데이터 전송
     this.pathologyService.sendEMR(this.patientInfo, form).subscribe(data => {
@@ -966,7 +1013,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log('[1101][][finishPathologyEMRScreen]', data);
         if (data.message === 'SUCCESS') {
           // alert(data);
-          this.router.navigate(['/pathology']);
+          // this.router.navigate(['/pathology']);
         }
       });
 
@@ -1024,20 +1071,19 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   // tslint:disable-next-line: typedef
   savePathologyData() {
     this.convertFormData();
-    // console.log('[756][][]',)
-    // console.log('[776][report][savePathologyData]', this.basicInfo.pathologyNum,
-    //   this.mutation, this.amplifications, this.fusion, this.imutation, this.iamplifications, this.ifusion, this.extraction);
-    console.log('[1182][report][savePathologyData][환자정보][this.basicInfo]', this.basicInfo);
+
+    console.log('[1128][report][savePathologyData][환자정보][this.basicInfo]', this.basicInfo);
     console.log('[1182][savePathologyData][환자정보][patientInfo]', this.patientInfo);
     console.log('[1182][report][savePathologyData][검체정보][extraction]', this.extraction);
-    console.log('[1182][report][savePathologyData][mutaion]', this.mutation);
-    console.log('[1182][report][savePathologyData][amplifications]', this.amplifications);
-    console.log('[1182][report][savePathologyData][fusion]', this.fusion);
-    console.log('[1182][report][savePathologyData][imutation]', this.imutation);
-    console.log('[1182][report][savePathologyData][iamplifications]', this.iamplifications);
-    console.log('[1182][report][savePathologyData][ifusion]', this.ifusion);
+    console.log('[1182][report][savePathologyData][MUTATION]', this.mutation);
+    console.log('[1182][report][savePathologyData][AMFLIFICATIONS]', this.amplifications);
+    console.log('[1182][report][savePathologyData][FUSION]', this.fusion);
+    console.log('[1182][report][savePathologyData][I-MUTAION]', this.imutation);
+    console.log('[1182][report][savePathologyData][I-AMPLIFICATIONS]', this.iamplifications);
+    console.log('[1182][report][savePathologyData][I-FUSION]', this.ifusion);
     console.log('[1182][report][savePathologyData][멘트][ment]', this.generalReport, this.specialment, this.notement);
     console.log('[1182][savePathologyData][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+    console.log('[검체번호]', this.pathologyNum);
 
 
     this.subs.sink = this.savepathologyService.savePathologyData(
@@ -1060,6 +1106,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           alert('저장 했습니다.');
           this.store.setDBSaved(true);
 
+          // this.searchService.resetscreenstatus(this.pathologyNum, '1')
+          //   .subscribe(data => {
+          //     this.screenstatus = '1';
+          //   });
           this.subs.sink = this.searchService.screenPathologyEmrUpdate(this.basicInfo.pathologyNum)
             .subscribe(datas => {
               console.log('[1189][savePathologyData][screenPathologyEmrUpdate]', datas);
@@ -1104,6 +1154,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         alert('저장 했습니다.');
         this.store.setDBSaved(true);
 
+        // this.searchService.resetscreenstatus(this.pathologyNum, '2')
+        //   .subscribe(msg => {
+        //     this.screenstatus = '2';
+        //     console.log('[]', msg.message);
+        //   });
+
         this.subs.sink = this.searchService.screenPathologyUpdate(this.basicInfo.pathologyNum)
           .subscribe(datas => {
             console.log('[1226][savePathologyData][screenPathologyEmrUpdate]', datas);
@@ -1111,22 +1167,50 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           });
       }
     });
+
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
-  tempSave() {
+  tempSave(): void {
     this.convertFormData();
 
-    console.log('[1119][report][updatePathologyData][환자정보][this.basicInfo]', this.basicInfo);
-    console.log('[1119][updatePathologyData][환자정보][patientInfo]', this.patientInfo);
-    console.log('[1119][report][updatePathologyData][검체정보][extraction]', this.extraction);
-    console.log('[1119][report][updatePathologyData][mutaion]', this.mutation);
-    console.log('[1119][report][updatePathologyData][amplifications]', this.amplifications);
-    console.log('[1119][report][updatePathologyData][fusion]', this.fusion);
-    console.log('[1119][report][updatePathologyData][imutation]', this.imutation);
-    console.log('[1119][report][updatePathologyData][iamplifications]', this.iamplifications);
-    console.log('[1119][report][updatePathologyData][ifusion]', this.ifusion);
-    console.log('[1119][report][updatePathologyData][멘트][ment]', this.generalReport, this.specialment, this.notement);
-    console.log('[1119][updatePathologyData][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+    console.log('[1141][report][tempSave][환자정보][this.basicInfo]', this.basicInfo);
+    console.log('[1141][tempSave][환자정보][patientInfo]', this.patientInfo);
+    console.log('[1141][report][tempSave][검체정보][extraction]', this.extraction);
+    console.log('[1141][report][tempSave][mutaion]', this.mutation);
+    console.log('[1141][report][tempSave][amplifications]', this.amplifications);
+    console.log('[1141][report][tempSave][fusion]', this.fusion);
+    console.log('[1141][report][tempSave][imutation]', this.imutation);
+    console.log('[1141][report][tempSave][iamplifications]', this.iamplifications);
+    console.log('[1141][report][tempSave][ifusion]', this.ifusion);
+    console.log('[1141][report][tempSave][멘트][ment]', this.generalReport, this.specialment, this.notement);
+    console.log('[1141][tempSave][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+
+    this.subs.sink = this.savepathologyService.updatePathologyData(
+      this.basicInfo.pathologyNum,
+      this.patientInfo,
+      this.mutation,
+      this.amplifications,
+      this.fusion,
+      this.imutation,
+      this.iamplifications,
+      this.ifusion,
+      this.extraction,
+      this.generalReport,
+      this.specialment,
+      this.notement
+    ).subscribe(data => {
+      console.log('[1267][tempSave]', data);
+      if (data.info === 'SUCCESS') {
+        alert('저장 했습니다.');
+        this.store.setDBSaved(true);
+
+        this.searchService.resetscreenstatus(this.pathologyNum, '2')
+          .subscribe(msg => {
+            this.screenstatus = '2';
+            console.log('[]', msg.message);
+          });
+      }
+    });
 
 
   }
@@ -1163,6 +1247,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addMutation(): void {
     this.mutationLists().push(this.newMutation());
+    const len = this.mutationLists().getRawValue().length;
+    console.log('[1233][addMutation]', len);
+    if (len > 0) {
+      this.noneMu = '';
+    }
   }
 
   removeMutation(i: number): void {
@@ -1195,6 +1284,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addAmplifications(): void {
     this.amplificationsLists().push(this.newAmplifications());
+    const len = this.amplificationsLists().getRawValue().length;
+    if (len > 0) {
+      this.noneAm = '';
+    }
   }
 
   removeAmplifications(i: number): void {
@@ -1231,6 +1324,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addFusion(): void {
     this.fusionLists().push(this.newFusion());
+    const len = this.fusionLists().getRawValue().length;
+    if (len > 0) {
+      this.noneFu = '';
+    }
   }
 
   removeFusion(i: number): void {
@@ -1267,10 +1364,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addIMutation(): void {
     this.imutationLists().push(this.newIMutation());
+    const len = this.imutationLists().getRawValue().length;
+    if (len > 0) {
+      this.noneIFu = '';
+    }
   }
 
   removeIMutation(i: number): void {
     this.imutationLists().removeAt(i);
+    const len = this.imutationLists().getRawValue().length;
+    if (len === 0) {
+      this.noneIMu = 'None';
+    }
   }
 
   /////////////////////////////////////////////////////////////////////
@@ -1300,10 +1405,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addIAmplifications(): void {
     this.iamplificationsLists().push(this.newIAmplifications());
+    const len = this.iamplificationsLists().getRawValue().length;
+    if (len > 0) {
+      this.noneIAm = '';
+    }
   }
 
   removeIAmplifications(i: number): void {
     this.iamplificationsLists().removeAt(i);
+    const len = this.iamplificationsLists().getRawValue().length;
+    if (len === 0) {
+      this.noneIAm = 'None';
+    }
   }
   ////////////////////////////////////////////////////////////////////
   // ifusionForm
@@ -1336,10 +1449,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addIFusion(): void {
     this.ifusionLists().push(this.newIFusion());
+    const len = this.ifusionLists().getRawValue.length;
+    if (len > 0) {
+      this.noneIFu = '';
+    }
   }
 
   removeIFusion(i: number): void {
     this.ifusionLists().removeAt(i);
+    const len = this.ifusionLists().getRawValue().length;
+    if (len === 0) {
+      this.noneIFu = 'None';
+    }
   }
   ////////////////////////////////////////////////////////////////////
 
@@ -1355,6 +1476,114 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const now = year + '.' + newmon + '.' + newday;
 
     return now;
+  }
+
+  /*
+    getStatus(index): boolean {
+      // console.log('[661][getStatus]', index, this.screenstatus);
+      if (index === 1) {
+        if (parseInt(this.screenstatus, 10) === 0) {
+          return false;
+        } else if (parseInt(this.screenstatus, 10) === 1) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 2) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 3) {
+          return true;
+        }
+  
+      } else if (index === 2) {
+        if (parseInt(this.screenstatus, 10) === 0) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 1) {
+          return false;
+        } else if (parseInt(this.screenstatus, 10) === 2) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 3) {
+          return true;
+        }
+      } else if (index === 3) {
+        if (parseInt(this.screenstatus, 10) === 0) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 1) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 2) {
+          return false;
+        } else if (parseInt(this.screenstatus, 10) === 3) {
+          return true;
+        }
+      } else if (index === 4) {
+        if (parseInt(this.screenstatus, 10) === 0) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 1) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 2) {
+          return true;
+        } else if (parseInt(this.screenstatus, 10) === 3) {
+          return false;
+        }
+      }
+  
+    }
+   */
+  reset(): void {
+
+    this.searchService.resetscreenstatus(this.pathologyNum, '0')
+      .subscribe(data => {
+        if (data.message === 'SUCCESS') {
+          this.mutationLists().clear();
+          this.amplificationsLists().clear();
+          this.fusionLists().clear();
+          this.imutationLists().clear();
+          this.iamplificationsLists().clear();
+          this.ifusionLists().clear();
+          this.loadForm();
+
+          this.mutation = [];
+          this.amplifications = [];
+          this.fusion = [];
+          this.imutation = [];
+          this.iamplifications = [];
+          this.ifusion = [];
+
+          this.generalReport = '';
+          this.specialment = '';
+          this.tumorMutationalBurden = '';
+          this.msiScore = '';
+          this.tumorcellpercentage = '';
+          this.extraction = {
+            dnarna: '',
+            keyblock: '',
+            managementNum: '',
+            tumorcellpercentage: '',
+            organ: '',
+            tumortype: '',
+            diagnosis: ''
+          };
+          this.init(this.pathologyNum);
+          console.log(this.screenstatus);
+        }
+      });
+
+    /*
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '0')
+      .subscribe(data => {
+        console.log('reset:', data);
+        this.patientsListService.getScreenStatus(this.form2TestedId)
+          .subscribe(msg => {
+            this.screenstatus = msg.screenstatus;
+            // 초기화
+            const control = this.tablerowForm.get('tableRows') as FormArray;
+            control.clear();
+            // 코멘트 초기화
+            this.commentsRows().clear();
+            // 싱글 코멘트 초기화
+            this.singleCommentsRows().clear();
+            this.init(this.form2TestedId);
+
+          });
+      });
+      */
   }
 
   getStatus(index): boolean {
@@ -1391,7 +1620,6 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         return true;
       }
     }
-
   }
 
   removeGeneCheck(gene: string, amion: string, nucleotide: string): number {
@@ -1408,6 +1636,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   msiScoreChange(msiscore: string): void {
     this.extraction.msiscore = msiscore;
   }
+  ///////////////////////////////////////////////////////////////////
+
+  ////////////////////////////////////////////////////
+
+
+
 
 
 

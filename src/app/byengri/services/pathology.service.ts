@@ -89,9 +89,9 @@ export class PathologyService {
 
   // 날자별 환자ID, 검사ID 검사인 찿기
   public search(start: string, end: string, patientID: string, pathologyNo: string): Observable<IPatient[]> {
-    console.log('[24][searchService][병리검색]:', start, end, patientID, pathologyNo);
+    // console.log('[24][searchService][병리검색]:', start, end, patientID, pathologyNo);
     return this.http.post<IPatient[]>(`${this.apiUrl}/searchpatient_path/list`, { start, end, patientID, pathologyNo }).pipe(
-      tap(data => console.log('[검색서비스][환자정보]', data)),
+      // tap(data => console.log('[검색서비스][환자정보]', data)),
       tap(data => this.patientInfo = data),
       shareReplay()
     );
@@ -147,7 +147,7 @@ export class PathologyService {
   // 검체번호 등록
   public setPathologyNo(id: string): void {
     this.pathologyNo = id;
-    console.log('[120][path service][검체번호]', this.pathologyNo);
+    // console.log('[120][path service][검체번호]', this.pathologyNo);
   }
 
   public getPathologyNo(): string {
@@ -156,7 +156,7 @@ export class PathologyService {
 
   // type
   public setType(type: string): void {
-    console.log('[140][pathlogy.service][type]', type);
+    // console.log('[140][pathlogy.service][type]', type);
     this.type = type;
   }
 
@@ -211,7 +211,7 @@ export class PathologyService {
 
     this.tumorMutationalBurden = tumorMutationalBurden;
     this.tumorMutationalBurden$.next(this.tumorMutationalBurden);
-    console.log('[서비스][213][tumorMutationalBurden] ', this.tumorMutationalBurden);
+    // console.log('[서비스][213][tumorMutationalBurden] ', this.tumorMutationalBurden);
     return this.http.post(`${this.apiUrl}/tumorMutationalBurden/insert`, { pathologyNum, tumorMutationalBurden });
 
 
@@ -227,7 +227,7 @@ export class PathologyService {
     this.msiScore$.next(this.msiScore);
     this.http.post(`${this.apiUrl}/msiscore/insert`, { pathologyNum, msiscore })
       .subscribe(result => {
-        console.log('[223][setMSIScore][insert]', result);
+        // console.log('[223][setMSIScore][insert]', result);
       });
   }
 
@@ -240,7 +240,7 @@ export class PathologyService {
     this.tumorCellPercentage = percentage;
     return this.http.post(`${this.apiUrl}/tumorcellpercentage/insert`, { percentage, pathologyNum })
       .subscribe(result => {
-        console.log('[242][pathology.service][setTumorCellPercentage]', pathologyNum, percentage, result);
+        // console.log('[242][pathology.service][setTumorCellPercentage]', pathologyNum, percentage, result);
       });
 
   }
@@ -264,10 +264,10 @@ export class PathologyService {
   public setFilteredTSV(data: IFilteredOriginData[]): void {
     this.filteredOriginData = data;
     this.filteredOriginData$.next(this.filteredOriginData);
-    // console.log('[서비스][222][filteredOriginData]', this.filteredOriginData);
+    // console.log('========== [서비스][222][filteredOriginData]', this.filteredOriginData);
     this.http.post(`${this.apiUrl}/filteredOriginData/insert`, { data })
       .subscribe(result => {
-        console.log('[252][filteredOriginData][insert]', result);
+        // console.log('[252][filteredOriginData][insert]', result);
       });
   }
 
@@ -309,7 +309,7 @@ export class PathologyService {
   public setClinically(clinically, pathologyNum: string): any {
     this.clinically = clinically;
     this.clinically$.next(this.clinically);
-    // console.log('[서비스][228][clinically]', this.clinically);
+    // console.log('======== [서비스][228][clinically]', this.clinically);
     return this.http.post(`${this.apiUrl}/clinically/insert`, { pathologyNum, clinically });
   }
 
@@ -320,7 +320,7 @@ export class PathologyService {
   // clincal
   public setClinical(clinical, pathologyNum: string): any {
     this.clinical = clinical;
-    //  console.log('[서비스 setClinical] [271]', this.clinical);
+    // console.log('======= [서비스 setClinical] [271]', this.clinical);
     return this.http.post(`${this.apiUrl}/clinical/insert`, { pathologyNum, clinical });
 
   }
@@ -341,15 +341,7 @@ export class PathologyService {
     return this.prevalent;
   }
 
-  // 검진 수정버튼 누를때 screenstatus 번호 변경
-  resetscreenstatus(pathologyNum: string, num): any {
-    return this.http.post(`${this.apiUrl}/patients_path/resetPath`, { pathologyNum, num });
-  }
 
-  // 현재 설정된 screenstatus qjsg 가져오기
-  getScreenStatus(pathologyNum: string): any {
-    return this.http.post(`${this.apiUrl}/patients_path/screenstatusPath`, { pathologyNum });
-  }
 
 
 }

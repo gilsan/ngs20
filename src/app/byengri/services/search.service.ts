@@ -79,6 +79,16 @@ export class SearchService {
     return this.http.post(`${this.apiUrl}/pathEmrUpdate/finishPathologyEMRScreen`, { pathologyNum });
   }
 
+  // 검진 수정버튼 누를때 screenstatus = 0 번호 변경
+  resetscreenstatus(pathologyNum: string, num: string): any {
+    return this.http.post(`${this.apiUrl}/patients_path/resetPath`, { pathologyNum, num });
+  }
+
+  // 현재 설정된 screenstatus 상태 가져오기
+  getScreenStatus(pathologyNum: string): any {
+    return this.http.post(`${this.apiUrl}/patients_path/screenstatusPath`, { pathologyNum });
+  }
+
   // 병리 사용자 리스트
   public listPath(): Observable<IList[]> {
     return this.http.post<IList[]>(`${this.apiUrl}/loginPath/listpath`, { dept: 'P' });

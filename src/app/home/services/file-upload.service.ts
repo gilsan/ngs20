@@ -50,7 +50,7 @@ export class FileUploadService {
   }
 
   pathDataUpload(formData: any): Observable<UploadResponse> {
-    console.log('[49][file-upload][pathDataUpload]', formData);
+    // console.log('[49][file-upload][pathDataUpload]', formData);
     return this.http.post(`${this.apiUrl}/pathfileUpload/upload`, formData, {
       reportProgress: true,
       observe: 'events'
