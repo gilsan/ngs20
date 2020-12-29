@@ -20,12 +20,14 @@ export class MutationComponent implements OnInit {
   lists: IMutation[];
   listMutations: IMutation[];
   mutationInfo: IMutation;
+  
  
   genes: string;
   curPage:  number;
   totPage:  number;
   pageLine: number;
-
+  totRecords: number; 
+  
   private apiUrl = emrUrl;
  
   ngOnInit(): void { 
@@ -69,6 +71,24 @@ export class MutationComponent implements OnInit {
     const igv: HTMLInputElement				          = document.getElementById("igv"+id) as HTMLInputElement;
     const sanger: HTMLInputElement			        = document.getElementById("sanger"+id) as HTMLInputElement;
 
+
+    if(buccal.value ==""){
+      alert("buccal 값은 필수 입니다.");
+      return;
+    }
+    if(patientName.value ==""){
+      alert("patient Name 값은 필수 입니다.");
+      return;
+    }
+    if(gene.value ==""){
+      alert("gene 값은 필수 입니다.");
+      return;
+    }
+    if(transcript.value ==""){
+      alert("transcript 값은 필수 입니다.");
+      return;
+    }    
+
     if(id!==""){
       this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
@@ -91,7 +111,25 @@ export class MutationComponent implements OnInit {
   }
 
   insertRow(){ 
-    debugger;  
+    this.lists.push({'id': '',
+        'buccal': '',
+        'patient_name': '',
+        'register_number': '',
+        'fusion': '',
+        'gene': '',
+        'functional_impact': '',
+        'transcript': '',
+        'exon_intro': '',
+        'nucleotide_change': '',
+        'amino_acid_change': '',
+        'zygosity': '',
+        'vaf': '',
+        'reference': '',
+        'cosmic_id': '',
+        'sift_polyphen_mutation_taster': '',
+        'buccal2': '',
+        'igv': '',
+        'sanger': ''});
   } 
 
   goPage(page: string): void {    
@@ -110,7 +148,7 @@ export class MutationComponent implements OnInit {
     this.lists =  this.listMutations.slice((Number(page)-1)*10,(Number(page))*10); 
   }  
   search(genes: string): void { 
-
+    this.totRecords =0; 
     this.lists$ = this.mutationService.getMutationList(genes);
     this.lists$.subscribe((data) => {
       console.log('[170][Mutation 검색]', data);
@@ -120,6 +158,7 @@ export class MutationComponent implements OnInit {
       this.curPage = 1;
       this.totPage = Math.ceil(this.listMutations.length/10);  
       this.pageLine = 0; 
+      this.totRecords = this.listMutations.length;
     });
 
   }   

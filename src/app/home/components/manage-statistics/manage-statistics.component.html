@@ -1,1 +1,71 @@
-<p>manage-statistics works!</p>
+    <div id="container">
+        <div id="content">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+                <tr>
+                    <td  class="mail_title">Statistics Management</td>
+                    <td class="main_btn"> </td>
+                </tr>
+            </table>
+            <div class="box mg_b20 pd_20">
+                <input type="date" [value]="startToday()" class="input_01" #start  style="width:180px;"/> ~ 
+                <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
+                <input type="text" placeholder="사용자ID" class="input_01" #userId />&nbsp;&nbsp;
+                <input type="text" placeholder="사용자명" class="input_01" #userNm />&nbsp;&nbsp;
+                <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >SEARCH</button>
+            </div>
+            <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>   
+            <div class="box">
+                <table border="0" cellpadding="0" cellspacing="0" class="table_list">
+                    <colgroup>
+                    <col style="width:5%;" />
+                    <col style="width:10%;" />
+                    <col style="width:15%;" />
+                    <col style="width:10%;" />
+                    <col style="width:10%;" />
+                    <col style="width:20%;" />
+                    <col style="width:15%;" />
+                    <col style="width:15%;" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>환자명</th>
+                            <th>환자ID</th>
+                            <th>검사일자</th>
+                            <th>전송일자</th>
+                            <th>전송자</th>
+                            <th>결과</th>
+                            <th>비고</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr [ngClass]="toggle(i)"  *ngFor="let list of lists; let i = index">
+                            <td class="txt_c"><span >{{ (curPage-1)*10 + i + 1}}</span></td> 
+                            <td class="txt_c"><span>{{list.name}}</span></td>
+                            <td class="txt_c"><span>{{list.patientID}}</span></td>  
+                            <td class="txt_c"><span>{{list.accept_date}}</span></td> 
+                            <td class="txt_c"><span>{{list.send_time}}</span></td>
+                            <td class="txt_c"><span>{{list.sender}}</span></td>
+                            <td class="txt_c"><span>{{list.send_result}}</span></td>
+                            <td class="txt_c"><span>{{list.remark}}</span></td>       
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </div>   
+            <div class="txt_c pd_t20 btn_num">
+                <a class="ico_pre" (click)="goPage('<')" >이전</a>   
+                <span *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">  
+                    <span   *ngIf="i + (pageLine*10) <= totPage">   
+                        <span *ngIf="i + (pageLine*10) == curPage">
+                            <a  (click)="goPage(i + (pageLine*10))"><span class="btn_select">{{i + (pageLine*10)}}</span></a>
+                        </span>
+                        <span *ngIf="i + (pageLine*10) != curPage">
+                            <a  (click)="goPage(i + (pageLine*10))"><span>{{i + (pageLine*10)}}</span></a>
+                        </span> 
+                    </span>    
+                </span> 
+                <a class="ico_next" (click)="goPage('>')" >다음</a> 
+            </div>  
+        </div>
+    </div> 

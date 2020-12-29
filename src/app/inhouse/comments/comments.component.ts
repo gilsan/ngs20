@@ -25,6 +25,7 @@ export class CommentsComponent implements OnInit {
   curPage:  number;
   totPage:  number;
   pageLine: number;
+  totRecords: number;
 
   private apiUrl = emrUrl;
  
@@ -58,16 +59,35 @@ export class CommentsComponent implements OnInit {
     const gene: HTMLInputElement = document.getElementById("gene"+id) as HTMLInputElement; 
     const comment: HTMLInputElement = document.getElementById("comment"+id) as HTMLInputElement;
     const reference: HTMLInputElement = document.getElementById("reference"+id) as HTMLInputElement;
+    const variant_id: HTMLInputElement = document.getElementById("variant_id"+id) as HTMLInputElement;
+
+    if(commentsType.value ==""){
+      alert("Type 값은 필수 입니다.");
+      return;
+    }
+   
+    if(gene.value ==""){
+      alert("gene 값은 필수 입니다.");
+      return;
+    }
+    if(comment.value ==""){
+      alert("comment 값은 필수 입니다.");
+      return;
+    }
+    if(reference.value ==""){
+      alert("reference 값은 필수 입니다.");
+      return;
+    }
 
     if(id!==""){
-        this.commentsService.updateCommentsList(id, commentsType.value, gene.value, comment.value, reference.value)
+        this.commentsService.updateCommentsList(id, commentsType.value, gene.value, variant_id.value, comment.value, reference.value)
           .subscribe((data) => {
           console.log('[170][benign 수정]', data); 
           alert("수정 되었습니다.");
           this.search(gene.value);
         }); 
     }else{
-        this.commentsService.insertCommentsList(id, commentsType.value, gene.value, comment.value, reference.value)
+        this.commentsService.insertCommentsList(id, commentsType.value, gene.value, variant_id.value, comment.value, reference.value)
           .subscribe((data) => {
           console.log('[170][benign 저장]', data); 
           alert("저장 되었습니다."); 
@@ -77,7 +97,7 @@ export class CommentsComponent implements OnInit {
   }
 
   insertRow(){  
-    this.lists.push({'id':'', 'type':'', 'gene':'', 'comment':'', 'reference':''});  
+    this.lists.push({'id':'', 'type':'', 'gene':'', 'variant_id':'', 'comment':'', 'reference':''});  
   } 
   
   goPage(page: string): void {
@@ -97,7 +117,7 @@ export class CommentsComponent implements OnInit {
   }  
 
   search(genes: string): void { 
-
+    this.totRecords = 0;
     this.lists$ = this.commentsService.getCommentsList(genes);
     this.lists$.subscribe((data) => {
       console.log('[170][benign 검색]', data);
@@ -107,6 +127,7 @@ export class CommentsComponent implements OnInit {
       this.curPage = 1;
       this.totPage = Math.ceil(this.listComments.length/10);  
       this.pageLine = 0; 
+      this.totRecords = this.listComments.length;
     });
 
   }  

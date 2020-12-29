@@ -7,13 +7,13 @@
             </tr>
         </table>
         <div class="box mg_b20 pd_20">
-
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:180px;"/> ~ 
             <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
             <input type="text" placeholder="사용자ID" class="input_01" #userId />&nbsp;&nbsp;
             <input type="text" placeholder="사용자명" class="input_01" #userNm />&nbsp;&nbsp;
             <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >SEARCH</button>
         </div>
+        <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>    
         <div class="box">
             <table border="0" cellpadding="0" cellspacing="0" class="table_list">
                 <colgroup>
@@ -24,13 +24,12 @@
                 <col style="width:10%;" />
                 <col style="width:20%;" />
                 <col style="width:15%;" />
-                <col style="width:*" />
+                <col qnt />
                 </colgroup>
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>ID</th>
-                      <!--  <th>암호</th> -->
+                        <th>ID</th> 
                         <th>진검/병리</th>
                         <th>사용자구분</th>
                         <th>사용자명</th>
@@ -40,21 +39,21 @@
                     </tr>
                 </thead>
                 <tbody> 
-                    <tr class="table_bg" *ngFor="let list of lists; let i = index">    
-                        <td ><span class="txt_c" >{{ (curPage-1)*10 + i + 1}}</span></td> 
-                        <td ><span class="txt_c" >{{list.user_id}}</span></td> 
-                        <td ><span class="txt_c" >{{list.dept_nm}}</span></td> 
-                        <td ><span class="txt_c" >{{list.user_gb_nm}}</span></td>
-                        <td ><span class="txt_c" >{{list.user_nm}}</span></td>
-                        <td ><span class="txt_c" >{{list.reg_date}}</span></td>
-                        <td ><span class="txt_c" >{{list.login_date}}</span></td>  
-                        <td ><span class="text_right" *ngIf="list.user_id ==''" >
-                            <input type="radio"  [checked]='true'   name="pick{{list.id}}" id="confirm{{list.id}}">&nbsp;&nbsp;승인
-                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="confirm{{list.id}}" name="pick{{list.id}}">&nbsp;&nbsp;미승인
+                    <tr [ngClass]="toggle(i)"  *ngFor="let list of lists; let i = index">    
+                        <td class="txt_c" ><span>{{ (curPage-1)*10 + i + 1}}</span></td> 
+                        <td class="txt_c" ><span>{{list.user_id}}</span></td> 
+                        <td class="txt_c" ><span>{{list.dept_nm}}</span></td> 
+                        <td class="txt_c" ><span>{{list.user_gb_nm}}</span></td>
+                        <td class="txt_c" ><span>{{list.user_nm}}</span></td>
+                        <td class="txt_c" ><span>{{list.reg_date}}</span></td>
+                        <td class="txt_c" ><span>{{list.login_date}}</span></td>  
+                        <td class="txt_c"><span *ngIf="list.approved =='Y'" >
+                            <input type="radio"  [checked]='true'   name="pick{{list.id}}" id="confirm{{list.id}}" (click)="confirm(list.id,'Y')">&nbsp;&nbsp;승인
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" id="confirm{{list.id}}" name="pick{{list.id}}" (click)="confirm(list.id,'N')">&nbsp;&nbsp;미승인
                             </span>
-                            <span class="text_right" *ngIf="list.user_id !=''" >
-                                <input type="radio"   name="pick{{list.id}}" id="confirm{{list.id}}">&nbsp;&nbsp;승인
-                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" [checked]='true' id="confirm{{list.id}}" name="pick{{list.id}}">&nbsp;&nbsp;미승인
+                            <span  *ngIf="list.approved =='N'" >
+                                <input type="radio"   name="pick{{list.id}}" id="confirm{{list.id}}" (click)="confirm(list.id,'Y')">&nbsp;&nbsp;승인
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" [checked]='true' id="confirm{{list.id}}" name="pick{{list.id}}" (click)="confirm(list.id,'N')">&nbsp;&nbsp;미승인
                              </span>
                         </td> 
                     </tr>  

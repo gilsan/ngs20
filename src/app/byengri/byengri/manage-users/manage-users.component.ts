@@ -21,6 +21,7 @@ export class ManageUsersComponent implements OnInit {
   curPage:  number;
   totPage:  number;
   pageLine: number;
+  totRecords: number;
 
   startday: string;
   endday: string;
@@ -106,7 +107,8 @@ export class ManageUsersComponent implements OnInit {
     this.lists =  this.listManageUsers.slice((Number(page)-1)*10, (Number(page))*10); 
  }  
  
-  search(startDay: string, endDay: string, userId: string, userNm: string ): void {   
+  search(startDay: string, endDay: string, userId: string, userNm: string ): void { 
+      this.totRecords = 0;  
       this.lists$ = this.manageUsersService.getManageUsersList(startDay, endDay, userId, userNm );
       this.lists$.subscribe((data) => {
       console.log('[170][Users 검색]', data);
@@ -114,7 +116,31 @@ export class ManageUsersComponent implements OnInit {
       this.lists = data.slice(0,10);
       this.curPage = 1;
       this.totPage = Math.ceil(this.listManageUsers.length/10);  
-      this.pageLine = 0; 
+      this.pageLine = 0;
+      this.totRecords = this.listManageUsers.length;
     }); 
   }  
+
+  confirm(id: string, approved: string): void { 
+    debugger;
+    let approve = (approved =="Y" ? "승인":"미승인");
+    let result = confirm( approve + " 하시겠습니까?");
+    if (result ==true){  
+      this.lists$ = this.manageUsersService.setManageUsersApproved(id, approved );
+        this.lists$.subscribe((data) => {
+        alert("정상 처리 되었습니다.");  
+        this.init();
+      });   
+    }
+  } 
+  
+  toggle(i: number): any {
+
+    if (i % 2 === 0) {
+      return { table_bg: true };
+    }
+    return { table_bg: false };
+  }
+
+
 }

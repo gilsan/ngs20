@@ -4,4 +4,5 @@ export interface IComments {
   gene: string;
   comment: string;
   reference: string;
+  variant_id: string;
 }

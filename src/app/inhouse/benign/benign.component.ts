@@ -26,6 +26,7 @@ export class BenignComponent implements OnInit {
   curPage:  number;
   totPage:  number;
   pageLine: number;
+  totRecords: number;
 
   private apiUrl = emrUrl;
  
@@ -61,7 +62,29 @@ export class BenignComponent implements OnInit {
     const transcript: HTMLInputElement = document.getElementById("transcript"+id) as HTMLInputElement; 
     const coding: HTMLInputElement = document.getElementById("coding"+id) as HTMLInputElement; 
     const aminoAcidChange: HTMLInputElement = document.getElementById("aminoAcidChange"+id) as HTMLInputElement;  
-  
+    
+    if(genes.value ==""){
+      alert("genes 값은 필수 입니다.");
+      return;
+    }
+   
+    if(location.value ==""){
+      alert("location 값은 필수 입니다.");
+      return;
+    }
+    if(exon.value ==""){
+      alert("exon 값은 필수 입니다.");
+      return;
+    }
+    if(coding.value ==""){
+      alert("coding 값은 필수 입니다.");
+      return;
+    }
+    if(aminoAcidChange.value ==""){
+      alert("Amino Acid Change 값은 필수 입니다.");
+      return;
+    }
+
     if(id!==""){ 
           this.benignService.updateBenignList(id, genes.value, location.value, exon.value, transcript.value, coding.value, aminoAcidChange.value )
           .subscribe((data) => {
@@ -100,7 +123,7 @@ export class BenignComponent implements OnInit {
  }  
 
   search(genes: string): void { 
-
+    this.totRecords = 0;
     this.lists$ = this.benignService.getBenignList(genes);
     this.lists$.subscribe((data) => {
       console.log('[170][benign 검색]', data);
@@ -110,7 +133,7 @@ export class BenignComponent implements OnInit {
       this.curPage = 1;
       this.totPage = Math.ceil(this.listBenigns.length/10);  
       this.pageLine = 0; 
-
+      this.totRecords = this.listBenigns.length;
     });
 
   }  

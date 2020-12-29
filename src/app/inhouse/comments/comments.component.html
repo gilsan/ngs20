@@ -24,7 +24,7 @@
             <input type="text" class="input_01" placeholder="Genes" #genes>
             <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
         </div>
-    <div> Total: {{listComments.length}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
+    <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
     <div class="table-box-wrap">
         <div class="table-box box">
     
@@ -32,7 +32,8 @@
                 <colgroup>
                     <col width="3%" />
                     <col width="7%" />
-                    <col width="10%" />
+                    <col width="7%" />
+                    <col width="7%" />
                     <col width="30%" />
                     <col width="30%" />
                     <col width="%" />
@@ -42,6 +43,7 @@
                         <th style ="width:2px;" class="txt_l">No</th>
                         <th style ="width:5px;" class="txt_l">Type</th>
                         <th style ="width:50px;" class="txt_l">Gene</th>
+                        <th style ="width:50px;" class="txt_l">Variant Id</th>
                         <th class="txt_l">Comment</th> 
                         <th class="txt_l">Reference</th>
                         <th class="txt_c">수정/삭제</th> 
@@ -58,6 +60,10 @@
                             <td>
                                 <span class="bdnone" *ngIf="status.value === 'R'">{{list.gene}}</span>
                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input wid120" value="{{list.gene}}" id="gene{{list.id}}"   ></span>
+                            </td>
+                            <td>
+                                <span class="bdnone" *ngIf="status.value === 'R'">{{list.variant_id}}</span>
+                                <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input wid120" value="{{list.variant_id}}" id="variant_id{{list.id}}"   ></span>
                             </td>  
                             <td>
                                 <span class="bdnone" *ngIf="status.value === 'R'">{{list.comment}}</span>
