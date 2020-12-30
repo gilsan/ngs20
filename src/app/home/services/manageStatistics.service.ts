@@ -20,7 +20,6 @@ export class ManageStatisticsService {
   ) { }
  
   public getManageStatisticsList(startDay: String, endDay: String, userId: String, userNm: String): Observable<any> { 
-    debugger; 
     return this.http.post(`${this.apiUrl}/manageStatistics/list`, { startDay, endDay, userId, userNm });
   } 
  

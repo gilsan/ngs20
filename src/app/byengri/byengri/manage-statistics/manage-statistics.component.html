@@ -9,8 +9,8 @@
         <div class="box mg_b20 pd_20">
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:180px;"/> ~ 
             <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
-            <input type="text" placeholder="»ηΏλΐΪID" class="input_01" #userId />&nbsp;&nbsp;
-            <input type="text" placeholder="»ηΏλΐΪΈν" class="input_01" #userNm />&nbsp;&nbsp;
+            <input type="text" placeholder="μ‚¬μ©μID" class="input_01" #userId />&nbsp;&nbsp;
+            <input type="text" placeholder="μ‚¬μ©μλª…" class="input_01" #userNm />&nbsp;&nbsp;
             <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >SEARCH</button>
         </div>
         <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>   
@@ -29,13 +29,13 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Θ―ΐΪΈν</th>
-                        <th>Θ―ΐΪID</th>
-                        <th>°Λ»ηΐΟΐΪ</th>
-                        <th>ΐόΌΫΐΟΐΪ</th>
-                        <th>ΐόΌΫΐΪ</th>
-                        <th>°α°ϊ</th>
-                        <th>Ίρ°ν</th>
+                        <th>ν™μλª…</th>
+                        <th>ν™μID</th>
+                        <th>κ²€μ‚¬μΌμ</th>
+                        <th>μ „μ†΅μΌμ</th>
+                        <th>μ „μ†΅μ</th>
+                        <th>κ²°κ³Ό</th>
+                        <th>λΉ„κ³ </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +54,7 @@
             </table>
         </div>   
         <div class="txt_c pd_t20 btn_num">
-            <a class="ico_pre" (click)="goPage('<')" >ΐΜΐό</a>   
+            <a class="ico_pre" (click)="goPage('<')" >μ΄μ „</a>   
             <span *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">  
                 <span   *ngIf="i + (pageLine*10) <= totPage">   
                     <span *ngIf="i + (pageLine*10) == curPage">
@@ -65,7 +65,7 @@
                     </span> 
                 </span>    
             </span> 
-            <a class="ico_next" (click)="goPage('>')" >΄Ωΐ½</a> 
+            <a class="ico_next" (click)="goPage('>')" >λ‹¤μ</a> 
         </div>  
     </div>
 </div> 

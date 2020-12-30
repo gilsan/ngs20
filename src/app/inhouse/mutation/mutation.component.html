@@ -1,6 +1,6 @@
 <style>
     table {
-        table-layout: fixed;
+        table-layout: fixed; 
     }
      
     /*** 테이블 헤더 고정 ***/
@@ -11,7 +11,8 @@
         color: #fff;  
         font-weight: normal;
     }
-    /*** /테이블 헤더 고정 ***/
+    /*** /테이블 헤더 고정 ***/ 
+
 </style>
 
 <div id="container">
@@ -41,130 +42,129 @@
             <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
         </div>
 
-    <div> Total: {{listMutations.length}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
+    <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
     <div class="table-box-wrap">
-        <div class="table-box box_100">
-            <table border="0" cellpadding="0" cellspacing="0" class="fixed_header">
-              
+        <div class="table-box box_100">         
+            <table border="0" cellpadding="0" cellspacing="0" class="fixed_header table_list" style="min-width: 1800px; width:100%">
                 <thead>
                     <tr>
-                        <th  class="txt_c">No.</th>
-                        <th  class="txt_l">Buccal</th>
-                        <th  class="txt_l">Patient Name</th>
-                        <th  class="txt_l">Register No.</th>
-                        <th  class="txt_l">Fusion</th>
-                        <th  class="txt_l">Gene</th>
-                        <th  class="txt_l">Funcational Impact</th>
-                        <th  class="txt_l">Transcript</th>
-                        <th  class="txt_l">Exion Intro</th>
-                        <th  class="txt_l">Necleotide Change</th>   
-                        <th  class="txt_l">Amino Acid Change</th> 
-                        <th  class="txt_l">Zygosity</th>
-                        <th  class="txt_l">Vaf</th>
-                        <th  class="txt_l">Referance</th>
-                        <th  class="txt_l">Cosmic Id</th>
-                        <th  class="txt_l">Sift Polyphen Mutation Taster</th>
-                        <th  class="txt_l">buccal2</th>
-                        <th  class="txt_l">Ivg</th>
-                        <th  class="txt_l">Sanger</th>
-                        <th  class="txt_c">수정/삭제</th>  
+                        <th >No.</th>
+                        <th >Buccal</th>
+                        <th >Patient Name</th>
+                        <th >Register No.</th>
+                        <th >Fusion</th>
+                        <th >Gene</th>
+                        <th >Funcational Impact</th>
+                        <th >Transcript</th>
+                        <th >Exion Intro</th>
+                        <th >Necleotide Change</th>   
+                        <th >Amino Acid Change</th> 
+                        <th >Zygosity</th>
+                        <th >Vaf</th>
+                        <th >Referance</th>
+                        <th >Cosmic Id</th>
+                        <th >Sift Polyphen Mutation Taster</th>
+                        <th >buccal2</th>
+                        <th >Ivg</th>
+                        <th >Sanger</th>
+                        <th >수정/삭제</th>  
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="table_bg" *ngFor="let list of lists; let i = index">
                             <input type="hidden" value="R" #status >   
                             <td style="width:10px;" class="txt_c" >{{i + 1}}</td> 
-                            <td ><span *ngIf="status.value === 'R'">{{list.buccal}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.buccal}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.buccal}}" id="buccal{{list.id}}"    > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.patient_name}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.patient_name}}</span>
                                 <span *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.patient_name}}"  id="patientName{{list.id}}" > 
                                 </span> 
                             </td> 
-                            <td ><span *ngIf="status.value === 'R'">{{list.register_number}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.register_number}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.register_number}}" id="registerNumber{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.fusion}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.fusion}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.fusion}}" id="fusion{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.gene}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.gene}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.gene}}" id="gene{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.functional_impact}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.functional_impact}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.functional_impact}}" id="functionalImpact{{list.id}}" > 
                                 </span>    
                             </td> 
-                            <td ><span *ngIf="status.value === 'R'">{{list.transcript}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.transcript}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.transcript}}" id="transcript{{list.id}}"  > 
                                 </span>   
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.exon_intro}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.exon_intro}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.exon_intro}}" id="exonIntro{{list.id}}" > 
                                 </span>   
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.nucleotide_change}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.nucleotide_change}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.nucleotide_change}}"  id="nucleotideChange{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.amino_acid_change}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.amino_acid_change}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.amino_acid_change}}" id="aminoAcidChange{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.zygosity}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.zygosity}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.zygosity}}" id="zygosity{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.vaf}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.vaf}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.vaf}}" id="vaf{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.reference}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.reference}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.reference}}" id="reference{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.cosmic_id}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.cosmic_id}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.cosmic_id}}" id="cosmicId{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.sift_polyphen_mutation_taster}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.sift_polyphen_mutation_taster}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.sift_polyphen_mutation_taster}}" id="siftPolyphenMutationTaster{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.buccal2}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.buccal2}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.buccal2}}" id="buccal2{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.igv}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.igv}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.igv}}" id="igv{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td ><span *ngIf="status.value === 'R'">{{list.sanger}}</span>
+                            <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.sanger}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.sanger}}" id="sanger{{list.id}}" > 
                                 </span> 
                             </td>
-                            <td>
+                            <td class="txt_c">
                                 <span *ngIf="status.value === 'R'">
                                     <a class="btn-edit" (click)="status.value='U'">수정</a>
                                     <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>

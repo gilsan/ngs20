@@ -120,7 +120,7 @@ export class CommentsComponent implements OnInit {
     this.totRecords = 0;
     this.lists$ = this.commentsService.getCommentsList(genes);
     this.lists$.subscribe((data) => {
-      console.log('[170][benign 검색]', data);
+   //   console.log('[170][benign 검색]', data);
       this.lists = data;
       this.listComments = data;
       this.lists = data.slice(0,10);

@@ -54,8 +54,7 @@ export class BenignComponent implements OnInit {
     }  
   }
 
-  updateRow(id: string): void {  
-    
+  updateRow(id: string): void {   
     const genes: HTMLInputElement = document.getElementById("genes"+id) as HTMLInputElement; 
     const location: HTMLInputElement = document.getElementById("location"+id) as HTMLInputElement; 
     const exon: HTMLInputElement = document.getElementById("exon"+id) as HTMLInputElement; 
@@ -126,7 +125,7 @@ export class BenignComponent implements OnInit {
     this.totRecords = 0;
     this.lists$ = this.benignService.getBenignList(genes);
     this.lists$.subscribe((data) => {
-      console.log('[170][benign 검색]', data);
+   //   console.log('[170][benign 검색]', data);
       this.lists = data;
       this.listBenigns = data;
       this.lists = data.slice(0,10);
