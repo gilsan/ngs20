@@ -57,7 +57,7 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadfileList = [];
-    console.log('[55][upload][ngOnInit]', this.uploadfileList);
+    // console.log('[55][upload][ngOnInit]', this.uploadfileList);
 
   }
 
@@ -261,7 +261,7 @@ export class UploadComponent implements OnInit {
                 return member[1] !== 'deletion';
               });
 
-              console.log('[227][deletion]', this.prevalent);
+              // console.log('[227][deletion]', this.prevalent);
 
             }
           }
@@ -275,7 +275,7 @@ export class UploadComponent implements OnInit {
           concatMap(() => this.pathologyService.setTumorMutationalBurden(this.burden, this.pathologyNum))
 
         ).subscribe(result => {
-          console.log(result);
+          // console.log(result);
         });
     };
     reader.readAsText(file);
@@ -323,7 +323,7 @@ export class UploadComponent implements OnInit {
       // 기본자료 수집
       data.forEach((list, index) => {
         if (index >= 19) {
-          console.log('==== [313][filteredOriginData] ', list[12].trim());
+          // console.log('==== [313][filteredOriginData] ', list[12].trim());
           this.filteredOriginData.push({
             locus: list[0].trim(),
             readcount: list[21].trim(),

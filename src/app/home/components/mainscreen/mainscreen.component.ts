@@ -84,6 +84,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   onSelected(): void {
     // 리스트 업데이트 함
     this.lists = [];
+    console.log('[87][onSelected]', this.lists, this.startday, this.endday);
     if (this.startday.length && this.endday.length) {
       this.search(this.startday, this.endday, this.specimenno, this.patientid);
     } else {
@@ -206,8 +207,10 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.specimenno = this.storeSpecimenID;
     this.patientid = this.patientID;
     console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
+    this.lists = [];
     if (this.storeStartDay && this.storeEndDay) {
-      this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID);
+
+      //  this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID);
     }
   }
 
@@ -227,7 +230,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     const startdate = start.toString().replace(/-/gi, '');
     const enddate = end.toString().replace(/-/gi, '');
     // console.log('[97][진검검색]', startdate, enddate, specimenNo, patientId);
-    this.lists = [];
+
     if (patientId !== undefined) {
       patientId = patientId.trim();
     }

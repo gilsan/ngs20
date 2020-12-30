@@ -23,6 +23,12 @@ export function makeReport(
   notement: string
 ): string {
 
+  // null 처리
+  if (tumorMutationalBurden === null) {
+    tumorMutationalBurden = '';
+  }
+
+
   const todays = () => {
     const today = new Date();
 
@@ -85,7 +91,7 @@ export function makeReport(
               <Col id="dnaandrnaextraction">${extraction.dnarna}</Col>
               <Col id="relptno">${extraction.managementNum}</Col>
               <Col id="keyblock">${extraction.keyblock}</Col>
-              <Col id="tumorcellpercentage">${extraction.tumorcellpercentage}</Col>
+              <Col id="tumorcellpercentage">${extraction.tumorcellpercentage}%</Col>
               <Col id="organ">${extraction.organ}</Col>
               <Col id="tumortype">${extraction.tumortype}</Col>
               <Col id="pathologicaldiagnosis">${extraction.diagnosis}</Col>
@@ -326,7 +332,7 @@ export function makeReport(
     </ColumnInfo>
     <Rows>
       <Row>
-         <Col id="msiscore">${msiScore}</Col>
+         <Col id="msiscore">${msiScore} (MSS)</Col>
       </Row>
     </Rows>
   </Dataset>

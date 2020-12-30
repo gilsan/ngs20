@@ -22,7 +22,7 @@
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:150px;"/>
             ~
             <input type="date" [value]="endToday()" class="input_01" #end  style="width:150px;"/> &nbsp;&nbsp;          
-            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, pathologynum.value, patient.value)"
+            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, pathologynum.value, patient.value, 'Y')"
              >조 회</button>
         </div>
         <div class="box">

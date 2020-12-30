@@ -21,6 +21,7 @@ export class AuthService {
   }
 
   public loginPath(user: string, password: string): Observable<any> {
+
     return this.http.post(`${this.apiUrl}/loginPath/loginpath`, { user, password });
   }
 

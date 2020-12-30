@@ -25,7 +25,7 @@ export class TsvuploadComponent implements OnInit {
     private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
-    console.log('[28][ tsvupload][]', this.patientid, this.specimenNo);
+    // console.log('[28][ tsvupload][]', this.patientid, this.specimenNo);
   }
 
   onConfirm(): void {
@@ -82,11 +82,11 @@ export class TsvuploadComponent implements OnInit {
   }
 
   onSelectedFile(event: any): void {
-    console.log('[82][tsvupload] ', event.target.files);
+    // console.log('[82][tsvupload] ', event.target.files);
     if (event.target.files.length > 0) {
       const patientid = event.target.files[0].name.split('_')[1];
 
-      console.log('[83][tsvupload]', this.specimenNo, this.patientid, patientid);
+      // console.log('[83][tsvupload]', this.specimenNo, this.patientid, patientid);
       if (this.patientid === patientid) {
         this.onDroppedFile(event.target.files);
       } else {

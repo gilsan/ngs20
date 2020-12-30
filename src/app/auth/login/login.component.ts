@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else if (this.type === 'path') {
       this.subs.sink = this.authService.loginPath(this.loginGroup.value.user, this.loginGroup.value.passwd)
         .subscribe((data) => {
-          // console.log('[56][path]', data);
+          console.log('[65][path]', data);
           if (data.message === 'WRONGID') {
             alert('아이디가 맞지 않습니다.');
           } else if (data.message === 'WRONGPW') {
@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   register(): void {
 
-    const url = "http://"+window.location.host+"/#/register" ;
-    window.open(url, "사용자등록", "top=100, left=200, width=510, height=610, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+    const url = "http://" + window.location.host + "/#/register";
+    window.open(url, "사용자등록", "top=100, left=200, width=510, height=610, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 
   }
 
