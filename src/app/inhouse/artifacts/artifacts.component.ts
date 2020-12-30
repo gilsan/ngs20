@@ -127,6 +127,7 @@ export class ArtifactsComponent implements OnInit {
   }  
 
   search(genes: string): void {   
+	
     this.totRecords =0;
     this.lists$ = this.artifactsService.getArtifactsList(genes);
     this.lists$.subscribe((data) => {
