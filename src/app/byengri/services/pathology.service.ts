@@ -184,7 +184,7 @@ export class PathologyService {
     const userid = '20800531';
     const rsltdesc = xmlData;
 
-    const emrdata = `http://emr012edu.cmcnu.or.kr/cmcnu/.live?submit_id=${submitID}&business_id=li&instcd=012&spcno=${spcno}&formcd=-&rsltflag=O&pid=${pid}&examcd=${examcd}&examflag=${examflag}&infflag=I&userid=${userid}&rsltdesc=${rsltdesc}`;
+    const emrdata = `http://emr012.cmcnu.or.kr/cmcnu/.live?submit_id=${submitID}&business_id=li&instcd=012&spcno=${spcno}&formcd=-&rsltflag=O&pid=${pid}&examcd=${examcd}&examflag=${examflag}&infflag=I&userid=${userid}&rsltdesc=${rsltdesc}`;
 
     const emr = `${this.apiUrl}/pathEMR/redirectEMR`;
     console.log('[service pathologyNum]', spcno);

@@ -171,12 +171,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     // 검체 감염유부 확인
+    /*
     if (parseInt(this.patientInfo.detected, 10) === 0) {
       this.resultStatus = 'Detected';
     } else if (parseInt(this.patientInfo.detected, 10) === 1) {
       this.resultStatus = 'Not Detected';
     }
-
+    */
     this.screenstatus = this.patientInfo.screenstatus;
     // specimen 015 인경우 Bon marrow
     if (this.patientInfo.specimen === '015') {
@@ -286,16 +287,21 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             type = 'M';
             if (data.mutationList1.exonIntro !== 'none') {
               dvariable = data.mutationList1;
+              // mutaion에 있으면 detected로 표시
+              this.resultStatus = 'Detected';
             }
             // dvariable = data.mutationList1;
           } else if (parseInt(data.artifacts1Count, 10) > 0 ||
             parseInt(data.artifacts2Count, 10) > 0) {
             type = 'A';
+            this.resultStatus = 'Not Detected';
           } else if (parseInt(data.benign1Count, 10) > 0 ||
             parseInt(data.benign2Count, 10) > 0) {
             type = 'B';
+            this.resultStatus = 'Not Detected';
           } else {
             type = 'New';
+            this.resultStatus = 'Not Detected';
           }
           if (dvariable) {
             // console.log('[247][form2][dvariable]', dvariable.functional_impact);
@@ -1139,5 +1145,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   // control.push(this.addTableRowGroup());
   // patientsListService
   //////////////////////////////////////////////////////////////////////
+  // 
 
+  /////////////////////////////////////////////////////////////////////
 }

@@ -993,6 +993,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.notement
     );
     console.log(form);
+
     // this.searchService.resetscreenstatus(this.pathologyNum, '3')
     //   .subscribe(data => {
     //     this.screenstatus = '3';
@@ -1000,7 +1001,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // NU로 데이터 전송
     this.pathologyService.sendEMR(this.patientInfo, form).subscribe(data => {
-      const message = data;
+      // const message = data;
       // const result1 = converter.xml2json( message, { compact: true, spaces: 2 });
       console.log('[1121][sendEMR 보낸결과]', data);
       // alert(data);

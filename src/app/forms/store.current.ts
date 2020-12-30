@@ -28,6 +28,8 @@ export class StoreService {
 
   DLists: IDList[];
 
+  screenstatue = 'N';
+
   constructor() { }
   // mainscreen의 검색항목 저장
   // 시작날자, 종료날자, 검체번호, 환자번호
@@ -46,7 +48,7 @@ export class StoreService {
   }
 
   public getSearchEndDay(): string {
-    console.log('[store][getSearchEndDay]', this.amlEndDay);
+    // console.log('[store][getSearchEndDay]', this.amlEndDay);
     return this.amlEndDay;
   }
 
@@ -181,6 +183,15 @@ export class StoreService {
 
   public getDiagList(): IDList[] {
     return this.DLists;
+  }
+
+  // 리스트 화면
+  public setScreenstatus(status: string): void {
+    this.screenstatue = status;
+  }
+
+  public getScreenstatus(): string {
+    return this.screenstatue;
   }
 
 
