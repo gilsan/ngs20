@@ -1,26 +1,3 @@
-caption {
-    position: absolute;
-    font-size: 0;
-    left: -99999px;
-  }
-  .table-box-wrap {
-      position: relative;
-      /*width:509px;*/
-      margin-top: 20px;    
-  }
-
-  .table-box-wrap .table-box table thead tr th {
-    font-weight: normal;
-    width: 120px;
-    height: 40px;
-    background:#6699ff;
-    color:#fff;
-}
-
-  .text-right {
-      text-align: right;
-  }
-  
   .btn-edit, .btn-delete, .btn-cancel, .btn-save {
       display: inline-block;
       width: 24px;

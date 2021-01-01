@@ -104,8 +104,7 @@ export class ManageStatisticsComponent implements OnInit {
     this.lists =  this.listManageStatistics.slice((Number(page)-1)*10, (Number(page))*10); 
  }  
  
-  search(startDay: string, endDay: string, userId: string, userNm: string ): void {   
-     debugger;
+  search(startDay: string, endDay: string, userId: string, userNm: string ): void {    
       this.totRecords = 0;
       this.lists$ = this.manageStatisticsService.getManageStatisticsList(startDay.replace(/-/gi,''), endDay.replace(/-/gi,''), userId, userNm );
       this.lists$.subscribe((data) => {

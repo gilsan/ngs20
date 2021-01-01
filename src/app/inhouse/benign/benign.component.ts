@@ -54,6 +54,7 @@ export class BenignComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   updateRow(id: string): void {
 
     const genes: HTMLInputElement = document.getElementById("genes" + id) as HTMLInputElement;
@@ -64,6 +65,17 @@ export class BenignComponent implements OnInit {
     const aminoAcidChange: HTMLInputElement = document.getElementById("aminoAcidChange" + id) as HTMLInputElement;
 
     if (genes.value == "") {
+=======
+  updateRow(id: string): void {   
+    const genes: HTMLInputElement = document.getElementById("genes"+id) as HTMLInputElement; 
+    const location: HTMLInputElement = document.getElementById("location"+id) as HTMLInputElement; 
+    const exon: HTMLInputElement = document.getElementById("exon"+id) as HTMLInputElement; 
+    const transcript: HTMLInputElement = document.getElementById("transcript"+id) as HTMLInputElement; 
+    const coding: HTMLInputElement = document.getElementById("coding"+id) as HTMLInputElement; 
+    const aminoAcidChange: HTMLInputElement = document.getElementById("aminoAcidChange"+id) as HTMLInputElement;  
+    
+    if(genes.value ==""){
+>>>>>>> eed9743fd98fe5efe2b75c2eee46dfaea7c8f45a
       alert("genes 값은 필수 입니다.");
       return;
     }
@@ -126,7 +138,7 @@ export class BenignComponent implements OnInit {
     this.totRecords = 0;
     this.lists$ = this.benignService.getBenignList(genes);
     this.lists$.subscribe((data) => {
-      console.log('[170][benign 검색]', data);
+   //   console.log('[170][benign 검색]', data);
       this.lists = data;
       this.listBenigns = data;
       this.lists = data.slice(0, 10);
