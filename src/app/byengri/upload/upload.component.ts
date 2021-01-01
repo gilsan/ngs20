@@ -44,7 +44,7 @@ export class UploadComponent implements OnInit {
   tumorType: string;
   burden: string;
 
-
+  fields: string[] = [];
   constructor(
     // private fileUploadService: PathologyService,
     private pathologyService: PathologyService,
@@ -322,9 +322,27 @@ export class UploadComponent implements OnInit {
       // console.log('==== [313][filteredOriginData] ', data);
       // 기본자료 수집
       data.forEach((list, index) => {
+        if (index === 18) {
+          this.fields = list;
+        }
         if (index >= 19) {
           // console.log('==== [313][filteredOriginData] ', list[12].trim());
           this.filteredOriginData.push({
+            locus: list[this.findGenePostion('Locus')].trim(),
+            readcount: list[this.findGenePostion('Read Counts')].trim(),
+            OncomineVariant: list[this.findGenePostion('Oncomine Variant Class')].trim(),
+            oncomine: list[this.findGenePostion('Oncomine Gene Class')].trim(),
+            type: list[this.findGenePostion('Type')].trim(),
+            gene: list[this.findGenePostion('Genes (Exons)')].trim(),
+            aminoAcidChange: list[this.findGenePostion('Amino Acid Change')].trim(),
+            coding: list[this.findGenePostion('Coding')].trim(),
+            frequency: list[this.findGenePostion('% Frequency')].trim(),
+            comsmicID: list[this.findGenePostion('Variant ID')].trim(),
+            cytoband: list[this.findGenePostion('CytoBand')].trim(),
+            variantID: list[this.findGenePostion('Variant ID')].trim(),
+            variantName: list[this.findGenePostion('Variant Name')].trim(),
+            pathologyNum: this.pathologyNum
+            /*
             locus: list[0].trim(),
             readcount: list[21].trim(),
             OncomineVariant: list[12].trim(),
@@ -339,6 +357,7 @@ export class UploadComponent implements OnInit {
             variantID: list[17].trim(),
             variantName: list[18].trim(),
             pathologyNum: this.pathologyNum,
+            */
           });
           // console.log('==== [313][filteredOriginData] ', this.filteredOriginData);
         }
@@ -401,8 +420,25 @@ export class UploadComponent implements OnInit {
     return num.length;
   }
 
-  splitList(genes: string, percent: string) {
-
+  /*
+             locus : Locus
+             readcount : Read Counts
+             OncomineVariant : Oncomine Variant Class
+             oncomine : Oncomine Gene Class
+             type  : Type
+             gene : Genes (Exons), Genes
+             aminoAcidChange : Amino Acid Chang
+             coding  : Coding
+             frequency : % Frequency
+             comsmicID : Variant ID
+             cytoband : CytoBand
+             variantID : Variant ID
+             variantName : Variant Name
+             pathologyNum
+  *///
+  // 유전자의 위치 찿음
+  findGenePostion(item: string): number {
+    return this.fields.findIndex(field => field === item);
   }
 
 

@@ -8,7 +8,7 @@ import { StoreService } from 'src/app/forms/store.current';
 import { IPatient } from '../../models/patients';
 import { PatientsListService } from '../../services/patientslist';
 import { SubSink } from 'subsink';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-mainscreen',
   templateUrl: './mainscreen.component.html',
@@ -152,20 +152,31 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-    const today = new Date();
+    // const today = new Date();
 
-    const year = today.getFullYear(); // 년도
-    const month = today.getMonth();  // 월
-    const date = today.getDate();  // 날짜
-    const day = today.getDay() - 1;  // 요일
-    const newmon = ('0' + month).substr(-2);
-    const newday = ('0' + date).substr(-2);
-    const now = year + '-' + newmon + '-' + newday;
-    // console.log(date, now);
+    // const year = today.getFullYear(); // 년도
+    // const month = today.getMonth();  // 월
+    // const date = today.getDate();  // 날짜
+    // const day = today.getDay() - 1;  // 요일
+    // const newmon = ('0' + month).substr(-2);
+    // const newday = ('0' + date).substr(-2);
+    // const now = year + '-' + newmon + '-' + newday;
+    // // console.log(date, now);
+    // if (this.storeStartDay) {
+    //   return this.storeStartDay;
+    // }
+    // return now;
+    const oneMonthsAgo = moment().subtract(1, 'months');
+    console.log(oneMonthsAgo.format('YYYY-MM-DD'));
+    const yy = oneMonthsAgo.format('YYYY');
+    const mm = oneMonthsAgo.format('MM');
+    const dd = oneMonthsAgo.format('DD');
+    // console.log('[115][오늘날자]년[' + yy + ']월[' + mm + ']일[' + dd + ']');
+    const now1 = yy + '-' + mm + '-' + dd;
     if (this.storeStartDay) {
       return this.storeStartDay;
     }
-    return now;
+    return now1;
   }
 
   endToday(): string {

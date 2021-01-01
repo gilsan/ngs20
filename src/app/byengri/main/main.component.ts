@@ -8,7 +8,7 @@ import { PathologyService } from '../services/pathology.service';
 import { StorePathService } from '../store.path.service';
 import { SearchService } from './../services/search.service';
 import { SubSink } from 'subsink';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -88,19 +88,18 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-    const today = new Date();
 
-    const year = today.getFullYear(); // 년도
-    const month = today.getMonth();  // 월
-    const date = today.getDate();  // 날짜
-    const newmon = ('0' + month).substr(-2);
-    const newday = ('0' + date).substr(-2);
-    const now = year + '-' + newmon + '-' + newday;
-    // console.log('[' + date + '][' + now + '][' + this.storeStartDay + ']');
+    const oneMonthsAgo = moment().subtract(1, 'months');
+    console.log(oneMonthsAgo.format('YYYY-MM-DD'));
+    const yy = oneMonthsAgo.format('YYYY');
+    const mm = oneMonthsAgo.format('MM');
+    const dd = oneMonthsAgo.format('DD');
+    // console.log('[115][오늘날자]년[' + yy + ']월[' + mm + ']일[' + dd + ']');
+    const now1 = yy + '-' + mm + '-' + dd;
     if (this.storeStartDay) {
       return this.storeStartDay;
     }
-    return now;
+    return now1;
   }
 
   endToday(): string {
@@ -111,6 +110,7 @@ export class MainComponent implements OnInit, OnDestroy {
     const date = today.getDate();  // 날짜
     const newmon = ('0' + month).substr(-2);
     const newday = ('0' + date).substr(-2);
+
     const now = year + '-' + newmon + '-' + newday;
     // console.log(date, now);
     if (this.storeEndDay) {
@@ -118,6 +118,8 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     return now;
   }
+
+
 
   saveUploadPageInfo(pathologyNum: string, i: number, type: string): void {
     this.store.setUploadpageInfo(pathologyNum, i, type);

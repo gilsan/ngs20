@@ -755,11 +755,17 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
                 customid = '';
               }
               // console.log('[680][vc.novel] ', customid);
+              let tempVariantAlleleFrequency;
+              if (variantAlleleFrequency.length === 0) {
+                tempVariantAlleleFrequency = variantAlleleFrequency;
+              } else {
+                tempVariantAlleleFrequency = variantAlleleFrequency + '%';
+              }
               this.imutation.push({
                 gene,
                 aminoAcidChange: aminoAcidchange,
                 nucleotideChange: nucleotidechange,
-                variantAlleleFrequency: variantAlleleFrequency + '%',
+                variantAlleleFrequency: tempVariantAlleleFrequency,
                 ID: customid,
                 tier: ''
               });
