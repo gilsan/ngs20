@@ -12,8 +12,7 @@ export class ManageStatisticsService {
 
   statisticsInfo: IManageStatistics[];
   
-  // private apiUrl = 'http://160.1.17.79:3000';  // EMR 서버
-  // private apiUrl = 'http://112.169.53.30:3000';
+ 
   private apiUrl = emrUrl;
   constructor(
     private http: HttpClient
@@ -23,5 +22,10 @@ export class ManageStatisticsService {
     return this.http.post(`${this.apiUrl}/manageStatistics/list`, { startDay, endDay, userId, userNm });
   } 
  
+  public updateManageFunctions(functionId: String, functionName: string, serviceStatus: string): Observable<any> {  
+    debugger;
+    return this.http.post(`${this.apiUrl}/manaageFunctions/update`, { functionId , functionName, serviceStatus });
+  }
+  
 }
 

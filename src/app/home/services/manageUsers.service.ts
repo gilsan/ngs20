@@ -12,8 +12,7 @@ export class ManageUsersService {
 
   manageUsersInfo: IManageUsers[];
   
-  // private apiUrl = 'http://160.1.17.79:3000';  // EMR 서버
-  // private apiUrl = 'http://112.169.53.30:3000';
+ 
   private apiUrl = emrUrl;
   constructor(
     private http: HttpClient
@@ -28,22 +27,6 @@ export class ManageUsersService {
     return this.http.post(`${this.apiUrl}/manageUsers/approved`, {  id, approved }); 
   }
 
-  /*
-  public insertManageUsersList(id: string, userId: string, password: string, userNm: string, userGb: 
-        string, dept: string, uuid: string, regDate: string, pickselect: string, part: string ): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/manageUsers/insert`, { id, userId, password, userNm, userGb, 
-        dept, uuid, regDate, pickselect , part}); 
-  }
-
-  public updateManageUsersList(id: string, userId: string, password: string, userNm: string, userGb: 
-    string, dept: string, uuid: string, regDate: string, pickselect: string, part: string): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/manageUsers/update`, {  id, userId, password, userNm, userGb, 
-      dept, uuid, regDate, pickselect , part }); 
-  }
-
-  public deleteManageUsersList(id: String, genes: string): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/manageUsers/delete`, { id });
-  } 
-  */
+   
 }
 
