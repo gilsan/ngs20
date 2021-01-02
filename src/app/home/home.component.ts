@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
     this.startToday();
     this.endToday();
     localStorage.removeItem('userpart');
+    localStorage.removeItem('diaguser');
     this.router.navigateByUrl('/login');
 
   }

@@ -23,6 +23,7 @@ export class ByengriComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('userpart');
+    localStorage.removeItem('pathuser');
     this.router.navigateByUrl('/login');
     // storage 시간동기화
     this.startToday();

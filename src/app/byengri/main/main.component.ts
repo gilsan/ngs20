@@ -88,7 +88,6 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-
     const oneMonthsAgo = moment().subtract(1, 'months');
     // console.log(oneMonthsAgo.format('YYYY-MM-DD'));
     const yy = oneMonthsAgo.format('YYYY');
@@ -96,9 +95,6 @@ export class MainComponent implements OnInit, OnDestroy {
     const dd = oneMonthsAgo.format('DD');
     // console.log('[115][오늘날자]년[' + yy + ']월[' + mm + ']일[' + dd + ']');
     const now1 = yy + '-' + mm + '-' + dd;
-    if (this.storeStartDay) {
-      return this.storeStartDay;
-    }
     return now1;
   }
 
