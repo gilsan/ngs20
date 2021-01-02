@@ -1,0 +1,215 @@
+<div id="container">
+    <div id="content">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+            <tr>
+                <td  class="mail_title">Function Detail Management</td>
+                <td class="main_btn"> 
+                    <ul>
+                        <li>
+                           <a class="btn btn_04" routerLink="/diag/managefunctions">이전으로</a>
+                        </li> 
+                        <li>
+                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                        </li> 
+                    </ul> 
+                </td>
+            </tr>
+        </table>
+        <div class="box mg_b20 pd_20">
+            <input type="text" placeholder="함수명" class="input_01" id="functionName" value="{{functionName}}" />&nbsp;&nbsp; 
+            <span class="bdnone txt_l" *ngIf="serviceStatus === '1'">
+                <input type="radio"  [checked]='true' name="service_status" (click)="confirm('1')">&nbsp;&nbsp;적용&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio"  name="service_status" (click)="confirm('0')">&nbsp;&nbsp;미적용 
+            </span>
+            <span class="bdnone txt_l" *ngIf="serviceStatus === '0'">
+                <input type="radio" name="service_status"  (click)="confirm('1')">&nbsp;&nbsp;적용&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" [checked]='true'  name="service_status" (click)="confirm('0')">&nbsp;&nbsp;미적용 
+            </span>
+            <button style='float:right' type="button" class="btn btn_02" (click)="save()" >저장</button>
+        </div>
+        <div> 
+                Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  
+        </div> 
+
+        <div class="box">
+            <table border="0" cellpadding="0" cellspacing="0" class="table_list">
+                <colgroup>
+                <col style="width:6%;" />
+                <col style="width:15%;" /> 
+                <col style="width:7%;" /> 
+                <col style="width:7%;" />
+                <col style="width:15%;" /> 
+                <col style="width:7%;" /> 
+                <col style="width:15%;" />
+                <col style="width:15%;" />
+                <col style="width:15%;" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>필드명</th> 
+                        <th>데이터타입</th>
+                        <th>남김/삭제</th> 
+                        <th>내부변수(문자열)(Text 입력)</th> 
+                        <th>조건</th>
+                        <th>값(숫자)(Text 입력)</th>
+                        <th>외부조건(Text 입력)</th> 
+                        <th>수정/삭제</th> 
+                    </tr>
+                </thead>
+                <tbody> 
+                    <tr [ngClass]="toggle(i)"  *ngFor="let list of lists; let i = index">    
+                        <td><span class="bdnone txt_c">{{ (curPage-1)*10 + i + 1}}</span></td>  
+                        <input type="hidden" value="R" #status id="status{{i+1}}" >     
+                        <td ><span class="bdnone txt_l" *ngIf="status.value === 'R'">{{list.variable}}</span>
+                             <span class="bdnone txt_l" *ngIf="status.value === 'U'">
+                                <select  id="variable{{list.seq}}">
+                                    <option id='locus'>			locus			</option>	              
+                                    <option id='genotype'>			genotype                </option>    
+                                    <option id='filter'>			filter                  </option>    
+                                    <option id='ref'>			ref                     </option>    
+                                    <option id='observed_allele'>		observed_allele         </option>    
+                                    <option id='type'>			type                    </option>    
+                                    <option id='subtype'>			subtype                 </option>    
+                                    <option id='no_call_reason'>		no_call_reason          </option>    
+                                    <option id='cnv_p_value'>		cnv_p_value             </option>    
+                                    <option id='genes'>			genes                   </option>    
+                                    <option id='locations'>			locations               </option>    
+                                    <option id='length'>			length                  </option>    
+                                    <option id='oncomine_variant_class'>	oncomine_variant_class  </option>    
+                                    <option id='oncomine_gene_class'>	oncomine_gene_class     </option>    
+                                    <option id='copy_number'>		copy_number             </option>    
+                                    <option id='cytoband'>			cytoband                </option>    
+                                    <option id='info'>			info                    </option>    
+                                    <option id='variant_id'>		variant_id              </option>    
+                                    <option id='variant_name'>		variant_name            </option>    
+                                    <option id='frequency'>			frequency               </option>    
+                                    <option id='amino_acid_change'>		amino_acid_change       </option>    
+                                    <option id='read_counts'>		read_counts             </option>    
+                                    <option id='coverage'>			coverage                </option>    
+                                    <option id='allele_radio'>		allele_radio            </option>    
+                                    <option id='cnv_confidence'>		cnv_confidence          </option>    
+                                    <option id='genes_exons'>		genes_exons             </option>    
+                                    <option id='detection'>			detection               </option>    			
+                                    <option id='imbalance'>			imbalance               </option>    
+                                    <option id='ratio_to_wild_type'>	ratio_to_wild_type      </option>    
+                                    <option id='norm_count_within_gene'>	norm_count_within_gene  </option>    
+                                    <option id='cosmic_ncbi'>		cosmic_ncbi             </option>    
+                                    <option id='read_counts_per_million'>	read_counts_per_million </option>    
+                                    <option id='strand'>			strand                  </option>    
+                                    <option id='exon'>			exon                    </option>    
+                                    <option id='transcript'>		transcript              </option>    
+                                    <option id='cooling'>			cooling                 </option>    
+                                    <option id='variant_effect'>		variant_effect          </option>    
+                                    <option id='phylop'>			phylop                  </option>    
+                                    <option id='sift'>			sift                    </option>    
+                                    <option id='grantham'>			grantham                </option>    
+                                    <option id='polyphen'>			polyphen                </option>    
+                                    <option id='pfam'>			pfam                    </option>    
+                                    <option id='dbsnp'>			dbsnp                   </option>    
+                                    <option id='dgv'>			dgv                     </option>    
+                                    <option id='maf'>			maf                     </option>    
+                                    <option id='emaf'>			emaf                    </option>    
+                                    <option id='amaf'>			amaf                    </option>    
+                                    <option id='gmaf'>			gmaf                    </option>    
+                                    <option id='ucsc_common_snps'>		ucsc_common_snps        </option>    
+                                    <option id='exac_laf'>			exac_laf                </option>    
+                                    <option id='exac_eaaf'>			exac_eaaf               </option>    
+                                    <option id='exac_oaf'>			exac_oaf                </option>    
+                                    <option id='exac_efaf'>			exac_efaf               </option>    
+                                    <option id='exac_saaf'>			exac_saaf               </option>    
+                                    <option id='exac_enfaf'>		exac_enfaf              </option>    
+                                    <option id='exac_aaf'>			exac_aaf                </option>    
+                                    <option id='exac_gaf'>			exac_gaf                </option>    
+                                    <option id='gene_ontology'>		gene_ontology           </option>    
+                                    <option id='drugbank'>			drugbank                </option>    
+                                    <option id='clinvar'>			clinvar                 </option>    
+                                    <option id='p_value'>			p_value                 </option>    
+                                    <option id='phred_qual_score'>		phred_qual_score        </option>    
+                                    <option id='allele_coverage'>		allele_coverage         </option>    
+                                    <option id='cnv_precision'>		cnv_precision           </option>    
+                                    <option id='ref_ref_var_var'>		ref_ref_var_var         </option>    
+                                    <option id='homoplymer_length'>		homoplymer_length       </option>    
+                                    <option id='tiles'>			tiles                   </option>    
+                                    <option id='subset_of'>			subset_of               </option>    
+                                </select>  
+                            </span>
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">
+                                <span *ngIf="list.data_type == '1'">문자</span>
+                                <span *ngIf="list.data_type == '0'">숫자</span> 
+                            </span>
+                             <span class="bdnone" *ngIf="status.value === 'U'">
+                                 <select id="dataType{{list.seq}}" >
+                                        <option value='1' [selected]='list.data_type' >문자</option>
+                                        <option value='0' [selected]='list.data_type' >숫자</option>
+                                 </select>  
+                              </span>     
+                        </td> 
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">
+                                <span *ngIf="list.leave_yn == '0'">남김</span>  
+                                <span *ngIf="list.leave_yn == '1'">삭제</span>
+                            </span>
+                             <span class="bdnone" *ngIf="status.value === 'U'">
+                                <select id="leaveYn{{list.seq}}">
+                                        <option value='0' [selected]='list.leave_yn'>남김</option>
+                                        <option value='1' [selected]='list.leave_yn'>삭제</option>
+                                </select>  
+                            </span>   
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.inner_variable}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'">
+                                 <input type="text"  class="clr-input " value="{{list.inner_variable}}" id="innerVariable{{list.seq}}" ></span>   
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.condition}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'">
+                                <select id="condition{{list.seq}}">
+                                    <option value='<' [selected]='list.condition'><</option>
+                                    <option value='<=' [selected]='list.condition'><=</option>
+                                    <option value='>' [selected]='list.condition'>></option>
+                                    <option value='>=' [selected]='list.condition' >>=</option>
+                                    <option value='!=' [selected]='list.condition'>!=</option>
+                                    <option value='AND' [selected]='list.condition'>AND</option>
+                                    <option value='OR' [selected]='list.condition'>OR</option>  
+                                </select>  
+                                </span>   
+                        </td>
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.data_value}}</span>
+                             <span class="bdnone" *ngIf="status.value === 'U'">
+                                <input type="text"  class="clr-input " value="{{list.data_value}}" id="dataValue{{list.seq}}" ></span>
+                        </td>  
+                        <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.outer_condition}}</span>
+                            <span class="bdnone" *ngIf="status.value === 'U'">
+                                <input type="text"  class="clr-input " value="{{list.outer_condition}}" id="outerCondition{{list.seq}}" >
+                            </span>
+                       </td> 
+                        <td class="text-right">
+                            <span class="bdnone" *ngIf="status.value === 'R' ">
+                                <a class="btn-edit" (click)="status.value='U'">수정</a>
+                                <a class="btn-delete" (click)="deleteRow(list.seq)">삭제</a>
+                            </span>
+                            <span class="wid120 bdnone" *ngIf="status.value === 'U' ">
+                                <a class="btn-cancel" (click)="status.value='R'">취소</a> 
+                                <a class="btn-save" (click)="updateRow(list.seq)">저장</a>   
+                            </span>        
+                        </td>     
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+        <div class="txt_c pd_t20 btn_num">
+            <a class="ico_pre" (click)="goPage('<')" >이전</a>   
+            <span *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">  
+                <span   *ngIf="i + (pageLine*10) <= totPage">   
+                    <span *ngIf="i + (pageLine*10) == curPage">
+                        <a  (click)="goPage(i + (pageLine*10))"><span class="btn_select">{{i + (pageLine*10)}}</span></a>
+                    </span>
+                    <span *ngIf="i + (pageLine*10) != curPage">
+                        <a  (click)="goPage(i + (pageLine*10))"><span>{{i + (pageLine*10)}}</span></a>
+                    </span> 
+                </span>    
+            </span> 
+            <a class="ico_next" (click)="goPage('>')" >다음</a> 
+        </div>  
+    </div>
+</div>
