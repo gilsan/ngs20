@@ -54,13 +54,16 @@ export class ManageStatisticsComponent implements OnInit {
   startToday(): string {
     const today = new Date();
 
-    const year = today.getFullYear(); // 년도
-    const month = today.getMonth();  // 월
-    const date = today.getDate();  // 날짜
+    const oneMonthAgo = new Date(today.setMonth(today.getMonth() - 1));	// 한달 전  
+
+    const year = oneMonthAgo.getFullYear(); // 년도
+    const month = oneMonthAgo.getMonth()+ 1 ;  // 월
+    const date = oneMonthAgo.getDate();  // 날짜
+
     const newmon = ('0' + month).substr(-2);
     const newday = ('0' + date).substr(-2);
     const now = year + '-' + newmon + '-' + newday;
-    // console.log('[' + date + '][' + now + '][' + this.storeStartDay + ']');
+    
     if (this.storeStartDay) {
       return this.storeStartDay;
     }
