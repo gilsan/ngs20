@@ -170,7 +170,7 @@ export function makeAForm(
 	</ColumnInfo>
 	<Rows>
     <Row>
-    	<Col id="tg0">IKZFl</Col>
+    	<Col id="tg0">IKZF1</Col>
     	<Col id="tg1">BCOR</Col>
     	<Col id="tg2">CREBBP</Col>
     	<Col id="tg3">ETV6</Col>
@@ -222,7 +222,7 @@ export function makeAForm(
      	<Col id="tg1">CDKN2A</Col>
      	<Col id="tg2">EGFR</Col>
      	<Col id="tg3">FLT3</Col>
-     	<Col id="tg4">lL7R</Col>
+     	<Col id="tg4">IL7R</Col>
      	<Col id="tg5">MYC</Col>
      	<Col id="tg6">PDGFRA</Col>
      	<Col id="tg7">SETBP1</Col>
@@ -246,7 +246,7 @@ export function makeAForm(
      	<Col id="tg1">CHK1</Col>
      	<Col id="tg2">ERG</Col>
      	<Col id="tg3">GATA2</Col>
-     	<Col id="tg4">KAK3</Col>
+     	<Col id="tg4">JAK3</Col>
      	<Col id="tg5">NOTCH1</Col>
      	<Col id="tg6">PRAME</Col>
      	<Col id="tg7">SF3B1</Col>
