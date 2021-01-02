@@ -257,6 +257,9 @@
             </colgroup>
       <thead>
           <tr>
+              <th>
+                <button class="btn btn_01" (click)="addRow()">추가</button>
+              </th> 
               <th></th>
               <th>IGV</th>
               <th>Sanger</th>
@@ -271,9 +274,9 @@
               <th>VAF %</th> 
               <th>Reference(s)</th>      
               <th>COSMIC ID</th> 
-              <th>
+              <!-- <th>
                 <button class="btn btn-success" (click)="addRow()">추가</button>
-              </th> 
+              </th>  -->
               <th>Site</th>
               <th>Action</th>                        
           </tr>
@@ -282,7 +285,8 @@
          
         <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls; let i=index">
           <tr  [formGroupName]="i">
-             <td><input type="checkbox"   checked (change)="boxstatus(i, $event)"></td> 
+            <td class="trash"  (click)="deleteRow(i)">&#10006;</td> 
+            <td><input type="checkbox"   checked (change)="boxstatus(i, $event)"></td> 
             <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="igv"></td>
             <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="sanger"></td>
             <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="type"></td>
@@ -298,7 +302,7 @@
             <td><input type="text" size="10"  class="clr-input textcenter" formControlName="vafPercent"></td>
             <td><input type="text" size="10"  class="clr-input textcenter" formControlName="references"></td>
             <td><input type="text" size="20"  class="clr-input textcenter" formControlName="cosmicID"></td>
-            <td class="trash"  (click)="deleteRow(i)">&#10006;</td>
+            
             <td  class="txt_c">
               <select class="select_01" name="options" (change)="saveInhouse(i, inhouse.value)" 
               *ngIf="checkType(i)" #inhouse>
@@ -682,30 +686,30 @@
           <div class="foot_btn mg_t30 pd_b30 txt_c main_btn"  *ngIf="preview">
             <ul>
                 <li>
-                    <button class="btn btn-success" (click)="reset()"
+                    <button class="btn btn_01" (click)="reset()"
                     [disabled]="getStatus(4)">수정</button>
                     <!-- <button  type="button" class="btn btn_07">수정</button> -->
                 </li>
                 <li>
-                    <button class="btn btn-success" (click)="tempSave()">임시저장</button>
+                    <button class="btn btn_01" (click)="tempSave()">임시저장</button>
                     <!-- <button  type="button" class="btn btn_07" (click)="tempSave()">임시저장</button> -->
                 </li>
                 <li>
-                    <button class="btn btn-success" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>
+                    <button class="btn btn_01" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>
                     <!-- <button type="button" class="btn btn_07"
                     (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button> -->
                 </li>
                 <li>
-                    <button class="btn btn-success" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>
+                    <button class="btn btn_01" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>
                     <!-- <button type="button" class="btn btn_07"
                     (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button> -->
                 </li>
                 <li  *ngIf="reportType === 'AML'">
-                    <button class="btn btn-success" (click)="goEMR()" [disabled]="getStatus(3)">EMR전송</button>
+                    <button class="btn btn_01" (click)="goEMR()" [disabled]="getStatus(3)">EMR전송</button>
                     <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
                 </li>
                 <li  *ngIf="reportType === 'ALL'">
-                    <button class="btn btn-success" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>
+                    <button class="btn btn_01" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>
                     <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
                 </li>                
             </ul>

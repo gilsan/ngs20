@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             alert('암호가 맞지 않습니다.');
           } else {
             localStorage.setItem('userpart', 'diag');
+            localStorage.setItem('diaguser', this.loginGroup.value.user);
             this.router.navigateByUrl('/diag');
           }
         });
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             alert('암호가 맞지 않습니다.');
           } else {
             localStorage.setItem('userpart', 'pathology');
+            localStorage.setItem('pathuser', this.loginGroup.value.user);
             this.router.navigateByUrl('/pathology');
           }
         });
