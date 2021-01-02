@@ -80,14 +80,14 @@ export class CommentsComponent implements OnInit {
     }
 
     if (id !== "") {
-      this.commentsService.updateCommentsList(id, commentsType.value, gene.value, comment.value, reference.value)
+      this.commentsService.updateCommentsList(id, commentsType.value, gene.value, variant_id.value, comment.value, reference.value)
         .subscribe((data) => {
           console.log('[170][benign 수정]', data);
           alert("수정 되었습니다.");
           this.search(gene.value);
         });
     } else {
-      this.commentsService.insertCommentsList(id, commentsType.value, gene.value, comment.value, reference.value)
+      this.commentsService.insertCommentsList(id, commentsType.value, gene.value, variant_id.value, comment.value, reference.value)
         .subscribe((data) => {
           console.log('[170][benign 저장]', data);
           alert("저장 되었습니다.");
@@ -120,7 +120,7 @@ export class CommentsComponent implements OnInit {
     this.totRecords = 0;
     this.lists$ = this.commentsService.getCommentsList(genes);
     this.lists$.subscribe((data) => {
-   //   console.log('[170][benign 검색]', data);
+      //   console.log('[170][benign 검색]', data);
       this.lists = data;
       this.listComments = data;
       this.lists = data.slice(0, 10);

@@ -1,6 +1,7 @@
 <div id="result">
   <div id="container">
-      <h2>Actual Myeloid Leukemia NGS</h2>
+      <h2 *ngIf="reportType === 'AML'">Actual Myeloid Leukemia NGS</h2>
+      <h2 *ngIf="reportType === 'ALL'">Actual Lymphoblastic Leukemia NGS</h2>
       <div id="content">
           <div class="box pd_20">
               <div class="box_100 main-table" >
@@ -161,7 +162,7 @@
                         <label for="vertical-radio2" class="  clr-col-12 clr-col-md-2">Detected</label>
                         &nbsp;&nbsp;
                         <input type="radio" id="vertical-radio1" name="radio-full" value="notdetected" class="clr-radio"  (change)="result($event)" [checked]="radioStatus('Not Detected')">
-                        <label for="vertical-radio1" class="  clr-col-12 clr-col-md-2">Not Detected</label>
+                        <label for="vertical-radio1" class="clr-col-12 clr-col-md-2">Not Detected</label>
                     </td>
                     <td rowspan="2" class="main_btn">
                         <ul>
@@ -185,7 +186,8 @@
                 <thead>
                     <tr>
                         <th class="table_result_line">Leukemia associated fusion</th>
-                        <th>FLT3-ITD</th>
+                        <th *ngIf="reportType === 'AML'">FLT3-ITD</th>
+                        <th *ngIf="reportType === 'ALL'">IKZF1 deletion</th>
                         <th>Chronmosomal analysis</th>
                     </tr>
                 </thead>
@@ -284,7 +286,8 @@
             <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="igv"></td>
             <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="sanger"></td>
             <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="type"></td>
-            <td><input type="text" size="20" 
+            <td><input type="text" size="20" #gene
+                (change)="findMutationBygene(gene.value)"
                  class="clr-input textcenter" formControlName="gene"></td>
             <td><input type="text" size="10"  class="clr-input textcenter" formControlName="functionalImpact"></td>
             <td><input type="text" size="20"  class="clr-input textcenter" formControlName="transcript"></td> 
@@ -329,8 +332,8 @@
 
       </div>
 
-      <div>
-      <div *ngIf="comments.length;  else commentbox; " style="overflow: scroll-y">
+      <div  *ngIf="reportType === 'AML'">
+      <div  style="overflow: scroll-y">
         <div style="margin-bottom: 10px;margin-top: 25px;">
             <ul style="display:flex;justify-content:flex-start; align-items: center;">
                 <li>
@@ -380,7 +383,8 @@
         </div>    
       </div>
     </div>
-      <ng-template  #commentbox> 
+    <!-- 
+      <ng-template  #commentbox  *ngIf="reportType === 'AML'"> 
           
         <div style="margin-bottom: 10px;margin-top: 25px;">
             <ul style="display:flex;justify-content:flex-start; align-items: center;">
@@ -438,6 +442,7 @@
       </form>
     </div>         
       </ng-template>
+    -->
 <!--     -->
               <div class="sub_title">*Methods</div>
               <div class="pd_r20">
@@ -448,7 +453,7 @@
                   <textarea class="textarea_01">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.</textarea>
               </div>
               <div class="sub_title">Target genes</div>
-              <table cellpadding="0" cellspacing="0" class="table_result02">
+              <table cellpadding="0" cellspacing="0" class="table_result02"   *ngIf="reportType === 'AML'">
                   <colgroup>
                   <col style="width:10%;" />
                   <col style="width:10%;" />
@@ -546,12 +551,111 @@
                       <td></td>
                   </tr>
               </table>
-  <!--     -->
-  
+  <!--  ------------------------------- ALL   -->
+  <table cellpadding="0" cellspacing="0" class="table_result02"    *ngIf="reportType === 'AlL'">
+       <colgroup>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+          <col style="width:10%;"/>
+       </colgroup>
+      <tr>
+          <td>IKZFl</td>
+          <td>BCOR</td>
+          <td>CREBBP</td> 
+          <td>ETV6</td>
+          <td>GATA3</td>
+          <td>KIT</td>
+          <td>NOTCH3</td>
+          <td>PTEN</td>
+          <td>SH2B3</td>
+          <td>TPMT</td>                   
+     </tr>
+    <tr>
+         <td>JAK2</td>
+         <td>BRAF</td>
+         <td>CSF3R</td>
+         <td>EZH2</td>
+         <td>HNRNPK</td>
+         <td>KRAS</td>
+         <td>NPM1</td>
+         <td>PTPN11</td>
+         <td>SMC1A</td>
+         <td>U2AF1</td>                
+    </tr>  
+    <tr>
+        <td>NRAS</td>
+        <td>CALR</td>
+        <td>DDX41</td>
+        <td>FAM5C</td>
+        <td>IDH1</td>
+        <td>KMT2A</td>
+        <td>NT5C2</td>
+        <td>RAD21</td>
+        <td>SMC3</td>
+        <td>WTI</td>
+    </tr> 
+    <tr>
+        <td>TP53</td>
+        <td>CBL</td>
+        <td>DNMT3A</td>
+        <td>FBXW7</td>
+        <td>IDH2</td>
+        <td>MPL</td>
+        <td>PAX5</td>
+        <td>RUNX1</td>
+        <td>SRSF2</td>
+        <td>ZRSR2</td>
+  </tr> 
+  <tr>
+        <td>RB1</td>
+        <td>CDKN2A</td>
+        <td>EGFR</td>
+        <td>FLT3</td>
+        <td>lL7R</td>
+        <td>MYC</td>
+        <td>PDGFRA</td>
+        <td>SETBP1</td>
+        <td>STAG2</td>
+        <td></td>
+ </tr> 
+  <tr>
+        <td>ANKRD26</td>
+        <td>CDKN2B</td>
+        <td>EP300</td>
+        <td>GATA1</td>
+        <td>JAK1</td>
+        <td>NF1</td>
+        <td>PHF6</td>
+        <td>SETD2</td>
+        <td>TERT</td>
+        <td></td>
+ </tr> 
+ <tr>
+       <td>ASXL1</td>
+       <td>CHK1</td>
+       <td>ERG</td>
+       <td>GATA2</td>
+       <td>KAK3</td>
+       <td>NOTCH1</td>
+       <td>PRAME</td>
+       <td>SF3B1</td>
+       <td>TET2</td>
+       <td></td>
+</tr> 
+</table>
+
+  <!-- ------------------------------- END ALL -->
   <hr class="mg_t30 mg_b20"/>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-          <td class="txt_l font_16 fb">검사의뢰일/검사보고일: {{requestDate | date: 'yyyy.MM.dd'}}/{{today()}}  </td>
+          <td class="txt_l font_16 fb">검사의뢰일/검사보고일/수정보고일: {{requestDate | date: 'yyyy.MM.dd'}}/{{firstReportDay}}/{{lastReportDay}}  </td>
           <td class="txt_1 font_16 fb">검사자:  <input type="text" [(ngModel)]="examin" class="input_02" size="30">
             <!-- <select #examine class="select_01" (change)="examimed(examine.value)" [value]="'김지혜'">
                 <option value="김지혜" [selected]="examselected('김지혜',1)">김지혜</option>
@@ -596,10 +700,14 @@
                     <!-- <button type="button" class="btn btn_07"
                     (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button> -->
                 </li>
-                <li>
+                <li  *ngIf="reportType === 'AML'">
                     <button class="btn btn-success" (click)="goEMR()" [disabled]="getStatus(3)">EMR전송</button>
                     <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
                 </li>
+                <li  *ngIf="reportType === 'ALL'">
+                    <button class="btn btn-success" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>
+                    <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
+                </li>                
             </ul>
         </div>
       </div>

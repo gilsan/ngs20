@@ -13,9 +13,9 @@ const routes: Routes = [
   {
     path: '', component: FormsComponent, children: [
       { path: 'all', component: AllComponent },
-      { path: 'all/:form1id', component: AllComponent },
+      { path: 'all/:type', component: AllComponent },
       { path: 'form2', component: Form2Component },
-      { path: 'form2/:form2id', component: Form2Component },
+      { path: 'form2/:type', component: Form2Component },
       { path: 'form3', component: Form3Component },
       { path: 'form3/:form3id', component: Form3Component },
       { path: 'form4', component: Form4Component },

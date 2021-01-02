@@ -50,7 +50,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // <a [href]="fileUrl" download="file.txt">DownloadFile</a>
     // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
-    console.log('[52] [ngOnInit]');
+    // console.log('[52] [ngOnInit]');
     this.checkStore();
     if (this.storeStartDay === null || this.storeEndDay === null) {
       this.init();
@@ -90,7 +90,7 @@ export class MainComponent implements OnInit, OnDestroy {
   startToday(): string {
 
     const oneMonthsAgo = moment().subtract(1, 'months');
-    console.log(oneMonthsAgo.format('YYYY-MM-DD'));
+    // console.log(oneMonthsAgo.format('YYYY-MM-DD'));
     const yy = oneMonthsAgo.format('YYYY');
     const mm = oneMonthsAgo.format('MM');
     const dd = oneMonthsAgo.format('DD');

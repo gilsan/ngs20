@@ -1,4 +1,4 @@
-import { IAFormVariant, IPatient } from './patients';
+import { IAFormVariant, IPatient, IComment, IProfile } from './patients';
 
 
 export const METHODS = 'Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6. ';
@@ -8,47 +8,90 @@ export const GENERAL = 'The analysis was optimised to identify base pair substit
 
 
 export function makeAForm(
-	resultStatus: string,
+	resultStatus: string, // detected, not detected
+	examin: string, // 검사자
+	recheck: string, // 확인자
+	profile: IProfile,
+	acceptdate: string,
+	specimenMessage: string,
 	fusion: string,
 	ment: string,
 	patientInfo: IPatient,
-	formData: IAFormVariant[]) {
+	formData: IAFormVariant[],
+	firstReportDay: string,
+	lastReportDay: string
+): string {
 
-	// console.log('[aTypeFomr] ', patientInfo, formData);
-	const patient = `
-  <root>
-  <Dataset id="ds_1">
-    <ColumnInfo>
-      <Column id="patient" type="STRING" size="256"/>
-      <Column id="result" type="STRING" size="256"/>
-      <Column id="result2" type="STRING" size="256"/>
-      <Column id="rsltleft1" type="STRING" size="256"/>
-      <Column id="rsltcenter1" type="STRING" size="256"/>
-      <Column id="rsltright1" type="STRING" size="256"/>
-      <Column id="testinfo1" type="STRING" size="256"/>
-      <Column id="testinfo2" type="STRING" size="256"/>
-      <Column id="testinfo3" type="STRING" size="256"/>
-      <Column id="testinfo4" type="STRING" size="256"/>
-    </ColumnInfo>
-    <Rows>
-      <Row>
-        <Col id="patient">${patientInfo.name}, ${patientInfo.patientID} (${patientInfo.gender}/${patientInfo.age})</Col>
-        <Col id="result">${resultStatus}</Col>
-        <Col id="result2">Other molecular and cytogenetic profiles</Col>
-        <Col id="rsltleft1">${fusion}</Col>
-        <Col id="rsltcenter1">${patientInfo.IKZK1Deletion}</Col>
-        <Col id="rsltright1">${patientInfo.chromosomalAnalysis}</Col>
-        <Col id="testinfo1">TARGET DISEASE: ${patientInfo.targetDisease}</Col>
-        <Col id="testinfo2">METHOD: ${patientInfo.method}</Col>
-        <Col id="testinfo3">SPECIMEN:  ${patientInfo.specimen}</Col>
-        <Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
-      </Row>
-    </Rows>
-  </Dataset>
-  `;
+	// 금일날자:
+	function formatDate(date): any {
+		const d = new Date(date);
+		let month = '' + (d.getMonth() + 1);
+		let day = '' + d.getDate();
+		const year = d.getFullYear();
+
+		if (month.length < 2) {
+			month = '0' + month;
+		}
+
+		if (day.length < 2) {
+			day = '0' + day;
+		}
+
+		return [year, month, day].join('.');
+	}
+
+	const today = formatDate(new Date());
+	///////////////////////////////////////////////
+	// 강제로 값넣기
+
+	/////////////////////////////////////////////////////
+	const patient = `<root>
+	<Dataset id="ds_1">
+	    <ColumnInfo>
+			<Column id="patient" type="STRING" size="256"/>
+			<Column id="result" type="STRING" size="256"/>
+			<Column id="rsltleft1" type="STRING" size="256"/>
+			<Column id="rsltleft2" type="STRING" size="256"/>
+			<Column id="rsltcenter1" type="STRING" size="256"/>	
+			<Column id="rsltcenter2" type="STRING" size="256"/>	
+			<Column id="rsltright1" type="STRING" size="256"/>
+			<Column id="rsltright2" type="STRING" size="256"/>
+			<Column id="testinfo1" type="STRING" size="256"/>
+			<Column id="testinfo2" type="STRING" size="256"/>
+			<Column id="testinfo3" type="STRING" size="256"/>
+			<Column id="testinfo4" type="STRING" size="256"/>
+			<Column id="opnion" type="STRING" size="256"/>
+			<Column id="title" type="STRING" size="256"/>
+			<Column id="examdt" type="STRING" size="256"/>
+			<Column id="examid" type="STRING" size="256"/>
+			<Column id="signid" type="STRING" size="256"/>
+		</ColumnInfo>
+		<Rows>
+			<Row>
+				<Col id="patient">${patientInfo.name}, ${patientInfo.patientID} (${patientInfo.gender}/${patientInfo.age})</Col>
+				<Col id="result">${resultStatus}</Col>
+				<Col id="rsltleft1">Leukemia associated fusion</Col>
+				<Col id="rsltleft2">${profile.leukemia}</Col>
+				<Col id="rsltcenter1">FLT3-ITD</Col>
+				<Col id="rsltcenter2">${profile.flt3itd}</Col>
+				<Col id="rsltright1">Chromosomal analysis</Col>
+				<Col id="rsltright2">${profile.chron}</Col>
+				<Col id="testinfo1">TARGET DISEASE: Acute myeloid leukemia</Col>
+				<Col id="testinfo2">METHOD: *Massively parallel sequencing</Col>
+				<Col id="testinfo3">SPECIMEN:  ${specimenMessage}</Col>
+				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
+				<Col id="opnion">${ment}</Col>
+				<Col id="title">Acute Myeloid Leukemia NGS</Col>
+				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
+				<Col id="examid">검사자:${examin}.M.T.</Col>
+				<Col id="signid">판독의사:${recheck}.M.D.</Col>
+			</Row>
+		</Rows>
+	</Dataset>
+	`;
 
 	const variantHeader = `
-  <Dataset id="ds_2">
+	<Dataset id="ds_2">
 	<ColumnInfo>
 		<Column id="gene" type="STRING" size="256"/>
 		<Column id="fimpact" type="STRING" size="256"/>
@@ -60,73 +103,37 @@ export function makeAForm(
 		<Column id="vaf" type="STRING" size="256"/>
 		<Column id="reference" type="STRING" size="256"/>
 		<Column id="cosmicid" type="STRING" size="256"/>
-  </ColumnInfo>
-  <Rows>
-  `;
+	</ColumnInfo>
+	<Rows>
+	`;
 
 	let data = '';
 	// tslint:disable-next-line: prefer-for-of
 	for (let i = 0; i < formData.length; i++) {
-		if (formData[i].type === 'M') {
-			data = data + `
-      <Row>
-       <Col id="gene">${formData[i].gene}</Col>
-       <Col id="fimpact">${formData[i].functionalImpact}</Col>
-       <Col id="transcript">${formData[i].transcript}</Col>
-       <Col id="exonintron">${formData[i].exonIntro}</Col>
-       <Col id="nuclchange">${formData[i].nucleotideChange}</Col>
-       <Col id="aminochange">${formData[i].aminoAcidChange}</Col>
-       <Col id="zygosity">${formData[i].zygosity}</Col>
-       <Col id="vaf">${formData[i].vafPercent}</Col>
-       <Col id="reference">${formData[i].references}</Col>
-       <Col id="cosmicid">${formData[i].cosmicID}</Col>
-     </Row>
-      `;
-		}
-
-
+		data = data + `
+			<Row>
+			 <Col id="gene">${formData[i].gene}</Col>
+			 <Col id="fimpact">${formData[i].functionalImpact}</Col>
+			 <Col id="transcript">${formData[i].transcript}</Col>
+			 <Col id="exonintron">${formData[i].exonIntro}</Col>
+			 <Col id="nuclchange">${formData[i].nucleotideChange}</Col>
+			 <Col id="aminochange">${formData[i].aminoAcidChange}</Col>
+			 <Col id="zygosity">${formData[i].zygosity}</Col>
+			 <Col id="vaf">${formData[i].vafPercent}</Col>
+			 <Col id="reference">${formData[i].references}</Col>
+			 <Col id="cosmicid">${formData[i].cosmicID}</Col>
+		 </Row>
+			`;
 	}
 
-	const variantBottom = `
-    </Rows>
-</Dataset>
-  `;
 
-	const ments = `
-<Dataset id="ds_3">
-    <ColumnInfo>
-       <Column id="comments"/>
-		</ColumnInfo>
-		<Rows>
-         <Row>
-            <Col id="comments">${ment}</Col>
-				 </Row>
+	const variantBottom = `
 		</Rows>
 </Dataset>
-  `;
-
-
-	const comments = `
-  <Dataset id="ds_4">
-	<ColumnInfo>
-		<Column id="gene" type="STRING" size="256"/>
-		<Column id="variants" type="STRING" size="256"/>
-		<Column id="comments" type="STRING" size="256"/>
-		<Column id="reference" type="STRING" size="256"/>
-	</ColumnInfo>
-	<Rows>
-		<Row>
-			<Col id="gene">DDX41</Col>
-			<Col id="variants">p.Ala500Cysfs*9</Col>
-			<Col id="comments">DDX41 유전자의 germline 돌연변이는 autosomal dominant familial AML/MDS와</Col>
-			<Col id="reference">Leukemia. 2017:31(4):12020-2.</Col>
-		</Row>
-	</Rows>
-</Dataset>
-`;
+	`;
 
 	const fixedMent = `
-  <Dataset id="ds_5">
+	<Dataset id="ds_4">
 	<ColumnInfo>
 		<Column id="methods" type="STRING" size="256"/>
 	</ColumnInfo>
@@ -136,7 +143,8 @@ export function makeAForm(
 		</Row>
 	</Rows>
 </Dataset>
-<Dataset id="ds_6">
+
+<Dataset id="ds_5">
 	<ColumnInfo>
 		<Column id="technique" type="STRING" size="256"/>
 	</ColumnInfo>
@@ -146,7 +154,8 @@ export function makeAForm(
 		</Row>
 	</Rows>
 </Dataset>
-<Dataset id="ds_7">
+
+<Dataset id="ds_6">
 	<ColumnInfo>
 		<Column id="tg0" type="STRING" size="256"/>
 		<Column id="tg1" type="STRING" size="256"/>
@@ -160,99 +169,97 @@ export function makeAForm(
 		<Column id="tg9" type="STRING" size="256"/>
 	</ColumnInfo>
 	<Rows>
-		<Row>
-			<Col id="tg0">IKZFl</Col>
-			<Col id="tg1">BCOR</Col>
-			<Col id="tg2">CREBBP</Col>
-			<Col id="tg3">ETV6</Col>
-			<Col id="tg4">GATA3</Col>
-			<Col id="tg5">KIT</Col>
-			<Col id="tg6">NOTCH3</Col>
-			<Col id="tg7">PTEN</Col>
-			<Col id="tg8">SH2B3</Col>
-			<Col id="tg9">TPMT</Col>
-		</Row>	
-		<Row>
-			<Col id="tg0">JAK2</Col>
-			<Col id="tg1">BRAF</Col>
-			<Col id="tg2">CSF3R</Col>
-			<Col id="tg3">EZH2</Col>
-			<Col id="tg4">HNRNPK</Col>
-			<Col id="tg5">KRAS</Col>
-			<Col id="tg6">NPM1</Col>
-			<Col id="tg7">PTPN11</Col>
-			<Col id="tg8">SMC1A</Col>
-			<Col id="tg9">U2AF1</Col>
-		</Row>
-		<Row>
-			<Col id="tg0">NRAS</Col>
-			<Col id="tg1">CALR</Col>
-			<Col id="tg2">DDX41</Col>
-			<Col id="tg3">FAM5C</Col>
-			<Col id="tg4">IDH1</Col>
-			<Col id="tg5">KMT2A</Col>
-			<Col id="tg6">NT5C2</Col>
-			<Col id="tg7">RAD21</Col>
-			<Col id="tg8">SMC3</Col>
-			<Col id="tg9">WTI</Col>
-		</Row>
-		<Row>
-			<Col id="tg0">TP53</Col>
-			<Col id="tg1">CBL</Col>
-			<Col id="tg2">DNMT3A</Col>
-			<Col id="tg3">FBXW7</Col>
-			<Col id="tg4">IDH2</Col>
-			<Col id="tg5">MPL</Col>
-			<Col id="tg6">PAX5</Col>
-			<Col id="tg7">RUNX1</Col>
-			<Col id="tg8">SRSF2</Col>
-			<Col id="tg9">ZRSR2</Col>
-		</Row>
-		<Row>
-			<Col id="tg0">RB1</Col>
-			<Col id="tg1">CDKN2A</Col>
-			<Col id="tg2">EGFR</Col>
-			<Col id="tg3">FLT3</Col>
-			<Col id="tg4">lL7R</Col>
-			<Col id="tg5">MYC</Col>
-			<Col id="tg6">PDGFRA</Col>
-			<Col id="tg7">SETBP1</Col>
-			<Col id="tg8">STAG2</Col>
-			<Col id="tg9"></Col>
-		</Row>
-		<Row>
-			<Col id="tg0">ANKRD26</Col>
-			<Col id="tg1">CDKN2B</Col>
-			<Col id="tg2">EP300</Col>
-			<Col id="tg3">GATA1</Col>
-			<Col id="tg4">JAK1</Col>
-			<Col id="tg5">NF1</Col>
-			<Col id="tg6">PHF6</Col>
-			<Col id="tg7">SETD2</Col>
-			<Col id="tg8">TERT</Col>
-			<Col id="tg9"></Col>
-		</Row>
-		<Row>
-			<Col id="tg0">ASXL1</Col>
-			<Col id="tg1">CHK1</Col>
-			<Col id="tg2">ERG</Col>
-			<Col id="tg3">GATA2</Col>
-			<Col id="tg4">KAK3</Col>
-			<Col id="tg5">NOTCH1</Col>
-			<Col id="tg6">PRAME</Col>
-			<Col id="tg7">SF3B1</Col>
-			<Col id="tg8">TET2</Col>
-			<Col id="tg9"></Col>
-		</Row>
+    <Row>
+    	<Col id="tg0">IKZFl</Col>
+    	<Col id="tg1">BCOR</Col>
+    	<Col id="tg2">CREBBP</Col>
+    	<Col id="tg3">ETV6</Col>
+    	<Col id="tg4">GATA3</Col>
+    	<Col id="tg5">KIT</Col>
+    	<Col id="tg6">NOTCH3</Col>
+    	<Col id="tg7">PTEN</Col>
+    	<Col id="tg8">SH2B3</Col>
+    	<Col id="tg9">TPMT</Col>
+    </Row>
+     <Row>
+     	<Col id="tg0">JAK2</Col>
+     	<Col id="tg1">BRAF</Col>
+     	<Col id="tg2">CSF3R</Col>
+     	<Col id="tg3">EZH2</Col>
+     	<Col id="tg4">HNRNPK</Col>
+     	<Col id="tg5">KRAS</Col>
+     	<Col id="tg6">NPM1</Col>
+     	<Col id="tg7">PTPN11</Col>
+     	<Col id="tg8">SMC1A</Col>
+     	<Col id="tg9">U2AF1</Col>
+     </Row>
+     <Row>
+     	<Col id="tg0">NRAS</Col>
+     	<Col id="tg1">CALR</Col>
+     	<Col id="tg2">DDX41</Col>
+     	<Col id="tg3">FAM5C</Col>
+     	<Col id="tg4">IDH1</Col>
+     	<Col id="tg5">KMT2A</Col>
+     	<Col id="tg6">NT5C2</Col>
+     	<Col id="tg7">RAD21</Col>
+     	<Col id="tg8">SMC3</Col>
+     	<Col id="tg9">WTI</Col>
+     </Row>
+     <Row>
+     	<Col id="tg0">TP53</Col>
+     	<Col id="tg1">CBL</Col>
+     	<Col id="tg2">DNMT3A</Col>
+     	<Col id="tg3">FBXW7</Col>
+     	<Col id="tg4">IDH2</Col>
+     	<Col id="tg5">MPL</Col>
+     	<Col id="tg6">PAX5</Col>
+     	<Col id="tg7">RUNX1</Col>
+     	<Col id="tg8">SRSF2</Col>
+     	<Col id="tg9">ZRSR2</Col>
+     </Row>
+     <Row>
+     	<Col id="tg0">RB1</Col>
+     	<Col id="tg1">CDKN2A</Col>
+     	<Col id="tg2">EGFR</Col>
+     	<Col id="tg3">FLT3</Col>
+     	<Col id="tg4">lL7R</Col>
+     	<Col id="tg5">MYC</Col>
+     	<Col id="tg6">PDGFRA</Col>
+     	<Col id="tg7">SETBP1</Col>
+     	<Col id="tg8">STAG2</Col>
+     	<Col id="tg9"></Col>
+     </Row>
+     <Row>
+     	<Col id="tg0">ANKRD26</Col>
+     	<Col id="tg1">CDKN2B</Col>
+     	<Col id="tg2">EP300</Col>
+     	<Col id="tg3">GATA1</Col>
+     	<Col id="tg4">JAK1</Col>
+     	<Col id="tg5">NF1</Col>
+     	<Col id="tg6">PHF6</Col>
+     	<Col id="tg7">SETD2</Col>
+     	<Col id="tg8">TERT</Col>
+     	<Col id="tg9"></Col>
+     </Row>
+     <Row>
+     	<Col id="tg0">ASXL1</Col>
+     	<Col id="tg1">CHK1</Col>
+     	<Col id="tg2">ERG</Col>
+     	<Col id="tg3">GATA2</Col>
+     	<Col id="tg4">KAK3</Col>
+     	<Col id="tg5">NOTCH1</Col>
+     	<Col id="tg6">PRAME</Col>
+     	<Col id="tg7">SF3B1</Col>
+     	<Col id="tg8">TET2</Col>
+     	<Col id="tg9"></Col>
+     </Row>
 	</Rows>
 </Dataset>
+
 </root>
 `;
 
 
-	return patient + variantHeader + data + variantBottom + ments + comments + fixedMent;
+	return patient + variantHeader + data + variantBottom + fixedMent;
 
 }
-
-
-

@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // 진검원 리스크
     this.patientsListService.getDiagList().subscribe((data) => {
       this.dstore.setDiagList(data);
     });

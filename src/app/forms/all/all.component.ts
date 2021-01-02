@@ -82,6 +82,9 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
   examin: string; // 검사자
   recheck: string; // 확인자
 
+  firstReportDay: string;
+  lastReportDay: string;
+
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   constructor(
     private patientsListService: PatientsListService,
@@ -427,7 +430,10 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
       this.ment,
       this.patientInfo,
       formData,
-      this.comments);
+      this.comments,
+      this.firstReportDay,
+      this.lastReportDay
+    );
     console.log('[183] ', makeForm);
     // patientInfo_diag 테이블 참조
     // submit_id: TXLII00124

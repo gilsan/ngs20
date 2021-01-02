@@ -352,8 +352,8 @@ export class Form1Component implements OnInit, OnDestroy {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
 
+    /*
     const makeForm = makeAForm(this.resultStatus, this.fusion, this.ment, this.patientInfo, formData);
-    // console.log('[333] ', makeForm);
     this.patientsListService.sendEMR(
       this.patientInfo.specimenNo,
       this.patientInfo.patientID,
@@ -363,7 +363,7 @@ export class Form1Component implements OnInit, OnDestroy {
         // console.log(data);
         this.router.navigate(['/diag']);
       });
-
+    */
   }
 
   // 필터링된 tsv 파일 가져오기

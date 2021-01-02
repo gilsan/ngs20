@@ -18,7 +18,9 @@ export function makeBForm(
 	ment: string,
 	patientInfo: IPatient,
 	formData: IAFormVariant[],
-	comment: IComment[]
+	comment: IComment[],
+	firstReportDay: string,
+	lastReportDay: string
 ): string {
 
 	// 금일날자:
@@ -148,7 +150,7 @@ export function makeBForm(
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">Acute Myeloid Leukemia NGS</Col>
-				<Col id="examdt">검사의뢰일/검사보고일:${acceptdate}/${today}/ - </Col>
+				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
 				<Col id="examid">검사자:${examin}.M.T.</Col>
 				<Col id="signid">판독의사:${recheck}.M.D.</Col>
 			</Row>

@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: 'jingum', loadChildren: () => import('../forms/forms.module').then((m) => m.SaintFormsModule)
       },
-      { path: 'jingum/:id', loadChildren: () => import('../forms/forms.module').then((m) => m.SaintFormsModule) },
+      { path: 'jingum/:testcode', loadChildren: () => import('../forms/forms.module').then((m) => m.SaintFormsModule) },
       { path: 'inhouse', loadChildren: () => import('../inhouse/inhouse.module').then((m) => m.InhouseModule) },
       { path: 'managestatistics', component: ManageStatisticsComponent },
       { path: 'managefunctions', component: ManageFunctionsComponent },

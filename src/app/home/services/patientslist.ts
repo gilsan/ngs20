@@ -18,6 +18,7 @@ export class PatientsListService {
   public listObservable$ = this.listSubject$.asObservable();
   private jimTestedID: string;
   public patientInfo: IPatient[];
+  testCode: string;
 
   geneCoding: IGeneCoding[];
   constructor(
@@ -178,6 +179,15 @@ export class PatientsListService {
   //  결과지를 위한 검체정보 찻기
   getTestedID(): string {
     return this.jimTestedID;
+  }
+
+  // AML ALL 구분 저장
+  setTestcode(code: string): void {
+    this.testCode = code;
+  }
+
+  getTestcode(): string {
+    return this.testCode;
   }
 
   redoTestedID(testID: string, filename: string): void {
@@ -509,6 +519,11 @@ export class PatientsListService {
   // 현재 설정된 screenstatus 가져오기
   getScreenStatus(specimenNo: string): any {
     return this.http.post(`${this.apiUrl}/patients_diag/screenstatus`, { specimenNo });
+  }
+
+  // EMR 전송회수 보내기
+  setEMRSendCount(specimenNo: string, sendEMR: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/patients_diag/setEMRSendCount`, { specimenNo, sendEMR });
   }
 
   // 코멘트 저장 하기

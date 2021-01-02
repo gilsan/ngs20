@@ -24,11 +24,11 @@ export class FormsComponent implements OnInit {
     // console.log('[forms component selectedNum][20] ', this.selectedNum);
     this.route.paramMap.pipe(
       filter(data => data !== null || data !== undefined),
-      map(route => route.get('id'))
+      map(route => route.get('testcode'))
     ).subscribe(data => {
       if (data !== null) {
         const type = data;
-        // console.log('[forms component][24] ', type);
+        // console.log('============= [forms component][24] ', type);
         if (type === 'ALL') {
           this.selectedNum = 1;
           this.navigateTo('1');
@@ -53,9 +53,9 @@ export class FormsComponent implements OnInit {
     this.selectedNum = parseInt(select, 10);
     console.log('[forms component select....]', this.selectedNum);
     if (this.selectedNum === 1) {
-      this.router.navigate(['/diag', 'jingum', 'all']);
+      this.router.navigate(['/diag', 'jingum', 'form2', 'ALL']);
     } else if (this.selectedNum === 2) {
-      this.router.navigate(['/diag', 'jingum', 'form2']);
+      this.router.navigate(['/diag', 'jingum', 'form2', 'AML']);
     } else if (this.selectedNum === 3) {
       this.router.navigate(['/diag', 'jingum', 'form3']);
     } else if (this.selectedNum === 4) {

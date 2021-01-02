@@ -26,7 +26,8 @@ export interface IPatient {
   tsvFilteredDate?: Date;
   bamFilename?: string;
   sendEMR?: string;
-  sendEMRDate?: Date;
+  sendEMRDate?: string;
+  report_date?: string;
   specimenNo: string;
   test_code?: string;
   screenstatus: string;
