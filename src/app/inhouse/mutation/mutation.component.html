@@ -12,6 +12,7 @@
         font-weight: normal;
     }
     /*** /테이블 헤더 고정 ***/ 
+   
 
 </style>
 
@@ -166,7 +167,7 @@
                             </td>
                             <td class="txt_c">
                                 <span *ngIf="status.value === 'R'">
-                                    <a class="btn-edit" (click)="status.value='U'">수정</a>
+                                    <a class="btn-edit" (click)="status.value='U'" >수정</a>
                                     <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>
                                 </span>
                                 <span *ngIf="status.value === 'U'">    

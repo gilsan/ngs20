@@ -66,15 +66,6 @@ export class BenignComponent implements OnInit {
 
     if (genes.value == "") {
 
-      // updateRow(id: string): void {   
-      //   const genes: HTMLInputElement = document.getElementById("genes"+id) as HTMLInputElement; 
-      //   const location: HTMLInputElement = document.getElementById("location"+id) as HTMLInputElement; 
-      //   const exon: HTMLInputElement = document.getElementById("exon"+id) as HTMLInputElement; 
-      //   const transcript: HTMLInputElement = document.getElementById("transcript"+id) as HTMLInputElement; 
-      //   const coding: HTMLInputElement = document.getElementById("coding"+id) as HTMLInputElement; 
-      //   const aminoAcidChange: HTMLInputElement = document.getElementById("aminoAcidChange"+id) as HTMLInputElement;  
-      //   if(genes.value ==""){
-
       alert("genes 값은 필수 입니다.");
       return;
     }

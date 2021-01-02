@@ -40,14 +40,17 @@ export class MutationComponent implements OnInit {
 
   deleteRow(id: string, genes: string): void {
     const result = confirm('삭제 하시겠습니까?');
-    if (result) {
+
+    if(id===""){ 
+      this.lists = this.lists.slice(0,this.lists.length-1); 
+    }else{ 
       this.mutationService.deleteMutationList(id, genes)
         .subscribe((data) => {
         console.log('[170][mutation 삭제]', data); 
         alert("삭제 되었습니다.");
         this.search(genes); 
       }); 
-    }  
+    } 
   }
 
   updateRow(id: string): void {
@@ -70,12 +73,15 @@ export class MutationComponent implements OnInit {
     const buccal2: HTMLInputElement			        = document.getElementById("buccal2"+id) as HTMLInputElement; 
     const igv: HTMLInputElement				          = document.getElementById("igv"+id) as HTMLInputElement;
     const sanger: HTMLInputElement			        = document.getElementById("sanger"+id) as HTMLInputElement;
+    
+    
 
-
+/*
     if(buccal.value ==""){
       alert("buccal 값은 필수 입니다.");
       return;
     }
+*/    
     if(patientName.value ==""){
       alert("patient Name 값은 필수 입니다.");
       return;
@@ -129,8 +135,11 @@ export class MutationComponent implements OnInit {
         'sift_polyphen_mutation_taster': '',
         'buccal2': '',
         'igv': '',
-        'sanger': ''});
+        'sanger': ''});  
   } 
+  myFunc(status: string){
+    console.log("function called"+ status);
+  }
 
   goPage(page: string): void {    
     if(page ==="<" &&  this.pageLine >0 ) { 
@@ -143,7 +152,7 @@ export class MutationComponent implements OnInit {
     } else {
       if( page !="<" && page !=">" ) 
          this.curPage = Number(page); 
-    }
+    }6
     page =  this.curPage +""; 
     this.lists =  this.listMutations.slice((Number(page)-1)*10,(Number(page))*10); 
   }  
