@@ -913,7 +913,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   goEMR(): void {
-
+    const userid = localStorage.getItem('diaguser');
     if (this.sendEMR > 1) {
       this.lastReportDay = this.today();
     }
@@ -970,7 +970,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.name,
       makeForm)
       .pipe(
-        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3')),
+        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
@@ -981,6 +981,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
   // ALL 인 경우
   gotoEMR(): void {
+    const userid = localStorage.getItem('pathuser');
     if (this.sendEMR > 1) {
       this.lastReportDay = this.today();
     }
@@ -1006,8 +1007,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     );
     console.log('[918] ', makeForm);
 
-
-
     this.patientsListService.sendEMR(
       this.patientInfo.specimenNo,
       this.patientInfo.patientID,
@@ -1015,7 +1014,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.name,
       makeForm)
       .pipe(
-        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3')),
+        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
@@ -1153,7 +1152,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   reset(): void {
-    this.patientsListService.resetscreenstatus(this.form2TestedId, '0')
+    const userid = localStorage.getItem('pathuser');
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid)
       .subscribe(data => {
         console.log('reset:', data);
         this.patientsListService.getScreenStatus(this.form2TestedId)

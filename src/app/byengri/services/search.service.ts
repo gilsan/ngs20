@@ -75,8 +75,8 @@ export class SearchService {
   }
 
   // 병리 EMR 전송 screenstatus =3 로 변경
-  public finishPathologyEMRScreen(pathologyNum: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pathEmrUpdate/finishPathologyEMRScreen`, { pathologyNum });
+  public finishPathologyEMRScreen(pathologyNum: string, userid: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pathEmrUpdate/finishPathologyEMRScreen`, { pathologyNum, userid });
   }
 
   // 검진 수정버튼 누를때 screenstatus = 0 번호 변경

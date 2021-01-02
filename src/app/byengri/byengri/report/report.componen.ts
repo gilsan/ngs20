@@ -970,6 +970,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   /////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef
   sendEMR() {
+    const userid = localStorage.getItem('pathuser');
     this.convertFormData();
     console.log('[1064][Burden/MSI', this.tumorMutationalBurden, this.msiScore);
     console.log('[1064][검사자/확인자]', this.examedno, this.examedname, this.checkeredno, this.checkername);
@@ -1015,7 +1016,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate(['/pathology']);
     });
 
-    this.subs.sink = this.searchService.finishPathologyEMRScreen(this.patientInfo.pathology_num)
+    this.subs.sink = this.searchService.finishPathologyEMRScreen(this.patientInfo.pathology_num, userid)
       .subscribe(data => {
         console.log('[1101][][finishPathologyEMRScreen]', data);
         if (data.message === 'SUCCESS') {
