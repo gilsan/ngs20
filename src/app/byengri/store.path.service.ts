@@ -99,10 +99,11 @@ export class StorePathService {
   // 검체번호 등록
   public setPathologyNo(id: string): void {
     this.pathologyNo = id;
-    // console.log('[120][path service][검체번호]', this.pathologyNo);
+    console.log('[102][path service][검체번호저장]', this.pathologyNo);
   }
 
   public getPathologyNo(): string {
+    console.log('[106][path service][검체번호알림]', this.pathologyNo);
     return this.pathologyNo;
   }
 

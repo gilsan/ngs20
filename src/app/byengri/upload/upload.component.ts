@@ -107,7 +107,7 @@ export class UploadComponent implements OnInit {
     }
     this.pathologyNum = this.store.getPathologyNo();
     this.inputType = this.store.getType();
-
+    console.log('[110][][pathologyNum]', this.pathologyNum);
     formData.append('pathologyNum', this.pathologyNum);
     formData.append('type', this.inputType);
     formData.append('fileType', this.fileType);
@@ -127,6 +127,10 @@ export class UploadComponent implements OnInit {
   }
 
   onSelectedFile(event: any): void {
+    console.log('[130][화일선택]', event.target.fileList);
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    console.log(files);
     if (event.target.files.length > 0) {
       const filename = event.target.files[0].name;
       const file = event.target.files[0];
@@ -139,6 +143,7 @@ export class UploadComponent implements OnInit {
         this.diseaseNumber = diseaseFilename[0];
         //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
         this.pathologyNum = this.pathologyService.getPathologyNum();
+        console.log('[142][pathologyNum]', this.pathologyNum);
         this.type = this.pathologyService.getType();
 
         if (diseaseFilename.includes('RNA')) {
@@ -154,6 +159,44 @@ export class UploadComponent implements OnInit {
       this.onDroppedFile(event.target.files);
       // alert('파일이 등록 되었습니다.');
     }
+  }
+
+  onFileSelect(event: Event): any {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    //  console.log(files, files.length);
+    if (files.length > 0) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < files.length; i++) {
+        const filename = files[i].name;
+        const file = files[i];
+
+        const diseaseFilename = filename.split('_');
+        this.diseaseNumber = diseaseFilename[0];
+        //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
+        this.pathologyNum = this.pathologyService.getPathologyNum();
+        if (this.pathologyNum === undefined) {
+          this.pathologyNum = this.store.getPathologyNo();
+        }
+        console.log('[181][upload][pathologyNum]', this.pathologyNum);
+        this.type = this.pathologyService.getType();
+        if (this.type === undefined) {
+          this.type = this.store.getType();
+        }
+        if (diseaseFilename.includes('RNA')) {
+          this.nonefilter(file);
+        } else if (diseaseFilename.includes('All')) {
+          this.fileType = 'OR';
+          this.allOR(file);
+        } else {
+          this.fileType = 'IR';
+          this.donefilter(file);
+        }
+      }
+      this.onDroppedFile(files);
+    }
+
+
   }
 
   // 보고서/결과지에 표시할 "tumor mutation burden" => 9.44

@@ -7,11 +7,10 @@
       <div class="upload-main">
         <div class="upload-container">
           <div class="row justify-content-center">
-            <div class="col-md-6">
-              <div class="droparea" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)"
-                [class.active]="true">
+            <div class="col-md-6"> <!-- (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)"   [class.active]="true" -->
+              <div class="droparea" [class.active]="true">
                 <input type="file" name="userfiles" #uploadfile
-                (change)="onSelectedFile($event)" multiple />
+                (change)="onFileSelect($event)" multiple />  <!-- onSelectedFile  -->
                 <div style="margin-top: 70px; margin-left: 10px;">
                   <h1 style="font-size: 1rem; font-weight: bold;">업로드할 파일(IR, OR, RNA non-filtered)  3개 tsv 파일을 한개씩(순서는 상관없음) 차례로 올려주세요.</h1>
                 </div>

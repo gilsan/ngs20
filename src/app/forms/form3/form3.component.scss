@@ -1,9 +1,22 @@
-.td {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+table {
+  table-layout: fixed;
+}
+
+
+/*** 테이블 헤더 고정 ***/
+.fixed_header th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+
+/*** /테이블 헤더 고정 ***/
+.table_height {
+  height: 20px;
 }
 
 .preview__button {
+  color: red;
   background-color: #f0e5e5;
   height: 2rem;
   width: 7rem;
@@ -11,7 +24,6 @@
   top: 0.1rem;
   right: 0.5rem;
   border-radius: 10px;
-  // border-radius: 50%;
   z-index: 2000;
   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
@@ -19,56 +31,6 @@
   cursor: pointer;
 }
 
-h2 {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.geneOntology {
-  width: 100%;
-  height: 80px;
-  overflow-y: scroll;
-}
-
-.fathmm {
-  width: 200px;
-  height: 80px;
-  overflow: scroll;
-}
-
-.pfam {
-  width: 200px;
-  height: 80px;
-  overflow: scroll;
-}
-
-.save_mute {
-  cursor: pointer;
-}
-
-.textarea_01 {
-  padding: 0 !important;
-  width: 100% !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.textarea01 {
-  padding: 0 !important;
-}
-
-.table_height {
-  height: 20px;
-}
-
-.th {
-  padding: 0 !important;
-}
-
-img:hover {
-  cursor: pointer;
-}
 
 .excel {
   color: black;
@@ -79,3 +41,161 @@ img:hover {
   cursor: pointer;
   padding: 2px 20px;
 }
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+td {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
+
+input[type="text"] {
+  width: 80%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.save_mute {
+  cursor: pointer;
+  vertical-align: middle;
+  background-color: lightblue;
+}
+
+.modal-overlay {
+  display: inline-block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(51, 51, 51, 0.7);
+  z-index: 10;
+}
+
+.modal-body {
+  position: absolute;
+  width: 90vw;
+  max-width: 90vw;
+  max-height: 95vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  border: 1px solid black;
+  box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.14), 0 4px 8px -1px rgba(0, 0, 0, 0.12);
+}
+
+.textcenter {
+  text-align: center;
+}
+
+.trash:hover {
+  cursor: pointer;
+}
+
+/*
+.tdbox {
+ width: 120px !important;
+ overflow: hidden;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+}
+
+td {
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+}
+
+.preview__button {
+ background-color: #f0e5e5;
+ height: 2rem;
+ width: 7rem;
+ position: fixed;
+ top: 0.1rem;
+ right: 0.5rem;
+ border-radius: 10px;
+ // border-radius: 50%;
+ z-index: 2000;
+ -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+ box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+ text-align: center;
+ cursor: pointer;
+}
+
+h2 {
+ font-size: 16px;
+ font-weight: bold;
+ text-align: center;
+}
+
+.geneOntology {
+ width: 100%;
+ height: 80px;
+ overflow-y: scroll;
+}
+
+.fathmm {
+ width: 200px;
+ height: 80px;
+ overflow: scroll;
+}
+
+.pfam {
+ width: 200px;
+ height: 80px;
+ overflow: scroll;
+}
+
+
+
+.textarea_01 {
+ padding: 0 !important;
+ width: 100% !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+}
+
+.textarea01 {
+ padding: 0 !important;
+}
+
+
+
+.th {
+ padding: 0 !important;
+}
+
+img:hover {
+ cursor: pointer;
+}
+
+.trash:hover {
+ cursor: pointer;
+}
+
+
+*/
+/*
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+
+td {
+  vertical-align: middle;
+  padding: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+*/
