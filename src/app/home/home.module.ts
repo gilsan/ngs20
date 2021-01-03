@@ -18,6 +18,7 @@ import { MainscreenComponent } from './components/mainscreen/mainscreen.componen
 import { TsvuploadComponent } from './components/tsvupload/tsvupload.component';
 import { ManageStatisticsComponent } from './components/manage-statistics/manage-statistics.component';
 import { ManageFunctionsComponent } from './components/manage-functions/manage-functions.component';
+import { DetailFunctionsComponent } from './components/detail-functions/detail-functions.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
     TsvuploadComponent,
     ManageStatisticsComponent,
     ManageFunctionsComponent,
+    DetailFunctionsComponent,
     ManageUsersComponent
   ],
   imports: [
