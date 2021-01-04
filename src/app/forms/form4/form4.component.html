@@ -209,65 +209,17 @@
     <col style="width:10%;" />
     <col style="width:10%;" />
     </colgroup>
-    <tr>
-        <td>BRAF</td>
-        <td>ARID2</td>
-        <td>CCNDI</td>
-        <td>DIS3</td>
-        <td>IDH2</td>
-        <td>KMT2A</td>
-        <td>RHOA</td>
-        <td>TNFRSF14</td>
-        <td>CD28</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>MYD88</td>
-        <td>ATM</td>
-        <td>CCND2</td>
-        <td>DNMT3A</td>
-        <td>KDM6A</td>
-        <td>NFI</td>
-        <td>SF3BI</td>
-        <td>TRAF3</td>
-        <td>STAT3</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>TP53</td>
-        <td>BCORL1</td>
-        <td>CD79A</td>
-        <td>EZH2</td>
-        <td>KMT2D</td>
-        <td>NOTCH1</td>
-        <td>TCF3</td>
-        <td>ZAP70</td>
-        <td>STAT5B</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>APC</td>
-        <td>BIRC3</td>
-        <td>CHDB</td>
-        <td>FOXOI</td>
-        <td>KRAS</td>
-        <td>NOTCH2</td>
-        <td>TET2</td>
-        <td>GNA13</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>ARIDIB</td>
-        <td>CARDII</td>
-        <td>CREBBP</td>
-        <td>ID3</td>
-        <td>MAP2KI</td>
-        <td>NRAS</td>
-        <td>TNFAIP3</td>
-        <td>CD79B</td>
-        <td></td>
-        <td></td>
+    <tr  *ngFor="let list of genelists">
+        <td class="txt_c">{{list.g0}}</td>
+        <td class="txt_c">{{list.g1}}</td>
+        <td class="txt_c">{{list.g2}}</td>
+        <td class="txt_c">{{list.g3}}</td>
+        <td class="txt_c">{{list.g4}}</td>
+        <td class="txt_c">{{list.g5}}</td>
+        <td class="txt_c">{{list.g6}}</td>
+        <td class="txt_c">{{list.g7}}</td>
+        <td class="txt_c">{{list.g8}}</td>
+        <td class="txt_c">{{list.g9}}</td>
     </tr>
 </table>
 

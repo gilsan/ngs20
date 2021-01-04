@@ -4,6 +4,7 @@ import { combineLatest, from, Observable } from 'rxjs';
 
 import {
   IComment, IDList, IFilteredTSV, IGeneCoding,
+  IGeneList,
   IPatient, IProfile, IRecoverVariants
 } from 'src/app/home/models/patients';
 import { PatientsListService } from 'src/app/home/services/patientslist';
@@ -96,7 +97,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   lastReportDay = '';  // 수정보고일
   reportType: string; // AML ALL
 
-
+  genelists: IGeneList[] = [];
 
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
@@ -160,6 +161,9 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   initLoad(): void {
+    // 검진 유전자 목록 가져옴
+    this.getGeneList('MDS');
+
     // 검진부서원 리스트 스토어에서 가져옴.
     this.lists = this.store.getDiagList();
     this.lists.forEach(list => {
@@ -225,6 +229,62 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     });
 
   }
+
+  // 검진 유전자 목록 가져옴
+  getGeneList(type: string): any {
+    let genelist: IGeneList = {
+      g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: ''
+    };
+    let i = 0;
+    let len;
+    let preno = 1;
+
+    this.patientsListService.getGeneList(type)
+      .pipe(
+        tap(data => {
+          len = data.length - 1;
+          data.forEach((list, index) => {
+            const count = parseInt(index, 10) % 10;
+
+            if (i === 0 && preno === Number(list.rowno)) {
+              genelist.g0 = list.gene;
+            } else if (i === 1 && preno === Number(list.rowno)) {
+              genelist.g1 = list.gene;
+            } else if (i === 2 && preno === Number(list.rowno)) {
+              genelist.g2 = list.gene;
+            } else if (i === 3 && preno === Number(list.rowno)) {
+              genelist.g3 = list.gene;
+            } else if (i === 4 && preno === Number(list.rowno)) {
+              genelist.g4 = list.gene;
+            } else if (i === 5 && preno === Number(list.rowno)) {
+              genelist.g5 = list.gene;
+            } else if (i === 6 && preno === Number(list.rowno)) {
+              genelist.g6 = list.gene;
+            } else if (i === 7 && preno === Number(list.rowno)) {
+              genelist.g7 = list.gene;
+            } else if (i === 8 && preno === Number(list.rowno)) {
+              genelist.g8 = list.gene;
+            } else if (i === 9 && preno === Number(list.rowno)) {
+              genelist.g9 = list.gene;
+            }
+
+            if (preno !== Number(list.rowno)) {
+              this.genelists.push(genelist);
+              genelist = { g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: '' };
+              genelist.g0 = list.gene;
+              preno = Number(list.rowno);
+              i = 0;
+            } else if (len === index) {
+              this.genelists.push(genelist);
+            }
+            i++;
+          });
+        })
+      )
+      .subscribe();
+  }
+
+
 
   recoverDetected(): void {
     // 디비에서 detected variant_id 와 comments 가져오기

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpEvent, HttpEventType, HttpParams } from '@angular/common/http';
-import { IAFormVariant, IComment, IDList, IFilteredTSV, IFitering, IGeneCoding, IMutation, IPatient } from '../models/patients';
+import { IAFormVariant, IComment, IDList, IFilteredTSV, IFitering, IGeneCoding, IGeneList, IMutation, IPatient } from '../models/patients';
 import { combineLatest, from, Observable, of, Subject, } from 'rxjs';
 import { concatMap, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { emrUrl } from 'src/app/config';
@@ -558,6 +558,7 @@ export class PatientsListService {
 
   // 진검 유전체 관리
   getGeneList(type: string): Observable<any> {
+    const genelists: IGeneList[] = [];
     return this.http.post(`${this.apiUrl}/diaggene/list`, { type });
   }
 
