@@ -35,10 +35,10 @@ export class FormsComponent implements OnInit {
         } else if (type === 'AML') {
           this.selectedNum = 2;
           this.navigateTo('2');
-        } else if (type === 'MDS/MPN') {
+        } else if (type === 'Lymphoma') {
           this.selectedNum = 3;
           this.navigateTo('3');
-        } else if (type === 'Lymphoma') {
+        } else if (type === 'MDS/MPN') {
           this.selectedNum = 4;
           this.navigateTo('4');
         }
