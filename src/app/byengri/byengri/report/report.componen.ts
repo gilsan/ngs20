@@ -505,8 +505,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(([filteredOriginaDataVal, msiscoreVal, tumorMutationalBurdenVal,
         tumortypeVal, clinicallyVal, clinicalVal, prevalentVal, tumorcellpercentageVal]) => {
         this.filteredOriginData = filteredOriginaDataVal; // filtered 된 데이터 가져옴
-        this.msiScore = msiscoreVal[0].msiscore; // MSI Score
-        this.extraction.msiscore = msiscoreVal[0].msiscore;
+        // MSISCORE
+        console.log('==== [509][MSI SCORE]', msiscoreVal);
+        if (msiscoreVal.length > 0) {
+          this.msiScore = msiscoreVal[0].msiscore; // MSI Score
+          this.extraction.msiscore = msiscoreVal[0].msiscore;
+        } else {
+          this.msiScore = '';
+          this.extraction.msiscore = '';
+        }
+
         this.tumorMutationalBurden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
         this.extraction.tumorburden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
         const tumortypes = tumortypeVal[0].tumortype;

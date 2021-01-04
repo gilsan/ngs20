@@ -8,7 +8,7 @@
           <div class="row justify-content-center">
             <div class="col-md-6">
               <div class="droparea" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)"
-                [class.active]="isActive">
+                [class.active]="true">
                 <input type="file" name="userfiles" #uploadfile
                 (change)="onSelectedFile($event)" multiple />
                 <h4>업로드할 파일을 선택하거나 <br />여기에 파일을 올려주세요.</h4>
