@@ -289,17 +289,21 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   processingStatus(i: number): string {
-    const status = this.lists[i].screenstatus;
-    const filename = this.lists[i].tsvirfilename;
-    if (parseInt(status, 10) === 0 && filename.length) {
-      return '시작';
-    } else if (parseInt(status, 10) === 1) {
-      return '1차완료';
-    } else if (parseInt(status, 10) === 2) {
-      return '2차완료';
-    } else if (parseInt(status, 10) === 3) {
-      return 'EMR전송완료';
+    console.log('=== [292][main][processingStatus][screenstatus]', this.lists[i]);
+    if (this.lists.length > 0) {
+      const status = this.lists[i].screenstatus;
+      const filename = this.lists[i].tsvirfilename;
+      if (parseInt(status, 10) === 0 && filename.length) {
+        return '시작';
+      } else if (parseInt(status, 10) === 1) {
+        return '1차완료';
+      } else if (parseInt(status, 10) === 2) {
+        return '2차완료';
+      } else if (parseInt(status, 10) === 3) {
+        return 'EMR전송완료';
+      }
     }
+
   }
 
   toggle(i: number): any {
