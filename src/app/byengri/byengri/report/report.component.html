@@ -43,8 +43,8 @@
               <th class="fontsize">관련병리번호</th>
               <th class="fontsize">Key block</th>
               <th class="fontsize">Tumor cell percentage</th>
-              <th class="fontsize">Organ</th>
-              <th class="fontsize">Tumor type</th>
+              <th class="fontsize" style="width:140px;">Organ</th>
+              <th class="fontsize" style='width:190px;'>Tumor type</th>
               <th class="fontsize">Pathological diagnosis</th>
             </tr>
           </thead>
@@ -72,7 +72,7 @@
                   (change)="setOrgan(organ.value)">
               </td>
               <td class="txt_c">
-                <input type="text" size="25" #tumortype class="clr-input" [value]="extraction.tumortype"
+                <input type="text" size="15" #tumortype class="clr-input" [value]="extraction.tumortype"
                   (change)="setTumorType(tumortype.value)">
               </td>
               <td class="txt_c">
@@ -201,10 +201,10 @@
               <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                 <thead>
                   <tr>
-                    <th class="table_result_line fontsize" style="width:130px;">Gene (exon)</th>
+                    <th class="table_result_line fontsize" style="width:200px;">Gene (exon)</th>
                     <th class="fontsize">Breakpoint </th>
-                    <th class="fontsize">Function</th>
-                    <th style="width:130px;font-size: 14px;">Tier</th>
+                    <th class="fontsize" style="width:150px;">Function</th>
+                    <th style="width:120px;font-size: 14px;">Tier</th>
                     <th style="width:130px;">
                       <button class="btn btn_01" (click)="addFusion()">추가</button>
                     </th>
@@ -220,7 +220,7 @@
                         <input type="text" size="30" class="clr-input" formControlName="breakpoint">
                       </td>
                       <td class="txt_c">
-                        <input type="text" size="15" class="clr-input" formControlName="functions">
+                        <input type="text" size="10" class="clr-input" formControlName="functions">
                       </td>
                       <td class="txt_c">
                         <input type="text" size="5" class="clr-input" formControlName="tier" style="color: red;">
@@ -350,10 +350,10 @@
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
               <thead>
                 <tr>
-                  <th class="table_result_line fontsize" style="width:130px;">Gene (exon)</th>
+                  <th class="table_result_line fontsize" style="width:200px;">Gene (exon)</th>
                   <th class="fontsize">Breakpoint</th>
-                  <th class="fontsize">Function</th>
-                  <th style="width:130px;font-size: 14px;">Note</th>
+                  <th class="fontsize" style="width:150px;">Function</th>
+                  <th style="width:120px;font-size: 14px;">Note</th>
                   <th style="width:130px;">
                     <button class="btn btn_01" (click)="addIFusion()">추가</button>
                   </th>
@@ -369,7 +369,7 @@
                       <input type="text" size="30" class="clr-input" formControlName="breakpoint">
                     </td>
                     <td class="txt_c">
-                      <input type="text" size="20" class="clr-input" formControlName="functions">
+                      <input type="text" size="10" class="clr-input" formControlName="functions">
                     </td>
                     <td class="txt_c">
                       <input type="text" size="10" class="clr-input" formControlName='tier'>
