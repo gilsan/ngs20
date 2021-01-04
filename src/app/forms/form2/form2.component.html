@@ -470,90 +470,18 @@
                   <col style="width:10%;" />
                   <col style="width:10%;" />
                   </colgroup>
-                  <tr>
-                      <td>CEBPA</td>
-                      <td>RUNX1</td>
-                      <td>CBL</td>
-                      <td>DNMT3A</td>
-                      <td>FBXW7</td>
-                      <td>JAK1</td>
-                      <td>NOTCH1</td>
-                      <td>PRAME</td>
-                      <td>SF3B1</td>
-                      <td>TET2</td>
-                  </tr>
-                  <tr>
-                      <td>FLT3</td>
-                      <td>TP53</td>
-                      <td>CDKN2A</td>
-                      <td>EGFR</td>
-                      <td>GATA1</td>
-                      <td>JAK3</td>
-                      <td>NOTCH3</td>
-                      <td>PTEN</td>
-                      <td>SH2B3</td>
-                      <td>TPMT</td>
-                  </tr>
-                  <tr>
-                      <td>IDH1</td>
-                      <td>ANKRD26</td>
-                      <td>CDKN2B</td>
-                      <td>EP300</td>
-                      <td>GATA2</td>
-                      <td>KRAS</td>
-                      <td>NRAS</td>
-                      <td>PTPN11</td>
-                      <td>SMC1A</td>
-                      <td>U2AF1</td>
-                  </tr>
-                  <tr>
-                      <td>IDH2</td>
-                      <td>ASXL1</td>
-                      <td>CHK1</td>
-                      <td>ERG</td>
-                      <td>GATA3</td>
-                      <td>KMT2A</td>
-                      <td>NT5C2</td>
-                      <td>RAD21</td>
-                      <td>SMC3</td>
-                      <td>WTI</td>
-                  </tr>
-                  <tr>
-                      <td>JAK2</td>
-                      <td>BCOR</td>
-                      <td>CREBBP</td>
-                      <td>ETV6</td>
-                      <td>HNRNPK</td>
-                      <td>MPL</td>
-                      <td>PAX5</td>
-                      <td>RB1</td>
-                      <td>SRSF2</td>
-                      <td>ZRSR2</td>
-                  </tr>
-                  <tr>
-                      <td>KIT</td>
-                      <td>BRAF</td>
-                      <td>CSF3R</td>
-                      <td>EZH2</td>
-                      <td>IKZF1</td>
-                      <td>MYC</td>
-                      <td>PDGFRA</td>
-                      <td>SETBP1</td>
-                      <td>STAG2</td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td>NPM1</td>
-                      <td>CALR</td>
-                      <td>DDX41</td>
-                      <td>FAM5C</td>
-                      <td>IL7R</td>
-                      <td>NF1</td>
-                      <td>PHF6</td>
-                      <td>SETD2</td>
-                      <td>TERT</td>
-                      <td></td>
-                  </tr>
+                  <tr  *ngFor="let list of genelists">
+                    <td class="txt_c">{{list.g0}}</td>
+                    <td class="txt_c">{{list.g1}}</td>
+                    <td class="txt_c">{{list.g2}}</td>
+                    <td class="txt_c">{{list.g3}}</td>
+                    <td class="txt_c">{{list.g4}}</td>
+                    <td class="txt_c">{{list.g5}}</td>
+                    <td class="txt_c">{{list.g6}}</td>
+                    <td class="txt_c">{{list.g7}}</td>
+                    <td class="txt_c">{{list.g8}}</td>
+                    <td class="txt_c">{{list.g9}}</td>
+                  </tr> 
               </table>
   <!--  ------------------------------- ALL   -->
   <table cellpadding="0" cellspacing="0" class="table_result02"    *ngIf="reportType === 'AlL'">
@@ -569,90 +497,18 @@
           <col style="width:10%;"/>
           <col style="width:10%;"/>
        </colgroup>
-      <tr>
-          <td>IKZFl</td>
-          <td>BCOR</td>
-          <td>CREBBP</td> 
-          <td>ETV6</td>
-          <td>GATA3</td>
-          <td>KIT</td>
-          <td>NOTCH3</td>
-          <td>PTEN</td>
-          <td>SH2B3</td>
-          <td>TPMT</td>                   
-     </tr>
-    <tr>
-         <td>JAK2</td>
-         <td>BRAF</td>
-         <td>CSF3R</td>
-         <td>EZH2</td>
-         <td>HNRNPK</td>
-         <td>KRAS</td>
-         <td>NPM1</td>
-         <td>PTPN11</td>
-         <td>SMC1A</td>
-         <td>U2AF1</td>                
-    </tr>  
-    <tr>
-        <td>NRAS</td>
-        <td>CALR</td>
-        <td>DDX41</td>
-        <td>FAM5C</td>
-        <td>IDH1</td>
-        <td>KMT2A</td>
-        <td>NT5C2</td>
-        <td>RAD21</td>
-        <td>SMC3</td>
-        <td>WTI</td>
-    </tr> 
-    <tr>
-        <td>TP53</td>
-        <td>CBL</td>
-        <td>DNMT3A</td>
-        <td>FBXW7</td>
-        <td>IDH2</td>
-        <td>MPL</td>
-        <td>PAX5</td>
-        <td>RUNX1</td>
-        <td>SRSF2</td>
-        <td>ZRSR2</td>
-  </tr> 
-  <tr>
-        <td>RB1</td>
-        <td>CDKN2A</td>
-        <td>EGFR</td>
-        <td>FLT3</td>
-        <td>lL7R</td>
-        <td>MYC</td>
-        <td>PDGFRA</td>
-        <td>SETBP1</td>
-        <td>STAG2</td>
-        <td></td>
- </tr> 
-  <tr>
-        <td>ANKRD26</td>
-        <td>CDKN2B</td>
-        <td>EP300</td>
-        <td>GATA1</td>
-        <td>JAK1</td>
-        <td>NF1</td>
-        <td>PHF6</td>
-        <td>SETD2</td>
-        <td>TERT</td>
-        <td></td>
- </tr> 
- <tr>
-       <td>ASXL1</td>
-       <td>CHK1</td>
-       <td>ERG</td>
-       <td>GATA2</td>
-       <td>KAK3</td>
-       <td>NOTCH1</td>
-       <td>PRAME</td>
-       <td>SF3B1</td>
-       <td>TET2</td>
-       <td></td>
-</tr> 
+       <tr  *ngFor="let list of genelists">
+        <td class="txt_c">{{list.g0}}</td>
+        <td class="txt_c">{{list.g1}}</td>
+        <td class="txt_c">{{list.g2}}</td>
+        <td class="txt_c">{{list.g3}}</td>
+        <td class="txt_c">{{list.g4}}</td>
+        <td class="txt_c">{{list.g5}}</td>
+        <td class="txt_c">{{list.g6}}</td>
+        <td class="txt_c">{{list.g7}}</td>
+        <td class="txt_c">{{list.g8}}</td>
+        <td class="txt_c">{{list.g9}}</td>
+      </tr> 
 </table>
 
   <!-- ------------------------------- END ALL -->
