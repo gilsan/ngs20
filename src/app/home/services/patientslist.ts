@@ -59,7 +59,7 @@ export class PatientsListService {
 
   // 유전체 와 coding 로 Artifacts 레코드에서 정보 가져오기
   public getArtifactInfoLists(gene: string, coding: string) {
-    return this.http.post(`${this.apiUrl}/artifacts/list`, { gene, coding }).pipe(
+    return this.http.post(`${this.apiUrl}/ngsartifacts/list`, { gene, coding }).pipe(
       shareReplay()
     );
   }
@@ -83,7 +83,7 @@ export class PatientsListService {
 
   // 유전체 와 coding 로 benign 레코드에서 정보 가져오기
   public benignInfolists(gene: string, coding: string) {
-    return this.http.post(`${this.apiUrl}/benign/list`, { gene, coding }).pipe(
+    return this.http.post(`${this.apiUrl}/ngsbenign/list`, { gene, coding }).pipe(
       shareReplay()
     );
   }
@@ -102,7 +102,7 @@ export class PatientsListService {
 
   // 유전체 와 coding 로 Comments 레코드에서 정보 가져오기
   public getCommentInfoLists(gene: string, type: string): Observable<Partial<IComment>> {
-    return this.http.post(`${this.apiUrl}/comments/list`, { gene, type }).pipe(
+    return this.http.post(`${this.apiUrl}/ngscomments/list`, { gene, type }).pipe(
       shareReplay()
     );
   }
@@ -528,7 +528,7 @@ export class PatientsListService {
 
   // 코멘트 저장 하기
   insertComments(comments: IComment[]): Observable<any> {
-    return this.http.post(`${this.apiUrl}/comments/insert`, { comments });
+    return this.http.post(`${this.apiUrl}/ngscomments/insert`, { comments });
   }
 
   // gene 로 mutation 에 있는지 확인 숫자로 옴
@@ -553,7 +553,12 @@ export class PatientsListService {
     loc2 = '',
     exon = '',
   ): Observable<any> {
-    return this.http.post(`${this.apiUrl}/artifacts/insert`, { gene, transcript, coding, aminoAcidChange, loc2, exon });
+    return this.http.post(`${this.apiUrl}/ngsartifacts/insert`, { gene, transcript, coding, aminoAcidChange, loc2, exon });
+  }
+
+  // 진검 유전체 관리
+  getGeneList(type: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/diaggene/list`, { type });
   }
 
 
@@ -575,7 +580,7 @@ export class PatientsListService {
     loc2 = '',
     exon = '',
   ): Observable<any> {
-    return this.http.post(`${this.apiUrl}/artifacts/insert`, { gene, transcript, coding, aminoAcidChange, loc2, exon });
+    return this.http.post(`${this.apiUrl}/ngsartifacts/insert`, { gene, transcript, coding, aminoAcidChange, loc2, exon });
   }
 
 

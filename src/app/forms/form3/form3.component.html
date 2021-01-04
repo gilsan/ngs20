@@ -4,153 +4,9 @@
       <h2>Lymphoma NGS</h2>
       <div id="content">
           <div class="box pd_20">
-              <div class="box_100 main-table" >
-                  <table width="200%" cellpadding="0" cellspacing="0" class="table_result  fixed_header table_resul_x" style="text-align: center;">
-                      <thead>
-                          <tr>
-                              <th width="10px" class="table_result_line"></th>
-                              <th width="200px">Locus</th>
-                              <th width="200px">Genotype</th>
-                              <th width="80px">Filter</th>
-                              <th width="80px">Ref</th>
-                              <th width="200px">Observed Allele</th>
-                              <th width="80px">Type</th>
-                              <th style="width:100px !important;">No Call Reason</th>
-                              <th width="80px">Genes</th>
-                              <th style="width: 200px !important;">Location</th>
-                              <th width="80px">Loc 1</th>
-                              <th width="80px">Loc 2</th>
-                              <th width="200px">Loc 3</th>
-                              <th width="80px">Loc 4</th>
-                              <th width="80px">Loc 5</th>
-                              <th width="80px">Loc 6</th>
-                              <th width="80px">Loc 7</th>
-                              <th width="80px">Length</th>
-                              <th width="80px">Info</th>
-                              <th width="200px">Variant ID</th>
-                              <th width="80px">Variant Name</th>
-                              <th width="200px">% Frequency</th>
-                              <th width="80px">Strand</th>
-                              <th width="80px">Exon</th>
-                              <th width="200px">Trascript</th>
-                              <th width="200px">Coding</th>
-                              <th width="200px">Amino Acid Change</th>
-                              <th width="200px">Variant Effect</th>
-                              <th width="200px">PhyloP</th>
-                              <th width="80px">SIFT</th>
-                              <th width="80px">Grantham</th>
-                              <th width="80px">PolyPhen</th>
-                              <th width="200px">FATHMM</th>
-                              <th width="200px">PFAM</th>
-                              <th width="200px">dbSNP</th>
-                              <th width="200px">DGV</th>
-                              <th width="200px">MAF</th>
-                              <th width="200px">EMAF</th>
-                              <th width="200px">AMAF</th>
-                              <th width="200px">GMAF</th>
-                              <th width="80px">UCSC Common SNPs</th>
-                              <th width="200px">ExAC LAF</th>
-                              <th width="200px">ExAC EAAF</th>
-                              <th width="200px">ExAC OAF</th>
-                              <th width="200px">ExAC EFAF</th>
-                              <th width="200px">ExAC SAAF</th>
-                              <th width="200px">ExAC ENFAF</th>
-                              <th width="200px">ExAC AAF</th>
-                              <th width="200px">ExAC GAF</th>
-                              <th width="200px">COSMIC</th>
-                              <th width="200px">OMIM</th>
-                              <th width="200px">Gene Ontology</th>
-                              <th width="200px">DrugBank</th>
-                              <th width="200px">ClinVar</th>
-                              <th width="200px">Allele Coverage</th>
-                              <th width="200px">Allele Ratio</th>
-                              <th width="200px">p-value</th>
-                              <th width="200px">Phred QUAL Score</th>
-                              <th width="200px">Coverage</th>
-                              <th width="200px">Ref+/Ref-/Var+/Var-</th>
-                              <th width="200px">Homopolymer<br/>Length</th>
-                              <th width="200px">Subset of</th>
-                              <th width="200px">KRGDB_622_Lukemia</th>
-                              <th width="200px">KRGDB_1100_Leukemia</th>    
-                                                     
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr *ngFor="let tsvList of tsvLists; let i = index">
-                              <td class="table_result_line">{{i + 1}}</td>
-                              <td class="textcenter">{{tsvList.locus}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.genotype}}</textarea></td>
-                              <td class="textcenter">{{tsvList.filter}}</td>
-                              <td class="textcenter">{{tsvList.ref}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.observed_allele}}</textarea></td>
-                              <td class="textcenter">{{tsvList.type}}</td>
-                              <td class="textcenter">{{tsvList.no_call_reason}}</td>
-                              <td class="textcenter">{{tsvList.genes}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.locations}}</textarea></td>
-                              <td class="textcenter">{{tsvList.loc1}}</td>
-                              <td class="textcenter">{{tsvList.loc2}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.loc3}}</textarea></td>
-                              <td class="textcenter">{{tsvList.loc4}}</td>
-                              <td class="textcenter">{{tsvList.loc5}}</td>
-                              <td class="textcenter">{{tsvList.loc6}}</td>
-                              <td class="textcenter">{{tsvList.loc7}}</td>
-                              <td class="textcenter">{{tsvList.length}}</td>
-                              <td class="textcenter">{{tsvList.info}}</td>
-                              <td class="textcenter">{{tsvList.variant_id}}</td>
-                              <td class="textcenter">{{tsvList.variant_name}}</td>
-                              <td class="tdbox"><textarea class="textarea_02">{{tsvList.frequency}}</textarea></td>
-                              <td class="textcenter">{{tsvList.strand}}</td>
-                              <td class="textcenter">{{tsvList.exon}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.transcript}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.coding}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.amino_acid_change}}</textarea></td>
-                              <td class="textcenter">{{tsvList.variant_effect}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.phylop}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.sift}}</textarea></td>
-                              <td class="textcenter">{{tsvList.grantham}}</td>
-                              <td class="textcenter">{{tsvList.polyphen}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.fathmm}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.pfam}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.dbsnp}}</textarea></td>
-                              <td class="textcenter">{{tsvList.dgv}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.maf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.emaf}}</textarea></td>
-                              <td class="textcenter">{{tsvList.amaf}}</td>
-                              <td class="textcenter">{{tsvList.gmaf}}</td>
-                              <td>{{tsvList.ucsc_common_snps}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_laf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_eaaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_oaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_efaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_saaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_enfaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_aaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.exac_gaf}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.cosmi}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.omim}}</textarea></td>
-                              <td>
-                                <textarea class="textarea_02">{{tsvList.gene_ontology}}</textarea>
-                              </td>
-                              <td><textarea class="textarea_02">{{tsvList.drugbank}}</textarea></td>
-                              <td class="textcenter">{{tsvList.clinvar}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.allele_coverage}}</textarea></td>
-                              <td><textarea class="textarea_02">{{tsvList.allele_ratio}}</textarea></td>
-                              <td class="textcenter">{{tsvList.p_value}}</td>
-                              <td class="textcenter">{{tsvList.phred_qual_score}}</td>
-                              <td class="textcenter">{{tsvList.coverage}}</td>
-                              <td><textarea class="textarea_02">{{tsvList.ref_ref_var_var}}</textarea></td>
-                              <td class="textcenter">{{tsvList.homopolymer_length}}</td>
-                              <td class="textcenter">{{tsvList.subset_of}}</td>
-                              <td class="textcenter">{{tsvList.krgdb_622_lukemia}}</td>
-                              <td><textarea class="textarea_02">
-                                {{tsvList.krgdb_1100_leukemia}}
-                                </textarea>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-                  
-              </div>
+              <!--   -->
+              <app-filtered [tsvLists]="tsvLists"></app-filtered>
+              <!--  -->
               <div>
                 <button type="button" class="excel" (click)="excelDownload()">Excel</button>
               </div>
@@ -179,15 +35,13 @@
             <div style="margin-top:5px;"></div>
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
                 <colgroup>
-                <col style="width:30%;" />
-                <col style="width:20%;" />
+                <col style="width:50%;" />
+                 
                 <col style="width:50%;" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="table_result_line">Leukemia associated fusion</th>
-                        
-                        <th>IKZF1 deletion</th>
+                        <th class="table_result_line">Bone marrow aspiralion analysis</th>
                         <th>Chronmosomal analysis</th>
                     </tr>
                 </thead>
@@ -328,59 +182,9 @@
       </div>
 
       </div>
-
-      <div>
-      <div  style="overflow: scroll-y">
-        <div style="margin-bottom: 10px;margin-top: 25px;">
-            <ul style="display:flex;justify-content:flex-start; align-items: center;">
-                <li>
-                    <span class="sub_title">Comments</span>
-                </li>
-                <li>&nbsp;&nbsp;</li>
-                <li>
-                    <button type="button" class="btn btn_01">저장</button>
-                </li>
-            </ul>            
-            </div> 
-        <div  class="comment_box_50">   
-        <form [formGroup]="tablerowForm">            
-            <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
-               <colgroup>
-                <col style="width:7%;" />
-                <col style="width:25%;" />
-                <col style="width:30%;" />
-                <col style="width:30%;" />
-                <col style="width:8%;" />
-               </colgroup>  
-              <thead>
-                  <tr>
-                      <th class="table_result_line">Gene</th>
-                      <th >Variants</th>
-                      <th> Comments</th>
-                      <th >Reference</th>
-                      <th><button class="btn btn_01" (click)="addNewCommentRow()">추가</button></th>
-                  </tr>
-              </thead>
-              <tbody>
-                 
-                  <ng-container formArrayName="commentsRows" *ngFor="let group of commentsRows().controls; let i=index">
-                      <tr  [formGroupName]="i">
-                        <td class="table_result_line"  ><input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02  textcenter" size="10" formControlName="gene" ></td>
-                        <td><input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02  textcenter" size="10" formControlName="variant_id"></td>
-                        <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="comment"></textarea></td>
-                        <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="reference"></textarea></td> 
-                        <td  align="center">
-                            <img [src]="'assets/images/cancel.png'" (click)="removeCommentRow(i)">
-                        </td>
-                      </tr>
-                 </ng-container>
-              </tbody>
-            </table>
-        </form>
-        </div>    
-      </div>
-    </div>
+    <!-- ------------------------------------------------------  -->
  
+    <!--  ------------------------------------------------  -->
 <!--     -->
               <div class="sub_title">*Methods</div>
               <div class="pd_r20">
