@@ -155,7 +155,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-    const oneMonthsAgo = moment().subtract(1, 'months');
+    const oneMonthsAgo = moment().subtract(3, 'months');
 
     const yy = oneMonthsAgo.format('YYYY');
     const mm = oneMonthsAgo.format('MM');
