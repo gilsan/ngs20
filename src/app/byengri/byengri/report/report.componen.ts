@@ -175,7 +175,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.route.paramMap.pipe(
       map(route => route.get('pathologyNum'))
     ).subscribe(pathologyNum => {
-      console.log('[167][getParams]', pathologyNum);
+      // console.log('[167][getParams]', pathologyNum);
       this.pathologyNum = pathologyNum; // 검체번호 저장
       this.patientInfo = this.pathologyService.patientInfo.filter(item => item.pathology_num === pathologyNum)[0];
       console.log('[169]', this.patientInfo);
@@ -217,7 +217,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.patientInfo.key_block === undefined || this.patientInfo.key_block === null) {
         this.extraction.keyblock = '';
       } else if (this.patientInfo.key_block.length > 0) {
-        this.extraction.keyblock = '#' + this.patientInfo.key_block;
+        this.extraction.keyblock = this.patientInfo.key_block;
       } else {
         this.extraction.keyblock = '';
       }
@@ -573,7 +573,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.patientInfo.key_block === undefined || this.patientInfo.key_block === null) {
           this.extraction.keyblock = '';
         } else if (this.patientInfo.key_block.length > 0) {
-          this.extraction.keyblock = '#' + this.patientInfo.key_block;
+          const firstChar = this.patientInfo.key_block.charAt(0);
+          if (firstChar === '#') {
+            this.extraction.keyblock = this.patientInfo.key_block;
+          } else {
+            this.extraction.keyblock = '#' + this.patientInfo.key_block;
+          }
         } else {
           this.extraction.keyblock = '';
         }
