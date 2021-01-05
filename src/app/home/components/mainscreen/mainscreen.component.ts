@@ -225,22 +225,14 @@ export class MainscreenComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line: typedef
   search(start: string, end: string, specimenNo: string, patientId: string, status: string = '', sheet: string = '') {
-    let testCode;
+
     this.startday = start;
     this.endday = end;
     this.specimenno = specimenNo;
     this.patientid = patientId;
     this.status = status;
     this.sheet = sheet;
-    if (status === 'ALL') {
-      testCode = 'LPE545';
-    } else if (status === 'AML') {
-      testCode = 'LPE471';
-    } else if (status === 'LYM') {
-      testCode = 'LPE474';
-    } else if (status === 'MDS') {
-      testCode = 'LPE473';
-    }
+
 
     this.store.setSearchStartDay(start);
     this.store.setSearchEndDay(end);
@@ -262,8 +254,8 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (specimenNo !== undefined) {
       specimenNo = specimenNo.trim();
     }
-    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + testCode + '][' + sheet + ']');
-    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, testCode, sheet);
+    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + sheet + '][' + sheet + ']');
+    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, sheet, sheet);
     this.subs.sink = this.lists$
       .pipe(
         switchMap(item => of(item)),
