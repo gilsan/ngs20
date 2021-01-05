@@ -7,9 +7,9 @@
               <!--   -->
               <app-filtered [tsvLists]="tsvLists"></app-filtered>
               <!--  -->
-              <div>
-                <button type="button" class="excel" (click)="excelDownload()">Excel</button>
-              </div>
+              <!-- <div>
+                <button type="button" class="excel" (click)="emr()">EMR시험</button>
+              </div> -->
               <div class="sub_title">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -35,8 +35,7 @@
             <div style="margin-top:5px;"></div>
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
                 <colgroup>
-                <col style="width:50%;" />
-                 
+                <col style="width:50%;" />                
                 <col style="width:50%;" />
                 </colgroup>
                 <thead>
@@ -92,21 +91,21 @@
     <table class="table table-margin-top fixed_header"  style="text-align: center;">
         <colgroup>           
             <col style="width:80px"/>
-            <col style="width:80px"/>
-            <col style="width:80px"/>
+            <col style="width:80px"/>  <!--     -->
+            <col style="width:80px"/>  <!-- IGV -->
             <col style="width:50px"/>
-            <col style="width:150px"/>
-            <col style="width:80px"/>
-            <col style="width:280px"/>
-            <col style="width:80px"/>
-            <col style="width:300px"/>
-            <col style="width:300px"/>
-            <col style="width:200px"/>
-            <col style="width:200px"/> 
-            <col style="width:200px"/>    
-            <col style="width:100px"/>
-            <col style="width:80px"/>
-            <col style="width:80px"/> 
+            <col style="width:80px"/>  <!-- Type    -->
+            <col style="width:120px"/>   <!-- Gene   -->
+            <col style="width:180px"/>  <!-- Functional Impact    -->
+            <col style="width:160px"/>  <!-- Transcript    --> 
+            <col style="width:150px"/>  <!-- Exon/Intron    -->
+            <col style="width:300px"/>  <!--  Nuceleotide change   -->
+            <col style="width:200px"/>  <!-- Amino acid change    -->
+            <col style="width:200px"/>  <!-- Zygosity    -->
+            <col style="width:200px"/>  <!--     -->  
+            <col style="width:100px"/>  <!--     -->
+            <col style="width:80px"/>   <!--     -->
+            <col style="width:80px"/>  <!--     -->
             <col style="width:80px"/>                 
             </colgroup>
       <thead>
@@ -119,7 +118,7 @@
               <th>Sanger</th>
               <th>Type</th>                  
               <th>Gene</th>
-              <th>Functional Impact</th>
+              <th >Functional Impact</th>
               <th>Transcript</th>
               <th>Exon/Intron</th>  
               <th>Nuceleotide change</th>    

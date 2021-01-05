@@ -202,16 +202,15 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     this.lists$ = this.pathologyService.search(startdate, enddate, patient, pathologynum);
     this.subs.sink = this.lists$.subscribe((data) => {
-      console.log('[197][병리검색]', data);
+      // console.log('[197][병리검색]', data);
       this.lists = data;
-      console.log('[208][리스트]: ', this.lists);
+      console.log('[208][MAIN][SEARCH][리스트]: ', this.lists);
     });
 
   }
 
   onSelected(): void {
     console.log('[207] [onSelected]');
-
 
     this.startday = this.store.getSearchStartDay();
     this.endday = this.store.getSearchEndDay();
@@ -289,7 +288,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   processingStatus(i: number): string {
-    console.log('=== [292][main][processingStatus][screenstatus]', this.lists[i]);
+    // console.log('=== [292][main][processingStatus][screenstatus]', this.lists[i]);
     if (this.lists.length > 0) {
       const status = this.lists[i].screenstatus;
       const filename = this.lists[i].tsvirfilename;

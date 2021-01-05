@@ -369,7 +369,7 @@ export class UploadComponent implements OnInit {
           this.fields = list;
         }
         if (index >= 19) {
-          // console.log('==== [313][filteredOriginData] ', list[12].trim());
+          // console.log('==== [372][filteredOriginData] ', list);
           this.filteredOriginData.push({
             locus: list[this.findGenePostion('Locus')].trim(),
             readcount: list[this.findGenePostion('Read Counts')].trim(),

@@ -27,6 +27,8 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   endday = '';
   specimenno = '';
   patientid = '';
+  status = ''; // 시작, 스크린판독, 판독완료, EMR전송
+  sheet = ''; // AML ALL LYN MDS
 
   storeStartDay: string;
   storeEndDay: string;
@@ -213,15 +215,30 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   }
 
   // tslint:disable-next-line: typedef
-  search(start: string, end: string, specimenNo: string, patientId: string) {
+  search(start: string, end: string, specimenNo: string, patientId: string, status: string = '', sheet: string = '') {
+    let testCode;
     this.startday = start;
     this.endday = end;
     this.specimenno = specimenNo;
     this.patientid = patientId;
+    this.status = status;
+    this.sheet = sheet;
+    if (status === 'ALL') {
+      testCode = 'LPE545';
+    } else if (status === 'AML') {
+      testCode = 'LPE471';
+    } else if (status === 'LYM') {
+      testCode = 'LPE474';
+    } else if (status === 'MDS') {
+      testCode = 'LPE473';
+    }
+
     this.store.setSearchStartDay(start);
     this.store.setSearchEndDay(end);
     this.store.setamlSpecimenID(specimenNo);
     this.store.setamlPatientID(patientId);
+    this.store.setStatus(status);
+    this.store.setSheet(sheet);
     this.lists = [];
     // console.log('[121][search]', this.startday, this.endday, this.specimenNo, this.patientID);
     //
@@ -235,7 +252,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (specimenNo !== undefined) {
       specimenNo = specimenNo.trim();
     }
-    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo);
+    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, testCode, sheet);
     this.subs.sink = this.lists$
       .pipe(
         switchMap(item => of(item)),
