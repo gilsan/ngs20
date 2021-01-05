@@ -213,7 +213,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('[178][환자정보], ', this.patientInfo);
       this.extraction.dnarna = 'FFPE tissue';
       this.extraction.managementNum = this.patientInfo.rel_pathology_num;
-      this.extraction.keyblock = this.patientInfo.key_block;
+      this.extraction.keyblock = '#' + this.patientInfo.key_block;
       if (this.patientInfo.tumor_cell_per === undefined || this.patientInfo.tumor_cell_per === null) {
         this.extraction.tumorcellpercentage = '';
       } else {

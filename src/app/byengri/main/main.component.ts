@@ -88,7 +88,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-    const oneMonthsAgo = moment().subtract(1, 'months');
+    const oneMonthsAgo = moment().subtract(3, 'months');
     // console.log(oneMonthsAgo.format('YYYY-MM-DD'));
     const yy = oneMonthsAgo.format('YYYY');
     const mm = oneMonthsAgo.format('MM');

@@ -112,13 +112,13 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   goReporter(i: number) {
     console.log('[111][mainscreen][goReporter]', this.lists[i]);
     const specimenno = this.store.getSpecimenNo();
-    // if (this.lists[i].specimenNo === specimenno || specimenno === 'none') {
+
     this.patientsList.setTestedID(this.lists[i].specimenNo); // 검체번호
     this.patientsList.setTestcode(this.lists[i].test_code);  // 검사지 타입 AML ALL
     this.router.navigate(['/diag', 'jingum', this.lists[i].test_code]);
-    // } else {
-    //   alert('검체번호가 일치 하지 않습니다.' + this.lists[i].specimenNo + ',' + specimenno);
-    // }
+
+
+
   }
 
   goReporterClass(idx: number): any {
@@ -202,11 +202,15 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.storeEndDay = this.store.getSearchEndDay();
     this.storePatientID = this.store.getamlPatientID();
     this.storeSpecimenID = this.store.getamlSpecimenID();
+    this.status = this.store.getStatus();
+    this.sheet = this.store.getSheet();
+    console.log('[207][mainscreen][checkStore]',
+      this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay);
     this.startday = this.storeStartDay;
     this.endday = this.storeEndDay;
     this.specimenno = this.storeSpecimenID;
-    this.patientid = this.patientID;
-    console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
+    this.patientid = this.storePatientID;
+    // console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
     this.lists = [];
     if (this.storeStartDay && this.storeEndDay) {
 
