@@ -48,7 +48,8 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (this.storeStartDay === null || this.storeEndDay === null) {
       this.init();
     }
-    this.search(this.startToday(), this.endToday(), '', '');
+    // console.log('[51][ngOnInit]');
+    // this.search(this.startToday(), this.endToday(), '', '');
   }
 
   ngOnDestroy(): void {
@@ -110,7 +111,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line: typedef
   goReporter(i: number) {
-    console.log('[111][mainscreen][goReporter]', this.lists[i]);
+    // console.log('[111][mainscreen][goReporter]', this.lists[i]);
     const specimenno = this.store.getSpecimenNo();
 
     this.patientsList.setTestedID(this.lists[i].specimenNo); // 검체번호
@@ -205,8 +206,8 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.status = this.store.getStatus();
     this.sheet = this.store.getSheet();
     const whichstate = this.store.getWhichstate();
-    console.log('[207][mainscreen][checkStore]',
-      this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay, whichstate);
+    // console.log('[207][mainscreen][checkStore]',
+    // this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay, whichstate);
     this.startday = this.storeStartDay;
     this.endday = this.storeEndDay;
     this.specimenno = this.storeSpecimenID;
@@ -214,13 +215,13 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     // console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
 
     this.lists = [];
-    this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID, this.status, this.sheet);
-    if (whichstate === 'mainscreen') {
-
-      // this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID, '', '');
-    } else if (whichstate === 'searchscreen') {
-
+    if (whichstate === 'searchscreen') {
+      this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID, this.status, this.sheet);
+    } else if (whichstate === 'mainscreen') {
+      this.search(this.startToday(), this.endToday(), '', '');
     }
+
+
   }
 
   // tslint:disable-next-line: typedef
@@ -255,7 +256,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
       specimenNo = specimenNo.trim();
     }
     console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + sheet + '][' + sheet + ']');
-    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, sheet, sheet);
+    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, status, sheet);
     this.subs.sink = this.lists$
       .pipe(
         switchMap(item => of(item)),
