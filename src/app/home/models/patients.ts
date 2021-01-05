@@ -11,6 +11,9 @@ export interface IPatient {
   leukemiaassociatedfusion?: string;
   IKZK1Deletion: string;
   FLT3ITD: string;
+  bonemarrow?: string;
+  diagnosis?: string;
+  genetictest?: string;
   chromosomalAnalysis: string;
   chromosomalanalysis?: string;
   targetDisease: string;

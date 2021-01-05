@@ -228,7 +228,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  // AML 유전자 목록 가져오기
+  // ALL/AML 유전자 목록 가져오기
   getGeneList(type: string): any {
     let genelist: IGeneList = {
       g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: ''
@@ -281,12 +281,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       )
       .subscribe();
   }
-
-
-  // ALL 유전자 목록 가졍오기
-
-
-
   ////////////////////////////////////////
   recoverDetected(): void {
     // 디비에서 detected variant_id 와 comments 가져오기

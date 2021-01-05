@@ -282,9 +282,9 @@ export class PatientsListService {
   }
 
   // 날자별 환자ID, 검사ID 검사인 찿기
-  public search(start: string, end: string, patientID: string, specimenNo: string): Observable<IPatient[]> {
+  public search(start: string, end: string, patientID: string, specimenNo: string, status: string, sheet: string): Observable<IPatient[]> {
     // console.log('[265][searchService][진검검색]:', start, end, patientID, specimenNo);
-    return this.http.post<IPatient[]>(`${this.apiUrl}/searchpatient_diag/list`, { start, end, patientID, specimenNo }).pipe(
+    return this.http.post<IPatient[]>(`${this.apiUrl}/searchpatient_diag/list`, { start, end, patientID, specimenNo, status, sheet }).pipe(
       tap(data => this.patientInfo = data),
       shareReplay()
     );

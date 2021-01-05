@@ -30,6 +30,9 @@ export class StoreService {
 
   screenstatue = 'N';
 
+  status: string;  // 시작, 스크린판독, 판독완료, EMR전송
+  sheet: string;    // AML ALL LYN MDS
+
   constructor() { }
   // mainscreen의 검색항목 저장
   // 시작날자, 종료날자, 검체번호, 환자번호
@@ -194,6 +197,23 @@ export class StoreService {
     return this.screenstatue;
   }
 
+  // status 상태관리  시작, 스크린판독, 판독완료, EMR전송
+  setStatus(status: string): void {
+    this.status = status;
+  }
+
+  getStatus(): string {
+    return this.status;
+  }
+
+  // 결과지 AML ALL LYN MDS 관리
+  setSheet(sheet: string): void {
+    this.sheet = sheet;
+  }
+
+  getSheet(): string {
+    return this.sheet;
+  }
 
 
 
