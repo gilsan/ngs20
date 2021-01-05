@@ -19,6 +19,7 @@
         <input type="text" class="input_01" #testedID placeholder="검체번호" />&nbsp;&nbsp;
         <input name="" type="text" placeholder="환자ID" #patient class="input_01" />&nbsp;&nbsp;
         <select class="select_01 select_001"  #status>
+          <option>진행상태</option>
           <option value="100">접수</option>
           <option value="0">시작</option>
           <option value="1">스크린판독</option>
@@ -26,10 +27,10 @@
           <option value="3">EMR전송</option>
         </select>&nbsp;&nbsp;
         <select class="select_01 select_001" #sheet>
-          <option value="AML">AML</option>
-          <option value="ALL">ALL</option>
-          <option value="LYN">Lymphoma</option>
-          <option value="MDS">MDS/MPN</option>
+          <option>결과지</option>
+          <option value="AlL">전체</option>
+          <option value="ALLAML">ALL/AML</option>
+          <option value="ETC">기타(MDS/MPN,Lymphoma)</option>
         </select>&nbsp;&nbsp;
         <input type="date" [value]="startToday()" (change)="getDate(start.value)" #start class="input_01"
           style="width:150px;" />

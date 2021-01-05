@@ -213,14 +213,33 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('[178][환자정보], ', this.patientInfo);
       this.extraction.dnarna = 'FFPE tissue';
       this.extraction.managementNum = this.patientInfo.rel_pathology_num;
-      this.extraction.keyblock = '#' + this.patientInfo.key_block;
+      // console.log('[216]', this.patientInfo.key_block);
+      if (this.patientInfo.key_block === undefined || this.patientInfo.key_block === null) {
+        this.extraction.keyblock = '';
+      } else if (this.patientInfo.key_block.length > 0) {
+        this.extraction.keyblock = '#' + this.patientInfo.key_block;
+      } else {
+        this.extraction.keyblock = '';
+      }
+
       if (this.patientInfo.tumor_cell_per === undefined || this.patientInfo.tumor_cell_per === null) {
         this.extraction.tumorcellpercentage = '';
       } else {
         this.extraction.tumorcellpercentage = this.patientInfo.tumor_cell_per; // 공백 없앰
       }
-      this.extraction.organ = this.patientInfo.organ;
-      this.extraction.tumortype = this.patientInfo.tumor_type;
+
+      if (this.extraction.organ === undefined || this.extraction.organ === null) {
+        this.extraction.organ = '';
+      } else {
+        this.extraction.organ = this.patientInfo.organ;
+      }
+
+      if (this.extraction.tumortype === undefined || this.extraction.tumortype === null) {
+        this.extraction.tumortype = '';
+      } else {
+        this.extraction.tumortype = this.patientInfo.tumor_type;
+      }
+
       if (this.patientInfo.pathological_dx === undefined || this.patientInfo.pathological_dx === null) {
         this.extraction.diagnosis = '';
       } else {
@@ -549,7 +568,17 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         // 검체정보
         this.extraction.dnarna = 'FFPE tissue';
         this.extraction.managementNum = this.patientInfo.rel_pathology_num;
-        this.extraction.keyblock = '#' + this.patientInfo.key_block;
+
+        // console.log('[570]', this.patientInfo.key_block);
+        if (this.patientInfo.key_block === undefined || this.patientInfo.key_block === null) {
+          this.extraction.keyblock = '';
+        } else if (this.patientInfo.key_block.length > 0) {
+          this.extraction.keyblock = '#' + this.patientInfo.key_block;
+        } else {
+          this.extraction.keyblock = '';
+        }
+
+
         if (this.tumorcellpercentage === undefined || this.tumorcellpercentage === null) {
           this.extraction.tumorcellpercentage = '';
         } else {

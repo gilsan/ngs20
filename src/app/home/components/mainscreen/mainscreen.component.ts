@@ -204,17 +204,22 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.storeSpecimenID = this.store.getamlSpecimenID();
     this.status = this.store.getStatus();
     this.sheet = this.store.getSheet();
+    const whichstate = this.store.getWhichstate();
     console.log('[207][mainscreen][checkStore]',
-      this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay);
+      this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay, whichstate);
     this.startday = this.storeStartDay;
     this.endday = this.storeEndDay;
     this.specimenno = this.storeSpecimenID;
     this.patientid = this.storePatientID;
     // console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
-    this.lists = [];
-    if (this.storeStartDay && this.storeEndDay) {
 
-      //  this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID);
+    this.lists = [];
+    this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID, this.status, this.sheet);
+    if (whichstate === 'mainscreen') {
+
+      // this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID, '', '');
+    } else if (whichstate === 'searchscreen') {
+
     }
   }
 
@@ -243,8 +248,9 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.store.setamlPatientID(patientId);
     this.store.setStatus(status);
     this.store.setSheet(sheet);
+    this.store.setWhichstate('searchscreen');
     this.lists = [];
-    // console.log('[121][search]', this.startday, this.endday, this.specimenNo, this.patientID);
+
     //
     const startdate = start.toString().replace(/-/gi, '');
     const enddate = end.toString().replace(/-/gi, '');
@@ -256,6 +262,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (specimenNo !== undefined) {
       specimenNo = specimenNo.trim();
     }
+    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + testCode + '][' + sheet + ']');
     this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, testCode, sheet);
     this.subs.sink = this.lists$
       .pipe(
@@ -277,7 +284,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
         }),
         // tap(list => console.log(list)),
       ).subscribe((data) => {
-        // console.log('[237][mainscreen][검색]', data);
+        // console.log('[286][mainscreen][search][검색]', data);
         // this.lists = data;
 
         this.lists.push(data);

@@ -240,8 +240,8 @@ export class PatientsListService {
     const rsltdesc = xmlData;
     // const rsltdesc = 'TEST';
     /**
-      * 
-      
+      *
+
       * http://emr012edu.cmcnu.or.kr/cmcnu/.live?submit_id=TXLII00124&business_id=li&instcd=012&*spcno=M20-008192&formcd=-&rsltflag=O&pid=34213582&examcd=PMO12072&examflag=${examflag}&infflag=I&userid=20800531&rsltdesc=test
       */
 
@@ -282,7 +282,9 @@ export class PatientsListService {
   }
 
   // 날자별 환자ID, 검사ID 검사인 찿기
-  public search(start: string, end: string, patientID: string, specimenNo: string, status: string, sheet: string): Observable<IPatient[]> {
+  public search(start: string, end: string, patientID: string = '',
+    // tslint:disable-next-line:align
+    specimenNo: string = '', status: string = '', sheet: string = ''): Observable<IPatient[]> {
     // console.log('[265][searchService][진검검색]:', start, end, patientID, specimenNo);
     return this.http.post<IPatient[]>(`${this.apiUrl}/searchpatient_diag/list`, { start, end, patientID, specimenNo, status, sheet }).pipe(
       tap(data => this.patientInfo = data),
@@ -291,6 +293,7 @@ export class PatientsListService {
   }
 
   // 검색순서 mutation artifacts benign
+  // tslint:disable-next-line:typedef
   filtering(testedID: string, testType: string) {
     return this.getFilteredTSVtList(testedID).pipe(
       tap(data => {
