@@ -3,12 +3,16 @@
     <div id="content">
       <div class="select_result_02">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
+          <tr style="display:flex;justify-content:space-between;align-items: center;">
             <td>
               <h1 style="font-weight:bold; font-size: 18px;">NGS 고형암 검사 결과 분석 보고서</h1>
             </td>
+             
             <td>
-              <ngx-barcode [bc-value]="pathologyNum"  [bc-height]="40" [bc-display-value]="true"></ngx-barcode>
+              <ngx-barcode [bc-value]="pathologyNum" 
+              [bc-font]="'gulim'"
+               [bc-height]="40"  [bc-font-size]="15"
+               [bc-display-value]="true"></ngx-barcode>
             </td>
           </tr>
         </table>
@@ -45,9 +49,9 @@
               <th class="table_result_line fontsize">DNA and RNA extraction</th>
               <th class="fontsize">관련병리번호</th>
               <th class="fontsize">Key block</th>
-              <th class="fontsize">Tumor cell percentage</th>
+              <th class="fontsize" style="width: 80px;">Tumor cell percentage</th>
               <th class="fontsize" style="width:140px;">Organ</th>
-              <th class="fontsize" style='width:190px;'>Tumor type</th>
+              <th class="fontsize" style='width:240px;'>Tumor type</th>
               <th class="fontsize">Pathological diagnosis</th>
             </tr>
           </thead>

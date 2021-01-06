@@ -237,40 +237,23 @@
      
     <table class="table table-margin-top fixed_header"  style="text-align: center;">
         <colgroup>           
-            <!-- <col style="width:80px"/>
-            <col style="width:80px"/>
-            <col style="width:80px"/>
-            <col style="width:50px"/>
-            <col style="width:150px"/>
-            <col style="width:80px"/>
-            <col style="width:280px"/>
-            <col style="width:80px"/>
-            <col style="width:300px"/>
-            <col style="width:300px"/>
-            <col style="width:200px"/>
-            <col style="width:200px"/> 
-            <col style="width:200px"/>    
-            <col style="width:100px"/>
-            <col style="width:80px"/>
-            <col style="width:80px"/> 
-            <col style="width:80px"/>                  -->
             <col style="width:80px"/>
             <col style="width:80px"/>  <!--     -->
             <col style="width:80px"/>  <!-- IGV -->
-            <col style="width:50px"/>
-            <col style="width:80px"/>  <!-- Type    -->
+            <col style="width:250px"/>  <!--  sanger -->
+            <col style="width:50px"/>  <!-- Type    -->
             <col style="width:120px"/>   <!-- Gene   -->
-            <col style="width:180px"/>  <!-- Functional Impact    -->
+            <col style="width:100px"/>  <!-- Functional Impact    -->
             <col style="width:160px"/>  <!-- Transcript    --> 
-            <col style="width:150px"/>  <!-- Exon/Intron    -->
+            <col style="width:90px"/>  <!-- Exon/Intron    -->
             <col style="width:300px"/>  <!--  Nuceleotide change   -->
             <col style="width:200px"/>  <!-- Amino acid change    -->
-            <col style="width:200px"/>  <!-- Zygosity    -->
-            <col style="width:200px"/>  <!--     -->  
-            <col style="width:100px"/>  <!--     -->
-            <col style="width:80px"/>   <!--     -->
-            <col style="width:80px"/>  <!--     -->
-            <col style="width:80px"/>              
+            <col style="width:120px"/>  <!-- Zygosity    -->
+            <col style="width:250px"/>  <!--  VAF %   -->  
+            <col style="width:100px"/>  <!--   References  -->
+            <col style="width:80px"/>   <!--  COSMIC ID   -->
+            <col style="width:100px"/>  <!--   Site  -->
+            <col style="width:80px"/>   <!--  Action -->           
             </colgroup>
       <thead>
           <tr>
@@ -304,23 +287,28 @@
           <tr  [formGroupName]="i">
             <td class="trash"  (click)="deleteRow(i)">&#10006;</td> 
             <td><input type="checkbox"   checked (change)="boxstatus(i, $event)"></td> 
-            <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="igv"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="sanger"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="type"></td>
-            <td><input type="text" size="20" #gene
-                (change)="findMutationBygene(gene.value)"
-                 class="clr-input textcenter" formControlName="gene"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter" formControlName="functionalImpact"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter" formControlName="transcript"></td> 
-            <td><input type="text" size="15"  class="clr-input textcenter" formControlName="exonIntro"></td>
-            <td><input type="text" size="40"  class="clr-input textcenter" formControlName="nucleotideChange"></td>
-            <td><input type="text" size="40"  class="clr-input textcenter" formControlName="aminoAcidChange"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter" formControlName="zygosity"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter" formControlName="vafPercent"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter" formControlName="references"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter" formControlName="cosmicID"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter  tdbox"  formControlName="igv"></td>
+            <td>
+                <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="sanger"></textarea>
+                <!-- <input type="text" size="10"  class="clr-input textcenter"  formControlName="sanger"> -->
+            </td>
+            <td><input type="text" size="10"  class="clr-input textcenter tdbox"  formControlName="type"></td>
+            <td ><input type="text" size="20" #gene
+                 class="clr-input textcenter tdbox" formControlName="gene"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="functionalImpact"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="transcript"></td> 
+            <td><input type="text" size="15"  class="clr-input textcenter  tdbox" formControlName="exonIntro"></td>
+            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" formControlName="nucleotideChange"></td>
+            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" formControlName="aminoAcidChange"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="zygosity"></td>
+            <td>
+                <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="vafPercent"></textarea>
+                <!-- <input type="text" size="10"  class="clr-input textcenter" formControlName="vafPercent"> -->
+            </td>
+            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="references"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="cosmicID"></td>
             
-            <td  class="txt_c">
+            <td  class="txt_c" style="display:flex;align-items: flex-end;justify-content:center;margin-top: 20px;">
               <select class="select_01" name="options" (change)="saveInhouse(i, inhouse.value)" 
               *ngIf="checkType(i)" #inhouse>
                 <option value="mutation" selected>Mutation</option>

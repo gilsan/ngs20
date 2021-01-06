@@ -262,7 +262,7 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-
+              console.log('[263][index]' + index + '[start]' + start + ' ' + list[0] + '  [' + list[4] + ']');
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {
@@ -275,7 +275,7 @@ export class UploadComponent implements OnInit {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
                     this.clinically.push(list[0]); // 유전자
                     list[0] = '';
-                    console.log('==== [270][clinically]', this.clinically);
+                    console.log('==== [270][한개인경우][clinically]', this.clinically);
                   }
                 } else if (filteredlistLen === 4) {
                   if (filteredlist.includes('exon')) {
@@ -322,7 +322,7 @@ export class UploadComponent implements OnInit {
             }
           }
         });  // End of ForEach
-      console.log('==== [313][upload]', this.clinically);
+      console.log('==== [325][upload][전송]', this.clinically);
       this.pathologyService.setClinically(this.clinically, this.pathologyNum)
         .pipe(
           concatMap(() => this.pathologyService.setTumortype(this.tumorType, this.pathologyNum)),
@@ -332,6 +332,11 @@ export class UploadComponent implements OnInit {
 
         ).subscribe(result => {
           // console.log(result);
+          this.clinically = [];
+          this.tumorType = '';
+          this.clinical = [];
+          this.prevalent = [];
+          this.burden = '';
         });
     };
     reader.readAsText(file);

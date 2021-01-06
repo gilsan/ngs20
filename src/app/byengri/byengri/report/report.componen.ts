@@ -118,7 +118,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   noneIMu = 'None';
   noneIAm = 'None';
   noneIFu = 'None';
-
+  barcodefont = 'gulim';
   constructor(
     private pathologyService: PathologyService,
     private router: Router,
