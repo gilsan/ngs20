@@ -550,11 +550,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           tumortypes = '';
         }
 
-        // console.log('[467][tumorcellpercentage]', tumorcellpercentageVal);
-        if (tumorcellpercentageVal[0].tumorcellpercentage === undefined || tumorcellpercentageVal[0].tumorcellpercentage === null) {
-          this.tumorcellpercentage = '';
-        } else {
+        console.log('[553][tumorcellpercentage]', tumorcellpercentageVal);
+        if (tumorcellpercentageVal.length > 0) {
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰
+        } else {
+          this.tumorcellpercentage = '';
         }
         this.screenstatus = this.patientInfo.screenstatus;
         this.clinically = clinicallyVal;
@@ -594,16 +594,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.extraction.keyblock = '';
         }
 
-
+        // % 관리
         if (this.tumorcellpercentage === undefined || this.tumorcellpercentage === null) {
           this.extraction.tumorcellpercentage = '';
-        } else {
+        } else if (this.tumorcellpercentage.length > 0) {
           const lastChar = this.tumorcellpercentage.charAt(this.tumorcellpercentage.length - 1);
           if (lastChar === '%') {
             this.extraction.tumorcellpercentage = this.tumorcellpercentage;
           } else {
             this.extraction.tumorcellpercentage = this.tumorcellpercentage + '%';
           }
+        } else {
+          this.extraction.tumorcellpercentage = '';
         }
         this.extraction.organ = this.patientInfo.organ;
         this.extraction.tumortype = tumortypes;
