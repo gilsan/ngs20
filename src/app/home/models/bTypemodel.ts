@@ -44,70 +44,7 @@ export function makeBForm(
 	const today = formatDate(new Date());
 	///////////////////////////////////////////////
 	// 강제로 값넣기
-	/*
-	if (resultStatus.length === 0) {
-		resultStatus = 'detected';
-	}
-	if (examin.length === 0) {
-		examin = '홍길동';
-	}
-	if (recheck.length === 0) {
-		recheck = '장길산';
-	}
 
-	if (profile.leukemia.length === 0) {
-		profile.leukemia = '-';
-	}
-
-	if (profile.flt3itd.length === 0) {
-		profile.flt3itd = 'Negative';
-	}
-
-	if (profile.chron.length === 0) {
-		profile.chron = '46.XY[20]';
-	}
-
-	if (acceptdate.length === 0) {
-		acceptdate = '20201230';
-	}
-
-	if (specimenMessage.length === 0) {
-		specimenMessage = '진단시에는 관찰이 되었으나 이번 검사에서는 관찰되지 않았습니다.'
-	}
-
-	if (ment.length === 0) {
-		ment = 'VUS는 ExAC KRGDB등의 population database에서 관찰되지 않거나, 임상적의의가 불분명 합니다.';
-	}
-
-	if (patientInfo.name.length === 0) {
-		patientInfo.name = '홍길동';
-	}
-
-	if (patientInfo.patientID.length === 0) {
-		patientInfo.patientID = '34342810';
-	}
-
-	if (patientInfo.gender.length === 0) {
-		patientInfo.gender = 'M';
-	}
-
-	if (patientInfo.age.length === 0) {
-		patientInfo.age = '50';
-	}
-
-	if (patientInfo.request.length === 0) {
-		patientInfo.request = '장길산';
-	}
-
-	if (comment.length === 0) {
-		comment = [{
-			gene: 'KRAS',
-			variants: 'p.Ala146Val',
-			comment: 'KRAS 유전자의 돌연변이는 BCP-ALL(16%) 입니다.',
-			reference: 'Blood 2013:122:3616-27'
-		}];
-	}
-	*/
 
 	// 검사의뢰일은 db에 accept_date
 	// 검사보고일은 당일
@@ -150,9 +87,9 @@ export function makeBForm(
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">Acute Myeloid Leukemia NGS</Col>
-				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
-				<Col id="examid">검사자:${examin}.M.T.</Col>
-				<Col id="signid">판독의사:${recheck}.M.D.</Col>
+				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay}</Col>
+				<Col id="examid">${examin}.M.T.</Col>
+				<Col id="signid">${recheck}.M.D.</Col>
 			</Row>
 		</Rows>
 	</Dataset>

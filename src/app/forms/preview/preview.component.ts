@@ -25,12 +25,13 @@ export class PreviewComponent implements OnInit {
     // console.log('[15][preview]...', this.patientInfo, this.result, this.profile);
     this.patientInfo = this.store.getPatientInfo();
     this.profile = this.store.getProfile();
-    this.dts = this.store.getDetactedVariants();
+    this.dts = this.store.getDetactedVariants(); // 스토어에 detected variants 저장
     this.specimenMsg = this.store.getSpecimenMsg();
     this.vusstatus = this.store.getVUSstatus();
     this.comments = this.store.getComments();
-    console.log('[30][프로파일]', this.profile);
-    console.log('[31][preview][mockData]\n', this.dts, this.specimenMsg, this.vusstatus);
+    console.log('[30][preview]', this.dts);
+    console.log('[30][preview][프로파일]', this.profile);
+    console.log('[31][preview][mockData]\n', this.specimenMsg, this.vusstatus);
     console.log('[32][preview][comments]\n', this.comments);
   }
 

@@ -328,12 +328,20 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.profile.chron = profile[0].chromosomalanalysis;
         }
-
-        if (profile[0].FLT3ITD === null) {
-          this.profile.flt3itd = '';
-        } else {
-          this.profile.flt3itd = profile[0].FLT3ITD;
+        if (this.reportType === 'AML') {
+          if (profile[0].FLT3ITD === null) {
+            this.profile.flt3itd = '';
+          } else {
+            this.profile.flt3itd = profile[0].FLT3ITD;
+          }
+        } else if (this.reportType === 'ALL') {
+          if (profile[0].FLT3ITD === null) {
+            this.profile.flt3itd = '';
+          } else {
+            this.profile.flt3itd = profile[0].IKZK1Deletion;
+          }
         }
+
 
         if (profile[0].leukemiaassociatedfusion === null) {
           this.profile.leukemia = '';
@@ -447,7 +455,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       console.log('[361]', this.patientInfo);
       // 검사자 정보 가져오기
       this.profile.chron = this.patientInfo.chromosomalanalysis;
-      this.profile.flt3itd = this.patientInfo.FLT3ITD;
+      if (this.reportType === 'AML') {
+        this.profile.flt3itd = this.patientInfo.FLT3ITD;
+      } else if (this.reportType === 'ALL') {
+        this.profile.flt3itd = this.patientInfo.IKZK1Deletion;
+      }
+
       this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
       this.store.setProfile(this.profile); // profile 저장
 
@@ -1110,6 +1123,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   previewToggle(): void {
     this.isVisible = !this.isVisible;
+    // detected variants 값을 store에 저장
+    const control = this.tablerowForm.get('tableRows') as FormArray;
+    const formData = control.getRawValue() as IAFormVariant[];
+    console.log('[1129][form2][previewToggle][] ', formData);
+    this.store.setDetactedVariants(formData);
+
   }
 
   excelDownload(): void {
