@@ -539,7 +539,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         const tumortypes = tumortypeVal[0].tumortype;
         this.checkingMent(tumortypeVal[0].tumortype); // 유전자에 따른 멘트 찿음
         // console.log('[467][tumorcellpercentage]', tumorcellpercentageVal);
-        if (tumorcellpercentageVal === undefined || tumorcellpercentageVal === null) {
+        if (tumorcellpercentageVal[0].tumorcellpercentage === undefined || tumorcellpercentageVal[0].tumorcellpercentage === null) {
           this.tumorcellpercentage = '';
         } else {
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰

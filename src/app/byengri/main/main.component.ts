@@ -56,7 +56,7 @@ export class MainComponent implements OnInit, OnDestroy {
       this.init();
     }
 
-    this.search(this.startToday(), this.endToday(), '', '');
+    // this.search(this.startToday(), this.endToday(), '', '');
   }
 
   ngOnDestroy(): void {
@@ -257,6 +257,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   checkStore(): void {
     console.log('[231][checkStore]');
+    const status = this.store.getWhichstate();
     this.storeStartDay = this.store.getSearchStartDay();
     this.storeEndDay = this.store.getSearchEndDay();
     this.storePatientID = this.store.getPatientID();
@@ -266,7 +267,12 @@ export class MainComponent implements OnInit, OnDestroy {
     this.pathologyno = this.storePathologyNo;
     this.patientid = this.patientID;
     console.log('=== [236][저장된것 불러온값]', this.startday, this.endday, this.pathologyno, this.patientid);
-    if (this.storeStartDay && this.storeEndDay) {
+    // if (this.storeStartDay && this.storeEndDay) {
+    //   this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
+    // }
+    if (status === 'mainscreen') {
+      this.search(this.startToday(), this.endToday(), '', '');
+    } else if (status === 'searchscreen') {
       this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
     }
   }
