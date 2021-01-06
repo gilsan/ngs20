@@ -3,12 +3,15 @@
     <div id="content">
       <div class="select_result_02">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
+          <tr style="display:flex;justify-content:space-between;align-items: center;">
             <td>
               <h1 style="font-weight:bold; font-size: 18px;">NGS 고형암 검사 결과 분석 보고서</h1>
             </td>
+             
             <td>
-              <ngx-barcode [bc-value]="pathologyNum"  [bc-height]="40" [bc-display-value]="true"></ngx-barcode>
+              <ngx-barcode [bc-value]="pathologyNum" 
+              [bc-font-size]="15"  [bc-height]="40" [bc-background]="'transparent'"
+               [bc-display-value]="true"></ngx-barcode>
             </td>
           </tr>
         </table>
@@ -45,9 +48,9 @@
               <th class="table_result_line fontsize">DNA and RNA extraction</th>
               <th class="fontsize">관련병리번호</th>
               <th class="fontsize">Key block</th>
-              <th class="fontsize">Tumor cell percentage</th>
+              <th class="fontsize" style="width: 80px;">Tumor cell percentage</th>
               <th class="fontsize" style="width:140px;">Organ</th>
-              <th class="fontsize" style='width:190px;'>Tumor type</th>
+              <th class="fontsize" style='width:240px;'>Tumor type</th>
               <th class="fontsize">Pathological diagnosis</th>
             </tr>
           </thead>
@@ -93,24 +96,36 @@
         <div class="main_title  mg_t20 main_title_height_25">검사결과</div>
         <div class="sub_title_03_E">Clinically significant biomarkers</div>
         <div class="pd_r20">
-          <div class="sub_title_04"> (1) Mutation: <span *ngIf="!mutation.length" class="sub_title_04">{{noneMu}}</span>
-             
-          </div>
-          <!-- -------------------------------------  -->
-
-          <!-- -------------------------------------  -->
+          <div class="sub_title_04"> (1) Mutation: <span *ngIf="!mutation.length" class="sub_title_04">{{noneMu}}</span></div>
           <div>
             <form [formGroup]="mutationForm">
-              <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+              <!-- <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35"> -->
+                <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+                  <!-- <colgroup>
+                     <col style="width:50px;"/>
+                     <col style="width:120px"/>
+                     <col style="width:120px"/>
+                     <col style="width:80px"/>
+                     <col style="width:60px"/>
+                     <col style="width:130px"/>
+                     <col style="width:130px"/>
+                  </colgroup> -->
                 <thead>
                   <tr>
-                    <th class="table_result_line fontsize" style="width:150px;">Gene</th>
+                    <!-- <th class="table_result_line fontsize" style="width:50px;">Gene</th>
                     <th class="fontsize">Amino acid change</th>
                     <th class="fontsize">Nucleotide change</th>
-                    <th class="fontsize" style="width:10%">Variant allele frequency</th>
+                    <th class="fontsize">Variant allele frequency</th>
                     <th class="fontsize">ID</th>
-                    <th style="width:130px;font-size: 14px;">Tier</th>
-                    <th style="width:130px;font-size: 14px;">
+                    <th style="font-size: 14px;">Tier</th>
+                    <th style="font-size: 14px;"> -->
+                      <th class="table_result_line fontsize" style="width:130px;">Gene</th>
+                      <th class="fontsize">Amino acid change</th>
+                      <th class="fontsize">Nucleotide change</th>
+                      <th class="fontsize" style="width: 10%">Variant allele frequency</th>
+                      <th style="width: 130px;font-size: 14x;">ID</th>
+                      <th style="width:130px;font-size: 14px">Note</th>
+                      <th style="width:130px;">                      
                       <button class="btn btn_01" (click)="addMutation()">추가</button>
                     </th>
                   </tr>
@@ -120,20 +135,20 @@
                     *ngFor="let group of mutationLists().controls; let i=index">
                     <tr [formGroupName]="i">
                       <td class="table_result_line txt_c">
-                        <input type="text" size="15" class="clr-input" formControlName="gene" style="color: red;">
+                        <input type="text" size="10" class="clr-input" formControlName="gene" style="color: red;">
                       </td>
                       <td class="txt_c">
-                        <input type="text" size="30" class="clr-input" formControlName="aminoAcidChange"
+                        <input type="text" size="20" class="clr-input" formControlName="aminoAcidChange"
                           style="color: red;">
                       </td>
                       <td class="txt_c">
-                        <input type="text" size="30" class="clr-input" formControlName="nucleotideChange">
+                        <input type="text" size="20" class="clr-input" formControlName="nucleotideChange">
                       </td>
                       <td class="txt_c">
                         <input type="text" size="5" class="clr-input" formControlName="variantAlleleFrequency">
                       </td>
                       <td class="txt_c">
-                        <input type="text" size="" class="clr-input" formControlName="ID">
+                        <input type="text"  size="10"  class="clr-input" formControlName="ID">
                       </td>
                       <td class="txt_c">
                         <input type="text" size="3" class="clr-input" formControlName="tier" style="color: red;">
@@ -152,9 +167,6 @@
           <div class="sub_title_04"> (2) Amplification: <span *ngIf="!amplifications.length" class="sub_title_04">{{noneAm}}</span>
           </div>
           <!-- <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
-          <!-- ------------------------------------------ -->
-
-          <!-- ------------------------------------------ -->
           <div>
             <form [formGroup]="amplificationsForm">
               <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
@@ -268,18 +280,18 @@
                       <input type="text" size="10" class="clr-input" formControlName="gene">
                     </td>
                     <td class="txt_c">
-                      <input type="text" size="30" class="clr-input" formControlName="aminoAcidChange">
+                      <input type="text" size="20" class="clr-input" formControlName="aminoAcidChange">
                       <!-- <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="aminoAcidChange"></textarea> -->
                     </td>
                     <td class="txt_c">
-                      <input type="text" size="30" class="clr-input" formControlName="nucleotideChange">
+                      <input type="text" size="20" class="clr-input" formControlName="nucleotideChange">
                       <!-- <textarea class="textarea_01" style="width: 100%; height: 100%; border: none" formControlName="nucleotideChange"></textarea> -->
                     </td>
                     <td class="txt_c">
                       <input type="text" size="5" class="clr-input" formControlName="variantAlleleFrequency">
                     </td>
                     <td class="txt_c">
-                      <input type="text" size="7" class="clr-input" formControlName="ID">
+                      <input type="text" size="10" class="clr-input" formControlName="ID">
                     </td>
                     <td class="txt_c">
                       <input type="text" size="3" class="clr-input" formControlName="tier">
