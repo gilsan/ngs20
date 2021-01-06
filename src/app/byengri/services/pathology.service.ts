@@ -309,7 +309,7 @@ export class PathologyService {
   public setClinically(clinically, pathologyNum: string): any {
     this.clinically = clinically;
     this.clinically$.next(this.clinically);
-    // console.log('======== [서비스][228][clinically]', this.clinically);
+    console.log('======== [서비스][312][clinically 전송]', this.clinically);
     return this.http.post(`${this.apiUrl}/clinically/insert`, { pathologyNum, clinically });
   }
 
