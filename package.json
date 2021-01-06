@@ -28,6 +28,7 @@
     "file-saver": "^2.0.5",
     "jsbarcode": "^3.11.3",
     "moment": "^2.29.1",
+    "ngx-barcode": "^0.3.0",
     "rxjs": "~6.6.0",
     "subsink": "^1.0.1",
     "tslib": "^2.0.0",

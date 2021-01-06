@@ -175,10 +175,10 @@ export class UploadComponent implements OnInit {
         this.diseaseNumber = diseaseFilename[0];
         //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
         this.pathologyNum = this.pathologyService.getPathologyNum();
-        if (this.pathologyNum === undefined) {
+        if (this.pathologyNum === undefined || this.pathologyNum === null) {
           this.pathologyNum = this.store.getPathologyNo();
         }
-        console.log('[181][upload][pathologyNum]', this.pathologyNum);
+        console.log('[181][upload][선택한 환자 병리번호 pathologyNum]', this.pathologyNum);
         this.type = this.pathologyService.getType();
         if (this.type === undefined) {
           this.type = this.store.getType();

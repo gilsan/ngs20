@@ -7,6 +7,9 @@
             <td>
               <h1 style="font-weight:bold; font-size: 18px;">NGS 고형암 검사 결과 분석 보고서</h1>
             </td>
+            <td>
+              <ngx-barcode [bc-value]="patientInfo.patientID"  [bc-height]="40" [bc-display-value]="true"></ngx-barcode>
+            </td>
           </tr>
         </table>
 
@@ -65,7 +68,7 @@
               <td class="txt_c">
 
                 <input type="text" size="5" #tumorpercentage class="clr-input"
-                  [value]="extraction.tumorcellpercentage + '%'" (change)="setTumorpercentage(tumorpercentage.value)">
+                  [value]="extraction.tumorcellpercentage" (change)="setTumorpercentage(tumorpercentage.value)">
               </td>
               <td class="txt_c">
                 <input type="text" size="10" #organ class="clr-input" [value]="extraction.organ"
@@ -91,7 +94,7 @@
         <div class="sub_title_03_E">Clinically significant biomarkers</div>
         <div class="pd_r20">
           <div class="sub_title_04"> (1) Mutation: <span *ngIf="!mutation.length" class="sub_title_04">{{noneMu}}</span>
-
+             
           </div>
           <!-- -------------------------------------  -->
 
@@ -146,9 +149,7 @@
           </div>
 
           <br>
-          <div class="sub_title_04"> (2) Amplification: <span *ngIf="!amplifications.length"
-              class="sub_title_04">{{noneAm}}</span>
-
+          <div class="sub_title_04"> (2) Amplification: <span *ngIf="!amplifications.length" class="sub_title_04">{{noneAm}}</span>
           </div>
           <!-- <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
           <!-- ------------------------------------------ -->
@@ -237,7 +238,7 @@
         </div>
 
         <div class="sub_title_03_E">Prevalent cancer biomarkers of unknown significance</div>
-        <div class="sub_title_04">(1) Mutation: <span *ngIf="!imutation.length" class="sub_title_04">{{nonIMue}}</span>
+        <div class="sub_title_04">(1) Mutation: <span *ngIf="!imutation.length" class="sub_title_04">{{noneIMu}}</span>
         </div>
         <!-- -----------------------------------  -->
 

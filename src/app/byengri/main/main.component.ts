@@ -122,7 +122,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   goUploadpage(pathologyNo: string, i: number, type: string): void {
-    console.log('[125][goUploadpage]', pathologyNo, type, i, this.isSelected);
+    console.log('[125][main][환자검체정보]goUploadpage]', pathologyNo, type, i, this.isSelected);
     this.store.setPathologyNo(pathologyNo);
     this.store.setType(type);
     if (this.isSelected) {
