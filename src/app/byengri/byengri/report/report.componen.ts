@@ -534,10 +534,21 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.extraction.msiscore = '';
         }
 
-        this.tumorMutationalBurden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
-        this.extraction.tumorburden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
-        const tumortypes = tumortypeVal[0].tumortype;
-        this.checkingMent(tumortypeVal[0].tumortype); // 유전자에 따른 멘트 찿음
+        if (tumorMutationalBurdenVal.length > 0) {
+          this.tumorMutationalBurden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
+          this.extraction.tumorburden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
+        } else {
+          this.tumorMutationalBurden = '';
+          this.extraction.tumorburden = '';
+        }
+
+        if (tumortypeVal.length > 0) {
+          const tumortypes = tumortypeVal[0].tumortype;
+          this.checkingMent(tumortypeVal[0].tumortype); // 유전자에 따른 멘트 찿음
+        } else {
+          const tumortypes = '';
+        }
+
         // console.log('[467][tumorcellpercentage]', tumorcellpercentageVal);
         if (tumorcellpercentageVal[0].tumorcellpercentage === undefined || tumorcellpercentageVal[0].tumorcellpercentage === null) {
           this.tumorcellpercentage = '';
