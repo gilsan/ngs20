@@ -88,7 +88,7 @@ export class PathologyService {
   }
 
   // 날자별 환자ID, 검사ID 검사인 찿기
-  public search(start: string, end: string, patientID: string, pathologyNo: string): Observable<IPatient[]> {
+  public search(start: string, end: string, patientID: string = '', pathologyNo: string = ''): Observable<IPatient[]> {
     // console.log('[24][searchService][병리검색]:', start, end, patientID, pathologyNo);
     return this.http.post<IPatient[]>(`${this.apiUrl}/searchpatient_path/list`, { start, end, patientID, pathologyNo }).pipe(
       // tap(data => console.log('[검색서비스][환자정보]', data)),
