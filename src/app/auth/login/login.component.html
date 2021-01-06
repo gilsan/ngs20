@@ -41,17 +41,22 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td height="35" align="left" valign="bottom" style="color:#FFF; font-weight:bold; font-size:20px; padding-left:10px;">
-                            <input name="options" id="r1"  #jingum
-                            (change)="result(jingum.value)" type="radio" value="diag"  tabindex="3"/> 
-                             &nbsp;                       
-                               <label for='r1'>진검</label>
-                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input name="options" id="r2"  #byengri 
-                            (change)="result(byengri.value)"
-                            type="radio" value="path"  tabindex="4" />
-                            &nbsp;
-                               <label for='r2'>병리</label>
-                            </td>
+                            <div class="da-radio">
+                                <div>
+                                    <input name="options" id="r1" class="w"  #jingum
+                                    (change)="result(jingum.value)" type="radio" value="diag"  tabindex="3"/> 
+                                    &nbsp;                       
+                                    <label for='r1'>진검</label>
+                                </div>
+                                <div>
+                                    <input name="options" id="r2"  #byengri 
+                                    (change)="result(byengri.value)"
+                                    type="radio" value="path"  tabindex="4" />
+                                    &nbsp;
+                                    <label for='r2'>병리</label>
+                                </div>
+                            </div>
+                        </td>
                         <td>&nbsp;</td>
     
                     </tr>
