@@ -501,7 +501,6 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-
   initByDB(pathologynum: string): void {
     console.log('[469][initByDB][tsv화일 올린후]', pathologynum);
 
