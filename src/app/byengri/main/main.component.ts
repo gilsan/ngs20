@@ -179,6 +179,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.endday = end;
     this.pathologyNo = pathologynum;
     this.patientid = patient;
+    this.store.setWhichstate('searchscreen');
     this.store.setSearchStartDay(start);
     this.store.setSearchEndDay(end);
     this.store.setPathologyNo(pathologynum);
