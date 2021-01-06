@@ -104,7 +104,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   mt: IList[];
   dt: IList[];
 
-  generalReport = ` `;  // 해석적 보고
+  generalReport = ``;  // 해석적 보고
   specialment = ``; // genes were not found
   notement = `[NOTE1]
 본 검체에서 추출 된 RNA는 일부 QC를 만족하지 못하여 51개의 유전자(AKT2, ALK, AR, AXL, BRCA1, BRCA2, BRAF, CDKN2A, EGFR, ERBB2, ERBB4, ERG, ESR1, ETV1, ETV4, ETV5, FGFR1, FGFR2, FGFR3, FGR, FLT3, JAK2, KRAS, MDM4, MET, MYB, MYBL1, NF1, NOTCH1, NOTCH4, NRG1, NTRK1, NTRK2, NTRK3, NUTM1, PDGFRA, PDGFRB, PIK3CA, PRKACA, PRKACB, PTEN, PPARG, RAD51B, RAF1, RB1, RELA, RET, ROS1, RSPO2, RSPO3, TERT)에 대한 fusion은 확인 할 수 없었습니다. 결과에 참고하시기 바랍니다. 
@@ -502,6 +502,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initByDB(pathologynum: string): void {
+    let tumortypes;
     console.log('[469][initByDB][tsv화일 올린후]', pathologynum);
 
     const filteredOriginaData$ = this.filteredService.getfilteredOriginDataList(pathologynum)
@@ -534,15 +535,26 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.extraction.msiscore = '';
         }
 
-        this.tumorMutationalBurden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
-        this.extraction.tumorburden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
-        const tumortypes = tumortypeVal[0].tumortype;
-        this.checkingMent(tumortypeVal[0].tumortype); // 유전자에 따른 멘트 찿음
-        // console.log('[467][tumorcellpercentage]', tumorcellpercentageVal);
-        if (tumorcellpercentageVal === undefined || tumorcellpercentageVal === null) {
-          this.tumorcellpercentage = '';
+        if (tumorMutationalBurdenVal.length > 0) {
+          this.tumorMutationalBurden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
+          this.extraction.tumorburden = tumorMutationalBurdenVal[0].tumorMutationalBurden;
         } else {
+          this.tumorMutationalBurden = '';
+          this.extraction.tumorburden = '';
+        }
+
+        if (tumortypeVal.length > 0) {
+          tumortypes = tumortypeVal[0].tumortype;
+          this.checkingMent(tumortypeVal[0].tumortype); // 유전자에 따른 멘트 찿음
+        } else {
+          tumortypes = '';
+        }
+
+        console.log('[553][tumorcellpercentage]', tumorcellpercentageVal);
+        if (tumorcellpercentageVal.length > 0) {
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰
+        } else {
+          this.tumorcellpercentage = '';
         }
         this.screenstatus = this.patientInfo.screenstatus;
         this.clinically = clinicallyVal;
@@ -582,16 +594,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.extraction.keyblock = '';
         }
 
-
+        // % 관리
         if (this.tumorcellpercentage === undefined || this.tumorcellpercentage === null) {
           this.extraction.tumorcellpercentage = '';
-        } else {
+        } else if (this.tumorcellpercentage.length > 0) {
           const lastChar = this.tumorcellpercentage.charAt(this.tumorcellpercentage.length - 1);
           if (lastChar === '%') {
             this.extraction.tumorcellpercentage = this.tumorcellpercentage;
           } else {
             this.extraction.tumorcellpercentage = this.tumorcellpercentage + '%';
           }
+        } else {
+          this.extraction.tumorcellpercentage = '';
         }
         this.extraction.organ = this.patientInfo.organ;
         this.extraction.tumortype = tumortypes;

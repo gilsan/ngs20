@@ -257,6 +257,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   checkStore(): void {
     console.log('[231][checkStore]');
+    const status = this.store.getWhichstate();
     this.storeStartDay = this.store.getSearchStartDay();
     this.storeEndDay = this.store.getSearchEndDay();
     this.storePatientID = this.store.getPatientID();
@@ -269,6 +270,11 @@ export class MainComponent implements OnInit, OnDestroy {
     if (this.storeStartDay && this.storeEndDay) {
       this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
     }
+    // if (status === 'mainscreen') {
+    //   this.search(this.startToday(), this.endToday(), '', '');
+    // } else if (status === 'searchscreen') {
+    //   this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
+    // }
   }
 
   getUrl(list: IPatient, type: string): SafeResourceUrl {
