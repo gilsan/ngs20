@@ -19,14 +19,13 @@
         <input type="text" class="input_01" #testedID placeholder="검체번호" />&nbsp;&nbsp;
         <input name="" type="text" placeholder="환자ID" #patient class="input_01" />&nbsp;&nbsp;
         <select class="select_01 select_001"  #status>
-          <option>진행상태</option>
+          <option value="100">전체</option>
           <option value="0">시작</option>
           <option value="1">스크린판독</option>
           <option value="2">판독완료</option>
           <option value="3">EMR전송</option>
         </select>&nbsp;&nbsp;
         <select class="select_01 select_001" #sheet>
-          <option>결과지</option>
           <option value="TOTAL">전체</option>
           <option value="AMLALL">ALL/AML</option>
           <option value="ETC">기타(MDS/MPN,Lymphoma)</option>

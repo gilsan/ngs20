@@ -234,7 +234,6 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.status = status;
     this.sheet = sheet;
 
-
     this.store.setSearchStartDay(start);
     this.store.setSearchEndDay(end);
     this.store.setamlSpecimenID(specimenNo);
@@ -255,7 +254,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (specimenNo !== undefined) {
       specimenNo = specimenNo.trim();
     }
-    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + sheet + '][' + sheet + ']');
+    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + status + '][' + sheet + ']');
     this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, status, sheet);
     this.subs.sink = this.lists$
       .pipe(
