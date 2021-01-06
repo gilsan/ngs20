@@ -8,7 +8,9 @@
         <div class="upload-container">
           <div class="row justify-content-center">
             <div class="col-md-6"> <!-- (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)"   [class.active]="true" -->
-              <div class="droparea" [class.active]="true">
+              <div class="droparea" 
+              (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)"
+              [class.active]="true">
                 <input type="file" name="userfiles" #uploadfile
                 (change)="onFileSelect($event)" multiple />  <!-- onSelectedFile  -->
                 <div style="margin-top: 70px; margin-left: 10px;">

@@ -586,7 +586,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.tumorcellpercentage === undefined || this.tumorcellpercentage === null) {
           this.extraction.tumorcellpercentage = '';
         } else {
-          this.extraction.tumorcellpercentage = this.tumorcellpercentage;
+          const lastChar = this.tumorcellpercentage.charAt(this.tumorcellpercentage.length - 1);
+          if (lastChar === '%') {
+            this.extraction.tumorcellpercentage = this.tumorcellpercentage;
+          } else {
+            this.extraction.tumorcellpercentage = this.tumorcellpercentage + '%';
+          }
         }
         this.extraction.organ = this.patientInfo.organ;
         this.extraction.tumortype = tumortypes;
@@ -1297,15 +1302,30 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addMutation(): void {
     this.mutationLists().push(this.newMutation());
+    this.mutation.push({
+      gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: ''
+    });
     const len = this.mutationLists().getRawValue().length;
     console.log('[1233][addMutation]', len);
     if (len > 0) {
       this.noneMu = '';
+    } else {
+      this.noneMu = 'None';
     }
+
+    console.log('[1307][addMutation]', len, this.noneMu);
   }
 
   removeMutation(i: number): void {
     this.mutationLists().removeAt(i);
+    this.mutation.splice(i, 1);
+    const len = this.mutationLists().getRawValue().length;
+    if (len === 0) {
+      this.noneMu = 'None';
+    } else {
+      this.noneMu = '';
+    }
+    console.log('[1316][removeMutation]', len, this.noneMu);
   }
   /////////////////////////////////////////////////////////////////////
   // amplificationsForm
@@ -1334,14 +1354,24 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addAmplifications(): void {
     this.amplificationsLists().push(this.newAmplifications());
+    this.amplifications.push({
+      gene: '', region: '', copynumber: ''
+    });
     const len = this.amplificationsLists().getRawValue().length;
     if (len > 0) {
       this.noneAm = '';
+    } else {
+      this.noneAm = 'None';
     }
   }
 
   removeAmplifications(i: number): void {
     this.amplificationsLists().removeAt(i);
+    this.amplifications.splice(i, 1);
+    const len = this.amplificationsLists().getRawValue().length;
+    if (len === 0) {
+      this.noneAm = 'None';
+    }
   }
   ////////////////////////////////////////////////////////////////////
   // fusionForm
@@ -1374,14 +1404,26 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addFusion(): void {
     this.fusionLists().push(this.newFusion());
+    this.fusion.push({
+      gene: '', breakpoint: '', readcount: '', functions: ''
+    });
     const len = this.fusionLists().getRawValue().length;
     if (len > 0) {
       this.noneFu = '';
+    } else {
+      this.noneFu = 'None';
     }
   }
 
   removeFusion(i: number): void {
     this.fusionLists().removeAt(i);
+    this.fusion.splice(i, 1);
+    const len = this.fusionLists().getRawValue().length;
+    if (len === 0) {
+      this.noneFu = 'None';
+    } else {
+      this.noneFu = '';
+    }
   }
 
   ////////////////////////////////////////////////////////////////////
@@ -1414,15 +1456,23 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addIMutation(): void {
     this.imutationLists().push(this.newIMutation());
+    this.imutation.push({
+      gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: ''
+    });
     const len = this.imutationLists().getRawValue().length;
+    console.log('[1436][ addIMutation]', len);
     if (len > 0) {
-      this.noneIFu = '';
+      this.noneIMu = '';
+    } else {
+      this.noneIMu = 'None';
     }
   }
 
   removeIMutation(i: number): void {
     this.imutationLists().removeAt(i);
+    this.imutation.splice(i, 1);
     const len = this.imutationLists().getRawValue().length;
+    console.log('[1447][removeIMutation]', len);
     if (len === 0) {
       this.noneIMu = 'None';
     }
@@ -1455,14 +1505,20 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addIAmplifications(): void {
     this.iamplificationsLists().push(this.newIAmplifications());
+    this.iamplifications.push({
+      gene: '', region: '', copynumber: ''
+    });
     const len = this.iamplificationsLists().getRawValue().length;
     if (len > 0) {
       this.noneIAm = '';
+    } else {
+      this.noneIAm = 'None';
     }
   }
 
   removeIAmplifications(i: number): void {
     this.iamplificationsLists().removeAt(i);
+    this.iamplifications.splice(i, 1);
     const len = this.iamplificationsLists().getRawValue().length;
     if (len === 0) {
       this.noneIAm = 'None';
@@ -1499,14 +1555,20 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addIFusion(): void {
     this.ifusionLists().push(this.newIFusion());
-    const len = this.ifusionLists().getRawValue.length;
+    this.ifusion.push({
+      gene: '', breakpoint: '', functions: ''
+    });
+    const len = this.ifusionLists().getRawValue().length;
     if (len > 0) {
       this.noneIFu = '';
+    } else {
+      this.noneIFu = 'None';
     }
   }
 
   removeIFusion(i: number): void {
     this.ifusionLists().removeAt(i);
+    this.ifusion.splice(i, 1);
     const len = this.ifusionLists().getRawValue().length;
     if (len === 0) {
       this.noneIFu = 'None';
