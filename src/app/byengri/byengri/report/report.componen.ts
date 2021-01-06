@@ -502,6 +502,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initByDB(pathologynum: string): void {
+    let tumortypes;
     console.log('[469][initByDB][tsv화일 올린후]', pathologynum);
 
     const filteredOriginaData$ = this.filteredService.getfilteredOriginDataList(pathologynum)
@@ -543,10 +544,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         if (tumortypeVal.length > 0) {
-          const tumortypes = tumortypeVal[0].tumortype;
+          tumortypes = tumortypeVal[0].tumortype;
           this.checkingMent(tumortypeVal[0].tumortype); // 유전자에 따른 멘트 찿음
         } else {
-          const tumortypes = '';
+          tumortypes = '';
         }
 
         // console.log('[467][tumorcellpercentage]', tumorcellpercentageVal);
