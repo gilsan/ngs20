@@ -343,7 +343,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.notement = data[0].notement;
         }
       });
-    this.subs.sink = this.searchService.getMutationC(pathologyNo)
+    this.subs.sink = this.searchService.getMutationC(pathologyNo) // mutation 리스트
       .subscribe(data => {
         console.log('[284][report][mutation]', data);
         if (data.message !== 'no data') {
