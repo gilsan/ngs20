@@ -1013,7 +1013,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
-        this.screenstatus = msg[0].screenstatus;
+        // this.screenstatus = msg[0].screenstatus;
+        this.screenstatus = '3';
         alert('EMR로 전송했습니다.');
       });
 
@@ -1044,7 +1045,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.lastReportDay
     );
     console.log('[918] ', makeForm);
-    /*
+
     this.patientsListService.sendEMR(
       this.patientInfo.specimenNo,
       this.patientInfo.patientID,
@@ -1056,20 +1057,21 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
-        this.screenstatus = msg[0].screenstatus;
+        this.screenstatus = '3';
+        //  this.screenstatus = msg[0].screenstatus;
         alert('EMR로 전송했습니다.');
       });
-      */
-    this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)
-      .pipe(
-        concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
-        concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
-      ).subscribe((msg: { screenstatus: string }) => {
-        console.log('[1068][gotoEMR]', msg);
-        this.screenstatus = msg[0].screenstatus;
-        alert('EMR로 전송했습니다.');
-      });
-
+    /*
+   this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)
+     .pipe(
+       concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
+       concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
+     ).subscribe((msg: { screenstatus: string }) => {
+       console.log('[1068][gotoEMR]', msg);
+       this.screenstatus = msg[0].screenstatus;
+       alert('EMR로 전송했습니다.');
+     });
+   */
 
 
   }
