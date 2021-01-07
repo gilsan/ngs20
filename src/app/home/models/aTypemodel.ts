@@ -82,7 +82,7 @@ export function makeAForm(
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">Acute Myeloid Leukemia NGS</Col>
-				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
+				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay}</Col>
 				<Col id="examid">${examin}.M.T.</Col>
 				<Col id="signid">${recheck}.M.D.</Col>
 			</Row>
