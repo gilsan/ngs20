@@ -43,7 +43,8 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td>TARGET DISESSE: Acute myeloid leukemia</td>
+                            <td *ngIf="type === 'AML'">TARGET DISEASE:Acute myeloid leukemia</td>
+                            <td *ngIf="type === 'ALL'">TARGET DISEASE:Acute lymphoblastic leukemia</td>
                             <td>METHODS: *Massivery parallel sequencing</td>
                         </tr>
                         <tr>

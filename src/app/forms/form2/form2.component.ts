@@ -1209,7 +1209,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         console.log('reset:', data);
         this.patientsListService.getScreenStatus(this.form2TestedId)
           .subscribe(msg => {
-            this.screenstatus = msg.screenstatus;
+            this.screenstatus = msg[0].screenstatus;
             // 초기화
             const control = this.tablerowForm.get('tableRows') as FormArray;
             control.clear();
