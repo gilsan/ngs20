@@ -91,7 +91,7 @@ export function makeReport(
               <Col id="dnaandrnaextraction">${extraction.dnarna}</Col>
               <Col id="relptno">${extraction.managementNum}</Col>
               <Col id="keyblock">${extraction.keyblock}</Col>
-              <Col id="tumorcellpercentage">${extraction.tumorcellpercentage}%</Col>
+              <Col id="tumorcellpercentage">${extraction.tumorcellpercentage}</Col>
               <Col id="organ">${extraction.organ}</Col>
               <Col id="tumortype">${extraction.tumortype}</Col>
               <Col id="pathologicaldiagnosis">${extraction.diagnosis}</Col>

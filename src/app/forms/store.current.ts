@@ -30,9 +30,9 @@ export class StoreService {
 
   screenstatue = 'N';
 
-  status: string;  // 시작, 스크린판독, 판독완료, EMR전송
-  sheet: string;    // AML ALL LYN MDS
-
+  status = '';  // 시작, 스크린판독, 판독완료, EMR전송
+  sheet = '';    // AML ALL LYN MDS
+  whichstate = 'mainscreen'; // mainscreen, searchscreen
   constructor() { }
   // mainscreen의 검색항목 저장
   // 시작날자, 종료날자, 검체번호, 환자번호
@@ -215,6 +215,14 @@ export class StoreService {
     return this.sheet;
   }
 
+  // 조회상태에서 검색인지, 주화면에서 선택했는지 확인
+  setWhichstate(state: string): void {
+    this.whichstate = state;
+  }
+
+  getWhichstate(): string {
+    return this.whichstate;
+  }
 
 
 }

@@ -21,6 +21,9 @@ export class StorePathService {
 
   usesearch = 'N';
 
+  whichstate = 'mainscreen'; // mainscreen, searchscreen
+
+
   // list.pathology_num, i, 'N')">파일등록/변환
   // 화일등록/변환 저장
   fileuploadInfo: { pathologyNum: string, i: number, type: string } = {
@@ -153,6 +156,19 @@ export class StorePathService {
   public getUseSearch(): string {
     return this.usesearch;
   }
+
+  // 조회상태에서 검색인지, 주화면에서 선택했는지 확인
+  setWhichstate(state: string): void {
+    this.whichstate = state;
+  }
+
+  getWhichstate(): string {
+    return this.whichstate;
+  }
+
+
+
+
 
 
 

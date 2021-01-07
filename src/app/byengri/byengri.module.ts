@@ -14,7 +14,7 @@ import { PathReportComponent } from './path-report/path-report.component';
 import { MaterialModule } from '../material.module';
 import { ManageUsersComponent } from './byengri/manage-users/manage-users.component';
 import { ManageStatisticsComponent } from './byengri/manage-statistics/manage-statistics.component';
-
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 
 @NgModule({
@@ -39,7 +39,8 @@ import { ManageStatisticsComponent } from './byengri/manage-statistics/manage-st
     FormsModule,
     ByengriRouting,
     ClarityModule,
-    MaterialModule
+    MaterialModule,
+    NgxBarcodeModule
   ]
 })
 export class ByengriModule { }

@@ -57,6 +57,8 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadfileList = [];
+    this.tumorType = '';
+    this.burden = '';
     // console.log('[55][upload][ngOnInit]', this.uploadfileList);
 
   }
@@ -75,6 +77,11 @@ export class UploadComponent implements OnInit {
     this.uploadfileList = [];
     this.upload.files = [];
     this.uploadfile.nativeElement.value = '';
+    this.filteredOriginData = [];
+    this.prelevalentMutation = [];
+    this.clinically = [];
+    this.clinical = [];
+    this.prevalent = [];
   }
 
   onDragOver(event: any): void {
@@ -93,6 +100,7 @@ export class UploadComponent implements OnInit {
   onDrop(event: any): void {
     event.preventDefault();
     event.stopPropagation();
+    console.log('[96][upload][onDrop] ', event);
     const droppedFiles = event.dataTransfer.files;
     if (droppedFiles.length > 0) {
       this.onDroppedFile(droppedFiles);
@@ -107,7 +115,7 @@ export class UploadComponent implements OnInit {
     }
     this.pathologyNum = this.store.getPathologyNo();
     this.inputType = this.store.getType();
-    console.log('[110][][pathologyNum]', this.pathologyNum);
+    console.log('[110][upload][onDroppedFile][pathologyNum]', this.pathologyNum);
     formData.append('pathologyNum', this.pathologyNum);
     formData.append('type', this.inputType);
     formData.append('fileType', this.fileType);
@@ -175,10 +183,10 @@ export class UploadComponent implements OnInit {
         this.diseaseNumber = diseaseFilename[0];
         //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
         this.pathologyNum = this.pathologyService.getPathologyNum();
-        if (this.pathologyNum === undefined) {
+        if (this.pathologyNum === undefined || this.pathologyNum === null) {
           this.pathologyNum = this.store.getPathologyNo();
         }
-        console.log('[181][upload][pathologyNum]', this.pathologyNum);
+        console.log('[181][upload][선택한 환자 병리번호 pathologyNum]', this.pathologyNum);
         this.type = this.pathologyService.getType();
         if (this.type === undefined) {
           this.type = this.store.getType();
@@ -254,7 +262,7 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-
+              console.log('[263][index]' + index + '[start]' + start + ' ' + list[0] + '  [' + list[4] + ']');
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {
@@ -266,11 +274,15 @@ export class UploadComponent implements OnInit {
                   if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
                     this.clinically.push(list[0]); // 유전자
+                    list[0] = '';
+                    console.log('==== [270][한개인경우][clinically]', this.clinically);
                   }
                 } else if (filteredlistLen === 4) {
                   if (filteredlist.includes('exon')) {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });
                     this.clinically.push(list[0]);
+                    list[0] = '';
+                    console.log('==== [275][clinically]', this.clinically);
                   }
                 }
 
@@ -284,6 +296,7 @@ export class UploadComponent implements OnInit {
                   if (tempfilteredlist[1] !== 'deletion') {
                     this.clinical.push({ gene: tempfilteredlist[0], tier: onetier, frequency: tempfre[i].trim() });
                     this.clinically.push(tempGene[i].trim());
+                    console.log('==== [288][clinically]', this.clinically);
                   }
 
                 }
@@ -309,7 +322,7 @@ export class UploadComponent implements OnInit {
             }
           }
         });  // End of ForEach
-
+      console.log('==== [325][upload][전송]', this.clinically);
       this.pathologyService.setClinically(this.clinically, this.pathologyNum)
         .pipe(
           concatMap(() => this.pathologyService.setTumortype(this.tumorType, this.pathologyNum)),
@@ -319,6 +332,11 @@ export class UploadComponent implements OnInit {
 
         ).subscribe(result => {
           // console.log(result);
+          this.clinically = [];
+          this.tumorType = '';
+          this.clinical = [];
+          this.prevalent = [];
+          this.burden = '';
         });
     };
     reader.readAsText(file);
@@ -402,7 +420,7 @@ export class UploadComponent implements OnInit {
             pathologyNum: this.pathologyNum,
             */
           });
-          // console.log('==== [313][filteredOriginData] ', this.filteredOriginData);
+          console.log('==== [313][upload][filteredOriginData] ', this.filteredOriginData);
         }
 
       });

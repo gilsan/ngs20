@@ -48,7 +48,8 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (this.storeStartDay === null || this.storeEndDay === null) {
       this.init();
     }
-    this.search(this.startToday(), this.endToday(), '', '');
+    // console.log('[51][ngOnInit]');
+    // this.search(this.startToday(), this.endToday(), '', '');
   }
 
   ngOnDestroy(): void {
@@ -110,15 +111,15 @@ export class MainscreenComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line: typedef
   goReporter(i: number) {
-    console.log('[111][mainscreen][goReporter]', this.lists[i]);
+    // console.log('[111][mainscreen][goReporter]', this.lists[i]);
     const specimenno = this.store.getSpecimenNo();
-    // if (this.lists[i].specimenNo === specimenno || specimenno === 'none') {
+
     this.patientsList.setTestedID(this.lists[i].specimenNo); // 검체번호
     this.patientsList.setTestcode(this.lists[i].test_code);  // 검사지 타입 AML ALL
     this.router.navigate(['/diag', 'jingum', this.lists[i].test_code]);
-    // } else {
-    //   alert('검체번호가 일치 하지 않습니다.' + this.lists[i].specimenNo + ',' + specimenno);
-    // }
+
+
+
   }
 
   goReporterClass(idx: number): any {
@@ -155,7 +156,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-    const oneMonthsAgo = moment().subtract(1, 'months');
+    const oneMonthsAgo = moment().subtract(3, 'months');
 
     const yy = oneMonthsAgo.format('YYYY');
     const mm = oneMonthsAgo.format('MM');
@@ -202,36 +203,36 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.storeEndDay = this.store.getSearchEndDay();
     this.storePatientID = this.store.getamlPatientID();
     this.storeSpecimenID = this.store.getamlSpecimenID();
+    this.status = this.store.getStatus();
+    this.sheet = this.store.getSheet();
+    const whichstate = this.store.getWhichstate();
+    // console.log('[207][mainscreen][checkStore]',
+    // this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay, whichstate);
     this.startday = this.storeStartDay;
     this.endday = this.storeEndDay;
     this.specimenno = this.storeSpecimenID;
-    this.patientid = this.patientID;
-    console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
-    this.lists = [];
-    if (this.storeStartDay && this.storeEndDay) {
+    this.patientid = this.storePatientID;
+    // console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
 
-      //  this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID);
+    this.lists = [];
+    if (whichstate === 'searchscreen') {
+      this.search(this.storeStartDay, this.storeEndDay, this.storeSpecimenID, this.storePatientID, this.status, this.sheet);
+    } else if (whichstate === 'mainscreen') {
+      this.search(this.startToday(), this.endToday(), '', '');
     }
+
+
   }
 
   // tslint:disable-next-line: typedef
   search(start: string, end: string, specimenNo: string, patientId: string, status: string = '', sheet: string = '') {
-    let testCode;
+
     this.startday = start;
     this.endday = end;
     this.specimenno = specimenNo;
     this.patientid = patientId;
     this.status = status;
     this.sheet = sheet;
-    if (status === 'ALL') {
-      testCode = 'LPE545';
-    } else if (status === 'AML') {
-      testCode = 'LPE471';
-    } else if (status === 'LYM') {
-      testCode = 'LPE474';
-    } else if (status === 'MDS') {
-      testCode = 'LPE473';
-    }
 
     this.store.setSearchStartDay(start);
     this.store.setSearchEndDay(end);
@@ -239,8 +240,9 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     this.store.setamlPatientID(patientId);
     this.store.setStatus(status);
     this.store.setSheet(sheet);
+    this.store.setWhichstate('searchscreen');
     this.lists = [];
-    // console.log('[121][search]', this.startday, this.endday, this.specimenNo, this.patientID);
+
     //
     const startdate = start.toString().replace(/-/gi, '');
     const enddate = end.toString().replace(/-/gi, '');
@@ -252,7 +254,8 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     if (specimenNo !== undefined) {
       specimenNo = specimenNo.trim();
     }
-    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, testCode, sheet);
+    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + status + '][' + sheet + ']');
+    this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, status, sheet);
     this.subs.sink = this.lists$
       .pipe(
         switchMap(item => of(item)),
@@ -273,7 +276,7 @@ export class MainscreenComponent implements OnInit, OnDestroy {
         }),
         // tap(list => console.log(list)),
       ).subscribe((data) => {
-        // console.log('[237][mainscreen][검색]', data);
+        // console.log('[286][mainscreen][search][검색]', data);
         // this.lists = data;
 
         this.lists.push(data);

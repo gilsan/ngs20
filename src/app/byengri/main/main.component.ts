@@ -88,7 +88,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   startToday(): string {
-    const oneMonthsAgo = moment().subtract(1, 'months');
+    const oneMonthsAgo = moment().subtract(3, 'months');
     // console.log(oneMonthsAgo.format('YYYY-MM-DD'));
     const yy = oneMonthsAgo.format('YYYY');
     const mm = oneMonthsAgo.format('MM');
@@ -122,7 +122,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   goUploadpage(pathologyNo: string, i: number, type: string): void {
-    console.log('[125][goUploadpage]', pathologyNo, type, i, this.isSelected);
+    console.log('[125][main][환자검체정보]goUploadpage]', pathologyNo, type, i, this.isSelected);
     this.store.setPathologyNo(pathologyNo);
     this.store.setType(type);
     if (this.isSelected) {
@@ -179,6 +179,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.endday = end;
     this.pathologyNo = pathologynum;
     this.patientid = patient;
+    this.store.setWhichstate('searchscreen');
     this.store.setSearchStartDay(start);
     this.store.setSearchEndDay(end);
     this.store.setPathologyNo(pathologynum);
@@ -256,6 +257,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   checkStore(): void {
     console.log('[231][checkStore]');
+    const status = this.store.getWhichstate();
     this.storeStartDay = this.store.getSearchStartDay();
     this.storeEndDay = this.store.getSearchEndDay();
     this.storePatientID = this.store.getPatientID();
@@ -268,6 +270,11 @@ export class MainComponent implements OnInit, OnDestroy {
     if (this.storeStartDay && this.storeEndDay) {
       this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
     }
+    // if (status === 'mainscreen') {
+    //   this.search(this.startToday(), this.endToday(), '', '');
+    // } else if (status === 'searchscreen') {
+    //   this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
+    // }
   }
 
   getUrl(list: IPatient, type: string): SafeResourceUrl {

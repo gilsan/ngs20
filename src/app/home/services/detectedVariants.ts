@@ -22,7 +22,7 @@ export class DetectedVariantsService {
   // tslint:disable-next-line:max-line-length
   public screenInsert(specimenNo: string, detectedVariants: IAFormVariant[],
     comments: IComment[], profile: IProfile, resultStatus: string, patientInfo: IPatient): Observable<any> {
-    console.log('[19][DetectedVariantsService] ', specimenNo, detectedVariants, comments, profile, patientInfo);
+    // console.log('[19][DetectedVariantsService] ', specimenNo, detectedVariants, comments, profile, patientInfo);
     const { chron, flt3itd, leukemia } = profile;
     return this.http.post(`${this.apiUrl}/screen/insert`,
       {
@@ -39,7 +39,7 @@ export class DetectedVariantsService {
 
   public allscreenInsert(specimenNo: string, detectedVariants: IAFormVariant[],
     comments: IComment[], profile: IProfile, resultStatus: string, patientInfo: IPatient): Observable<any> {
-    console.log('[19][DetectedVariantsService] ', specimenNo, detectedVariants, comments, profile, patientInfo);
+    // console.log('[19][DetectedVariantsService] ', specimenNo, detectedVariants, comments, profile, patientInfo);
     const { chron, flt3itd, leukemia } = profile;
     return this.http.post(`${this.apiUrl}/allscreen/insert`,
       {
@@ -81,7 +81,7 @@ export class DetectedVariantsService {
 
 
   public screenUpdate(specimenNo: string, detectedVariants: IAFormVariant[],
-    comments: IComment[], profile: IProfile, patientInfo: IPatient): Observable<any> {
+    comments: IComment[] = [], profile: IProfile, patientInfo: IPatient): Observable<any> {
     console.log('[45][detectedVariantsService]', specimenNo, detectedVariants, comments, profile);
     return this.http.post(`${this.apiUrl}/screen/finish`, {
       specimenNo,
@@ -94,7 +94,7 @@ export class DetectedVariantsService {
 
 
   public allscreenUpdate(specimenNo: string, detectedVariants: IAFormVariant[],
-    comments: IComment[], profile: IProfile, patientInfo: IPatient): Observable<any> {
+    comments: IComment[] = [], profile: IProfile, patientInfo: IPatient): Observable<any> {
     console.log('[45][detectedVariantsService]', specimenNo, detectedVariants, comments, profile);
     return this.http.post(`${this.apiUrl}/allscreen/finish`, {
       specimenNo,
