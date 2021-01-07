@@ -10,6 +10,7 @@ import { StoreService } from '../store.current';
 export class PreviewComponent implements OnInit {
 
   @Input() result: string;
+  @Input() type: string;
   patientInfo: IPatient;
   profile: IProfile;  //  { leukemia: '', flt3itd: '', chron: '' };
   dts: IAFormVariant[];
@@ -29,6 +30,7 @@ export class PreviewComponent implements OnInit {
     this.specimenMsg = this.store.getSpecimenMsg();
     this.vusstatus = this.store.getVUSstatus();
     this.comments = this.store.getComments();
+
     console.log('[30][preview]', this.dts);
     console.log('[30][preview][프로파일]', this.profile);
     console.log('[31][preview][mockData]\n', this.specimenMsg, this.vusstatus);
