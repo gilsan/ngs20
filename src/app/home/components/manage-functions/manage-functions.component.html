@@ -4,6 +4,11 @@
             <tr>
                 <td  class="mail_title">Function Management</td>
                 <td class="main_btn">  
+                    <ul>
+                        <li>
+                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                        </li>
+                    </ul> 
                 </td>
             </tr>
         </table>
@@ -19,8 +24,9 @@
             <table border="0" cellpadding="0" cellspacing="0" class="table_list">
                 <colgroup>
                 <col style="width:5%;" />
-                <col style="width:55%;" /> 
+                <col style="width:45%;" /> 
                 <col style="width:20%;" /> 
+                <col style="width:10%;" />
                 <col style="width:10%;" />
                 <col style="width:10%;" />
                 </colgroup>
@@ -35,14 +41,29 @@
                 </thead>
                 <tbody> 
                     <tr [ngClass]="toggle(i)"  *ngFor="let list of lists; let i = index">    
+                        <input type="hidden" value="R" #status id="status{{i+1}}" >     
                         <td class="txt_l" ><span>{{ (curPage-1)*10 + i + 1}}</span></td> 
-                        <td class="txt_l" ><span><a (click)="detail(list.function_id)">{{list.function_name}}</a></span></td> 
+                        <td class="txt_l" >
+                            <span  *ngIf="status.value === 'R'" ><a (click)="detail(list.function_id)">{{list.function_name}}</a></span>
+                            <span  *ngIf="status.value === 'U'" ><input type="text"  class="clr-input " value="{{list.function_name}}" id="function_name{{list.function_id}}" /></span>
+                         </td> 
                         <td class="txt_c" ><span>{{list.update_date}}</span></td> 
                         <td class="txt_c" >
                             <span *ngIf="list.service_status =='0'">미적용</span>
                             <span *ngIf="list.service_status =='1'">적용</span>    
                         </td>  
+
                         <td class="txt_c" ><a class="btn btn_04" (click)="detail(list.function_id)">상세보기</a></td> 
+                        <td class="text-right">
+                            <span class="bdnone" *ngIf="status.value === 'R' ">
+                                <a class="btn-edit" (click)="status.value='U'">수정</a>
+                                <a class="btn-delete" (click)="deleteRow(list.function_id)">삭제</a>
+                            </span>
+                            <span class="wid120 bdnone" *ngIf="status.value === 'U' ">
+                                <a class="btn-cancel" (click)="status.value='R'">취소</a> 
+                                <a class="btn-save" (click)="updateRow(list.function_id)">저장</a>   
+                            </span>        
+                        </td>     
                     </tr>  
                 </tbody>
             </table>
