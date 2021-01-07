@@ -21,6 +21,7 @@ import { ExcelService } from 'src/app/home/services/excelservice';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { makeCForm } from 'src/app/home/models/cTypemodel';
+import { UtilsService } from '../commons/utils.service';
 
 @Component({
   selector: 'app-form3',
@@ -113,6 +114,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     private excel: ExcelService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
+    private utilsService: UtilsService
 
   ) { }
 
@@ -216,57 +218,12 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // 검진 유전자 목록 가져옴
+  // 검진 유전자 목록 가져옴
   getGeneList(type: string): any {
-    let genelist: IGeneList = {
-      g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: ''
-    };
-    let i = 0;
-    let len;
-    let preno = 1;
 
-    this.patientsListService.getGeneList(type)
-      .pipe(
-        tap(data => {
-          len = data.length - 1;
-          data.forEach((list, index) => {
-            const count = parseInt(index, 10) % 10;
-
-            if (i === 0 && preno === Number(list.rowno)) {
-              genelist.g0 = list.gene;
-            } else if (i === 1 && preno === Number(list.rowno)) {
-              genelist.g1 = list.gene;
-            } else if (i === 2 && preno === Number(list.rowno)) {
-              genelist.g2 = list.gene;
-            } else if (i === 3 && preno === Number(list.rowno)) {
-              genelist.g3 = list.gene;
-            } else if (i === 4 && preno === Number(list.rowno)) {
-              genelist.g4 = list.gene;
-            } else if (i === 5 && preno === Number(list.rowno)) {
-              genelist.g5 = list.gene;
-            } else if (i === 6 && preno === Number(list.rowno)) {
-              genelist.g6 = list.gene;
-            } else if (i === 7 && preno === Number(list.rowno)) {
-              genelist.g7 = list.gene;
-            } else if (i === 8 && preno === Number(list.rowno)) {
-              genelist.g8 = list.gene;
-            } else if (i === 9 && preno === Number(list.rowno)) {
-              genelist.g9 = list.gene;
-            }
-
-            if (preno !== Number(list.rowno)) {
-              this.genelists.push(genelist);
-              genelist = { g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: '' };
-              genelist.g0 = list.gene;
-              preno = Number(list.rowno);
-              i = 0;
-            } else if (len === index) {
-              this.genelists.push(genelist);
-            }
-            i++;
-          });
-        })
-      )
-      .subscribe();
+    this.utilsService.getGeneList(type).subscribe(data => {
+      this.genelists = data;
+    });
   }
 
   recoverDetected(): void {
