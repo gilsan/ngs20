@@ -23,5 +23,13 @@ export class ManageFunctionsService {
     return this.http.post(`${this.apiUrl}/manageFunctions/update`, { functionId , functionName, serviceStatus });
   } 
  
+  public deleteManageList(functionId: String ): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/manageFunctions/delete`, { functionId });
+  } 
+
+  public insertManageList(functionId: string, functionName: string ): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/manageFunctions/insert`, { functionId, functionName}); 
+  } 
+
 }
 
