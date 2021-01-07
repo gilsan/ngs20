@@ -837,6 +837,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
       //  this.patientInfo.recheck = this.
       // tslint:disable-next-line:max-line-length
+      console.log('[840][screenRead][profile] ', this.profile);
+      // tslint:disable-next-line:max-line-length
       this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
         .pipe(
           tap(data => {
