@@ -152,6 +152,7 @@
                         <td ><span class="bdnone" *ngIf="status.value === 'R'">{{list.condition}}</span>
                              <span class="bdnone" *ngIf="status.value === 'U'">
                                 <select id="condition{{list.seq}}">
+                                    <option value='' [selected]='list.condition'>=</option>
                                     <option value='<' [selected]='list.condition'><</option>
                                     <option value='<=' [selected]='list.condition'><=</option>
                                     <option value='>' [selected]='list.condition'>></option>

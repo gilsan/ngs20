@@ -110,11 +110,59 @@ export class ManageFunctionsComponent implements OnInit {
     this.lists =  this.listManageFunctions.slice((Number(page)-1)*10, (Number(page))*10); 
  }  
  
+
+ 
+ deleteRow(functionId: string): void {
+  const result = confirm('삭제 하시겠습니까?');
+  if (result) { 
+    if(functionId===""){ 
+        this.lists = this.lists.slice(0,this.lists.length-1); 
+    }else{  
+      this.manageFunctionsService.deleteManageList(functionId)
+        .subscribe((data) => {
+        console.log('[170][function 삭제]', data); 
+        alert("삭제 되었습니다.");
+        this.search(this.startToday(), this.endToday(), '');
+      });  
+    }
+  }  
+}
+
+  updateRow(functionId: string): void {  
+   
+    const functionName: HTMLInputElement = document.getElementById("function_name"+functionId) as HTMLInputElement; 
+  
+    if(functionName.value ==""){
+      alert("함수명은 필수 입니다.");
+      return;
+    }
+    
+    if(functionId!==""){ 
+          this.manageFunctionsService.updateManageFunctions(functionId, functionName.value ,'0' )
+          .subscribe((data) => {
+            console.log('[170][Function 수정]', data); 
+            alert("수정 되었습니다."); 
+            this.search(this.startToday(), this.endToday(), '');
+          }); 
+    } else{
+          this.manageFunctionsService.insertManageList(functionId, functionName.value)
+          .subscribe((data) => {
+            console.log('[170][Function 저장]', data); 
+            alert("저장 되었습니다.");
+            this.search(this.startToday(), this.endToday(), '');
+          });  
+    } 
+  }
+
+  insertRow(){  
+    this.lists.push({'function_id':'','function_name':'','service_status':'0', 'create_date':'', 'update_date':'' });  
+  } 
+
   search(startDay: string, endDay: string, functionName: string ): void {   
       this.totRecords = 0; 
       this.lists$ = this.manageFunctionsService.getManageFunctionsList(startDay.replace(/-/gi,''), endDay.replace(/-/gi,''), functionName );
       this.lists$.subscribe((data) => {
-      console.log('[170][Users 검색]', data);
+      console.log('[170][Function 검색]', data);
       this.listManageFunctions = data;
       this.lists = data.slice(0,10);
       this.curPage = 1;
