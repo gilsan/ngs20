@@ -82,9 +82,9 @@ export function makeAForm(
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">Acute Myeloid Leukemia NGS</Col>
-				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
-				<Col id="examid">검사자:${examin}.M.T.</Col>
-				<Col id="signid">판독의사:${recheck}.M.D.</Col>
+				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
+				<Col id="examid">${examin}.M.T.</Col>
+				<Col id="signid">${recheck}.M.D.</Col>
 			</Row>
 		</Rows>
 	</Dataset>
