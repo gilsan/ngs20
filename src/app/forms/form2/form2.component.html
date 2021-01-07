@@ -149,7 +149,7 @@
                           </tr>
                       </tbody>
                   </table>
-                  <!-- <p class="txt_02 pd_t10 pt_b20">{{ment}}</p> -->
+                
               </div>
               <div>
                 <button type="button" class="excel" (click)="excelDownload()">Excel</button>
@@ -187,7 +187,7 @@
                     <tr>
                         <th class="table_result_line">Leukemia associated fusion</th>
                         <th *ngIf="reportType === 'AML'">FLT3-ITD</th>
-                        <th *ngIf="reportType === 'ALL'">IKZF1 deletion</th>
+                        <th *ngIf="reportType === 'ALL'">IKZF1 delelion</th>
                         <th>Chronmosomal analysis</th>
                     </tr>
                 </thead>
@@ -274,9 +274,6 @@
               <th>VAF %</th> 
               <th>Reference(s)</th>      
               <th>COSMIC ID</th> 
-              <!-- <th>
-                <button class="btn btn-success" (click)="addRow()">추가</button>
-              </th>  -->
               <th>Site</th>
               <th>Action</th>                        
           </tr>
@@ -290,7 +287,7 @@
             <td><input type="text" size="10"  class="clr-input textcenter  tdbox"  formControlName="igv"></td>
             <td>
                 <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="sanger"></textarea>
-                <!-- <input type="text" size="10"  class="clr-input textcenter"  formControlName="sanger"> -->
+                
             </td>
             <td><input type="text" size="10"  class="clr-input textcenter tdbox"  formControlName="type"></td>
             <td ><input type="text" size="20" #gene
@@ -303,7 +300,7 @@
             <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="zygosity"></td>
             <td>
                 <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="vafPercent"></textarea>
-                <!-- <input type="text" size="10"  class="clr-input textcenter" formControlName="vafPercent"> -->
+                
             </td>
             <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="references"></td>
             <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="cosmicID"></td>
@@ -317,15 +314,9 @@
               </select>                    
             </td>
            <td  class="txt_c" (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">저장</td>   
-            <!-- <td  class="txt_c">
-                <button type="button" class="btn btn_05"  (click)="save(i)" *ngIf="checkType(i)">저장</button>
-            </td> -->
+ 
             </tr>                               
           </ng-container>
-          <!-- <tr>
-            <td colspan="11" class="table_result_line">
-            <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea></td>
-        </tr> -->
       </tbody>
     </table>
  
@@ -334,9 +325,9 @@
 <!---  ---------------------------   -->
       </div>
       <div>
-        <!-- <div  class="font_14 pd_t15" *ngIf="vusstatus">
+        <div  class="font_14 pd_t15" *ngIf="vusstatus">
             <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea>
-          </div> -->
+          </div>
       </div>
 
       </div>
@@ -392,66 +383,6 @@
         </div>    
       </div>
     </div>
-    <!-- 
-      <ng-template  #commentbox  *ngIf="reportType === 'AML'"> 
-          
-        <div style="margin-bottom: 10px;margin-top: 25px;">
-            <ul style="display:flex;justify-content:flex-start; align-items: center;">
-                <li>
-                    <span class="sub_title">Comments</span>
-                </li>
-                <li>&nbsp;&nbsp;</li>
-                <li>
-                    <button type="button" class="btn btn_01" (click)="saveComments()">저장</button>
-                </li>
-            </ul>              
-        </div>  
-        <div  class="comment_box_50"> 
-        <form [formGroup]="singleCommentForm">         
-        <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
-            <colgroup>
-                <col style="width:7%;" />
-                <col style="width:25%;" />
-                <col style="width:30%;" />
-                <col style="width:30%;" />
-                <col style="width:8%;" />
-            </colgroup>            
-          <thead>
-              <tr>
-                  <th class="table_result_line">Gene</th>
-                  <th >Variants</th>
-                  <th> Comments</th>
-                  <th >Reference</th>
-                  <th><button class="btn btn_01"  (click)="addNewSingleCommentRow()">추가</button></th>
-              </tr>
-          </thead>
-          <tbody>
-              
-                <ng-container formArrayName="singleComments" *ngFor="let group of singleCommentsRows().controls; let i=index">               
-                  <tr  [formGroupName]="i">
-                      <td class="table_result_line"  ><input type="text" style="width:88%;display:block;margin:0 auto;" 
-                        class="input_02"   size="10" formControlName="gene"></td>
-                      <td>
-                          <input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02"  formControlName="variant_id"   size="10">
-                      </td>
-                      <td class="textarea01">
-                          <textarea style="width:96%;display:block;margin:0 auto;"  formControlName="comment" class="textarea_01"></textarea>
-                      </td>
-                      <td class="textarea01">
-                          <textarea style="width:96%;display:block;margin:0 auto;" formControlName="reference" class="textarea_01"></textarea>
-                      </td>
-                      <td align="center">
-                        <img [src]="'assets/images/cancel.png'" (click)="removeSingleCommentRow(i)">
-                      </td>
-                  </tr>
-              </ng-container>
-            
-          </tbody>
-      </table> 
-      </form>
-    </div>         
-      </ng-template>
-    -->
 <!--     -->
               <div class="sub_title">*Methods</div>
               <div class="pd_r20">
@@ -522,18 +453,9 @@
       <tr>
           <td class="txt_l font_16 fb">검사의뢰일/검사보고일/수정보고일: {{requestDate | date: 'yyyy.MM.dd'}}/{{firstReportDay}}/{{lastReportDay}}  </td>
           <td class="txt_1 font_16 fb">검사자:  <input type="text" [(ngModel)]="examin" class="input_02" size="30">
-            <!-- <select #examine class="select_01" (change)="examimed(examine.value)" [value]="'김지혜'">
-                <option value="김지혜" [selected]="examselected('김지혜',1)">김지혜</option>
-                <option value="이건동" [selected]="examselected('이건동',2)">이건동</option>
-            </select>  -->
                                     
          </td> 
           <td class="txt_1 font_16 fb">판독의사: <input type="text"   [(ngModel)]="recheck" class="input_02" size="30">
-            <!-- <select class="select_01" #rechecked (change)="checked(rechecked.value)"  [value]="'이호원'">
-                <option value="이호원"   [selected]="recheckselected('이호원',1)" >이호원</option>
-                <option value="김명신" [selected]="recheckselected('김명신',2)">김명신</option>
-                <option value="김용구" [selected]="recheckselected('김용구',3)" >김용구</option>
-            </select>               -->
               
           </td>
       </tr>
@@ -548,60 +470,29 @@
             <ul>
                 <li>
                     <button class="btn btn_01" (click)="reset()"
-                    [disabled]="getStatus(4)">수정</button>
-                    <!-- <button  type="button" class="btn btn_07">수정</button> -->
+                    [disabled]="getStatus(4)">수정</button>                 
                 </li>
                 <li>
-                    <button class="btn btn_01" (click)="tempSave()">임시저장</button>
-                    <!-- <button  type="button" class="btn btn_07" (click)="tempSave()">임시저장</button> -->
+                    <button class="btn btn_01" (click)="tempSave()">임시저장</button>                   
                 </li>
                 <li>
-                    <button class="btn btn_01" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>
-                    <!-- <button type="button" class="btn btn_07"
-                    (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button> -->
+                    <button class="btn btn_01" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>                   
                 </li>
                 <li>
-                    <button class="btn btn_01" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>
-                    <!-- <button type="button" class="btn btn_07"
-                    (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button> -->
+                    <button class="btn btn_01" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>                   
                 </li>
                 <li  *ngIf="reportType === 'AML'">
-                    <button class="btn btn_01" (click)="goEMR()" [disabled]="getStatus(3)">EMR전송</button>
-                    <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
+                    <button class="btn btn_01" (click)="goEMR()" [disabled]="getStatus(3)">EMR전송</button>                   
                 </li>
                 <li  *ngIf="reportType === 'ALL'">
-                    <button class="btn btn_01" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>
-                    <!-- <button type="button" class="btn btn_07" [disabled]="getStatus(3)" (click)="goEMR()">EMR전송</button> -->
+                    <button class="btn btn_01" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>                    
                 </li>                
             </ul>
         </div>
       </div>
   </div>
   <!-- -----------------------------------------------------------  -->
-  <!-- 
-  <div>
-    <ol>
-        <li>
-          <mat-form-field>
-            <mat-label>What's your name?</mat-label>
-            <input matInput [(ngModel)]="name">
-          </mat-form-field>
-        </li>
-        <li>
-          <button mat-raised-button (click)="openDialog()">Pick one</button>
-        </li>
-        <li *ngIf="animal">
-          You chose: <i>{{animal}}</i>
-        </li>
-      </ol>
-  </div>
-  -->
-  <!-- ----------------------------------------------------------   -->
-  <!-- <div>
-      <app-preview *ngIf="isVisible"
-        [result]="resultStatus"
-      ></app-preview>
-  </div> -->
+  
   <!--    -->
    <div class="modal-overlay" *ngIf="isVisible">
        <div class="modal-body">
