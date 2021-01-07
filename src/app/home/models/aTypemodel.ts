@@ -41,6 +41,8 @@ export function makeAForm(
 	}
 
 	const today = formatDate(new Date());
+	examin = examin.slice(0, -2);
+	recheck = recheck.slice(0, -2);
 	///////////////////////////////////////////////
 	// 강제로 값넣기
 
@@ -83,8 +85,8 @@ export function makeAForm(
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">Acute Myeloid Leukemia NGS</Col>
 				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay}</Col>
-				<Col id="examid">${examin}.M.T.</Col>
-				<Col id="signid">${recheck}.M.D.</Col>
+				<Col id="examid">${examin}</Col>
+				<Col id="signid">${recheck}</Col>
 			</Row>
 		</Rows>
 	</Dataset>

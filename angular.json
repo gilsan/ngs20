@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "ngs"
+  "defaultProject": "ngs",
+  "cli": {
+    "analytics": "aecc68d9-c453-4242-a889-1c78dbd5d78b"
+  }
 }
