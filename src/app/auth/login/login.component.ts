@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   register(): void {
 
     const url = "http://" + window.location.host + "/#/register";
-    window.open(url, "사용자등록", "top=100, left=200, width=510, height=610, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+    window.open(url, "사용자등록", "top=100, left=200, width=395, height=535, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
 
   }
 

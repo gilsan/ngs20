@@ -11,7 +11,7 @@
             <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
             <input type="text" placeholder="사용자ID" class="input_01" #userId />&nbsp;&nbsp;
             <input type="text" placeholder="사용자명" class="input_01" #userNm />&nbsp;&nbsp;
-            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >SEARCH</button>
+            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >조회</button>
         </div>
         <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>    
         <div class="box">

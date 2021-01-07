@@ -3,13 +3,6 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
             <tr>
                 <td  class="mail_title">Function Management</td>
-                <td class="main_btn">  
-                    <ul>
-                        <li>
-                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
-                        </li>
-                    </ul> 
-                </td>
             </tr>
         </table>
         
@@ -17,9 +10,23 @@
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:180px;"/> ~ 
             <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
             <input type="text" placeholder="함수명" class="input_01" #functionName />&nbsp;&nbsp; 
-            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, functionName.value)" >SEARCH</button>
+            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, functionName.value)" >조회</button>
         </div>
-        <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>    
+        <div style="overflow: hidden;"> 
+            <span style="display: inline-block;margin-top: 15px;">Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages</span>
+            <table border="0" cellspacing="0" cellpadding="0" class="mg_b10" style="display: inline-block;width: auto;float: right;">
+                <tr>
+                    <td class="main_btn">  
+                        <ul>
+                            <li>
+                                <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                            </li>
+                        </ul> 
+                    </td>
+                </tr>
+            </table>
+
+        </div>    
         <div class="box">
             <table border="0" cellpadding="0" cellspacing="0" class="table_list">
                 <colgroup>
@@ -36,7 +43,8 @@
                         <th>함수명</th> 
                         <th>수정일자</th>
                         <th>적용상태</th> 
-                        <th class="txt_r">상세보기</th> 
+                        <th>상세보기</th> 
+                        <th class="txt_r"></th> 
                     </tr>
                 </thead>
                 <tbody> 
