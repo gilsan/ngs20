@@ -187,8 +187,8 @@
                     <tr>
                         <th class="table_result_line">Leukemia associated fusion</th>
                         <th *ngIf="reportType === 'AML'">FLT3-ITD</th>
-                        <th *ngIf="reportType === 'ALL'">IKZF1 delelion</th>
-                        <th>Chronmosomal analysis</th>
+                        <th *ngIf="reportType === 'ALL'">IKZF1 deletion</th>
+                        <th>Chromosomal analysis</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -496,7 +496,7 @@
   <!--    -->
    <div class="modal-overlay" *ngIf="isVisible">
        <div class="modal-body">
-           <app-preview  [result]="resultStatus"></app-preview>
+           <app-preview  [result]="resultStatus" [type]="reportType"></app-preview>
        </div>
    </div>
 

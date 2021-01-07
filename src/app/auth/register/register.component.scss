@@ -1,1 +1,19 @@
 @charset "UTF-8";
+
+.bg-primary {
+    padding: 13px 0;
+}
+.card {
+    margin-top: 0 !important;
+}
+.text-white {
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+.form-group {
+    padding: 0 30px;
+}
+.form-group:first-child {
+    margin-top: 30px;
+}
