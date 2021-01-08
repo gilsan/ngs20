@@ -42,6 +42,8 @@ export function makeCForm(
 	}
 
 	const today = formatDate(new Date());
+	examin = examin.slice(0, -2);
+	recheck = recheck.slice(0, -2);
 	///////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////
@@ -52,8 +54,6 @@ export function makeCForm(
 			<Column id="result" type="STRING" size="256"/>
 			<Column id="rsltleft1" type="STRING" size="256"/>
 			<Column id="rsltleft2" type="STRING" size="256"/>
-			<Column id="rsltcenter1" type="STRING" size="256"/>	
-			<Column id="rsltcenter2" type="STRING" size="256"/>	
 			<Column id="rsltright1" type="STRING" size="256"/>
 			<Column id="rsltright2" type="STRING" size="256"/>
 			<Column id="testinfo1" type="STRING" size="256"/>
@@ -72,19 +72,17 @@ export function makeCForm(
 				<Col id="result">${resultStatus}</Col>
 				<Col id="rsltleft1">Bone marrow aspiralion analysis</Col>
 				<Col id="rsltleft2">${profile.leukemia}</Col>
-				<Col id="rsltcenter1">FLT3-ITD</Col>
-				<Col id="rsltcenter2">${profile.flt3itd}</Col>
 				<Col id="rsltright1">Chromosomal analysis</Col>
 				<Col id="rsltright2">${profile.chron}</Col>
-				<Col id="testinfo1">TARGET DISEASE: Acute myeloid leukemia</Col>
+				<Col id="testinfo1">TARGET DISEASE: Lymphoma</Col>
 				<Col id="testinfo2">METHOD: *Massively parallel sequencing</Col>
 				<Col id="testinfo3">SPECIMEN:  ${specimenMessage}</Col>
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
-				<Col id="title">Acute Myeloid Leukemia NGS</Col>
+				<Col id="title">Lymphoma NGS</Col>
 				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
-				<Col id="examid">검사자:${examin}.M.T.</Col>
-				<Col id="signid">판독의사:${recheck}.M.D.</Col>
+				<Col id="examid">검사자:${examin}</Col>
+				<Col id="signid">판독의사:${recheck}</Col>
 			</Row>
 		</Rows>
 	</Dataset>

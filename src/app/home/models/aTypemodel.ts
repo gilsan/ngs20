@@ -1,4 +1,4 @@
-import { IAFormVariant, IPatient, IComment, IProfile } from './patients';
+import { IAFormVariant, IPatient, IComment, IProfile, IGeneList } from './patients';
 
 
 export const METHODS = 'Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6. ';
@@ -19,7 +19,8 @@ export function makeAForm(
 	patientInfo: IPatient,
 	formData: IAFormVariant[],
 	firstReportDay: string,
-	lastReportDay: string
+	lastReportDay: string,
+	genelists: IGeneList[]
 ): string {
 
 	// 금일날자:
@@ -83,7 +84,7 @@ export function makeAForm(
 				<Col id="testinfo3">SPECIMEN:  ${specimenMessage}</Col>
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
-				<Col id="title">Acute Myeloid Leukemia NGS</Col>
+				<Col id="title">Acute Lymphoblastic Leukemia NGS</Col>
 				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay}</Col>
 				<Col id="examid">${examin}</Col>
 				<Col id="signid">${recheck}</Col>
@@ -128,7 +129,6 @@ export function makeAForm(
 			`;
 	}
 
-
 	const variantBottom = `
 		</Rows>
 </Dataset>
@@ -170,98 +170,31 @@ export function makeAForm(
 		<Column id="tg8" type="STRING" size="256"/>
 		<Column id="tg9" type="STRING" size="256"/>
 	</ColumnInfo>
-	<Rows>
-    <Row>
-    	<Col id="tg0">IKZF1</Col>
-    	<Col id="tg1">BCOR</Col>
-    	<Col id="tg2">CREBBP</Col>
-    	<Col id="tg3">ETV6</Col>
-    	<Col id="tg4">GATA3</Col>
-    	<Col id="tg5">KIT</Col>
-    	<Col id="tg6">NOTCH3</Col>
-    	<Col id="tg7">PTEN</Col>
-    	<Col id="tg8">SH2B3</Col>
-    	<Col id="tg9">TPMT</Col>
-    </Row>
-     <Row>
-     	<Col id="tg0">JAK2</Col>
-     	<Col id="tg1">BRAF</Col>
-     	<Col id="tg2">CSF3R</Col>
-     	<Col id="tg3">EZH2</Col>
-     	<Col id="tg4">HNRNPK</Col>
-     	<Col id="tg5">KRAS</Col>
-     	<Col id="tg6">NPM1</Col>
-     	<Col id="tg7">PTPN11</Col>
-     	<Col id="tg8">SMC1A</Col>
-     	<Col id="tg9">U2AF1</Col>
-     </Row>
-     <Row>
-     	<Col id="tg0">NRAS</Col>
-     	<Col id="tg1">CALR</Col>
-     	<Col id="tg2">DDX41</Col>
-     	<Col id="tg3">FAM5C</Col>
-     	<Col id="tg4">IDH1</Col>
-     	<Col id="tg5">KMT2A</Col>
-     	<Col id="tg6">NT5C2</Col>
-     	<Col id="tg7">RAD21</Col>
-     	<Col id="tg8">SMC3</Col>
-     	<Col id="tg9">WTI</Col>
-     </Row>
-     <Row>
-     	<Col id="tg0">TP53</Col>
-     	<Col id="tg1">CBL</Col>
-     	<Col id="tg2">DNMT3A</Col>
-     	<Col id="tg3">FBXW7</Col>
-     	<Col id="tg4">IDH2</Col>
-     	<Col id="tg5">MPL</Col>
-     	<Col id="tg6">PAX5</Col>
-     	<Col id="tg7">RUNX1</Col>
-     	<Col id="tg8">SRSF2</Col>
-     	<Col id="tg9">ZRSR2</Col>
-     </Row>
-     <Row>
-     	<Col id="tg0">RB1</Col>
-     	<Col id="tg1">CDKN2A</Col>
-     	<Col id="tg2">EGFR</Col>
-     	<Col id="tg3">FLT3</Col>
-     	<Col id="tg4">IL7R</Col>
-     	<Col id="tg5">MYC</Col>
-     	<Col id="tg6">PDGFRA</Col>
-     	<Col id="tg7">SETBP1</Col>
-     	<Col id="tg8">STAG2</Col>
-     	<Col id="tg9"></Col>
-     </Row>
-     <Row>
-     	<Col id="tg0">ANKRD26</Col>
-     	<Col id="tg1">CDKN2B</Col>
-     	<Col id="tg2">EP300</Col>
-     	<Col id="tg3">GATA1</Col>
-     	<Col id="tg4">JAK1</Col>
-     	<Col id="tg5">NF1</Col>
-     	<Col id="tg6">PHF6</Col>
-     	<Col id="tg7">SETD2</Col>
-     	<Col id="tg8">TERT</Col>
-     	<Col id="tg9"></Col>
-     </Row>
-     <Row>
-     	<Col id="tg0">ASXL1</Col>
-     	<Col id="tg1">CHK1</Col>
-     	<Col id="tg2">ERG</Col>
-     	<Col id="tg3">GATA2</Col>
-     	<Col id="tg4">JAK3</Col>
-     	<Col id="tg5">NOTCH1</Col>
-     	<Col id="tg6">PRAME</Col>
-     	<Col id="tg7">SF3B1</Col>
-     	<Col id="tg8">TET2</Col>
-     	<Col id="tg9"></Col>
-     </Row>
-	</Rows>
-</Dataset>
+	<Rows>`
+	let list = '';
 
-</root>
-`;
+	// tslint:disable-next-line:no-unused-expression
+	genelists.forEach(gene => {
+		list = list + `
+		<Row>
+			<Col id="tg0">${gene.g0}</Col>
+			<Col id="tg1">${gene.g1}</Col>
+			<Col id="tg2">${gene.g2}</Col>
+			<Col id="tg3">${gene.g3}</Col>
+			<Col id="tg4">${gene.g4}</Col>
+			<Col id="tg5">${gene.g5}</Col>
+			<Col id="tg6">${gene.g6}</Col>
+			<Col id="tg7">${gene.g7}</Col>
+			<Col id="tg8">${gene.g8}</Col>
+			<Col id="tg9">${gene.g9}</Col>
+		</Row>
+		`;
+	});
 
+	const rootbottom = `</Rows>
+	</Dataset>
+</root>`;
 
-	return patient + variantHeader + data + variantBottom + fixedMent;
+	return patient + variantHeader + data + variantBottom + fixedMent + list + rootbottom;
 
 }

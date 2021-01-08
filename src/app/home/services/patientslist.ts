@@ -26,9 +26,9 @@ export class PatientsListService {
     private store: StoreService,
   ) { }
 
-  // 검진자정보 가져오기
+  // 검진자정보 리스트 가져오기
   public getPatientList(): Observable<IPatient[]> {
-    console.log('test');
+
     return this.http.get<IPatient[]>(`${this.apiUrl}/patients_diag/list`).pipe(
       tap(data => {
         console.log('[29][getPatientList]', data);
@@ -39,6 +39,10 @@ export class PatientsListService {
     );
   }
 
+  // 검진자 정보 가져오기 this.form2TestedId
+  public getPatientInfo(specimenNo: string): Observable<IPatient> {
+    return this.http.post<IPatient>(`${this.apiUrl}/patients_diag/patientinfo`, { specimenNo });
+  }
   // 검사자 필터링된 검사 결과 가져오기
   public getFilteredTSVtList(testedID: string): Observable<IFilteredTSV[]> {
     const params = new HttpParams()
@@ -103,6 +107,7 @@ export class PatientsListService {
   // 유전체 와 coding 로 Comments 레코드에서 정보 가져오기
   public getCommentInfoLists(gene: string, type: string): Observable<Partial<IComment>> {
     return this.http.post(`${this.apiUrl}/ngscomments/list`, { gene, type }).pipe(
+      // tap(data => console.log('[110][getCommentInfoLists]', data)),
       shareReplay()
     );
   }
@@ -462,7 +467,7 @@ export class PatientsListService {
         if (item.gene2 === 'none') {
           return this.getCommentInfoLists(item.gene1, testType).pipe(
             map(comment => {
-              //  console.log('[405][멘트정보]  Comment List :', comment);
+              // console.log('[405][멘트정보]  Comment List :', comment);
               if (Array.isArray(comment) && comment.length) {
                 return { ...item, commentList1: comment[0], commentList2: 'none' };
               } else {
@@ -480,7 +485,7 @@ export class PatientsListService {
           }
           return this.getCommentInfoLists(tempMentGene, testType).pipe(
             map(comment => {
-              //  console.log('[405][멘트정보]  Comment List :', comment);
+              // console.log('[405][멘트정보]  Comment List :', comment);
               if (Array.isArray(comment) && comment.length) {
                 return { ...item, commentList1: comment[0], commentList2: 'none' };
               } else {

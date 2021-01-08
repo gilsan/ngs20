@@ -17,9 +17,9 @@ const routes: Routes = [
       { path: 'form2', component: Form2Component },
       { path: 'form2/:type', component: Form2Component },
       { path: 'form3', component: Form3Component },
-      { path: 'form3/:form3id', component: Form3Component },
+      { path: 'form3/:type', component: Form3Component },
       { path: 'form4', component: Form4Component },
-      { path: 'form4/:form4id', component: Form4Component }
+      { path: 'form4/:type', component: Form4Component }
     ]
   }
 ];

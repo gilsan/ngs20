@@ -1,9 +1,15 @@
 <div id="result">
   <div id="container">
-      <h2>MDS/MPN NGS</h2>     
+     
+      <h2>Lymphoma NGS</h2>
       <div id="content">
           <div class="box pd_20">
+              <!--   -->
               <app-filtered [tsvLists]="tsvLists"></app-filtered>
+              <!--  -->
+              <!-- <div>
+                <button type="button" class="excel" (click)="emr()">EMR시험</button>
+              </div> -->
               <div class="sub_title">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -29,15 +35,13 @@
             <div style="margin-top:5px;"></div>
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
                 <colgroup>
-                <col style="width:30%;" />
-                <col style="width:20%;" />
+                <col style="width:50%;" />                
                 <col style="width:50%;" />
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="table_result_line">Diagnosis</th>                
-                        <th>Genetic</th>
-                        <th>Chromosomal analysis</th>
+                        <th class="table_result_line">Bone marrow aspiralion analysis</th>
+                        <th>Chronmosomal analysis</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,9 +70,11 @@
                   <col style="width:50%;" />
                   </colgroup>
                   <tbody>
-                      <tr> 
-                          <td>TARGET DISEASE:MDS/MPN</td>
+                      <tr>
+                          
+                          <td>TARGET DISEASE:Acute myeloid leukemia</td>
                           <td> METHOD:*Massively parallel sequencing</td>
+                        
                       </tr>
                       <tr>
                           <td> SPECIMEN: Genomic DNA isolated from {{specimenMsg}}</td>
@@ -87,20 +93,20 @@
             <col style="width:80px"/>
             <col style="width:80px"/>  <!--     -->
             <col style="width:80px"/>  <!-- IGV -->
-            <col style="width:250px"/>  <!--  sanger -->
-            <col style="width:50px"/>  <!-- Type    -->
+            <col style="width:50px"/>
+            <col style="width:80px"/>  <!-- Type    -->
             <col style="width:120px"/>   <!-- Gene   -->
-            <col style="width:100px"/>  <!-- Functional Impact    -->
+            <col style="width:180px"/>  <!-- Functional Impact    -->
             <col style="width:160px"/>  <!-- Transcript    --> 
-            <col style="width:90px"/>  <!-- Exon/Intron    -->
+            <col style="width:150px"/>  <!-- Exon/Intron    -->
             <col style="width:300px"/>  <!--  Nuceleotide change   -->
             <col style="width:200px"/>  <!-- Amino acid change    -->
-            <col style="width:120px"/>  <!-- Zygosity    -->
-            <col style="width:250px"/>  <!--  VAF %   -->  
-            <col style="width:100px"/>  <!--   References  -->
-            <col style="width:80px"/>   <!--  COSMIC ID   -->
-            <col style="width:100px"/>  <!--   Site  -->
-            <col style="width:80px"/>   <!--  Action -->           
+            <col style="width:200px"/>  <!-- Zygosity    -->
+            <col style="width:200px"/>  <!--     -->  
+            <col style="width:100px"/>  <!--     -->
+            <col style="width:80px"/>   <!--     -->
+            <col style="width:80px"/>  <!--     -->
+            <col style="width:80px"/>                 
             </colgroup>
       <thead>
           <tr>
@@ -112,7 +118,7 @@
               <th>Sanger</th>
               <th>Type</th>                  
               <th>Gene</th>
-              <th>Functional Impact</th>
+              <th >Functional Impact</th>
               <th>Transcript</th>
               <th>Exon/Intron</th>  
               <th>Nuceleotide change</th>    
@@ -121,6 +127,7 @@
               <th>VAF %</th> 
               <th>Reference(s)</th>      
               <th>COSMIC ID</th> 
+              
               <th>Site</th>
               <th>Action</th>                        
           </tr>
@@ -129,32 +136,25 @@
          
         <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls; let i=index">
           <tr  [formGroupName]="i">
-            <td class="trash"  (click)="deleteRow(i)">
-                 <img [src]="'assets/images/cancel.png'">
-            </td> 
-            <td><input type="checkbox" class="ckbox"  checked (change)="boxstatus(i, $event)"></td> 
-            <td><input type="text" size="10"  class="clr-input textcenter  tdbox"  formControlName="igv"></td>
-            <td>
-                <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="sanger"></textarea>
-                
-            </td>
-            <td><input type="text" size="10"  class="clr-input textcenter tdbox"  formControlName="type"></td>
-            <td ><input type="text" size="20" #gene
-                 class="clr-input textcenter tdbox" formControlName="gene"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="functionalImpact"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="transcript"></td> 
-            <td><input type="text" size="15"  class="clr-input textcenter  tdbox" formControlName="exonIntro"></td>
-            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" formControlName="nucleotideChange"></td>
-            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" formControlName="aminoAcidChange"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="zygosity"></td>
-            <td>
-                <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="vafPercent"></textarea>
-                
-            </td>
-            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="references"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="cosmicID"></td>
+            <td class="trash"  (click)="deleteRow(i)">&#10006;</td> 
+            <td><input type="checkbox"   checked (change)="boxstatus(i, $event)"></td> 
+            <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="igv"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="sanger"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter"  formControlName="type"></td>
+            <td><input type="text" size="20" #gene
+                (change)="findMutationBygene(gene.value)"
+                 class="clr-input textcenter" formControlName="gene"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter" formControlName="functionalImpact"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter" formControlName="transcript"></td> 
+            <td><input type="text" size="15"  class="clr-input textcenter" formControlName="exonIntro"></td>
+            <td><input type="text" size="40"  class="clr-input textcenter" formControlName="nucleotideChange"></td>
+            <td><input type="text" size="40"  class="clr-input textcenter" formControlName="aminoAcidChange"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter" formControlName="zygosity"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter" formControlName="vafPercent"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter" formControlName="references"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter" formControlName="cosmicID"></td>
             
-            <td  class="txt_c" style="display:flex;align-items: flex-end;justify-content:center;margin-top: 20px;">
+            <td  class="txt_c">
               <select class="select_01" name="options" (change)="saveInhouse(i, inhouse.value)" 
               *ngIf="checkType(i)" #inhouse>
                 <option value="mutation" selected>Mutation</option>
@@ -163,9 +163,10 @@
               </select>                    
             </td>
            <td  class="txt_c" (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">저장</td>   
- 
+            
             </tr>                               
           </ng-container>
+          
       </tbody>
     </table>
  
@@ -174,78 +175,39 @@
 <!---  ---------------------------   -->
       </div>
       <div>
-        <div  class="font_14 pd_t15" *ngIf="vusstatus">
+        <!-- <div  class="font_14 pd_t15" *ngIf="vusstatus">
             <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea>
-          </div>
+          </div> -->
       </div>
 
       </div>
-
-      <div  style="overflow: scroll-y">
-        <div style="margin-bottom: 10px;margin-top: 25px;">
-            <ul style="display:flex;justify-content:flex-start; align-items: center;">
-                <li>
-                    <span class="sub_title">Comments</span>
-                </li>
-                <li>&nbsp;&nbsp;</li>
-                <li>
-                    <button type="button" class="btn btn_01" (click)="addComments(reportType)">저장</button>
-                </li>
-            </ul>            
-            </div> 
-        <div  class="comment_box_50">   
-        <form [formGroup]="tablerowForm">            
-            <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
-               <colgroup>
-                <col style="width:7%;" />
-                <col style="width:25%;" />
-                <col style="width:30%;" />
-                <col style="width:30%;" />
-                <col style="width:8%;" />
-               </colgroup>  
-              <thead>
-                  <tr>
-                      <th class="table_result_line">Gene</th>
-                      <th >Variants</th>
-                      <th> Comments</th>
-                      <th >Reference</th>
-                 
-                      <th><button class="btn btn_01" (click)="addNewCommentRow()">추가</button></th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <!-- <tr *ngFor="let comment of comments;"> -->
-                  <ng-container formArrayName="commentsRows" *ngFor="let group of commentsRows().controls; let i=index">
-                      <tr  [formGroupName]="i">
-                        <td class="table_result_line"  ><input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02  textcenter" size="10" formControlName="gene" ></td>
-                        <td><input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02  textcenter" size="10" formControlName="variant_id"></td>
-                        <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="comment"></textarea></td>
-                        <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="reference"></textarea></td> 
-                        <td  align="center">
-                            <img [src]="'assets/images/cancel.png'" (click)="removeCommentRow(i)">
-                        </td>
-                      </tr>
-                 </ng-container>
-              </tbody>
-            </table>
-        </form>
-        </div>    
-      </div>
-  <!--  -------------------------------   -->
+    <!-- ------------------------------------------------------  -->
+ 
+    <!--  ------------------------------------------------  -->
+<!--     -->
+              <div class="sub_title">*Methods</div>
+              <div class="pd_r20">
+                  <textarea class="textarea_01">Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6. </textarea>
+              </div>
+              <div class="sub_title">Genernal limitations of the technique</div>
+              <div class="pd_r20">
+                  <textarea class="textarea_01">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.</textarea>
+              </div>
+              <div class="sub_title">Target genes</div>
   <table cellpadding="0" cellspacing="0" class="table_result02">
-       <colgroup>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-          <col style="width:10%;"/>
-       </colgroup>
-       <tr  *ngFor="let list of genelists">
+    <colgroup>
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    <col style="width:10%;" />
+    </colgroup>
+    <tr  *ngFor="let list of genelists">
         <td class="txt_c">{{list.g0}}</td>
         <td class="txt_c">{{list.g1}}</td>
         <td class="txt_c">{{list.g2}}</td>
@@ -256,17 +218,22 @@
         <td class="txt_c">{{list.g7}}</td>
         <td class="txt_c">{{list.g8}}</td>
         <td class="txt_c">{{list.g9}}</td>
-      </tr> 
+    </tr>
+    
+     
+     
+     
 </table>
 
-  <!-- ------------------------------- END -->
+  <!-- ------------------------------- END ALL -->
   <hr class="mg_t30 mg_b20"/>
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
           <td class="txt_l font_16 fb">검사의뢰일/검사보고일/수정보고일: {{requestDate | date: 'yyyy.MM.dd'}}/{{firstReportDay}}/{{lastReportDay}}  </td>
-          <td class="txt_1 font_16 fb">검사자:  <input type="text" [(ngModel)]="examin" class="input_02" size="30">                                    
+          <td class="txt_1 font_16 fb">검사자:  <input type="text" [(ngModel)]="examin" class="input_02" size="30">                                   
          </td> 
           <td class="txt_1 font_16 fb">판독의사: <input type="text"   [(ngModel)]="recheck" class="input_02" size="30">
+            
               
           </td>
       </tr>
@@ -281,29 +248,37 @@
             <ul>
                 <li>
                     <button class="btn btn_01" (click)="reset()"
-                    [disabled]="getStatus(4)">수정</button>                 
+                    [disabled]="getStatus(4)">수정</button>
+                   
                 </li>
                 <li>
-                    <button class="btn btn_01" (click)="tempSave()">임시저장</button>                   
+                    <button class="btn btn_01" (click)="tempSave()">임시저장</button>
+                   
                 </li>
                 <li>
-                    <button class="btn btn_01" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>                   
+                    <button class="btn btn_01" (click)="screenRead()" [disabled]="getStatus(1)">스크린완료</button>
+                     
                 </li>
                 <li>
-                    <button class="btn btn_01" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>                   
+                    <button class="btn btn_01" (click)="screenReadFinish()" [disabled]="getStatus(2)">판독완료</button>
+                    
                 </li>
-                
+ 
                 <li>
-                    <button class="btn btn_01" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>                    
+                    <button class="btn btn_01" (click)="gotoEMR()" [disabled]="getStatus(3)">EMR전송</button>
+                     
                 </li>                
             </ul>
         </div>
       </div>
   </div>
   <!-- -----------------------------------------------------------  -->
+   
+  <!--    -->
    <div class="modal-overlay" *ngIf="isVisible">
        <div class="modal-body">
-           <app-preview  [result]="resultStatus" [type]="reportType"></app-preview>
+           <app-preview  [result]="resultStatus"></app-preview>
        </div>
    </div>
-</div>
+ 
+</div> 
