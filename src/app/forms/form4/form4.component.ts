@@ -24,7 +24,7 @@ import { makeAForm } from 'src/app/home/models/aTypemodel';
 import { UtilsService } from '../commons/utils.service';
 import { CommentsService } from 'src/app/services/comments.service';
 import { makeDForm } from 'src/app/home/models/dTypemodel';
-
+import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-form4',
   templateUrl: './form4.component.html',
@@ -1140,4 +1140,14 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       });
   }
   /////////////////////////////////////////////////////////////////////
+
+  onDrop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.getFormControls(), event.previousIndex, event.currentIndex);
+    this.getFormControls().forEach((user, idx) => {
+      user.order = idx + 1;
+    });
+  }
+
+
+  ////////////////////////////////////////////////////////////////////
 }

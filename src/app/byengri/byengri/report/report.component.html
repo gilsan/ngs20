@@ -124,7 +124,7 @@
                       <th class="fontsize">Nucleotide change</th>
                       <th class="fontsize" style="width: 10%">Variant allele frequency</th>
                       <th style="width: 130px;font-size: 14x;">ID</th>
-                      <th style="width:130px;font-size: 14px">Note</th>
+                      <th style="width:130px;font-size: 14px">Tier</th>
                       <th style="width:130px;">                      
                       <button class="btn btn_01" (click)="addMutation()">추가</button>
                     </th>
@@ -166,9 +166,7 @@
           <br>
           <div class="sub_title_04"> (2) Amplification: <span *ngIf="!amplifications.length; else deletion" class="sub_title_04">{{noneAm}}</span>
           </div>
-          <ng-template #deletion>
-            Deletion의 경우 Note와 이미지 보고서를 참고해주시기 바랍니다.
-          </ng-template>
+          <ng-template #deletion>{{msgAm}}</ng-template>
           <!-- <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
           <div>
             <form [formGroup]="amplificationsForm">

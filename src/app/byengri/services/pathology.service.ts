@@ -313,6 +313,13 @@ export class PathologyService {
     return this.http.post(`${this.apiUrl}/clinically/insert`, { pathologyNum, clinically });
   }
 
+  public setClinically2(clinically, pathologyNum: string): any {
+    this.clinically = clinically;
+    this.clinically$.next(this.clinically);
+    console.log('======== [서비스][312][clinically2 전송]', this.clinically);
+    return this.http.post(`${this.apiUrl}/clinically/insert2`, { pathologyNum, clinically });
+  }
+
   public getClinically(): any {
     return this.clinically;
   }

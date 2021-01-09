@@ -37,6 +37,7 @@ export class UploadComponent implements OnInit {
   filteredOriginData: IFilteredOriginData[] = [];
   prelevalentMutation = [];
   clinically = [];
+  clinically2: { gene: string, seq: string }[] = [];
   clinical: IGeneTire[] = [];
   prevalent = [];
   uploadfileList: string[] = [];
@@ -219,6 +220,7 @@ export class UploadComponent implements OnInit {
       let status = false;
       let count = 0;
       let nextline;
+      let clinicallyCount = 0;
       data.filter(list => list[0] !== 'Public data sources included in relevant therapies')
         .forEach((list, index) => {
           // console.log('[174][]', list);
@@ -274,6 +276,8 @@ export class UploadComponent implements OnInit {
                   if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
                     this.clinically.push(list[0]); // 유전자
+                    this.clinically2.push({ gene: list[0], seq: clinicallyCount.toString() }); // 신규
+                    clinicallyCount++;
                     list[0] = '';
                     console.log('==== [270][한개인경우][clinically]', this.clinically);
                   }
@@ -281,6 +285,8 @@ export class UploadComponent implements OnInit {
                   if (filteredlist.includes('exon')) {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });
                     this.clinically.push(list[0]);
+                    this.clinically2.push({ gene: list[0], seq: clinicallyCount.toString() }); // 신규
+                    clinicallyCount++;
                     list[0] = '';
                     console.log('==== [275][clinically]', this.clinically);
                   }
@@ -296,13 +302,15 @@ export class UploadComponent implements OnInit {
                   if (tempfilteredlist[1] !== 'deletion') {
                     this.clinical.push({ gene: tempfilteredlist[0], tier: onetier, frequency: tempfre[i].trim() });
                     this.clinically.push(tempGene[i].trim());
+                    this.clinically2.push({ gene: tempGene[i].trim(), seq: clinicallyCount.toString() }); // 신규
+                    clinicallyCount++;
                     console.log('==== [288][clinically]', this.clinically);
                   }
 
-                }
+                } // End of for loop
               }
 
-            }
+            }  // End of Clinically if
 
             if (count === 2) { }
 
@@ -322,13 +330,22 @@ export class UploadComponent implements OnInit {
             }
           }
         });  // End of ForEach
-      console.log('==== [325][upload][전송]', this.clinically);
-      this.pathologyService.setClinically(this.clinically, this.pathologyNum)
+      console.log('==== [325][upload][전송]', this.clinically, this.clinically2);
+      // from(this.clinically)
+      //   .pipe(
+      //     map(clinicallydata => [clinicallydata]),
+      //     concatMap(item => this.pathologyService.setClinically(item, this.pathologyNum))
+      //   ).subscribe(result => {
+      //     this.clinically = [];
+      //   });
+
+      // this.pathologyService.setClinically(this.clinically, this.pathologyNum)
+      this.pathologyService.setClinically2(this.clinically2, this.pathologyNum)
         .pipe(
           concatMap(() => this.pathologyService.setTumortype(this.tumorType, this.pathologyNum)),
-          concatMap(() => this.pathologyService.setClinical(this.clinical, this.pathologyNum)),
           concatMap(() => this.pathologyService.setPrevalent(this.prevalent, this.pathologyNum)),
-          concatMap(() => this.pathologyService.setTumorMutationalBurden(this.burden, this.pathologyNum))
+          concatMap(() => this.pathologyService.setTumorMutationalBurden(this.burden, this.pathologyNum)),
+          concatMap(() => this.pathologyService.setClinical(this.clinical, this.pathologyNum))
 
         ).subscribe(result => {
           // console.log(result);
@@ -338,6 +355,7 @@ export class UploadComponent implements OnInit {
           this.prevalent = [];
           this.burden = '';
         });
+
     };
     reader.readAsText(file);
   }

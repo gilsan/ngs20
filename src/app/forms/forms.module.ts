@@ -16,6 +16,7 @@ import { FilteredComponent } from './commons/filtered/filtered.component';
 import { MaterialModule } from '../material.module';
 import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 // import { TestformComponent } from './testform/testform.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-
     ReactiveFormsModule,
     FormsModule,
     ClarityModule,
-    MaterialModule
+    MaterialModule,
+    DragDropModule
 
   ]
 })

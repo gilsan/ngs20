@@ -50,6 +50,7 @@ export interface IMutation {
   variantAlleleFrequency: string;
   ID: string;
   tier?: string;
+  seq?: string;
 }
 
 // 검사결과 amplication
@@ -58,6 +59,7 @@ export interface IAmplification {
   region: string;
   copynumber: string;
   tier?: string;
+  seq?: string;
 }
 // 검사결과 fusion
 export interface IFusion {
@@ -66,6 +68,7 @@ export interface IFusion {
   readcount?: string;
   functions?: string;
   tier?: string;
+  seq?: string;
 }
 // Prevent cancer biomarkers of unknow significance
 // Mutation
@@ -76,6 +79,7 @@ export interface IIMutation {
   variantAlleleFrequency: string;
   ID: string;
   tier?: string;
+  seq?: string;
 }
 
 // Amplification
@@ -84,6 +88,7 @@ export interface IIAmplification {
   region: string;
   copynumber: string;
   note?: string;
+  seq?: string;
 }
 
 // Fusion
@@ -93,6 +98,7 @@ export interface IIFusion {
   readcount?: string;
   functions: string;
   tier?: string;
+  seq?: string;
 }
 
 
