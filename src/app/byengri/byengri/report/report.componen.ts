@@ -600,9 +600,9 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
         console.log('[553][tumorcellpercentage]', tumorcellpercentageVal);
         if (tumorcellpercentageVal.length > 0) {
-          console.log('-------[603]');
+          console.log('-------[603][트림검사]');
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰
-          console.log('-------[605]');
+          console.log('-------[605][트림검사]');
         } else {
           this.tumorcellpercentage = '';
         }
@@ -699,12 +699,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         // tslint:disable-next-line:prefer-const
 
         this.clinically.forEach(item => {
-          console.log('-------[698]');
+          console.log('-------[698][트림 검사]', item);
           const members = item.trim().split(' ');
-          console.log('-------[709]');
+          console.log('-------[709][트림 검사]', members);
           const gene = members[0].trim().replace(/"/g, '');
-          console.log('-------[702]');
+          console.log('-------[702][트림 검사]', gene);
           const type = members[1].trim().replace(/"/g, '');
+          console.log('-------[708][트림검사]', type);
           // console.log('====[552][clinically]: ', item, gene, type);
           if (type.charAt(0) === 'p' || type === 'exon') {
             // const indexm = this.findGeneInfo(gene);
@@ -848,14 +849,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         this.prevalent.forEach(item => {
+          console.log('-------[852][트림검사]');
           const members = item.trim().split(',');
-
+          console.log('-------[854][트림검사]');
           const temps = members[0].split(' ');
-          console.log('-------[845]');
+          console.log('-------[856][트림검사]');
           const gene = temps[0].trim().replace(/"/g, '');
-          console.log('-----[8457]', gene);
+          console.log('-----[858][트림검사]', gene);
           const type = temps[1].trim().replace(/"/g, '');
-          console.log('-------[849]');
+          console.log('-------[849][트림검사]');
           // console.log('[561][prevalent]', gene, type);
           if (type.charAt(0) === 'p') {
             let customid = '';
