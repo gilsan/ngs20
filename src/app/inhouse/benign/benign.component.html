@@ -6,6 +6,29 @@
                 <td  class="mail_title">InHouse Benign</td> 
                 <td class="main_btn">
                     <ul>
+                        <!--
+                        <li>
+                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn_01">저장</button>
+                        </li>
+                        -->
+                    </ul>
+                </td> 
+            </tr>
+        </table>
+        
+        <div class="box mg_b20 pd_20">
+            <input type="text" class="input_01" placeholder="Genes" #genes>
+            <button type="button" class="btn btn_02" (click)="search(genes.value)" style="margin-left: 10px;">조회</button>
+        </div>
+    <div class="total">
+        <span>Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </span>
+        <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+            <tr>
+                <td class="main_btn">
+                    <ul>
                         <li>
                             <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
                         </li>
@@ -18,12 +41,7 @@
                 </td> 
             </tr>
         </table>
-        
-        <div class="box mg_b20 pd_20">
-            <input type="text" class="input_01" placeholder="Genes" #genes>
-            <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
-        </div>
-    <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
+    </div>     
     <div class="table-box-wrap">
         <div class="table-box box">
     

@@ -7,9 +7,11 @@
     .fixed_header th {
         position: sticky;
         top: 0;
-        background-color: #6699ff; 
-        color: #fff;  
-        font-weight: normal;
+        font-size: 12px;
+        color: #666666;
+        padding: 10px;
+        background-color: #fafafa;
+        border: 1px solid #e0e0e0;
     }
     /*** /테이블 헤더 고정 ***/ 
    
@@ -25,6 +27,30 @@
                 
                 <td class="main_btn">
                     <ul>
+                        <!--
+                        <li>
+                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn_01">저장</button>
+                        </li>
+                        -->
+                    </ul>
+                </td>
+                
+            </tr>
+        </table> 
+        <div class="box mg_b20 pd_20">
+            <input type="text" class="input_01" placeholder="Genes" #genes>
+            <button type="button" class="btn btn_02" (click)="search(genes.value)" style="margin-left: 10px;">조회</button>
+        </div>
+
+    <div class="total"> 
+        <span>Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages</span> 
+        <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+            <tr>
+                <td class="main_btn">
+                    <ul>
                         <li>
                             <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
                         </li>
@@ -38,12 +64,7 @@
                 
             </tr>
         </table> 
-        <div class="box mg_b20 pd_20">
-            <input type="text" class="input_01" placeholder="Genes" #genes>
-            <button type="button" class="btn btn_02" (click)="search(genes.value)" >SEARCH</button>
-        </div>
-
-    <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>     
+    </div>
     <div class="table-box-wrap">
         <div class="table-box box_100">         
             <table border="0" cellpadding="0" cellspacing="0" class="fixed_header table_list" style="min-width: 1800px; width:100%">

@@ -835,3 +835,72 @@
   line-height: 140%;
   margin-bottom: 11px;
 }
+
+
+.total {
+  overflow: hidden;
+}
+.total > span {
+  display: inline-block;
+  margin-top: 15px;
+}
+.total > table {
+  display: inline-block;
+  width: auto;
+  float: right;
+}
+
+.bold {
+  font-weight: bold !important;
+  font-size: .8rem;
+}
+
+.menu03 {
+  position: relative;
+}
+.menu03:hover .sub-menu {
+  display: inline-block;
+}
+.sub-menu {
+  display: none;
+  position: absolute;
+  border: 3px solid #2196f3;
+  width: 570px;
+  top: 65px;
+  left: 20%;
+  padding: 10px 0;
+  background-color: #fff;
+  z-index: 5;
+}
+.sub-menu:after {
+  content: '';
+  position: absolute;
+  border: solid transparent;
+  height: 0;
+  width: 0;
+  bottom: 100%;
+  left: 30px;
+  pointer-events: none;
+  border-color: rgba(33, 150, 243, 0);
+  border-bottom-color: #2196f3;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.sub-menu > li {
+  display: inline-block;
+  margin-left: 50px;
+  font-size: .7rem;
+  color: #666;
+  cursor: pointer;
+}
+.sub-menu > li:first-child {
+  margin-left: 0;
+}
+.sub-menu > li:hover {
+  /* font-weight: bold; */
+  color: #2196f3;
+}
+.sub-menu > li.on {
+  /* font-weight: bold; */
+  color: #2196f3;
+}
