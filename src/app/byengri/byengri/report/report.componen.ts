@@ -627,8 +627,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           tempClinically.forEach(item => {
             this.clinically.push(item.clinically);
           });
-        } else {
+        } else if (this.tempClinically.length === 1) {
           this.clinically.push(this.tempClinically[0].clinically);
+        } else {
+          this.clinically = [];
         }
 
         if (this.tempPrevalent.length > 1) {
@@ -639,8 +641,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           tempPrevalent.forEach(item => {
             this.prevalent.push(item.prevalent);
           });
-        } else {
+        } else if (this.tempPrevalent.length === 1) {
           this.prevalent.push(this.tempPrevalent[0].prevalent);
+        } else {
+          this.prevalent = [];
         }
 
         console.log('[보고서 유전자정보]', this.filteredOriginData);

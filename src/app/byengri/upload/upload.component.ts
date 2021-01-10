@@ -334,7 +334,7 @@ export class UploadComponent implements OnInit {
             }
           }
         });  // End of ForEach
-      console.log('==== [325][upload][전송]', this.clinically2, this.prevalent2);
+      console.log('==== [325][upload][전송]' + '[clinically2]' + this.clinically2 + ' [prevalent2]' + this.prevalent2);
       // from(this.clinically)
       //   .pipe(
       //     map(clinicallydata => [clinicallydata]),
