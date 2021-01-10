@@ -8,6 +8,7 @@ import { MutationComponent } from './mutation/mutation.component';
 import { ArtifactsComponent } from './artifacts/artifacts.component';
 import { CommentsComponent } from './comments/comments.component';
 import { BenignComponent } from './benign/benign.component';
+import { GenemgnComponent } from './genemgn/genemgn.component';
 
 
 
@@ -18,6 +19,7 @@ import { BenignComponent } from './benign/benign.component';
     ArtifactsComponent,
     CommentsComponent,
     BenignComponent,
+    GenemgnComponent,
   ],
   imports: [
 
