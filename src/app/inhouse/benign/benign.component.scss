@@ -116,3 +116,13 @@ caption {
 //    height: 30px;
 //    margin : 10px;
 // }
+
+tr.pd-r-12 {
+    left: -1px;
+}
+tr.pd-r-12::after {
+    content: '';
+    display: table-cell;
+    width: 11px;
+    background-color: #fafafa;
+}
