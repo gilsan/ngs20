@@ -57,9 +57,9 @@ export class FormsComponent implements OnInit {
     } else if (this.selectedNum === 2) {
       this.router.navigate(['/diag', 'jingum', 'form2', 'AML']);
     } else if (this.selectedNum === 3) {
-      this.router.navigate(['/diag', 'jingum', 'form3']);
+      this.router.navigate(['/diag', 'jingum', 'form3', 'LYN']);
     } else if (this.selectedNum === 4) {
-      this.router.navigate(['/diag', 'jingum', 'form4']);
+      this.router.navigate(['/diag', 'jingum', 'form4', 'MDS']);
     }
   }
 

@@ -50,6 +50,8 @@ export class FilteredService {
     return this.http.post(`${this.apiUrl}/clinically/list`, { pathologyNum });
   }
 
+
+
   // clinical/list   POST { pathologyNum: "123456" }
   getClinical(pathologyNum: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/clinical/list`, { pathologyNum });

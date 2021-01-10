@@ -1,3 +1,26 @@
+/*
+   1) Variants Detect   
+      - Functional Impact : 사이즈 좀 크게
+     - COSMIC ID         : 사이즈 좀 크게
+      - VAF               : 사이즈 좀 작게   
+   
+   2) 미리보기
+   
+      - Variants Detect : 화면 좌우사이즈가 너무 커서 보기 불편
+
+   3) Comments 관리
+
+      - AML 뿐만 아니라, ALL, 기타 결과지 모두에서 필요하다.
+
+      - Comments에서 입력, 수정된 내용은 화면을 다시 읽으면 변경된 내용이 표시되어야 한다.
+
+      - Comments 자체가 화면에서 사라지는 경우가 있다.
+        (미리보기에서는 보임)
+
+
+*/
+
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, from, Observable } from 'rxjs';

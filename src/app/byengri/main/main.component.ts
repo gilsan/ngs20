@@ -307,6 +307,8 @@ export class MainComponent implements OnInit, OnDestroy {
         return '2차완료';
       } else if (parseInt(status, 10) === 3) {
         return 'EMR전송완료';
+      } else {
+        return '';
       }
     }
 

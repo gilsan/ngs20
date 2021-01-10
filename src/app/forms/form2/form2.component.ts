@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, from, Observable } from 'rxjs';
+import { combineLatest, from, Observable, of } from 'rxjs';
 
 import {
   IComment, IDList, IFilteredTSV, IGeneCoding,
@@ -10,7 +10,7 @@ import {
 import { PatientsListService } from 'src/app/home/services/patientslist';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { IAFormVariant } from 'src/app/home/models/patients';
-import { shareReplay, switchMap, tap, concatMap, map, filter } from 'rxjs/operators';
+import { shareReplay, switchMap, tap, concatMap, map, filter, last } from 'rxjs/operators';
 
 import { SubSink } from 'subsink';
 import { GENERAL, makeBForm, METHODS } from 'src/app/home/models/bTypemodel';
@@ -22,6 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogOverviewExampleDialogComponent } from '../dialog-overview-example-dialog/dialog-overview-example-dialog.component';
 import { makeAForm } from 'src/app/home/models/aTypemodel';
 import { UtilsService } from '../commons/utils.service';
+import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
   selector: 'app-form2',
@@ -64,7 +65,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   mockData: IAFormVariant[] = [];
 
   tablerowForm: FormGroup;
-  singleCommentForm: FormGroup;
+  // singleCommentForm: FormGroup;
   control: FormArray;
   listForm: FormGroup;
 
@@ -114,7 +115,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     private excel: ExcelService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private commentsService: CommentsService
   ) { }
 
   ngOnInit(): void {
@@ -148,18 +150,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-
   loadForm(): void {
     // console.log('[120][loadForm] ', this.comments);
     this.tablerowForm = this.fb.group({
       tableRows: this.fb.array(this.mockData.map(list => this.createRow(list))),
       commentsRows: this.fb.array([])
     });
-
-    this.singleCommentForm = this.fb.group({
-      singleComments: this.fb.array([])
-    });
-
   }
 
   initLoad(): void {
@@ -196,23 +192,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     // 전송횟수, 검사보고일, 수정보고일  저장
-    if (this.patientInfo.sendEMR.length > 0) {
-      this.sendEMR = Number(this.patientInfo.sendEMR);
-      this.firstReportDay = this.patientInfo.sendEMRDate;
-      this.lastReportDay = this.patientInfo.report_date;
-    } else {
-      this.firstReportDay = this.today();
-      this.lastReportDay = '-';
-    }
+    this.setReportdaymgn(this.patientInfo);
 
-    // 검체 감염유부 확인
-    /*
-    if (parseInt(this.patientInfo.detected, 10) === 0) {
-      this.resultStatus = 'Detected';
-    } else if (parseInt(this.patientInfo.detected, 10) === 1) {
-      this.resultStatus = 'Not Detected';
-    }
-    */
     this.screenstatus = this.patientInfo.screenstatus;
     // specimen 015 인경우 Bon marrow
     if (this.patientInfo.specimen === '015') {
@@ -234,12 +215,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   // ALL/AML 유전자 목록 가져오기
   getGeneList(type: string): any {
-
     this.utilsService.getGeneList(type).subscribe(data => {
       this.genelists = data;
     });
   }
-
   ////////////////////////////////////////
   recoverDetected(): void {
     // 디비에서 detected variant_id 와 comments 가져오기
@@ -265,14 +244,20 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.subs.sink = this.variantsService.screenComment(this.form2TestedId)
       .subscribe(dbComments => {
         if (dbComments !== undefined && dbComments !== null && dbComments.length > 0) {
-          console.log('[219][COMMENT 가져오기]', dbComments);
+          console.log('[247][COMMENT 가져오기]', dbComments);
           dbComments.forEach(comment => {
 
             this.comments.push(
-              { gene: comment.gene, comment: comment.comment, reference: comment.reference, variant_id: comment.variants }
+              {
+                gene: comment.gene, comment: comment.comment, reference: comment.reference,
+                variant_id: comment.variants
+              }
             );
             this.commentsRows().push(this.createCommentRow(
-              { gene: comment.gene, comment: comment.comment, reference: comment.reference, variant_id: comment.variants }
+              {
+                gene: comment.gene, comment: comment.comment, reference: comment.reference,
+                variant_id: comment.variants
+              }
             ));
           });
           this.store.setComments(this.comments); // comments 저장
@@ -381,7 +366,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
               if (parseInt(data.comments1Count, 10) > 0) {
                 const variant_id = data.tsv.amino_acid_change;
-                const comment = { ...data.commentList1, variant_id };
+                const comment = { ...data.commentList1, variant_id, type: this.reportType };
                 // console.log('[286][코멘트]', comment);
                 this.comments.push(comment);
                 this.store.setComments(this.comments); // 멘트 저장
@@ -411,7 +396,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           this.addVarient(type, dvariable, gene, data.coding, data.tsv);
 
         }); // End of Subscribe
-      console.log('[361]', this.patientInfo);
+
       // 검사자 정보 가져오기
       this.profile.chron = this.patientInfo.chromosomalanalysis;
       if (this.reportType === 'AML') {
@@ -446,6 +431,19 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         examin: '',
         recheck: ''
       };
+    }
+  }
+
+  // 검사일/검사보고일/수정보고일 관리
+  setReportdaymgn(patientInfo: IPatient): void {
+    // 전송횟수, 검사보고일, 수정보고일  저장
+    if (parseInt(patientInfo.sendEMR, 10) > 0) {
+      this.sendEMR = Number(this.patientInfo.sendEMR);
+      this.firstReportDay = this.patientInfo.sendEMRDate.slice(0, 10);
+      this.lastReportDay = this.patientInfo.report_date.slice(0, 10);
+    } else {
+      this.firstReportDay = this.today();
+      this.lastReportDay = '-';
     }
   }
 
@@ -615,7 +613,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       gene: comment.gene,
       comment: comment.comment,
       reference: comment.reference,
-      variant_id: comment.variant_id
+      variant_id: comment.variant_id,
+      type: this.reportType
     });
   }
 
@@ -625,7 +624,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       comment: '',
       reference: '',
       variant_id: '',
-      type: 'AML'
+      type: this.reportType
     });
   }
 
@@ -643,6 +642,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   //////////////////////////////////////////////////////////////
   // singleCommentForm
   /////////////////////////////////////////////////////////////
+  /*
   createSingleCommentRow(comment: IComment): FormGroup {
     return this.fb.group({
       gene: comment.gene,
@@ -675,6 +675,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
     this.singleCommentsRows().removeAt(i);
   }
+  */
   /////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////
@@ -734,7 +735,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     control.removeAt(index);
   }
-
+  /////////////////////////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef
   submit() {
     console.log(this.tablerowForm.value.tableRows);
@@ -743,6 +744,22 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   // tslint:disable-next-line: typedef
   test() {
     console.log(this.ment);
+  }
+
+  addComments(type: string): void {
+    const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
+    this.comments = commentControl.getRawValue();
+    from(this.comments)
+      .pipe(
+        concatMap(ment => this.commentsService.insertCommentsList(
+          '', ment.type, ment.gene, ment.variant_id, ment.comment, ment.reference
+        )),
+        last()
+      ).subscribe(data => {
+        if (data) {
+          alert('등록 되었습니다.');
+        }
+      });
   }
 
   // tslint:disable-next-line: typedef
@@ -821,10 +838,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
-    } else {
-      const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
-      this.comments = commentControl.getRawValue();
     }
+    // } else {
+    //   const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
+    //   this.comments = commentControl.getRawValue();
+    // }
     this.store.setComments(this.comments);
 
     // console.log('[771][스크린 판독] ', this.form2TestedId, formData, this.comments, this.profile);
@@ -862,10 +880,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
-    } else {
-      const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
-      this.comments = commentControl.getRawValue();
     }
+    // } else {
+    //   const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
+    //   this.comments = commentControl.getRawValue();
+    // }
     this.store.setComments(this.comments);
 
     this.store.setComments(this.comments);
@@ -982,7 +1001,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       reformData,
       this.comments,
       this.firstReportDay,
-      this.lastReportDay
+      this.lastReportDay,
+      this.genelists
     );
     console.log('[918] ', makeForm);
 
@@ -1042,7 +1062,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo,
       reformData,
       this.firstReportDay,
-      this.lastReportDay
+      this.lastReportDay,
+      this.genelists
     );
     console.log('[918] ', makeForm);
 
@@ -1061,18 +1082,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         //  this.screenstatus = msg[0].screenstatus;
         alert('EMR로 전송했습니다.');
       });
-    /*
-   this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)
-     .pipe(
-       concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
-       concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
-     ).subscribe((msg: { screenstatus: string }) => {
-       console.log('[1068][gotoEMR]', msg);
-       this.screenstatus = msg[0].screenstatus;
-       alert('EMR로 전송했습니다.');
-     });
-   */
-
 
   }
 
@@ -1193,10 +1202,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
-    } else {
-      const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
-      this.comments = commentControl.getRawValue();
     }
+    // } else {
+    //   const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
+    //   this.comments = commentControl.getRawValue();
+    // }
     this.store.setComments(this.comments);
     this.patientInfo.recheck = this.recheck;
     this.patientInfo.examin = this.examin;
@@ -1220,18 +1230,22 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const userid = localStorage.getItem('pathuser');
     this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid)
       .subscribe(data => {
-        console.log('reset:', data);
         this.patientsListService.getScreenStatus(this.form2TestedId)
           .subscribe(msg => {
             this.screenstatus = msg[0].screenstatus;
-            // 초기화
-            const control = this.tablerowForm.get('tableRows') as FormArray;
-            control.clear();
-            // 코멘트 초기화
-            this.commentsRows().clear();
-            // 싱글 코멘트 초기화
-            this.singleCommentsRows().clear();
-            this.init(this.form2TestedId);
+            this.patientsListService.getPatientInfo(this.form2TestedId)
+              .subscribe(patientInfo => {
+                // 초기화
+                // const control = this.tablerowForm.get('tableRows') as FormArray;
+                // control.clear();
+                this.mockData = [];
+                // 코멘트 초기화
+                this.comments = [];
+                // this.init(this.form2TestedId);
+                this.ngOnInit();
+                this.setReportdaymgn(patientInfo);
+              });
+
 
           });
       });
@@ -1243,8 +1257,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   // commentsRows()
   saveComments(): any {
     console.log('saveComments');
-    const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
-    this.comments = commentControl.getRawValue();
+    // const commentControl = this.singleCommentForm.get('singleComments') as FormArray;
+    // this.comments = commentControl.getRawValue();
 
     this.comments.forEach(item => {
       this.commentsRows().push(this.createCommentRow(item));

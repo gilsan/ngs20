@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, After
 import { Router } from '@angular/router';
 import { combineLatest, from, Observable } from 'rxjs';
 
-import { IComment, IFilteredTSV, IGeneCoding, IPatient, IProfile, IRecoverVariants } from 'src/app/home/models/patients';
+import { IComment, IFilteredTSV, IGeneCoding, IGeneList, IPatient, IProfile, IRecoverVariants } from 'src/app/home/models/patients';
 import { PatientsListService } from 'src/app/home/services/patientslist';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { IAFormVariant } from 'src/app/home/models/patients';
@@ -84,6 +84,7 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
 
   firstReportDay: string;
   lastReportDay: string;
+  genelists: IGeneList[] = [];
 
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   constructor(
@@ -432,7 +433,8 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
       formData,
       this.comments,
       this.firstReportDay,
-      this.lastReportDay
+      this.lastReportDay,
+      this.genelists
     );
     console.log('[183] ', makeForm);
     // patientInfo_diag 테이블 참조

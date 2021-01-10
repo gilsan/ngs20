@@ -8,44 +8,46 @@ export const GENERAL = 'The analysis was optimised to identify base pair substit
 
 
 export function makeDForm(
-  resultStatus: string, // detected, not detected
-  examin: string, // 검사자
-  recheck: string, // 확인자
-  profile: IProfile,
-  acceptdate: string,
-  specimenMessage: string,
-  fusion: string,
-  ment: string,
-  patientInfo: IPatient,
-  formData: IAFormVariant[],
-  firstReportDay: string,
-  lastReportDay: string,
-  genelist: IGeneList[]
+	resultStatus: string, // detected, not detected
+	examin: string, // 검사자
+	recheck: string, // 확인자
+	profile: IProfile,
+	acceptdate: string,
+	specimenMessage: string,
+	fusion: string,
+	ment: string,
+	patientInfo: IPatient,
+	formData: IAFormVariant[],
+	firstReportDay: string,
+	lastReportDay: string,
+	genelist: IGeneList[]
 ): string {
 
-  // 금일날자:
-  function formatDate(date): any {
-    const d = new Date(date);
-    let month = '' + (d.getMonth() + 1);
-    let day = '' + d.getDate();
-    const year = d.getFullYear();
+	// 금일날자:
+	function formatDate(date): any {
+		const d = new Date(date);
+		let month = '' + (d.getMonth() + 1);
+		let day = '' + d.getDate();
+		const year = d.getFullYear();
 
-    if (month.length < 2) {
-      month = '0' + month;
-    }
+		if (month.length < 2) {
+			month = '0' + month;
+		}
 
-    if (day.length < 2) {
-      day = '0' + day;
-    }
+		if (day.length < 2) {
+			day = '0' + day;
+		}
 
-    return [year, month, day].join('.');
-  }
+		return [year, month, day].join('.');
+	}
 
-  const today = formatDate(new Date());
-  ///////////////////////////////////////////////
+	const today = formatDate(new Date());
+	examin = examin.slice(0, -2);
+	recheck = recheck.slice(0, -2);
+	///////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////
-  const patient = `<root>
+	/////////////////////////////////////////////////////
+	const patient = `<root>
 	<Dataset id="ds_1">
 	    <ColumnInfo>
 			<Column id="patient" type="STRING" size="256"/>
@@ -70,27 +72,27 @@ export function makeDForm(
 			<Row>
 				<Col id="patient">${patientInfo.name}, ${patientInfo.patientID} (${patientInfo.gender}/${patientInfo.age})</Col>
 				<Col id="result">${resultStatus}</Col>
-				<Col id="rsltleft1">Bone marrow aspiralion analysis</Col>
+				<Col id="rsltleft1">Diagosis</Col>
 				<Col id="rsltleft2">${profile.leukemia}</Col>
-				<Col id="rsltcenter1">FLT3-ITD</Col>
+				<Col id="rsltcenter1">Genetic test</Col>
 				<Col id="rsltcenter2">${profile.flt3itd}</Col>
 				<Col id="rsltright1">Chromosomal analysis</Col>
 				<Col id="rsltright2">${profile.chron}</Col>
-				<Col id="testinfo1">TARGET DISEASE: Acute myeloid leukemia</Col>
+				<Col id="testinfo1">TARGET DISEASE: MDS/MPN</Col>
 				<Col id="testinfo2">METHOD: *Massively parallel sequencing</Col>
 				<Col id="testinfo3">SPECIMEN:  ${specimenMessage}</Col>
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
-				<Col id="title">Acute Myeloid Leukemia NGS</Col>
+				<Col id="title">MDS/MPN NGS</Col>
 				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
-				<Col id="examid">검사자:${examin}.M.T.</Col>
-				<Col id="signid">판독의사:${recheck}.M.D.</Col>
+				<Col id="examid">검사자:${examin}</Col>
+				<Col id="signid">판독의사:${recheck}</Col>
 			</Row>
 		</Rows>
 	</Dataset>
 	`;
 
-  const variantHeader = `
+	const variantHeader = `
 	<Dataset id="ds_2">
 	<ColumnInfo>
 		<Column id="gene" type="STRING" size="256"/>
@@ -107,10 +109,10 @@ export function makeDForm(
 	<Rows>
 	`;
 
-  let data = '';
-  // tslint:disable-next-line: prefer-for-of
-  for (let i = 0; i < formData.length; i++) {
-    data = data + `
+	let data = '';
+	// tslint:disable-next-line: prefer-for-of
+	for (let i = 0; i < formData.length; i++) {
+		data = data + `
 			<Row>
 			 <Col id="gene">${formData[i].gene}</Col>
 			 <Col id="fimpact">${formData[i].functionalImpact}</Col>
@@ -124,16 +126,16 @@ export function makeDForm(
 			 <Col id="cosmicid">${formData[i].cosmicID}</Col>
 		 </Row>
 			`;
-  }
+	}
 
 
-  const variantBottom = `
+	const variantBottom = `
 		</Rows>
 </Dataset>
 	`;
 
 
-  const commentHeader = `
+	const commentHeader = `
 <Dataset id="ds_3">
 	<ColumnInfo>
 		<Column id="gene" type="STRING" size="256"/>
@@ -144,7 +146,7 @@ export function makeDForm(
 `;
 
 
-  const fixedMent = `
+	const fixedMent = `
 	<Dataset id="ds_4">
 	<ColumnInfo>
 		<Column id="methods" type="STRING" size="256"/>
@@ -182,11 +184,11 @@ export function makeDForm(
 	</ColumnInfo>
 	<Rows>`;
 
-  let list = '';
+	let list = '';
 
-  // tslint:disable-next-line:no-unused-expression
-  genelist.forEach(gene => {
-    list = list + `
+	// tslint:disable-next-line:no-unused-expression
+	genelist.forEach(gene => {
+		list = list + `
 		<Row>
 			<Col id="tg0">${gene.g0}</Col>
 			<Col id="tg1">${gene.g1}</Col>
@@ -200,13 +202,13 @@ export function makeDForm(
 			<Col id="tg9">${gene.g9}</Col>
 		</Row>
 		`;
-  });
+	});
 
-  const rootbottom = `</Rows>
+	const rootbottom = `</Rows>
 	</Dataset>
 </root>`;
 
 
-  return patient + variantHeader + data + variantBottom + fixedMent + list + rootbottom;
+	return patient + variantHeader + data + variantBottom + fixedMent + list + rootbottom;
 
 }

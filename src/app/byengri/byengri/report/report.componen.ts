@@ -47,6 +47,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   ampTier: string;
   fuTier: string;
   clinically = [];
+  tempClinically: { clinically: string, seq: string }[] = [];
   clinical: IGeneTire[] = [];
   prevalent = [];
   status = false;
@@ -114,6 +115,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   noneMu = 'None';
   noneAm = 'None';
+  msgAm = `Deletion의 경우 Note와 이미지 보고서를 참고해주시기 바랍니다.`;
   noneFu = 'None';
   noneIMu = 'None';
   noneIAm = 'None';
@@ -345,25 +347,33 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     this.subs.sink = this.searchService.getMutationC(pathologyNo) // mutation 리스트
       .subscribe(data => {
-        console.log('[284][report][mutation]', data);
         if (data.message !== 'no data') {
-          data.forEach(item => {
+          let tempmu;
+          if (data.length > 1) {
+            tempmu = data.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempmu = data;
+          }
+          tempmu.forEach((item, index) => {
             this.mutation.push({
               gene: item.gene,
               aminoAcidChange: item.amino_acid_change,
               nucleotideChange: item.nucleotide_change,
               variantAlleleFrequency: item.variant_allele_frequency,
               ID: item.variant_id,
-              tier: item.tier
+              tier: item.tier,
+              seq: index
             });
-            this.mutationLists().push(this.createIMutaion({
+            this.mutationLists().push(this.createMutaion({
               gene: item.gene,
               aminoAcidChange: item.amino_acid_change,
               nucleotideChange: item.nucleotide_change,
               variantAlleleFrequency: item.variant_allele_frequency,
               ID: item.variant_id,
-              tier: item.tier
-            }));
+              tier: item.tier,
+            }, index));
           });
         } else {
           this.mutation = [];
@@ -372,14 +382,22 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.subs.sink = this.searchService.getAmplificationC(pathologyNo)
       .subscribe(data => {
-        console.log('[311][amplification]', data);
         if (data.message !== 'no data') {
-          data.forEach(item => {
+          let tempam;
+          if (data.length > 1) {
+            tempam = data.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempam = data;
+          }
+          tempam.forEach((item, index) => {
             this.amplifications.push({
               gene: item.gene,
               region: item.region,
               copynumber: item.estimated_copy_num,
-              tier: item.tier
+              tier: item.tier,
+              seq: index
             });
 
             this.amplificationsLists().push(this.createAmplifications({
@@ -387,7 +405,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               region: item.region,
               copynumber: item.estimated_copy_num,
               tier: item.tier
-            }));
+            }, index));
 
           });
         } else {
@@ -397,24 +415,30 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.subs.sink = this.searchService.getFusionC(pathologyNo)
       .subscribe(data => {
-        console.log('[336][fusion]', data);
         if (data.message !== 'no data') {
-          data.forEach(item => {
-            console.log('[302][fusion]', item);
+          let tempfu;
+          if (data.length > 1) {
+            tempfu = data.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempfu = data;
+          }
+          tempfu.forEach((item, index) => {
             this.fusion.push({
               gene: item.gene,
               breakpoint: item.fusion_breakpoint,
               readcount: item.readcount,
               functions: item.fusion_function,
               tier: item.tier
-            });
+            }, index);
 
             this.fusionLists().push(this.createFusion({
               gene: item.gene,
               breakpoint: item.fusion_breakpoint,
               functions: item.fusion_function,
               tier: item.tier
-            }));
+            }, index));
           });
         } else {
           this.fusion = [];
@@ -423,9 +447,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.subs.sink = this.searchService.getMutationP(pathologyNo)
       .subscribe(data => {
-        console.log('[363][imutation]', data);
         if (data.message !== 'no data') {
-          data.forEach(item => {
+          let tempimu;
+          if (data.length > 1) {
+            tempimu = data.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempimu = data;
+          }
+          tempimu.forEach((item, index) => {
 
             this.imutation.push({
               gene: item.gene,
@@ -434,15 +465,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               variantAlleleFrequency: item.variant_allele_frequency,
               ID: item.variant_id,
               tier: item.tier
-            });
+            }, index);
             this.imutationLists().push(this.createIMutaion({
               gene: item.gene,
               aminoAcidChange: item.amino_acid_change,
               nucleotideChange: item.nucleotide_change,
               variantAlleleFrequency: item.variant_allele_frequency,
               ID: item.variant_id,
-              tier: item.tier
-            }));
+              tier: item.tier,
+              seq: item.index
+            }, index));
           });
 
         } else {
@@ -452,22 +484,29 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.subs.sink = this.searchService.getAmplificationP(pathologyNo)
       .subscribe(data => {
-        console.log('[392][iamplification]', data);
         if (data.message !== 'no data') {
-          data.forEach(item => {
+          let tempiam;
+          if (data.length > 1) {
+            tempiam = data.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempiam = data;
+          }
+          tempiam.forEach((item, index) => {
             this.iamplifications.push({
               gene: item.gene,
               region: item.region,
               copynumber: item.estimated_copy_num,
               note: item.note
-            });
-            console.log(' === [405][iamplification]', item);
+            }, index);
+
             this.iamplificationsLists().push(this.createIAmplifications({
               gene: item.gene,
               region: item.region,
               copynumber: item.estimated_copy_num,
               note: item.note
-            }));
+            }, index));
 
           });
         } else {
@@ -477,23 +516,30 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.subs.sink = this.searchService.getFusionP(pathologyNo)
       .subscribe(data => {
-        console.log('[417][ifusion]', data);
         if (data.message !== 'no data') {
-          data.forEach(item => {
+          let tempifu;
+          if (data.length > 1) {
+            tempifu = data.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempifu = data;
+          }
+          tempifu.forEach((item, index) => {
             console.log('[425]', item, item.gene, item.fusion_breakpoint, item.fusion_function, item.tier);
             this.ifusion.push({
               gene: item.gene,
               breakpoint: item.fusion_breakpoint,
               functions: item.fusion_function,
               tier: item.tier
-            });
-            console.log('[431][ifusion]');
+            }, index);
+
             this.ifusionLists().push(this.createIFusion({
               gene: item.gene,
               breakpoint: item.fusion_breakpoint,
               functions: item.fusion_function,
-              tier: item.tier
-            }));
+              tier: item.tier,
+            }, index));
           });
         } else {
           this.ifusion = [];
@@ -501,6 +547,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  // tsv 화일에서 분류한 것을 디비에 저장후, 디비에서 불러온것
   initByDB(pathologynum: string): void {
     let tumortypes;
     console.log('[469][initByDB][tsv화일 올린후]', pathologynum);
@@ -557,7 +604,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.tumorcellpercentage = '';
         }
         this.screenstatus = this.patientInfo.screenstatus;
-        this.clinically = clinicallyVal;
+        // this.clinically = clinicallyVal;
+        this.tempClinically = clinicallyVal;
         this.clinical = clinicalVal;
         this.prevalent = prevalentVal;
         this.basicInfo.name = this.patientInfo.name;
@@ -565,6 +613,20 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.basicInfo.gender = this.patientInfo.gender;
         this.basicInfo.pathologyNum = this.patientInfo.pathology_num;
         this.basicInfo.age = this.patientInfo.age;
+        // 순번대로 정렬
+        console.log('[616][tempClinically ]', this.tempClinically);
+        if (this.tempClinically.length > 1) {
+          const tempClinically = this.tempClinically.sort((a, b) => {
+            return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+          });
+          console.log('[620][tempClinically ]', tempClinically);
+          tempClinically.forEach(item => {
+            this.clinically.push(item.clinically);
+          });
+        } else {
+          this.clinically.push(this.tempClinically[0].clinically);
+        }
+
 
         console.log('[보고서 유전자정보]', this.filteredOriginData);
         console.log('[보고서][msiscore]', this.msiScore);
@@ -616,6 +678,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         // OR파일에서 가져온 유전자 정보
         // tslint:disable-next-line:prefer-const
+
         this.clinically.forEach(item => {
           const members = item.trim().split(' ');
           const gene = members[0].trim().replace(/"/g, '');
@@ -679,7 +742,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               if (customid.indexOf('vc.novel') !== -1) {
                 customid = '';
               }
-
+              console.log('==== [684][mutation] ', gene);
               this.mutation.push({
                 gene,
                 aminoAcidChange,
@@ -692,9 +755,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
           } else if (type === 'amplification') {
+
             const indexa = this.findGeneInfo(gene);
             const atier = this.findTier(gene);
-            if (indexa > 0) {
+            console.log(' ####### [697][amplification] ', gene, indexa, atier);
+            if (indexa !== -1) {
               const cytoband = this.filteredOriginData[indexa].cytoband.split(')');
               this.amplifications.push({
                 gene: this.filteredOriginData[indexa].gene,
@@ -704,7 +769,6 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               });
             }
           } else if (type === 'fusion') {
-
             let oncomine;
             // if (gene === 'PTPRZ1-MET') {
             //   // gene = 'PTPRZ1(1) - MET(2)';
@@ -712,7 +776,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             // const index = this.findGeneInfo(gene);
             const index = this.findFusionInfo(gene);
             const ftier = this.findTier(gene);
-            console.log('====[654][IFUSION][', type, gene, index);
+            console.log('****** [719][FUSION][', type, gene, index);
 
             if (index !== -1) {  // 여기주의
               if (this.filteredOriginData[index].oncomine === 'Loss-of-function') {
@@ -736,24 +800,24 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         if (this.mutation.length) {
-          //  console.log('[506][initByFile][mutation]', this.mutation);
-          this.mutation.forEach(mItem => {
-            this.mutationLists().push(this.createMutaion(mItem));
+          console.log('====== [742][mutation]', this.mutation);
+          this.mutation.forEach((mItem, index) => {
+            this.mutationLists().push(this.createMutaion(mItem, index.toString()));
           });
         }
 
         if (this.amplifications.length) {
-
-          this.amplifications.forEach(aItem => {
-            this.amplificationsLists().push(this.createAmplifications(aItem));
+          console.log('###### [742][amplifications]', this.amplifications);
+          this.amplifications.forEach((aItem, index) => {
+            this.amplificationsLists().push(this.createAmplifications(aItem, index.toString()));
           });
         }
 
 
         if (this.fusion.length) {
-
-          this.fusion.forEach(fItem => {
-            this.fusionLists().push(this.createFusion(fItem));
+          console.log('******* [757][fusion]', this.fusion);
+          this.fusion.forEach((fItem, index) => {
+            this.fusionLists().push(this.createFusion(fItem, index.toString()));
           });
         } else {
           this.fusion = [];
@@ -834,7 +898,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
           } else if (type === 'amplification') {
             const indexa = this.findGeneInfo(gene);
-            console.log('[660][prevelant] ', item, indexa);
+            console.log(' ######[840][prevelant][amplification] ', gene);
             if (indexa !== -1) {
               const cytoband = this.filteredOriginData[indexa].cytoband.split(')');
               this.iamplifications.push({
@@ -870,23 +934,23 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         if (this.imutation.length) {
-          // console.log('[604][initByFile][imutation]', this.imutation);
-          this.imutation.forEach(mItem => {
-            this.imutationLists().push(this.createIMutaion(mItem));
+          console.log('===== [876][prevalent][imutation]', this.imutation);
+          this.imutation.forEach((mItem, index) => {
+            this.imutationLists().push(this.createIMutaion(mItem, index.toString()));
           });
         }
 
         if (this.iamplifications.length) {
-          // console.log('[611][initByFile][iamplifications]', this.iamplifications);
-          this.iamplifications.forEach(aItem => {
-            this.iamplificationsLists().push(this.createIAmplifications(aItem));
+          console.log('######## [883][prevalent][iamplifications]', this.iamplifications);
+          this.iamplifications.forEach((aItem, index) => {
+            this.iamplificationsLists().push(this.createIAmplifications(aItem, index.toString()));
           });
         }
 
         if (this.ifusion.length) {
-          console.log('[707][initByFile][ifusion]', this.ifusion);
-          this.ifusion.forEach(fItem => {
-            this.ifusionLists().push(this.createIFusion(fItem));
+          console.log('******* [890][prevalent][ifusion]', this.ifusion);
+          this.ifusion.forEach((fItem, index) => {
+            this.ifusionLists().push(this.createIFusion(fItem, index.toString()));
           });
         }
 
@@ -1010,22 +1074,78 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   convertFormData(): void {
     const mControl = this.mutationForm.get('mutationLists') as FormArray;
-    this.mutation = mControl.getRawValue();
+    // this.mutation = mControl.getRawValue();
+    const tempMu = mControl.getRawValue();
+    const tempMuLen = tempMu.length;
+    this.mutation = [];
+    if (tempMuLen > 0) {
+      tempMu.forEach((item, index) => {
+        item.seq = index;
+        this.mutation.push(item);
+      });
+    }
 
     const aControl = this.amplificationsForm.get('amplificationsLists') as FormArray;
-    this.amplifications = aControl.getRawValue();
-    console.log('[1046][][convertFormData]');
+    // this.amplifications = aControl.getRawValue();
+    const tempAm = aControl.getRawValue();
+    const tempAmLen = tempAm.length;
+    this.amplifications = [];
+    if (tempAmLen > 0) {
+      tempAm.forEach((item, index) => {
+        item.seq = index;
+        this.amplifications.push(item);
+      });
+    }
+
     const fControl = this.fusionForm.get('fusionLists') as FormArray;
-    this.fusion = fControl.getRawValue();
-    console.log('[1049][][convertFormData]');
+    // this.fusion = fControl.getRawValue();
+    const tempFu = fControl.getRawValue();
+    const tempFuLen = tempFu.length;
+    this.fusion = [];
+    if (tempFuLen > 0) {
+      tempFu.forEach((item, index) => {
+        item.seq = index;
+        this.fusion.push(item);
+      });
+    }
+
     const imControl = this.imutationForm.get('imutationLists') as FormArray;
-    this.imutation = imControl.getRawValue();
+    // this.imutation = imControl.getRawValue();
+
+    const tempIMu = imControl.getRawValue();
+    const tempIMuLen = tempIMu.length;
+    this.imutation = [];
+    if (tempIMuLen > 0) {
+      tempIMu.forEach((item, index) => {
+        item.seq = index;
+        this.imutation.push(item);
+      });
+    }
 
     const iaControl = this.iamplificationsForm.get('iamplificationsLists') as FormArray;
-    this.iamplifications = iaControl.getRawValue();
+    // this.iamplifications = iaControl.getRawValue();
+    const tempIAm = iaControl.getRawValue();
+    const tempIAmLen = tempIAm.length;
+    this.iamplifications = [];
+    if (tempIAmLen > 0) {
+      tempIAm.forEach((item, index) => {
+        item.seq = index;
+        this.iamplifications.push(item);
+      });
+    }
 
     const ifControl = this.ifusionForm.get('ifusionLists') as FormArray;
-    this.ifusion = ifControl.getRawValue();
+    // this.ifusion = ifControl.getRawValue();
+    this.ifusion = [];
+    const tempIFu = ifControl.getRawValue();
+    const tempIFuLen = tempIFu.length;
+    if (tempIFu.length > 0) {
+      tempIFu.forEach((item, index) => {
+        item.seq = index;
+        this.ifusion.push(item);
+      });
+    }
+
   }
 
   /////////////////////////////////////////////////////////////
@@ -1141,17 +1261,17 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   savePathologyData() {
     this.convertFormData();
 
-    console.log('[1128][report][savePathologyData][환자정보][this.basicInfo]', this.basicInfo);
-    console.log('[1182][savePathologyData][환자정보][patientInfo]', this.patientInfo);
-    console.log('[1182][report][savePathologyData][검체정보][extraction]', this.extraction);
-    console.log('[1182][report][savePathologyData][MUTATION]', this.mutation);
-    console.log('[1182][report][savePathologyData][AMFLIFICATIONS]', this.amplifications);
-    console.log('[1182][report][savePathologyData][FUSION]', this.fusion);
-    console.log('[1182][report][savePathologyData][I-MUTAION]', this.imutation);
-    console.log('[1182][report][savePathologyData][I-AMPLIFICATIONS]', this.iamplifications);
-    console.log('[1182][report][savePathologyData][I-FUSION]', this.ifusion);
-    console.log('[1182][report][savePathologyData][멘트][ment]', this.generalReport, this.specialment, this.notement);
-    console.log('[1182][savePathologyData][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+    console.log('[1128][1차전송][savePathologyData][환자정보][this.basicInfo]', this.basicInfo);
+    console.log('[1182][1차전송][환자정보][patientInfo]', this.patientInfo);
+    console.log('[1182][1차전송][savePathologyData][검체정보][extraction]', this.extraction);
+    console.log('[1182][1차전송][savePathologyData][MUTATION]', this.mutation);
+    console.log('[1182][1차전송][savePathologyData][AMFLIFICATIONS]', this.amplifications);
+    console.log('[1182][1차전송][savePathologyData][FUSION]', this.fusion);
+    console.log('[1182][1차전송][savePathologyData][I-MUTAION]', this.imutation);
+    console.log('[1182][1차전송][savePathologyData][I-AMPLIFICATIONS]', this.iamplifications);
+    console.log('[1182][1차전송][savePathologyData][I-FUSION]', this.ifusion);
+    console.log('[1182][1차전송][savePathologyData][멘트][ment]', this.generalReport, this.specialment, this.notement);
+    console.log('[1182][1차전송][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
     console.log('[검체번호]', this.pathologyNum);
 
 
@@ -1287,7 +1407,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   ////////////////////////////////////////////////////////////////////////////////////////////
   // mutationForm
 
-  createMutaion(mutation: IMutation): FormGroup {
+  createMutaion(mutation: IMutation, index: string): FormGroup {
     // console.log('[617][][createMutaion][mutation]', mutation);
     return this.fb.group({
       gene: mutation.gene,
@@ -1295,7 +1415,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       nucleotideChange: mutation.nucleotideChange,
       variantAlleleFrequency: mutation.variantAlleleFrequency,
       ID: mutation.ID,
-      tier: mutation.tier
+      tier: mutation.tier,
+      seq: index
     });
   }
 
@@ -1310,14 +1431,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       nucleotideChange: '',
       variantAlleleFrequency: '',
       ID: '',
-      tier: ''
+      tier: '',
+      seq: ''
     });
   }
 
   addMutation(): void {
     this.mutationLists().push(this.newMutation());
     this.mutation.push({
-      gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: ''
+      gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: '', seq: ''
     });
     const len = this.mutationLists().getRawValue().length;
     console.log('[1233][addMutation]', len);
@@ -1344,12 +1466,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   /////////////////////////////////////////////////////////////////////
   // amplificationsForm
 
-  createAmplifications(amplifications: IAmplification): FormGroup {
+  createAmplifications(amplifications: IAmplification, index: string): FormGroup {
     return this.fb.group({
       gene: amplifications.gene,
       region: amplifications.region,
       copynumber: amplifications.copynumber,
-      tier: amplifications.tier
+      tier: amplifications.tier,
+      seq: index
     });
   }
 
@@ -1362,14 +1485,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       gene: '',
       region: '',
       copynumber: '',
-      tier: ''
+      tier: '',
+      seq: ''
     });
   }
 
   addAmplifications(): void {
     this.amplificationsLists().push(this.newAmplifications());
     this.amplifications.push({
-      gene: '', region: '', copynumber: ''
+      gene: '', region: '', copynumber: '', tier: '', seq: ''
     });
     const len = this.amplificationsLists().getRawValue().length;
     if (len > 0) {
@@ -1390,13 +1514,14 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   ////////////////////////////////////////////////////////////////////
   // fusionForm
 
-  createFusion(fusion: IFusion): FormGroup {
+  createFusion(fusion: IFusion, index: string): FormGroup {
     // console.log('[925][fusion][3][createFusion 호출]', fusion);
     return this.fb.group({
       gene: fusion.gene,
       breakpoint: fusion.breakpoint,
       functions: fusion.functions,
-      tier: fusion.tier
+      tier: fusion.tier,
+      seq: index
     });
   }
 
@@ -1412,14 +1537,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       breakpoint: '',
       readcount: '',
       functions: '',
-      tier: ''
+      tier: '',
+      seq: ''
     });
   }
 
   addFusion(): void {
     this.fusionLists().push(this.newFusion());
     this.fusion.push({
-      gene: '', breakpoint: '', readcount: '', functions: ''
+      gene: '', breakpoint: '', functions: '', tier: '', seq: ''
     });
     const len = this.fusionLists().getRawValue().length;
     if (len > 0) {
@@ -1442,14 +1568,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ////////////////////////////////////////////////////////////////////
   // imutationForm
-  createIMutaion(mutation: IMutation): FormGroup {
+  createIMutaion(mutation: IMutation, index: string): FormGroup {
     return this.fb.group({
       gene: mutation.gene,
       aminoAcidChange: mutation.aminoAcidChange,
       nucleotideChange: mutation.nucleotideChange,
       variantAlleleFrequency: mutation.variantAlleleFrequency,
       ID: mutation.ID,
-      tier: mutation.tier
+      tier: mutation.tier,
+      seq: index
     });
   }
 
@@ -1464,14 +1591,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       nucleotideChange: '',
       variantAlleleFrequency: '',
       ID: '',
-      tier: ''
+      tier: '',
+      seq: ''
     });
   }
 
   addIMutation(): void {
     this.imutationLists().push(this.newIMutation());
     this.imutation.push({
-      gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: ''
+      gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: '', tier: '', seq: ''
     });
     const len = this.imutationLists().getRawValue().length;
     console.log('[1436][ addIMutation]', len);
@@ -1494,13 +1622,14 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /////////////////////////////////////////////////////////////////////
   // iamplificationsForm
-  createIAmplifications(amplifications: IIAmplification): FormGroup {
+  createIAmplifications(amplifications: IIAmplification, index: string): FormGroup {
     // console.log('[942][createIAmplifications][amplifications]', amplifications);
     return this.fb.group({
       gene: amplifications.gene,
       region: amplifications.region,
       copynumber: amplifications.copynumber,
-      note: amplifications.note
+      note: amplifications.note,
+      seq: index
     });
   }
 
@@ -1513,14 +1642,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       gene: '',
       region: '',
       copynumber: '',
-      note: ''
+      note: '',
+      seq: ''
     });
   }
 
   addIAmplifications(): void {
     this.iamplificationsLists().push(this.newIAmplifications());
     this.iamplifications.push({
-      gene: '', region: '', copynumber: ''
+      gene: '', region: '', copynumber: '', note: '', seq: ''
     });
     const len = this.iamplificationsLists().getRawValue().length;
     if (len > 0) {
@@ -1543,14 +1673,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   /*
 
   */
-  createIFusion(fusion: IFusion): FormGroup {
+  createIFusion(fusion: IFusion, index: string): FormGroup {
     // console.log('===== [1471][ createIFusion]', fusion);
 
     return this.fb.group({
       gene: fusion.gene,
       breakpoint: fusion.breakpoint,
       functions: fusion.functions,
-      tier: fusion.tier
+      tier: fusion.tier,
+      seq: index
     });
   }
 
@@ -1563,14 +1694,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       gene: '',
       breakpoint: '',
       functions: '',
-      tier: ''
+      tier: '',
+      seq: ''
     });
   }
 
   addIFusion(): void {
     this.ifusionLists().push(this.newIFusion());
     this.ifusion.push({
-      gene: '', breakpoint: '', functions: ''
+      gene: '', breakpoint: '', functions: '', tier: '', seq: ''
     });
     const len = this.ifusionLists().getRawValue().length;
     if (len > 0) {
