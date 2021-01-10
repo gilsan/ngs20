@@ -45,12 +45,12 @@
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_result">
           <thead>
             <tr>
-              <th class="table_result_line fontsize">DNA and RNA extraction</th>
-              <th class="fontsize">관련병리번호</th>
-              <th class="fontsize">Key block</th>
+              <th class="table_result_line fontsize" style="width: 200px;">DNA and RNA extraction</th>
+              <th class="fontsize" style="width: 110px;">관련병리번호</th>
+              <th class="fontsize" style="width: 130px;">Key block</th>
               <th class="fontsize" style="width: 80px;">Tumor cell percentage</th>
-              <th class="fontsize" style="width:140px;">Organ</th>
-              <th class="fontsize" style='width:240px;'>Tumor type</th>
+              <th class="fontsize" style="width:200px;">Organ</th>
+              <th class="fontsize" style='width:270px;'>Tumor type</th>
               <th class="fontsize">Pathological diagnosis</th>
             </tr>
           </thead>
@@ -74,7 +74,7 @@
                   [value]="extraction.tumorcellpercentage" (change)="setTumorpercentage(tumorpercentage.value)">
               </td>
               <td class="txt_c">
-                <input type="text" size="10" #organ class="clr-input" [value]="extraction.organ"
+                <input type="text" size="16" #organ class="clr-input" [value]="extraction.organ"
                   (change)="setOrgan(organ.value)">
               </td>
               <td class="txt_c">
