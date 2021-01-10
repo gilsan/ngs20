@@ -600,7 +600,9 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
         console.log('[553][tumorcellpercentage]', tumorcellpercentageVal);
         if (tumorcellpercentageVal.length > 0) {
+          console.log('-------[603]');
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰
+          console.log('-------[605]');
         } else {
           this.tumorcellpercentage = '';
         }
@@ -693,8 +695,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         // tslint:disable-next-line:prefer-const
 
         this.clinically.forEach(item => {
+          console.log('-------[698]');
           const members = item.trim().split(' ');
+          console.log('-------[709]');
           const gene = members[0].trim().replace(/"/g, '');
+          console.log('-------[702]');
           const type = members[1].trim().replace(/"/g, '');
           // console.log('====[552][clinically]: ', item, gene, type);
           if (type.charAt(0) === 'p' || type === 'exon') {
@@ -842,8 +847,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           const members = item.trim().split(',');
 
           const temps = members[0].split(' ');
+          console.log('-------[845]');
           const gene = temps[0].trim().replace(/"/g, '');
+          console.log('-----[8457]', gene);
           const type = temps[1].trim().replace(/"/g, '');
+          console.log('-------[849]');
           // console.log('[561][prevalent]', gene, type);
           if (type.charAt(0) === 'p') {
             let customid = '';

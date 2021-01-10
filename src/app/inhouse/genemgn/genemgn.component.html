@@ -7,11 +7,11 @@
           </tr>
         </table>
       <div class="box mg_b20 pd_20">
-        <select class="select_01 select_001" >
-          <option value="100">AML</option>
-          <option value="100">ALL</option>
-          <option value="100">Lymphoma</option>
-          <option value="100">MDS/MPN</option>
+        <select class="select_01 select_001" #gene (change)="genelists(gene.value)">
+          <option value="AML">AML</option>
+          <option value="ALL">ALL</option>
+          <option value="LYM">Lymphoma</option>
+          <option value="MDS">MDS/MPN</option>
         </select>&nbsp;&nbsp;
         <input type="text" class="input_01" placeholder=""/>
         <button type="button" class="btn btn_02" style="margin-left: 10px;">조회</button>
@@ -22,7 +22,8 @@
                 <td class="main_btn">  
                     <ul>
                         <li>
-                            <button type="button" class="btn btn_01">추가</button>
+                            <button type="button" class="btn btn_01"
+                             (click)="addOpenDialog()" >추가</button>
                         </li>
                         <li>
                           <button type="button" class="btn btn_01">수정</button>
@@ -50,8 +51,8 @@
             <col width="10%">
             <col width="10%">
           </colgroup>
-          <thead>
-            <tr *ngFor="let list of lists; let i =index;">
+          <!-- <thead>
+            <tr>
               <th class="txt_c">{{list.g0}}</th>
               <th class="txt_c">{{list.g1}}</th>
               <th class="txt_c">{{list.g2}}</th>
@@ -63,23 +64,20 @@
               <th class="txt_c">{{list.g8}}</th>
               <th class="txt_c">{{list.g9}}</th>
             </tr>
-          </thead>
+          </thead> -->
           <div></div>
           <tbody>
-            <tr>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
-              <td class="txt_c"></td>
+            <tr  *ngFor="let list of lists; let i =index;">
+              <td class="txt_c" (click)="genename(list.g0)">{{list.g0}}</td>
+              <td class="txt_c" (click)="genename(list.g1)">{{list.g1}}</td>
+              <td class="txt_c" (click)="genename(list.g2)">{{list.g2}}</td>
+              <td class="txt_c" (click)="genename(list.g3)">{{list.g3}}</td>
+              <td class="txt_c" (click)="genename(list.g4)">{{list.g4}}</td>
+              <td class="txt_c" (click)="genename(list.g5)">{{list.g5}}</td>
+              <td class="txt_c" (click)="genename(list.g6)">{{list.g6}}</td>
+              <td class="txt_c" (click)="genename(list.g7)">{{list.g7}}</td>
+              <td class="txt_c" (click)="genename(list.g8)">{{list.g8}}</td>
+              <td class="txt_c" (click)="genename(list.g9)">{{list.g9}}</td>
             </tr>
           </tbody>
         </table>

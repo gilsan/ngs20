@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { from } from 'rxjs/internal/observable/from';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { GeneService } from 'src/app/services/genemgn.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddgeneComponent } from './addgene/addgene.component';
 
 export interface IGENE {
   g0: string;
@@ -34,14 +36,17 @@ export class GenemgnComponent implements OnInit {
   MDS: IGENE[];
 
   lists: IGENE[];
+  genetype = 'AML';
 
   constructor(
-    private geneService: GeneService
+    private geneService: GeneService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.init();
-    this.lists = this.ALL;
+
+
   }
 
   init(): void {
@@ -51,7 +56,7 @@ export class GenemgnComponent implements OnInit {
       map(lists => lists.filter(list => list.type === 'AML')),
     ).subscribe(data => {
       this.AML = this.makegenelist(data);
-      console.log(this.AML);
+      this.lists = this.AML;
     });
 
     allList$.pipe(
@@ -78,12 +83,16 @@ export class GenemgnComponent implements OnInit {
   genelists(type: string): void {
     if (type === 'ALL') {
       this.lists = this.ALL;
+      this.genetype = 'ALL';
     } else if (type === 'AML') {
       this.lists = this.AML;
+      this.genetype = 'AML';
     } else if (type === 'LYM') {
       this.lists = this.LYM;
+      this.genetype = 'LYM';
     } else if (type === 'MDS') {
       this.lists = this.MDS;
+      this.genetype = 'MDS';
     }
   }
 
@@ -126,6 +135,17 @@ export class GenemgnComponent implements OnInit {
       }
     } // End of for loop
     return genelists;
+  }
+
+  genename(gene: string): void {
+    console.log(this.genetype, gene);
+  }
+
+  addOpenDialog(): void {
+    const dialogRef = this.dialog.open(AddgeneComponent, {
+      width: '500px',
+      height: '400px',
+    });
   }
 
 }

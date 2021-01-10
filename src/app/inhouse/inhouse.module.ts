@@ -9,7 +9,10 @@ import { ArtifactsComponent } from './artifacts/artifacts.component';
 import { CommentsComponent } from './comments/comments.component';
 import { BenignComponent } from './benign/benign.component';
 import { GenemgnComponent } from './genemgn/genemgn.component';
-
+import { AddgeneComponent } from './genemgn/addgene/addgene.component';
+import { UpdategeneComponent } from './genemgn/updategene/updategene.component';
+import { DeletegeneComponent } from './genemgn/deletegene/deletegene.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,11 +23,15 @@ import { GenemgnComponent } from './genemgn/genemgn.component';
     CommentsComponent,
     BenignComponent,
     GenemgnComponent,
+    AddgeneComponent,
+    UpdategeneComponent,
+    DeletegeneComponent,
   ],
   imports: [
 
     CommonModule,
-    InhouseRoutingModule
+    InhouseRoutingModule,
+    MatDialogModule
   ]
 })
 export class InhouseModule { }
