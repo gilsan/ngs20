@@ -51,18 +51,17 @@
             <col width="10%">
           </colgroup>
           <thead>
-            <tr>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
-              <th>Title</th>
+            <tr *ngFor="let list of lists; let i =index;">
+              <th class="txt_c">{{list.g0}}</th>
+              <th class="txt_c">{{list.g1}}</th>
+              <th class="txt_c">{{list.g2}}</th>
+              <th class="txt_c">{{list.g3}}</th>
+              <th class="txt_c">{{list.g4}}</th>
+              <th class="txt_c">{{list.g5}}</th>
+              <th class="txt_c">{{list.g6}}</th>
+              <th class="txt_c">{{list.g7}}</th>
+              <th class="txt_c">{{list.g8}}</th>
+              <th class="txt_c">{{list.g9}}</th>
             </tr>
           </thead>
           <div></div>

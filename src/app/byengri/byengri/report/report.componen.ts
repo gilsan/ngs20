@@ -49,6 +49,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   clinically = [];
   tempClinically: { clinically: string, seq: string }[] = [];
   clinical: IGeneTire[] = [];
+  tempPrevalent: { prevalent: string, seq: string }[] = [];
   prevalent = [];
   status = false;
   screenstatus: string;
@@ -338,7 +339,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[272][report][ getDataFromDB][] ', pathologyNo);
     this.searchService.getPathmentlist(pathologyNo)
       .subscribe(data => {
-        console.log('[275][멘트리스트][]', data);
+        // console.log('[275][멘트리스트][]', data);
         if (data.message !== 'no data') {
           this.generalReport = data[0].generalReport;
           this.specialment = data[0].specialment;
@@ -607,7 +608,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         // this.clinically = clinicallyVal;
         this.tempClinically = clinicallyVal;
         this.clinical = clinicalVal;
-        this.prevalent = prevalentVal;
+        // this.prevalent = prevalentVal;
+        this.tempPrevalent = prevalentVal;
         this.basicInfo.name = this.patientInfo.name;
         this.basicInfo.registerNum = this.patientInfo.patientID;
         this.basicInfo.gender = this.patientInfo.gender;
@@ -627,6 +629,17 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.clinically.push(this.tempClinically[0].clinically);
         }
 
+        if (this.tempPrevalent.length > 1) {
+          const tempPrevalent = this.tempPrevalent.sort((a, b) => {
+            return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+          });
+          console.log('[636][tempPrevalent ]', tempPrevalent);
+          tempPrevalent.forEach(item => {
+            this.prevalent.push(item.prevalent);
+          });
+        } else {
+          this.prevalent.push(this.tempPrevalent[0].prevalent);
+        }
 
         console.log('[보고서 유전자정보]', this.filteredOriginData);
         console.log('[보고서][msiscore]', this.msiScore);

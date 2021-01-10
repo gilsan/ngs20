@@ -40,6 +40,7 @@ export class UploadComponent implements OnInit {
   clinically2: { gene: string, seq: string }[] = [];
   clinical: IGeneTire[] = [];
   prevalent = [];
+  prevalent2: { gene: string, seq: string }[] = [];
   uploadfileList: string[] = [];
 
   tumorType: string;
@@ -264,7 +265,7 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-              console.log('[263][index]' + index + '[start]' + start + ' ' + list[0] + '  [' + list[4] + ']');
+              // console.log('[263][index]' + index + '[start]' + start + ' ' + list[0] + '  [' + list[4] + ']');
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {
@@ -276,19 +277,19 @@ export class UploadComponent implements OnInit {
                   if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
                     this.clinically.push(list[0]); // 유전자
-                    this.clinically2.push({ gene: list[0], seq: clinicallyCount.toString() }); // 신규
+                    this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
                     list[0] = '';
-                    console.log('==== [270][한개인경우][clinically]', this.clinically);
+                    // console.log('==== [270][한개인경우][clinically]', this.clinically);
                   }
                 } else if (filteredlistLen === 4) {
                   if (filteredlist.includes('exon')) {
-                    this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });
+                    this.clinical.push({ gene: filteredlist[0].trim(), tier, frequency: list[3] });
                     this.clinically.push(list[0]);
-                    this.clinically2.push({ gene: list[0], seq: clinicallyCount.toString() }); // 신규
+                    this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
                     list[0] = '';
-                    console.log('==== [275][clinically]', this.clinically);
+                    // console.log('==== [275][clinically]', this.clinically);
                   }
                 }
 
@@ -304,7 +305,7 @@ export class UploadComponent implements OnInit {
                     this.clinically.push(tempGene[i].trim());
                     this.clinically2.push({ gene: tempGene[i].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
-                    console.log('==== [288][clinically]', this.clinically);
+                    // console.log('==== [288][clinically]', this.clinically);
                   }
 
                 } // End of for loop
@@ -323,14 +324,17 @@ export class UploadComponent implements OnInit {
                 const member = item.trim().split(' ');
 
                 return member[1] !== 'deletion';
+
               });
-
-              // console.log('[227][deletion]', this.prevalent);
-
+              // console.log('===== [330][prevalent][전]', this.prevalent);
+              this.prevalent.forEach((item, idx) => {
+                this.prevalent2.push({ gene: item.trim(), seq: idx.toString() });
+              });
+              // console.log('===== [333][prevalent][후]', this.prevalent2);
             }
           }
         });  // End of ForEach
-      console.log('==== [325][upload][전송]', this.clinically, this.clinically2);
+      console.log('==== [325][upload][전송]', this.clinically2, this.prevalent2);
       // from(this.clinically)
       //   .pipe(
       //     map(clinicallydata => [clinicallydata]),
@@ -343,7 +347,7 @@ export class UploadComponent implements OnInit {
       this.pathologyService.setClinically2(this.clinically2, this.pathologyNum)
         .pipe(
           concatMap(() => this.pathologyService.setTumortype(this.tumorType, this.pathologyNum)),
-          concatMap(() => this.pathologyService.setPrevalent(this.prevalent, this.pathologyNum)),
+          concatMap(() => this.pathologyService.setPrevalent2(this.prevalent2, this.pathologyNum)),
           concatMap(() => this.pathologyService.setTumorMutationalBurden(this.burden, this.pathologyNum)),
           concatMap(() => this.pathologyService.setClinical(this.clinical, this.pathologyNum))
 
@@ -354,6 +358,8 @@ export class UploadComponent implements OnInit {
           this.clinical = [];
           this.prevalent = [];
           this.burden = '';
+          this.clinically2 = [];
+          this.prevalent2 = [];
         });
 
     };

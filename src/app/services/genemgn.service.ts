@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { emrUrl } from '../config';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
 
 export interface IGene {
   type: string;
@@ -13,17 +14,17 @@ export interface IGene {
 })
 export class GeneService {
   private apiUrl = emrUrl;
-  AML: string[] = [];
-  ALL: string[] = [];
-  LYM: string[] = [];
-  MDS: string[] = [];
+
   constructor(
     private http: HttpClient
   ) { }
 
 
-  geneList(type: string): Observable<IGene[]> {
-    return this.http.post<IGene[]>(`${this.apiUrl}/diagGene/list`, { type });
+  geneAllList(): Observable<IGene[]> {
+    return this.http.get<IGene[]>(`${this.apiUrl}/diagGene/listall`)
+      .pipe(
+        shareReplay(),
+      );
   }
 
   geneInsert(type: string, gene: string): any {
@@ -37,5 +38,7 @@ export class GeneService {
   geneDelete(type: string, gene: string): any {
     return this.http.post(`${this.apiUrl}/diagGene/delete`, { type, gene });
   }
+
+
 
 }

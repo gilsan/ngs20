@@ -344,6 +344,13 @@ export class PathologyService {
     return this.http.post(`${this.apiUrl}/prevalent/insert`, { pathologyNum, prevalent });
   }
 
+  // prevalent2
+  public setPrevalent2(prevalent, pathologyNum: string): any {
+    this.prevalent = prevalent;
+    // console.log('[서비스][238][prevalent]', this.prevalent);
+    return this.http.post(`${this.apiUrl}/prevalent/insert2`, { pathologyNum, prevalent });
+  }
+
   public getPrevalent(): any {
     return this.prevalent;
   }
