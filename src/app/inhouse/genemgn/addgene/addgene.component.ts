@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-addgene',
   templateUrl: './addgene.component.html',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddgeneComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<AddgeneComponent>
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  save(gene: string): void {
+    this.dialogRef.close({ gene });
+  }
+
+  cancel(): void {
+    this.dialogRef.close();
   }
 
 }

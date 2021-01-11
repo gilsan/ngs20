@@ -26,10 +26,12 @@
                              (click)="addOpenDialog()" >추가</button>
                         </li>
                         <li>
-                          <button type="button" class="btn btn_01">수정</button>
+                          <button type="button" class="btn btn_01"
+                          (click)="updateOpenDialog()">수정</button>
                       </li>
                       <li>
-                        <button type="button" class="btn btn_01">삭제</button>
+                        <button type="button" class="btn btn_01"
+                        (click)="deleteOpenDialog()">삭제</button>
                     </li>
                     </ul> 
                 </td>
@@ -51,33 +53,20 @@
             <col width="10%">
             <col width="10%">
           </colgroup>
-          <!-- <thead>
-            <tr>
-              <th class="txt_c">{{list.g0}}</th>
-              <th class="txt_c">{{list.g1}}</th>
-              <th class="txt_c">{{list.g2}}</th>
-              <th class="txt_c">{{list.g3}}</th>
-              <th class="txt_c">{{list.g4}}</th>
-              <th class="txt_c">{{list.g5}}</th>
-              <th class="txt_c">{{list.g6}}</th>
-              <th class="txt_c">{{list.g7}}</th>
-              <th class="txt_c">{{list.g8}}</th>
-              <th class="txt_c">{{list.g9}}</th>
-            </tr>
-          </thead> -->
+ 
           <div></div>
           <tbody>
             <tr  *ngFor="let list of lists; let i =index;">
-              <td class="txt_c" (click)="genename(list.g0)">{{list.g0}}</td>
-              <td class="txt_c" (click)="genename(list.g1)">{{list.g1}}</td>
-              <td class="txt_c" (click)="genename(list.g2)">{{list.g2}}</td>
-              <td class="txt_c" (click)="genename(list.g3)">{{list.g3}}</td>
-              <td class="txt_c" (click)="genename(list.g4)">{{list.g4}}</td>
-              <td class="txt_c" (click)="genename(list.g5)">{{list.g5}}</td>
-              <td class="txt_c" (click)="genename(list.g6)">{{list.g6}}</td>
-              <td class="txt_c" (click)="genename(list.g7)">{{list.g7}}</td>
-              <td class="txt_c" (click)="genename(list.g8)">{{list.g8}}</td>
-              <td class="txt_c" (click)="genename(list.g9)">{{list.g9}}</td>
+              <td class="txt_c" (click)="genename(list.g0, i)">{{list.g0}}</td>
+              <td class="txt_c" (click)="genename(list.g1, i)">{{list.g1}}</td>
+              <td class="txt_c" (click)="genename(list.g2, i)">{{list.g2}}</td>
+              <td class="txt_c" (click)="genename(list.g3, i)">{{list.g3}}</td>
+              <td class="txt_c" (click)="genename(list.g4, i)">{{list.g4}}</td>
+              <td class="txt_c" (click)="genename(list.g5, i)">{{list.g5}}</td>
+              <td class="txt_c" (click)="genename(list.g6, i)">{{list.g6}}</td>
+              <td class="txt_c" (click)="genename(list.g7, i)">{{list.g7}}</td>
+              <td class="txt_c" (click)="genename(list.g8, i)">{{list.g8}}</td>
+              <td class="txt_c" (click)="genename(list.g9, i)">{{list.g9}}</td>
             </tr>
           </tbody>
         </table>

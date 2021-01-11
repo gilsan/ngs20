@@ -381,7 +381,9 @@ export function makeReport(
        <Rows>
           <Row>
              <Col id="commenttitle">해석적보고</Col>
-             <Col id="comments">${generalReport}</Col>
+             <Col id="comments">
+               <![CDATA[${generalReport}]]>
+             </Col>
           </Row>
        </Rows>
     </Dataset>

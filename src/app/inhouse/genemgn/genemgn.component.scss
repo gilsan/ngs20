@@ -1,3 +1,19 @@
 td:hover {
+  background-color: antiquewhite;
+}
+
+td {
   cursor: pointer;
+}
+
+td:active {
+  background-color: lightcyan;
+}
+
+.active {
+  background-color: lightcyan;
+}
+
+.inactive {
+  background-color: antiquewhite;
 }

@@ -80,9 +80,9 @@ export function makeCForm(
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">Lymphoma NGS</Col>
-				<Col id="examdt">검사의뢰일/검사보고일/수정보고일:${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
-				<Col id="examid">검사자:${examin}</Col>
-				<Col id="signid">판독의사:${recheck}</Col>
+				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
+				<Col id="examid">${examin}</Col>
+				<Col id="signid">${recheck}</Col>
 			</Row>
 		</Rows>
 	</Dataset>

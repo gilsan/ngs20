@@ -1,1 +1,12 @@
 
+        <!--popup size = width: 300px;height: 180px;-->
+        <div class="container">
+          <div class="title">추가 유전자명</div>
+          <div class="content">
+              <input type="text" class="input_01" placeholder="추가 유전자명" #gene>
+          </div>
+          <div class="btn-gp">
+              <button class="btn btn_bg" (click)="save(gene.value)"><span>확인</span></button>
+              <button class="btn" (click)="cancel()"><span>취소</span></button>
+          </div>
+      </div> 

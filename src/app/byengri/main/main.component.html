@@ -16,7 +16,8 @@
             <input name="" type="text"  #patient placeholder="환자ID" (change)="setPatientID(patient.value)"
             class="input_01" />&nbsp;&nbsp; -->
            <input type="text" class="input_01" 
-            #pathologynum    placeholder="분자병리번호" />&nbsp;&nbsp;
+            #pathologynum    placeholder="분자병리번호"
+            (keyup.enter)="searchData(start.value, end.value, pathologynum.value, patient.value, 'Y')" />&nbsp;&nbsp;
             <input name="" type="text"   placeholder="환자ID"  #patient  
             class="input_01" />&nbsp;&nbsp; 
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:150px;"/>
@@ -45,7 +46,7 @@
                 <thead class="fixheader">
                     <tr>
                         <th>No.</th>
-                        <th>검사일</th>
+                        <th>접수일</th>
                         <th>환자이름</th>
                         <th>나이</th>
                         <th>성별</th>

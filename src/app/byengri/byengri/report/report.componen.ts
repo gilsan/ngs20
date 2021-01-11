@@ -87,24 +87,24 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   msiScore = '';
   tumorcellpercentage: string;
 
-  examedno: string;
-  examedname: string;
-  checkeredno: string;
-  checkername: string;
+  examedno = 'none';  // 기사 ID
+  examedname = 'none'; // 기사 이름
+  checkeredno = 'none'; // 의사 ID
+  checkername = 'none'; // 의사 이름
   examin: string; // 검사자
   examinSeq: number;
 
-  examTeam0 = true;
-  examTeam1 = false;
-  examTeam2 = false;
-  examTeam3 = false;
-  examTeam4 = false;
+  // examTeam0 = true;
+  // examTeam1 = false;
+  // examTeam2 = false;
+  // examTeam3 = false;
+  // examTeam4 = false;
 
   recheck: string; // 확인자
-  recheckSeq: number;
+  // recheckSeq: number;
 
-  mt: IList[];
-  dt: IList[];
+  mt: IList[]; // 기사
+  dt: IList[]; // 의사
 
   generalReport = ``;  // 해석적 보고
   specialment = ``; // genes were not found
@@ -206,14 +206,14 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   init(pathologyNum: string): void {
-    // filtered 된 데이터 서비스에서 가져옴
+    // filtered 된 디비에서 가져옴
     if (parseInt(this.patientInfo.screenstatus, 10) >= 1) {
       // 서비스에서 저장된 값을 가져온다.
       this.status = true;
-
+      // 현재 상태정보 1: 저장, 3:EMR전송, 0: 시작
       this.screenstatus = this.patientInfo.screenstatus;
       // 검체정보
-      console.log('[178][환자정보], ', this.patientInfo);
+      console.log('[216][환자정보], ', this.patientInfo);
       this.extraction.dnarna = 'FFPE tissue';
       this.extraction.managementNum = this.patientInfo.rel_pathology_num;
       // console.log('[216]', this.patientInfo.key_block);
@@ -253,9 +253,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.msiScore = this.patientInfo.msiscore;
       this.extraction.tumorburden = this.tumorMutationalBurden;
       this.extraction.msiscore = this.msiScore;
-
-      this.examin = this.patientInfo.examin;
-      this.recheck = this.patientInfo.recheck;
+      // 검체 검사자,확인자 
+      this.examin = this.patientInfo.examin; // 기사
+      const exam = this.patientInfo.examin.split('_');
+      this.examedno = exam[0];
+      this.examedname = exam[1];
+      this.recheck = this.patientInfo.recheck; // 의사
+      const reck = this.patientInfo.recheck.split('_');
+      this.checkeredno = reck[0];
+      this.checkername = reck[1];
 
       this.basicInfo.name = this.patientInfo.name;
       this.basicInfo.registerNum = this.patientInfo.patientID;
@@ -266,7 +272,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.checkingMent(this.patientInfo.tumor_type);
       this.getDataFromDB(this.patientInfo);
 
-    } else if (parseInt(this.patientInfo.screenstatus, 10) === 0) {
+    } else if (parseInt(this.patientInfo.screenstatus, 10) === 0) {  // tsv에서 데이타 가져옴
       // this.initByFile();
       this.initByDB(pathologyNum);
       // this.status = this.store.getDBSaved();
@@ -312,24 +318,24 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       map(lists => lists.filter(list => list.part === 'T'))
     ).subscribe(mt => {
       this.mt = mt;
-      this.mt.forEach(list => {
-        if (list.pickselect === 'Y') {
-          this.examedno = list.user_id;
-          this.examedname = list.user_nm;
-        }
-      });
+      // this.mt.forEach(list => {
+      //   if (list.pickselect === 'Y') {
+      //     this.examedno = list.user_id;
+      //     this.examedname = list.user_nm;
+      //   }
+      // });
     });
 
     const dt$ = medi$.pipe(
       map(lists => lists.filter(list => list.part === 'D')),
     ).subscribe(dt => {
       this.dt = dt;
-      this.dt.forEach(list => {
-        if (list.pickselect === 'Y') {
-          this.checkeredno = list.user_id;
-          this.checkername = list.user_nm;
-        }
-      });
+      // this.dt.forEach(list => {
+      //   if (list.pickselect === 'Y') {
+      //     this.checkeredno = list.user_id;
+      //     this.checkername = list.user_nm;
+      //   }
+      // });
     });
 
   }
@@ -1182,6 +1188,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.convertFormData();
     console.log('[1064][Burden/MSI', this.tumorMutationalBurden, this.msiScore);
     console.log('[1064][검사자/확인자]', this.examedno, this.examedname, this.checkeredno, this.checkername);
+    console.log('[1065][검사자리스트', this.mt, this.dt);
     console.log('[1065][SER]', this.basicInfo);
     console.log('[1066][SER]', this.extraction, this.mutation, this.amplifications,
       this.fusion, this.imutation, this.iamplifications, this.ifusion);
@@ -1254,40 +1261,39 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ifusion[index].tier = i;
   }
 
-
+  // 의사
   checked(rechecked: string): void {
     const reck = rechecked.split('_');
     this.checkeredno = reck[0];
     this.checkername = reck[1];
 
-    this.searchService.updatePickselect(this.checkeredno, 'Y', 'D')
-      .subscribe(data => {
-        console.log('[1150][checked]', data);
-      });
+    // this.searchService.updatePickselect(this.checkeredno, 'Y', 'D')
+    //   .subscribe(data => {
+    //     console.log('[1150][checked]', data);
+    //   });
 
     this.patientInfo.recheck = rechecked;
-    console.log('[1154][Rechecked][]', this.checkername, this.checkeredno);
+    console.log('[1269][Rechecked][의사]', this.checkername, this.checkeredno);
   }
-
+  // 기사
   examimed(examin: string): void {
     const exam = examin.split('_');
     this.examedno = exam[0];
     this.examedname = exam[1];
 
-    this.searchService.updatePickselect(this.examedno, 'Y', 'T')
-      .subscribe(data => {
-        console.log('[1143][Examine]', data);
-      });
+    // this.searchService.updatePickselect(this.examedno, 'Y', 'T')
+    //   .subscribe(data => {
+    //     console.log('[1143][Examine]', data);
+    //   });
 
     this.patientInfo.examin = examin;
     this.examin = examin;
-    console.log('[1145][Examine][]', exam, this.examedname, this.examedno);
+    console.log('[1284][Examine][기사]', exam, this.examedname, this.examedno);
   }
 
   // tslint:disable-next-line: typedef
   savePathologyData() {
     this.convertFormData();
-
     console.log('[1128][1차전송][savePathologyData][환자정보][this.basicInfo]', this.basicInfo);
     console.log('[1182][1차전송][환자정보][patientInfo]', this.patientInfo);
     console.log('[1182][1차전송][savePathologyData][검체정보][extraction]', this.extraction);
@@ -1298,7 +1304,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[1182][1차전송][savePathologyData][I-AMPLIFICATIONS]', this.iamplifications);
     console.log('[1182][1차전송][savePathologyData][I-FUSION]', this.ifusion);
     console.log('[1182][1차전송][savePathologyData][멘트][ment]', this.generalReport, this.specialment, this.notement);
-    console.log('[1182][1차전송][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+    console.log('[1182][1차전송][검수자/확인자][1]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+    console.log('[1182][1차전송][검수자/확인자][2]', this.mt, this.dt);
     console.log('[검체번호]', this.pathologyNum);
 
 
@@ -1326,11 +1333,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           //   .subscribe(data => {
           //     this.screenstatus = '1';
           //   });
+
           this.subs.sink = this.searchService.screenPathologyEmrUpdate(this.basicInfo.pathologyNum)
             .subscribe(datas => {
               console.log('[1189][savePathologyData][screenPathologyEmrUpdate]', datas);
               this.router.navigate(['/pathology']);
             });
+
         }
       });
 
@@ -1889,7 +1898,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         return true;
       } else if (parseInt(this.screenstatus, 10) === 1) {
         return false;
-      } else if (parseInt(this.screenstatus, 10) === 2) {
+      } else if (parseInt(this.screenstatus, 10) === 4) {
         return true;
       } else if (parseInt(this.screenstatus, 10) === 3) {
         return true;

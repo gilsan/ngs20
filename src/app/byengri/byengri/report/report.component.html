@@ -164,9 +164,10 @@
           </div>
 
           <br>
-          <div class="sub_title_04"> (2) Amplification: <span *ngIf="!amplifications.length; else deletion" class="sub_title_04">{{noneAm}}</span>
+          <div class="sub_title_04"> (2) Amplification: <span *ngIf="!amplifications.length" class="sub_title_04">{{noneAm}}</span>
           </div>
-          <ng-template #deletion>{{msgAm}}</ng-template>
+          <div class="font_14 pd_l35 pd_b15">{{msgAm}}</div>
+          <!-- <ng-template #deletion>{{msgAm}}</ng-template> -->
           <!-- <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
           <div>
             <form [formGroup]="amplificationsForm">
@@ -309,6 +310,7 @@
         <br>
         <div class="sub_title_04">(2) Amplification: <span *ngIf="!iamplifications.length"
             class="sub_title_04">{{noneIAm}}</span>&nbsp;&nbsp;</div>
+        <div class="font_14 pd_l35 pd_b15">{{msgAm}}</div>    
         <!-- <div class="font_14 pd_l35 pd_b15"> * Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
         <!-- ------------------------------   -->
 
@@ -1120,20 +1122,41 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td class="txt_l font_16 fb">Date of report : {{today()}} </td>
+             <!-- 기사  -->
+             <!-- 
             <td class="txt_c font_16 fb">Examined by :
-
               <select #examine class="select_01" (change)="examimed(examine.value)" [value]="'10405461_황삼노'">
                 <option [value]="part.user_id + '_' + part.user_nm" [selected]="part.pickselect === 'Y'"
                   *ngFor="let part of mt;let i = index;">{{part.user_nm}}</option>
               </select>
             </td>
+            -->
+             <!-- 의사  -->
+             <!-- 
             <td class="txt_r font_16 fb">Rechecked by :
               <select #rechecked class="select_01" (change)="checked(rechecked.value)" [value]="'21300990_강준'">
                 <option [value]="part.user_id + '_' + part.user_nm" [selected]="part.pickselect === 'Y'"
                   *ngFor="let part of dt;let i = index;">{{part.user_nm}}</option>
               </select>
-
-            </td>
+            </td>  
+            -->  
+<!--   --------------     -------------------------- -->
+           <td class="txt_c font_16 fb">Examined by :
+             <select #examine class="select_01" (change)="examimed(examine.value)" >
+              <option>선택</option>
+               <option [value]="part.user_id + '_' + part.user_nm"  [selected]="part.user_nm === this.examedname"
+                 *ngFor="let part of mt;let i = index;">{{part.user_nm}}</option>
+             </select>
+           </td>
+           <td class="txt_r font_16 fb">Rechecked by :
+             <select #rechecked class="select_01" (change)="checked(rechecked.value)">
+               <option>선택</option>
+               <option [value]="part.user_id + '_' + part.user_nm"  [selected]="part.user_nm === this.checkername"
+                 *ngFor="let part of dt;let i = index;">{{part.user_nm}}</option>
+             </select>
+           </td> 
+<!--   --------------     -------------------------- -->
+            
           </tr>
         </table>
       </div>
@@ -1142,13 +1165,12 @@
       <!--  ---------------      -->
       <div class="foot_btn mg_t30 pd_b30 txt_c main_btn">
         <ul>
-          <li>
-            <!-- <button type="button" class="btn btn_01"  [disabled]="getStatus(4)"   (click)="reset()">수 정</button> -->
-            <button type="button" class="btn btn_01" disabled>수 정</button>
-          </li>
-          <li>
+          <!-- <li>
+            <button type="button" class="btn btn_01" disabled>출력</button>
+          </li> -->
+          <!-- <li>
             <button type="button" class="btn btn_01" disabled (click)="tempSave()">임시저장</button>
-          </li>
+          </li> -->
           <li>
             <button type="button" class="btn btn_01" [disabled]="getStatus(1)"
               (click)="savePathologyData()">1차저장</button>
@@ -1160,6 +1182,9 @@
           <li>
             <button type="button" class="btn btn_01" [disabled]="getStatus(3)" (click)="sendEMR()">EMR전송</button>
           </li>
+          <!-- <li>
+            <button type="button" class="btn btn_01" [disabled]="getStatus(4)">전송취소</button>
+          </li>          -->
         </ul>
       </div>
       <!--  ----------------     -->

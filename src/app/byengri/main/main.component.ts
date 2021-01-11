@@ -322,4 +322,41 @@ export class MainComponent implements OnInit, OnDestroy {
     return { table_bg: false };
   }
 
+  searchData(start: string, end: string, pathologynum: string, patient: string, saveStore = 'N'): void {
+    console.log('[326] [search]');
+    this.startday = start;
+    this.endday = end;
+    this.pathologyNo = pathologynum;
+    this.patientid = patient;
+    this.store.setWhichstate('searchscreen');
+    this.store.setSearchStartDay(start);
+    this.store.setSearchEndDay(end);
+    this.store.setPathologyNo(pathologynum);
+    this.store.setPatientID(patient);
+    if (saveStore === 'Y') {
+      this.store.setUseSearch('Y');
+    }
+
+
+    console.log('=== [341][검색조건저장]', this.startday, this.endday, this.pathologyNo, this.patientid);
+    this.lists = []; // 리스트 초기화
+    const startdate = start.toString().replace(/-/gi, '');
+    const enddate = end.toString().replace(/-/gi, '');
+    // console.log('[345][main][search]', startdate, enddate, patient, pathologynum);
+    if (patient !== undefined) {
+      patient = patient.trim();
+    }
+
+    if (pathologynum !== undefined) {
+      pathologynum = pathologynum.trim();
+    }
+    this.lists$ = this.pathologyService.search(startdate, enddate, patient, pathologynum);
+    this.subs.sink = this.lists$.subscribe((data) => {
+      // console.log('[197][병리검색]', data);
+      this.lists = data;
+      console.log('[357][MAIN][SEARCH][리스트]: ', this.lists);
+    });
+
+  }
+
 }

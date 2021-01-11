@@ -1,1 +1,12 @@
-<p>updategene works!</p>
+        <!--popup size = width: 300px;height: 180px;-->
+        <div class="container">
+          <div class="title">수정 유전자명</div>
+          <div class="content"  >
+              <label>{{genename}}</label>
+              <input type="text" class="input_01" placeholder="수정 유전자명"  #newgene>
+          </div>
+          <div class="btn-gp">
+              <button class="btn btn_bg" (click)="save(newgene.value)"><span>확인</span></button>
+              <button class="btn" (click)="cancel()"><span>취소</span></button>
+          </div>
+      </div>

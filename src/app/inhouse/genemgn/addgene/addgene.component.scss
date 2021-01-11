@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 30px;
+
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.input_01 {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.btn-gp {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btn-gp>button {
+  color: #666;
+  border: 1px solid #2196f3;
+  background-color: #fff;
+  font-size: 11px;
+  margin: 0 5px;
+}
+
+.btn-gp>button.btn-bg {
+  color: #fff;
+  border: 1px solid #2196f3;
+  background-color: #2196f3;
+  font-size: 11px;
+}
