@@ -23,18 +23,18 @@
                     <a routerLink="/diag" class="active nav-link" ><span
                       class="nav-text"></span></a>
                   </td>
-                  <!---->
             
                   <td class="menu03">
-                    <a routerLink="/diag/inhouse">
-                    <span class="nav-text"></span></a>
-                    <!-- <ul class="sub-menu">
-                      <li>Benigne</li>
-                      <li>Artifacrts</li>
-                      <li>Mutation</li>
-                      <li>Comments</li>
-                      <li>유전자관리</li>
-                    </ul> -->
+                    <a routerLink="/diag/inhouse/benign"><span class="nav-text"></span></a>
+                     
+                     <ul class="sub-menu"> 
+                      <li><span (click)="link('benign')">Benigne</span></li>
+                      <li><span (click)="link('artifacts')">Artifacrts</span></li>
+                      <li><span (click)="link('mutation')">Mutation</span></li>
+                      <li><span (click)="link('comments')">Comments</span></li>
+                      <li><span (click)="link('genemgn')">유전자관리</span></li>
+                    </ul>
+                     
                   </td>
 
                   <td class="menu04">
