@@ -43,8 +43,8 @@ export function makeBForm(
 	}
 
 	const today = formatDate(new Date());
-	examin = examin.slice(0, -2);
-	recheck = recheck.slice(0, -2);
+	// examin = examin.slice(0, -2);
+	// recheck = recheck.slice(0, -2);
 	///////////////////////////////////////////////
 	// 강제로 값넣기
 

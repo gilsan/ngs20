@@ -12,7 +12,10 @@ import { GenemgnComponent } from './genemgn/genemgn.component';
 import { AddgeneComponent } from './genemgn/addgene/addgene.component';
 import { UpdategeneComponent } from './genemgn/updategene/updategene.component';
 import { DeletegeneComponent } from './genemgn/deletegene/deletegene.component';
-import { MatDialogModule } from '@angular/material/dialog';
+// import { MatDialogModule } from '@angular/material/dialog';
+import { MgngeneComponent } from './mgngene/mgngene.component';
+import { MaterialModule } from '../material.module';
+// import { MaterialModule } from '../material.module';
 
 
 @NgModule({
@@ -26,12 +29,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     AddgeneComponent,
     UpdategeneComponent,
     DeletegeneComponent,
+    MgngeneComponent,
   ],
   imports: [
 
     CommonModule,
     InhouseRoutingModule,
-    MatDialogModule
+    MaterialModule
+
   ]
 })
 export class InhouseModule { }

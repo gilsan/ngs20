@@ -161,16 +161,57 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   initLoad(): void {
     // 검진부서원 리스트 스토어에서 가져옴.
     // this.lists = this.store.getDiagList();
-    this.utilsService.getDiagList().subscribe(data => {
-      data.forEach(list => {
-        if (list.part === 'D') {
+
+    const lists$ = this.utilsService.getDiagList()
+      .pipe(shareReplay());
+
+    lists$.pipe(
+      map(lists => lists.filter(list => list.part === 'D'))
+    ).subscribe(data => {
+      const len = data.length - 1;
+      data.forEach((list, index) => {
+        if (index === len) {
+          this.recheck = this.recheck + list.user_nm + ' M.D.';
+        } else {
           this.recheck = this.recheck + list.user_nm + ' M.D./';
-        } else if (list.part === 'T') {
+        }
+      });
+    });
+
+    lists$.pipe(
+      map(lists => lists.filter(list => list.part === 'T'))
+    ).subscribe(data => {
+      const len = data.length - 1;
+      data.forEach((list, index) => {
+        if (index === len) {
+          this.examin = this.examin + list.user_nm + ' M.T.';
+        } else {
           this.examin = this.examin + list.user_nm + ' M.T./';
         }
       });
     });
 
+    /*
+    .subscribe(data => {
+  const len = data.length - 1;
+  data.forEach((list, index) => {
+    if (index === len) {
+      if (list.part === 'D') {
+        this.recheck = this.recheck + list.user_nm + ' M.D';
+      } else if (list.part === 'T') {
+        this.examin = this.examin + list.user_nm + ' M.T';
+      }
+    } else {
+      if (list.part === 'D') {
+        this.recheck = this.recheck + list.user_nm + ' M.D./';
+      } else if (list.part === 'T') {
+        this.examin = this.examin + list.user_nm + ' M.T./';
+      }
+    }
+
+  });
+});
+*/
     this.form2TestedId = this.patientsListService.getTestedID();
 
     // 검사자 정보 가져오기

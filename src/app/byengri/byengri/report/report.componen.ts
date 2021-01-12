@@ -116,7 +116,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   noneMu = 'None';
   noneAm = 'None';
+<<<<<<< HEAD
   msgAm = `* Deletion의 경우 Note와 이미지 보고서를 참고해 주시기 바랍니다.`;
+=======
+  msgAm = `*Deletion의 경우 Note와 이미지 보고서를 참고해 주시기 바랍니다.`;
+>>>>>>> fb39b21932609716169e65b79b5a61eba3adbdd6
   noneFu = 'None';
   noneIMu = 'None';
   noneIAm = 'None';
@@ -787,15 +791,35 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
             const indexa = this.findGeneInfo(gene);
             const atier = this.findTier(gene);
-            console.log(' ####### [697][amplification] ', gene, indexa, atier);
+            const geneindexlist = this.findMultiGeneInfo(gene);
+            console.log(' ####### [790][amplification] ', gene, indexa, atier, type, geneindexlist);
             if (indexa !== -1) {
-              const cytoband = this.filteredOriginData[indexa].cytoband.split(')');
-              this.amplifications.push({
-                gene: this.filteredOriginData[indexa].gene,
-                region: cytoband[0] + ')',
-                copynumber: cytoband[1],
-                tier: atier
+              let cylen;
+              const cytobandlen = this.filteredOriginData[indexa].cytoband.length;
+              Array.from(geneindexlist, (num: number) => {
+                console.log('[][]', num);
+                cylen = this.filteredOriginData[num].cytoband.length;
+                if (cylen) {
+                  const cytoband = this.filteredOriginData[num].cytoband.split(')');
+                  this.amplifications.push({
+                    gene: this.filteredOriginData[num].gene,
+                    region: cytoband[0] + ')',
+                    copynumber: cytoband[1],
+                    tier: atier
+                  });
+                }
               });
+
+              console.log('[793][cytoband]', cytobandlen);
+              /*
+                const cytoband = this.filteredOriginData[indexa].cytoband.split(')');
+                this.amplifications.push({
+                  gene: this.filteredOriginData[indexa].gene,
+                  region: cytoband[0] + ')',
+                  copynumber: cytoband[1],
+                  tier: atier
+                });
+              */
             }
           } else if (type === 'fusion') {
             let oncomine;
@@ -1019,10 +1043,21 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     return idx;
   }
 
+  findMultiGeneInfo(gene: string): any {
+    const len = this.filteredOriginData.length;
+    const geneinfo = [];
+    for (let i = 0; i < len; i++) {
+      if (this.filteredOriginData[i].gene === gene) {
+        geneinfo.push(i);
+      }
+    }
+    return geneinfo;
+  }
+
   // tslint:disable-next-line:member-ordering
   private visitedGene = [];
   findFrequency(gene): string {
-    console.log('[1012]', this.visitedGene, gene);
+    // console.log('[1012]', this.visitedGene, gene);
     const ix = this.visitedGene.findIndex(name => name === gene);
     if (ix === -1) {
       const idx = this.clinical.findIndex(list => list.gene === gene);
@@ -1041,7 +1076,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   findBackFrequency(gene): string {
     // const idx = this.clinical.lastIndexOf(gene);
     const idx = this.clinical.reverse().findIndex(list => list.gene === gene);
-    console.log('[1027][findBackFrequency]' + idx);
+    // console.log('[1027][findBackFrequency]' + idx);
     if (idx === -1) {
       return 'none';
     }
@@ -1085,7 +1120,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     // }
     const per = percentage.replace('/\%/g', '');
     this.extraction.tumorcellpercentage = per;
-    console.log('******* [916][PERCENTAGE] ', this.extraction.tumorcellpercentage);
+    // console.log('******* [916][PERCENTAGE] ', this.extraction.tumorcellpercentage);
   }
   setOrgan(organ: string): void {
     // console.log('[672][setDNAandRNAextraction]', organ);
@@ -1097,12 +1132,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setDiagnosis(diagnosis: string): void {
-    console.log('[901][diagnosis]', diagnosis);
+    // console.log('[901][diagnosis]', diagnosis);
     this.extraction.diagnosis = diagnosis;
   }
   diagnosisFocus(): void {
     this.diagnosis.selectionStart += 30;
-    console.log('======= [diagnosi]', this.extraction.diagnosis);
+    // console.log('======= [diagnosi]', this.extraction.diagnosis);
   }
 
   convertFormData(): void {
@@ -1228,17 +1263,24 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('[1121][sendEMR 보낸결과]', data);
       // alert(data);
       alert('EMR로 전송했습니다.');
-      this.router.navigate(['/pathology']);
+      // this.router.navigate(['/pathology']);
     });
 
-    this.subs.sink = this.searchService.finishPathologyEMRScreen(this.patientInfo.pathology_num, userid)
+    this.searchService.resetscreenstatus(this.pathologyNum, '3')
       .subscribe(data => {
-        console.log('[1101][][finishPathologyEMRScreen]', data);
-        if (data.message === 'SUCCESS') {
-          // alert(data);
-          // this.router.navigate(['/pathology']);
-        }
+        this.patientInfo.screenstatus = '3';
+        this.screenstatus = '3';
+        console.log('[EMR 전송후 상태]', this.screenstatus);
       });
+
+    // this.subs.sink = this.searchService.finishPathologyEMRScreen(this.patientInfo.pathology_num, userid)
+    //   .subscribe(data => {
+    //     console.log('[1101][][finishPathologyEMRScreen]', data);
+    //     if (data.message === 'SUCCESS') {
+    //       // alert(data);
+    //       // this.router.navigate(['/pathology']);
+    //     }
+    //   });
 
   }
 
@@ -1429,9 +1471,9 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         alert('저장 했습니다.');
         this.store.setDBSaved(true);
 
-        this.searchService.resetscreenstatus(this.pathologyNum, '2')
+        this.searchService.resetscreenstatus(this.pathologyNum, '1')
           .subscribe(msg => {
-            this.screenstatus = '2';
+            this.screenstatus = '1';
             console.log('[]', msg.message);
           });
       }
@@ -1772,58 +1814,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     return now;
   }
 
-  /*
-    getStatus(index): boolean {
-      // console.log('[661][getStatus]', index, this.screenstatus);
-      if (index === 1) {
-        if (parseInt(this.screenstatus, 10) === 0) {
-          return false;
-        } else if (parseInt(this.screenstatus, 10) === 1) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 2) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 3) {
-          return true;
-        }
-  
-      } else if (index === 2) {
-        if (parseInt(this.screenstatus, 10) === 0) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 1) {
-          return false;
-        } else if (parseInt(this.screenstatus, 10) === 2) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 3) {
-          return true;
-        }
-      } else if (index === 3) {
-        if (parseInt(this.screenstatus, 10) === 0) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 1) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 2) {
-          return false;
-        } else if (parseInt(this.screenstatus, 10) === 3) {
-          return true;
-        }
-      } else if (index === 4) {
-        if (parseInt(this.screenstatus, 10) === 0) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 1) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 2) {
-          return true;
-        } else if (parseInt(this.screenstatus, 10) === 3) {
-          return false;
-        }
-      }
-  
-    }
-   */
   reset(): void {
 
-    this.searchService.resetscreenstatus(this.pathologyNum, '0')
+    this.searchService.resetscreenstatus(this.pathologyNum, '1')
       .subscribe(data => {
+        console.log('1786', data);
         if (data.message === 'SUCCESS') {
           this.mutationLists().clear();
           this.amplificationsLists().clear();
@@ -1854,66 +1849,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             tumortype: '',
             diagnosis: ''
           };
-          this.init(this.pathologyNum);
-          console.log(this.screenstatus);
+
+          this.searchService.resetscreenstatus(this.pathologyNum, '1')
+            .subscribe(data => {
+              this.init(this.pathologyNum);
+              this.patientInfo.screenstatus = '1';
+              this.screenstatus = '1';
+              console.log(this.screenstatus);
+            });
+
         }
       });
 
-    /*
-    this.patientsListService.resetscreenstatus(this.form2TestedId, '0')
-      .subscribe(data => {
-        console.log('reset:', data);
-        this.patientsListService.getScreenStatus(this.form2TestedId)
-          .subscribe(msg => {
-            this.screenstatus = msg.screenstatus;
-            // 초기화
-            const control = this.tablerowForm.get('tableRows') as FormArray;
-            control.clear();
-            // 코멘트 초기화
-            this.commentsRows().clear();
-            // 싱글 코멘트 초기화
-            this.singleCommentsRows().clear();
-            this.init(this.form2TestedId);
-
-          });
-      });
-      */
-  }
-
-  getStatus(index): boolean {
-    // console.log('[661][getStatus]', index, this.screenstatus);
-    if (index === 1) {
-      if (parseInt(this.screenstatus, 10) === 0) {
-        return false;
-      } else if (parseInt(this.screenstatus, 10) === 1) {
-        return true;
-      } else if (parseInt(this.screenstatus, 10) === 2) {
-        return true;
-      } else if (parseInt(this.screenstatus, 10) === 3) {
-        return true;
-      }
-
-    } else if (index === 2) {
-      if (parseInt(this.screenstatus, 10) === 0) {
-        return true;
-      } else if (parseInt(this.screenstatus, 10) === 1) {
-        return false;
-      } else if (parseInt(this.screenstatus, 10) === 4) {
-        return true;
-      } else if (parseInt(this.screenstatus, 10) === 3) {
-        return true;
-      }
-    } else if (index === 3) {
-      if (parseInt(this.screenstatus, 10) === 0) {
-        return true;
-      } else if (parseInt(this.screenstatus, 10) === 1) {
-        return true;
-      } else if (parseInt(this.screenstatus, 10) === 2) {
-        return false;
-      } else if (parseInt(this.screenstatus, 10) === 3) {
-        return true;
-      }
-    }
   }
 
   removeGeneCheck(gene: string, amion: string, nucleotide: string): number {
@@ -1931,8 +1878,55 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.extraction.msiscore = msiscore;
   }
   ///////////////////////////////////////////////////////////////////
+  check(): void {
+    this.init(this.pathologyNum);
+  }
 
+  printScreen(): void {
+    window.print();
+
+  }
+
+  getStatus(index): boolean {
+    // console.log('[661][getStatus]', index, this.screenstatus);
+
+    if (index === 1) {
+      if (parseInt(this.screenstatus, 10) === 0) {
+        return false;
+      } else if (parseInt(this.screenstatus, 10) === 1) {
+        return false;
+      } else if (parseInt(this.screenstatus, 10) === 3) {
+        return true;
+      }
+
+    } else if (index === 3) {
+      if (parseInt(this.screenstatus, 10) === 0) {
+        return false;
+      } else if (parseInt(this.screenstatus, 10) === 1) {
+        return false;
+      } else if (parseInt(this.screenstatus, 10) === 3) {
+        return true;
+      }
+    } else if (index === 4) {
+      if (parseInt(this.screenstatus, 10) === 0) {
+        return true;
+      } else if (parseInt(this.screenstatus, 10) === 1) {
+        return true;
+      } else if (parseInt(this.screenstatus, 10) === 3) {
+        return false;
+      }
+    }
+  }
   ////////////////////////////////////////////////////
+  statusControl(status: string): void {
+    this.searchService.resetscreenstatus(this.pathologyNum, status)
+      .subscribe(msg => {
+        this.screenstatus = status;
+        console.log('[상태변경]', msg.message, this.screenstatus);
+      });
+  }
+
+  //////////////////////////////////////////////////
 
 
 

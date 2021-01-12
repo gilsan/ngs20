@@ -125,11 +125,6 @@ export class PathologyService {
     return { progress: percentDone, files: [] };
   }
 
-  /// notement, specialment 등을 가져온다
-  public getPathmentList() {
-
-  }
-
 
 
   // 검사자 index
@@ -340,14 +335,14 @@ export class PathologyService {
   public setPrevalent(prevalent, pathologyNum: string): any {
     this.prevalent = prevalent;
     this.prevalent$.next(this.prevalent);
-    // console.log('[서비스][238][prevalent]', this.prevalent);
+    // console.log('[서비스][338][prevalent]', this.prevalent);
     return this.http.post(`${this.apiUrl}/prevalent/insert`, { pathologyNum, prevalent });
   }
 
   // prevalent2
   public setPrevalent2(prevalent, pathologyNum: string): any {
     this.prevalent = prevalent;
-    console.log('[서비스][238][prevalent]', this.prevalent);
+    console.log('[서비스][345][prevalent2 전송]', this.prevalent);
     return this.http.post(`${this.apiUrl}/prevalent/insert2`, { pathologyNum, prevalent });
   }
 

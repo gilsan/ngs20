@@ -102,7 +102,7 @@ export class UploadComponent implements OnInit {
   onDrop(event: any): void {
     event.preventDefault();
     event.stopPropagation();
-    console.log('[96][upload][onDrop] ', event);
+    // console.log('[96][upload][onDrop] ', event);
     const droppedFiles = event.dataTransfer.files;
     if (droppedFiles.length > 0) {
       this.onDroppedFile(droppedFiles);
@@ -117,7 +117,7 @@ export class UploadComponent implements OnInit {
     }
     this.pathologyNum = this.store.getPathologyNo();
     this.inputType = this.store.getType();
-    console.log('[110][upload][onDroppedFile][pathologyNum]', this.pathologyNum);
+    // console.log('[110][upload][onDroppedFile][pathologyNum]', this.pathologyNum);
     formData.append('pathologyNum', this.pathologyNum);
     formData.append('type', this.inputType);
     formData.append('fileType', this.fileType);
@@ -334,7 +334,7 @@ export class UploadComponent implements OnInit {
             }
           }
         });  // End of ForEach
-      console.log('==== [325][디비전송]' + '[clinically2]' + this.clinically2 + ' [prevalent2]' + this.prevalent2);
+      // console.log('==== [325][디비전송]' + '[clinically2]' + this.clinically2 + ' [prevalent2]' + this.prevalent2);
       // from(this.clinically)
       //   .pipe(
       //     map(clinicallydata => [clinicallydata]),

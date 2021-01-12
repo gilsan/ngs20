@@ -20,6 +20,7 @@ import { ManageStatisticsComponent } from './components/manage-statistics/manage
 import { ManageFunctionsComponent } from './components/manage-functions/manage-functions.component';
 import { DetailFunctionsComponent } from './components/detail-functions/detail-functions.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { MaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
     HomeRoutingModule,
     HttpClientModule,
     FormsModule,
+    MaterialModule
     //  ClarityModule
   ]
 })

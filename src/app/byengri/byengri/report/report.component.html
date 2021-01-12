@@ -310,7 +310,7 @@
         <br>
         <div class="sub_title_04">(2) Amplification: <span *ngIf="!iamplifications.length"
             class="sub_title_04">{{noneIAm}}</span>&nbsp;&nbsp;</div>
-        <div class="font_14 pd_l35 pd_b15">{{msgAm}}</div>    
+        <!-- <div class="font_14 pd_l35 pd_b15">{{msgAm}}</div>     -->
         <!-- <div class="font_14 pd_l35 pd_b15"> * Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
         <!-- ------------------------------   -->
 
@@ -1165,13 +1165,8 @@
       <!--  ---------------      -->
       <div class="foot_btn mg_t30 pd_b30 txt_c main_btn">
         <ul>
+
           <!-- <li>
-            <button type="button" class="btn btn_01" disabled>출력</button>
-          </li> -->
-          <!-- <li>
-            <button type="button" class="btn btn_01" disabled (click)="tempSave()">임시저장</button>
-          </li> -->
-          <li>
             <button type="button" class="btn btn_01" [disabled]="getStatus(1)"
               (click)="savePathologyData()">1차저장</button>
           </li>
@@ -1181,10 +1176,26 @@
           </li>
           <li>
             <button type="button" class="btn btn_01" [disabled]="getStatus(3)" (click)="sendEMR()">EMR전송</button>
-          </li>
+          </li> -->
+          <li>
+            <button type="button" class="btn btn_01" (click)="printScreen()">출력</button>
+          </li> 
+          <li>
+            <button type="button" class="btn btn_01"  [disabled]="getStatus(1)" (click)="tempSave()">저장</button>
+          </li>          
+      
+          <li>
+            <button type="button" class="btn btn_01" [disabled]="getStatus(3)" (click)="sendEMR()">EMR전송</button>
+          </li>            
+          <li>
+            <button type="button" class="btn btn_01" [disabled]="getStatus(4)" (click)="reset()">전송취소</button>
+          </li> 
           <!-- <li>
-            <button type="button" class="btn btn_01" [disabled]="getStatus(4)">전송취소</button>
-          </li>          -->
+            <button type="button" class="btn btn_01"  (click)="check()">회복</button>
+          </li>            
+          <li>
+            <input type="text" #hong (change)="statusControl(hong.value)" size="10" class="input_02" />
+          </li>         -->
         </ul>
       </div>
       <!--  ----------------     -->

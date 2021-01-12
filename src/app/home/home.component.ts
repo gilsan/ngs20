@@ -67,4 +67,11 @@ export class HomeComponent implements OnInit {
     console.log('home logout:', this.store.getSearchEndDay());
   }
 
+  link(url: string): void { 
+	let item = {
+        url : '/diag/'+url+'Component'
+    };
+    this.router.navigateByUrl(item.url); 		
+  }			
+	
 }
