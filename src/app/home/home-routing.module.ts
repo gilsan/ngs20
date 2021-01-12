@@ -11,6 +11,7 @@ import { ArtifactsComponent } from '../inhouse/artifacts/artifacts.component';
 import { MutationComponent } from '../inhouse/mutation/mutation.component';
 import { CommentsComponent } from '../inhouse/comments/comments.component';
 import { GenemgnComponent } from '../inhouse/genemgn/genemgn.component';
+import { MgngeneComponent } from '../inhouse/mgngene/mgngene.component';
 import { ManageFunctionsComponent } from './components/manage-functions/manage-functions.component';
 import { DetailFunctionsComponent } from './components/detail-functions/detail-functions.component';
 import { ManageStatisticsComponent } from './components/manage-statistics/manage-statistics.component';
@@ -32,14 +33,14 @@ const routes: Routes = [
       { path: 'jingum/:testcode', loadChildren: () => import('../forms/forms.module').then((m) => m.SaintFormsModule) },
       { path: 'inhouse', loadChildren: () => import('../inhouse/inhouse.module').then((m) => m.InhouseModule) },
       { path: 'benignComponent', component: BenignComponent },
-	  { path: 'artifactsComponent', component: ArtifactsComponent },
-	  { path: 'mutationComponent', component: MutationComponent },	
+      { path: 'artifactsComponent', component: ArtifactsComponent },
+      { path: 'mutationComponent', component: MutationComponent },
       { path: 'commentsComponent', component: CommentsComponent },
-	  { path: 'genemgnComponent', component: GenemgnComponent },
-	  { path: 'managestatistics', component: ManageStatisticsComponent },
+      { path: 'genemgnComponent', component: GenemgnComponent },
+      { path: 'managestatistics', component: ManageStatisticsComponent },
       { path: 'managefunctions', component: ManageFunctionsComponent },
       { path: 'detailfunctions', component: DetailFunctionsComponent },
-      { path: 'manageusers', component: ManageUsersComponent },
+      { path: 'manageusers', component: MgngeneComponent },
       { path: 'disease_test', component: DiseaseformComponent },
       { path: '**', component: MainscreenComponent },
 

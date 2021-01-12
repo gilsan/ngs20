@@ -1,77 +1,88 @@
-<div id="wrap1111">
-  <div id="container">
-    <div id="content">
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
-          <tr>
-              <td  class="mail_title">유전자관리</td>
-          </tr>
-        </table>
-      <div class="box mg_b20 pd_20">
-        <select class="select_01 select_001" #gene (change)="genelists(gene.value)">
-          <option value="AML">AML</option>
-          <option value="ALL">ALL</option>
-          <option value="LYM">Lymphoma</option>
-          <option value="MDS">MDS/MPN</option>
-        </select>&nbsp;&nbsp;
-        <input type="text" class="input_01" placeholder=""/>
-        <button type="button" class="btn btn_02" style="margin-left: 10px;">조회</button>
-      </div>
-      <div class="total">
-        <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
-            <tr>
-                <td class="main_btn">  
-                    <ul>
-                        <li>
-                            <button type="button" class="btn btn_01"
-                             (click)="addOpenDialog()" >추가</button>
-                        </li>
-                        <li>
-                          <button type="button" class="btn btn_01"
-                          (click)="updateOpenDialog()">수정</button>
-                      </li>
-                      <li>
-                        <button type="button" class="btn btn_01"
-                        (click)="deleteOpenDialog()">삭제</button>
-                    </li>
-                    </ul> 
-                </td>
-            </tr>
-        </table>
-      </div>
-      <div class="box">
-        <div class="box_100">
-        <table border="0" cellpadding="0" cellspacing="0" class="table_list  fixed_header table_resul_x">
-          <colgroup>
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-            <col width="10%">
-          </colgroup>
- 
-          <div></div>
-          <tbody>
-            <tr  *ngFor="let list of lists; let i =index;">
-              <td class="txt_c" (click)="genename(list.g0, i)">{{list.g0}}</td>
-              <td class="txt_c" (click)="genename(list.g1, i)">{{list.g1}}</td>
-              <td class="txt_c" (click)="genename(list.g2, i)">{{list.g2}}</td>
-              <td class="txt_c" (click)="genename(list.g3, i)">{{list.g3}}</td>
-              <td class="txt_c" (click)="genename(list.g4, i)">{{list.g4}}</td>
-              <td class="txt_c" (click)="genename(list.g5, i)">{{list.g5}}</td>
-              <td class="txt_c" (click)="genename(list.g6, i)">{{list.g6}}</td>
-              <td class="txt_c" (click)="genename(list.g7, i)">{{list.g7}}</td>
-              <td class="txt_c" (click)="genename(list.g8, i)">{{list.g8}}</td>
-              <td class="txt_c" (click)="genename(list.g9, i)">{{list.g9}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
+ <div id="wrap1111">
+   <div id="container">
+     <div id="content">
+       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+         <tr>
+           <td class="mail_title">유전자관리</td>
+         </tr>
+       </table>
+       <div class="box mg_b20 pd_20">
+         <select class="select_01 select_001" #gene (change)="genelists(gene.value)">
+           <option value="AML">AML</option>
+           <option value="ALL">ALL</option>
+           <option value="LYM">Lymphoma</option>
+           <option value="MDS">MDS/MPN</option>
+         </select>&nbsp;&nbsp;
+         <input type="text" class="input_01" placeholder="" />
+         <button type="button" class="btn btn_02" style="margin-left: 10px;">조회</button>
+       </div>
+       <div class="total">
+         <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+           <tr>
+             <td class="main_btn">
+               <ul>
+                 <li>
+                   <button type="button" class="btn btn_01" (click)="addOpenDialog()">추가</button>
+                 </li>
+                 <li>
+                   <button type="button" class="btn btn_01" (click)="updateOpenDialog()">수정</button>
+                 </li>
+                 <li>
+                   <button type="button" class="btn btn_01" (click)="deleteOpenDialog()">삭제</button>
+                 </li>
+               </ul>
+             </td>
+           </tr>
+         </table>
+       </div>
+       <div class="box">
+         <div class="box_100">
+           <table border="0" cellpadding="0" cellspacing="0" class="table_list  fixed_header table_resul_x">
+             <colgroup>
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+               <col width="10%">
+             </colgroup>
+
+             <div></div>
+             <tbody>
+               <tr *ngFor="let list2 of lists2; let i =index;">
+                 <td class="txt_c" (click)="genename(cell, i, j)" *ngFor="let cell of list2; let j = index">{{cell}}
+                 </td>
+               </tr>
+             </tbody>
+           </table>
+         </div>
+       </div>
+
+       <div>
+         <table class="table table-bordered">
+           <thead>
+             <tr>
+               <th *ngFor="let weekday of weekdays">
+                 <div>{{weekday}}</div>
+               </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr scope="row" *ngFor="let time of times">
+               <td>{{time}}</td>
+               <th *ngFor="let weekday of weekdaysForClick" (click)="onClick(weekday, time)" [ngClass]="'active'"
+                 [class.selected]="selected === weekday"></th>
+             </tr>
+           </tbody>
+         </table>
+
+
+       </div>
+
+     </div>
+   </div>
+ </div>

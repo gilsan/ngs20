@@ -8,18 +8,6 @@ import { AddgeneComponent } from './addgene/addgene.component';
 import { UpdategeneComponent } from './updategene/updategene.component';
 import { DeletegeneComponent } from './deletegene/deletegene.component';
 
-export interface IGENE {
-  g0: string;
-  g1: string;
-  g2: string;
-  g3: string;
-  g4: string;
-  g5: string;
-  g6: string;
-  g7: string;
-  g8: string;
-  g9: string;
-}
 
 export interface IGTYPE {
   gene: string;
@@ -32,16 +20,16 @@ export interface IGTYPE {
 })
 export class GenemgnComponent implements OnInit {
 
-  AML: IGENE[];
-  ALL: IGENE[];
-  LYM: IGENE[];
-  MDS: IGENE[];
-  lists: IGENE[];
-  AML2 = [[10]];
-  ALL2 = [[10]];
-  LYM2 = [[10]];
-  MDS2 = [[10]];
-  lists2 = [[10]];
+  weekdays: string[] = ['#', 'Monday', 'Thusday', 'Wednesday', 'Thursday', 'Friday']
+  times: string[] = ['8:30 - 9:15', '9:15 - 10:00', '10:15 - 11:00', '11:00 - 11:45', '12:30 - 13:15', '13:15 - 14:00', '14:15 - 15:00']
+  weekdaysForClick: string[] = ['Monday', 'Thusday', 'Wednesday', 'Thursday', 'Friday'];
+  wasClicked = false;
+
+  AML2 = [][10];
+  ALL2 = [][10];
+  LYM2 = [][10];
+  MDS2 = [][10];
+  lists2 = [][10];
 
   genetype = 'AML';
   selectedgene: string;
@@ -64,31 +52,26 @@ export class GenemgnComponent implements OnInit {
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'AML')),
     ).subscribe(data => {
-      this.AML = this.makegenelist(data);
-      this.lists = this.AML;
-      this.AML2 = this.makegenelist2(data);
+      this.AML2 = this.makegenelist(data);
       this.lists2 = this.AML2;
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'ALL')),
     ).subscribe(data => {
-      this.ALL = this.makegenelist(data);
-      this.ALL2 = this.makegenelist2(data);
+      this.ALL2 = this.makegenelist(data);
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'LYM')),
     ).subscribe(data => {
-      this.LYM = this.makegenelist(data);
-      this.LYM2 = this.makegenelist2(data);
+      this.LYM2 = this.makegenelist(data);
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'MDS')),
     ).subscribe(data => {
-      this.MDS = this.makegenelist(data);
-      this.MDS2 = this.makegenelist2(data);
+      this.MDS2 = this.makegenelist(data);
     });
 
   }
@@ -96,152 +79,82 @@ export class GenemgnComponent implements OnInit {
 
   genelists(type: string): void {
     if (type === 'ALL') {
-      this.lists = this.ALL;
       this.genetype = 'ALL';
       this.lists2 = this.ALL2;
     } else if (type === 'AML') {
-      this.lists = this.AML;
       this.genetype = 'AML';
       this.lists2 = this.AML2;
     } else if (type === 'LYM') {
-      this.lists = this.LYM;
       this.genetype = 'LYM';
       this.lists2 = this.LYM2;
     } else if (type === 'MDS') {
-      this.lists = this.MDS;
       this.genetype = 'MDS';
       this.lists2 = this.MDS2;
     }
   }
 
-  makegenelist(lists: IGTYPE[]): IGENE[] {
+  makegenelist(lists: IGTYPE[]): any {
     let len: number;
-    const genelists: IGENE[] = [];
-    let genelist: IGENE = {
-      g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: ''
-    };
-    const listgenes: [string[]] = [[]];
-    let listgene: string[] = [];
+    const listgenes = [[]];
+    let listgene = [];
     len = lists.length - 1;
     for (let index = 0; index < lists.length; index++) {
       const i = index % 10;
       if (i === 0) {
         listgene[i] = lists[index].gene;
-        genelist.g0 = lists[index].gene;
       } else if (i === 1) {
         listgene[i] = lists[index].gene;
-        genelist.g1 = lists[index].gene;
       } else if (i === 2) {
         listgene[i] = lists[index].gene;
-        genelist.g2 = lists[index].gene;
+
       } else if (i === 3) {
         listgene[i] = lists[index].gene;
-        genelist.g3 = lists[index].gene;
       } else if (i === 4) {
         listgene[i] = lists[index].gene;
-        genelist.g4 = lists[index].gene;
       } else if (i === 5) {
         listgene[i] = lists[index].gene;
-        genelist.g5 = lists[index].gene;
       } else if (i === 6) {
         listgene[i] = lists[index].gene;
-        genelist.g6 = lists[index].gene;
       } else if (i === 7) {
         listgene[i] = lists[index].gene;
-        listgene[i] = lists[index].gene;
-        genelist.g7 = lists[index].gene;
       } else if (i === 8) {
         listgene[i] = lists[index].gene;
-        listgene[i] = lists[index].gene;
-        genelist.g8 = lists[index].gene;
       } else if (i === 9) {
         listgene[i] = lists[index].gene;
-        listgene[i] = lists[index].gene;
-        genelist.g9 = lists[index].gene;
       }
 
       if (i === 9) {
-        genelists.push(genelist);
         listgenes.push(listgene);
-        genelist = { g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: '' };
         listgene = [];
       } else if (len === index) {
-        genelists.push(genelist);
         listgenes.push(listgene);
       }
     } // End of for loop
-    console.log(listgenes);
-    return genelists;
-    // return listgenes;
-  }
-
-  makegenelist2(lists: IGTYPE[]): any {
-    let len: number;
-    const genelists: IGENE[] = [];
-    let genelist: IGENE = {
-      g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: ''
-    };
-    const listgenes: [string[]] = [[]];
-    let listgene: string[] = [];
-    len = lists.length - 1;
-    for (let index = 0; index < lists.length; index++) {
-      const i = index % 10;
-      if (i === 0) {
-        listgene[i] = lists[index].gene;
-        genelist.g0 = lists[index].gene;
-      } else if (i === 1) {
-        listgene[i] = lists[index].gene;
-        genelist.g1 = lists[index].gene;
-      } else if (i === 2) {
-        listgene[i] = lists[index].gene;
-        genelist.g2 = lists[index].gene;
-      } else if (i === 3) {
-        listgene[i] = lists[index].gene;
-        genelist.g3 = lists[index].gene;
-      } else if (i === 4) {
-        listgene[i] = lists[index].gene;
-        genelist.g4 = lists[index].gene;
-      } else if (i === 5) {
-        listgene[i] = lists[index].gene;
-        genelist.g5 = lists[index].gene;
-      } else if (i === 6) {
-        listgene[i] = lists[index].gene;
-        genelist.g6 = lists[index].gene;
-      } else if (i === 7) {
-        listgene[i] = lists[index].gene;
-        listgene[i] = lists[index].gene;
-        genelist.g7 = lists[index].gene;
-      } else if (i === 8) {
-        listgene[i] = lists[index].gene;
-        listgene[i] = lists[index].gene;
-        genelist.g8 = lists[index].gene;
-      } else if (i === 9) {
-        listgene[i] = lists[index].gene;
-        listgene[i] = lists[index].gene;
-        genelist.g9 = lists[index].gene;
-      }
-
-      if (i === 9) {
-        genelists.push(genelist);
-        listgenes.push(listgene);
-        genelist = { g0: '', g1: '', g2: '', g3: '', g4: '', g5: '', g6: '', g7: '', g8: '', g9: '' };
-        listgene = [];
-      } else if (len === index) {
-        genelists.push(genelist);
-        listgenes.push(listgene);
-      }
-    } // End of for loop
-    console.log(listgenes);
-    // return genelists;
     return listgenes;
   }
 
 
 
-  genename(gene: string, i: number): void {
+  genename(gene: string, i: number, j: number): void {
+
     this.selectedgene = gene;
-    console.log(this.genetype, gene, i);
+    console.log(this.genetype, gene, i, j);
   }
+
+  mystyle(i: number, j: number): any {
+    let len;
+    if (this.genetype === 'ALL') {
+      len = this.ALL2.length;
+    } else if (this.genetype === 'AML') {
+      len = this.AML2.length;
+    } else if (this.genetype === 'LYM') {
+      len = this.LYM2.length;
+    } else if (this.genetype === 'MDS') {
+      len = this.MDS2.length;
+    }
+
+  }
+
 
   addOpenDialog(): void {
     const addDialogRef = this.dialog.open(AddgeneComponent, {
@@ -277,6 +190,19 @@ export class GenemgnComponent implements OnInit {
       val => console.log('Delete Dialog output:', val)
     );
   }
+
+  // tslint:disable-next-line:member-ordering
+  selected: '';
+  onClick(weekday, time): void {
+    console.log(this.selected, weekday);
+    if (this.selected === weekday) {
+      this.selected = '';
+    } else {
+      this.selected = weekday;
+    }
+  }
+
+
 
 }
 
