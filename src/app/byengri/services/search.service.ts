@@ -37,6 +37,8 @@ export class SearchService {
     return this.http.post(`${this.apiUrl}/pathmentlist/list`, { pathologyNum: pathologyNo });
   }
 
+
+
   // mutation_c 찿기
   getMutationC(pathologyNo: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/pathologyReportSearch/mutationC`, { pathologyNum: pathologyNo });
