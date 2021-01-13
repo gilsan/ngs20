@@ -97,6 +97,11 @@ export class PathologyService {
     );
   }
 
+  // 검체번호로 환자 찿기
+  findPatientinfo(pathologyNum: string): Observable<IPatient> {
+    return this.http.post<IPatient>(`${this.apiUrl}/patients_path/patient`, { pathologyNum });
+  }
+
   // 파일 업로드
   // tslint:disable-next-line: typedef
   fileUpload(formData: any) {

@@ -54,7 +54,8 @@
              <div></div>
              <tbody>
                <tr *ngFor="let list2 of lists2; let i =index;">
-                 <td class="txt_c" (click)="genename(cell, i, j)" *ngFor="let cell of list2; let j = index">{{cell}}
+                 <td class="txt_c" (click)="genename(cell, i, j)"
+                  *ngFor="let cell of list2; let j = index">{{cell}}
                  </td>
                </tr>
              </tbody>

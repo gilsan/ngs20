@@ -60,6 +60,14 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     gender: '',
     pathologyNum: ''
   };
+
+  basicInfoEMR: IBasicInfo = {
+    name: '',
+    registerNum: '',
+    gender: '',
+    pathologyNum: ''
+  };
+
   dnanrna: string; // DNA and RNA extraction
   organ: string; // Organ
 
@@ -76,6 +84,19 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     tumorburden: '',
   };
 
+  extractionEMR: IExtraction = {
+    dnarna: '',
+    managementNum: '',
+    keyblock: '',
+    tumorcellpercentage: '',
+    organ: '',
+    tumortype: '',
+    diagnosis: '',
+    msiscore: '',
+    tumorburden: '',
+  };
+
+
   mutation: IMutation[] = []; // 0: "ERBB2 p.(I655V) c.1963A>G" 양식으로 된것
   amplifications: IAmplification[] = [];
   fusion: IFusion[] = [];
@@ -83,22 +104,34 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   iamplifications: IIAmplification[] = [];
   ifusion: IFusion[] = [];
 
+  mutationEMR: IMutation[] = []; // 0: "ERBB2 p.(I655V) c.1963A>G" 양식으로 된것
+  amplificationsEMR: IAmplification[] = [];
+  fusionEMR: IFusion[] = [];
+  imutationEMR: IMutation[] = [];
+  iamplificationsEMR: IIAmplification[] = [];
+  ifusionEMR: IFusion[] = [];
+
   tumorMutationalBurden = '';
   msiScore = '';
   tumorcellpercentage: string;
+
+  tumorMutationalBurdenEMR: string;
+  msiScoreEMR: string;
+  tumorcellpercentageEMR: string;
 
   examedno = 'none';  // 기사 ID
   examedname = 'none'; // 기사 이름
   checkeredno = 'none'; // 의사 ID
   checkername = 'none'; // 의사 이름
+  examednoEMR: string;  // 기사 ID
+  examednameEMR: string; // 기사 이름
+  checkerednoEMR: string; // 의사 ID
+  checkernameEMR: string; // 의사 이름
+
   examin: string; // 검사자
   examinSeq: number;
 
-  // examTeam0 = true;
-  // examTeam1 = false;
-  // examTeam2 = false;
-  // examTeam3 = false;
-  // examTeam4 = false;
+
 
   recheck: string; // 확인자
   // recheckSeq: number;
@@ -109,11 +142,14 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   generalReport = ``;  // 해석적 보고
   specialment = ``; // genes were not found
   notement = `[NOTE1]
-본 검체에서 추출 된 RNA는 일부 QC를 만족하지 못하여 51개의 유전자(AKT2, ALK, AR, AXL, BRCA1, BRCA2, BRAF, CDKN2A, EGFR, ERBB2, ERBB4, ERG, ESR1, ETV1, ETV4, ETV5, FGFR1, FGFR2, FGFR3, FGR, FLT3, JAK2, KRAS, MDM4, MET, MYB, MYBL1, NF1, NOTCH1, NOTCH4, NRG1, NTRK1, NTRK2, NTRK3, NUTM1, PDGFRA, PDGFRB, PIK3CA, PRKACA, PRKACB, PTEN, PPARG, RAD51B, RAF1, RB1, RELA, RET, ROS1, RSPO2, RSPO3, TERT)에 대한 fusion은 확인 할 수 없었습니다. 결과에 참고하시기 바랍니다. 
+본 검체에서 추출 된 RNA는 일부 QC를 만족하지 못하여 51개의 유전자(AKT2, ALK, AR, AXL, BRCA1, BRCA2, BRAF, CDKN2A, EGFR, ERBB2, ERBB4, ERG, ESR1, ETV1, ETV4, ETV5, FGFR1, FGFR2, FGFR3, FGR, FLT3, JAK2, KRAS, MDM4, MET, MYB, MYBL1, NF1, NOTCH1, NOTCH4, NRG1, NTRK1, NTRK2, NTRK3, NUTM1, PDGFRA, PDGFRB, PIK3CA, PRKACA, PRKACB, PTEN, PPARG, RAD51B, RAF1, RB1, RELA, RET, ROS1, RSPO2, RSPO3, TERT)에 대한 fusion은 확인 할 수 없었습니다. 결과에 참고하시기 바랍니다.
 
 [NOTE2]
 종양세포밀도가 50% 미만(XX%)의 검체에서 얻어진 결과이므로, amplification 해석에 주의가 필요합니다.`; // note
 
+  generalReportEMR: string;
+  specialmentEMR: string;
+  notementEMR: string;
   noneMu = 'None';
   noneAm = 'None';
 
@@ -342,6 +378,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
+
+
   getDataFromDB(info: IPatient): void {
     const pathologyNo = info.pathology_num;
     console.log('[272][report][ getDataFromDB][] ', pathologyNo);
@@ -440,7 +478,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               readcount: item.readcount,
               functions: item.fusion_function,
               tier: item.tier
-            }, index);
+            });
 
             this.fusionLists().push(this.createFusion({
               gene: item.gene,
@@ -474,7 +512,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               variantAlleleFrequency: item.variant_allele_frequency,
               ID: item.variant_id,
               tier: item.tier
-            }, index);
+            });
             this.imutationLists().push(this.createIMutaion({
               gene: item.gene,
               aminoAcidChange: item.amino_acid_change,
@@ -508,7 +546,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               region: item.region,
               copynumber: item.estimated_copy_num,
               note: item.note
-            }, index);
+            });
 
             this.iamplificationsLists().push(this.createIAmplifications({
               gene: item.gene,
@@ -1225,7 +1263,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[1065][SER]', this.basicInfo);
     console.log('[1066][SER]', this.extraction, this.mutation, this.amplifications,
       this.fusion, this.imutation, this.iamplifications, this.ifusion);
-
+    /////////////
     const form = makeReport(
       this.examedno,    // 검사자 번호
       this.examedname,  // 검사자 이름
@@ -1279,6 +1317,266 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     //       // this.router.navigate(['/pathology']);
     //     }
     //   });
+
+  }
+
+  makeEMRBase(): void {
+    const patient$ = this.pathologyService.findPatientinfo(this.pathologyNum);
+    patient$.subscribe(patientInfoEMR => {
+      console.log('[1326][makeEMRBase] ', patientInfoEMR);
+      this.tumorMutationalBurdenEMR = patientInfoEMR.tumorburden;
+      this.msiScoreEMR = patientInfoEMR.msiscore;
+      this.extractionEMR.dnarna = 'FFPE tissue';
+      this.extractionEMR.managementNum = patientInfoEMR.rel_pathology_num;
+
+      if (patientInfoEMR.key_block === undefined || patientInfoEMR.key_block === null) {
+        this.extractionEMR.keyblock = '';
+      } else if (patientInfoEMR.key_block.length > 0) {
+        this.extractionEMR.keyblock = patientInfoEMR.key_block;
+      } else {
+        this.extractionEMR.keyblock = '';
+      }
+
+      if (patientInfoEMR.tumor_cell_per === undefined || patientInfoEMR.tumor_cell_per === null) {
+        this.extractionEMR.tumorcellpercentage = '';
+      } else {
+        this.extractionEMR.tumorcellpercentage = patientInfoEMR.tumor_cell_per; // 공백 없앰
+      }
+
+      if (this.extractionEMR.organ === undefined || this.extractionEMR.organ === null) {
+        this.extractionEMR.organ = '';
+      } else {
+        this.extractionEMR.organ = patientInfoEMR.organ;
+      }
+
+      if (this.extractionEMR.tumortype === undefined || this.extractionEMR.tumortype === null) {
+        this.extractionEMR.tumortype = '';
+      } else {
+        this.extractionEMR.tumortype = patientInfoEMR.tumor_type;
+      }
+
+      if (patientInfoEMR.pathological_dx === undefined || patientInfoEMR.pathological_dx === null) {
+        this.extractionEMR.diagnosis = '';
+      } else {
+        this.extractionEMR.diagnosis = patientInfoEMR.pathological_dx;
+      }
+
+      this.extractionEMR.tumorburden = patientInfoEMR.tumorburden;
+      this.extractionEMR.msiscore = patientInfoEMR.msiscore;
+      // 검체 검사자,확인자
+      const exam = patientInfoEMR.examin.split('_');  // 기사
+      this.examednoEMR = exam[0];
+      this.examednameEMR = exam[1];
+
+      const reck = patientInfoEMR.recheck.split('_'); // 의사
+      this.checkerednoEMR = reck[0];
+      this.checkernameEMR = reck[1];
+
+      this.basicInfoEMR.name = patientInfoEMR.name;
+      this.basicInfoEMR.registerNum = patientInfoEMR.patientID;
+      this.basicInfoEMR.gender = patientInfoEMR.gender;
+      this.basicInfoEMR.pathologyNum = patientInfoEMR.pathology_num;
+      this.basicInfoEMR.age = patientInfoEMR.age;
+      this.makeEMRData(patientInfoEMR);
+    });
+  }
+
+  makeEMRData(info: IPatient): void {
+    const pathologyNo = info.pathology_num;
+
+    const ment$ = this.searchService.getPathmentlist(pathologyNo);
+    const mutationc$ = this.searchService.getMutationC(pathologyNo);
+    const amplificationc$ = this.searchService.getAmplificationC(pathologyNo);
+    const fusionc$ = this.searchService.getFusionC(pathologyNo);
+    const mutationp$ = this.searchService.getMutationP(pathologyNo);
+    const amplificationp$ = this.searchService.getAmplificationP(pathologyNo);
+    const fusionp$ = this.searchService.getFusionP(pathologyNo);
+
+    combineLatest([ment$, mutationc$, amplificationc$,
+      fusionc$, mutationp$, amplificationp$, fusionp$])
+      .subscribe(([ment, mutationc, amplificationc, fusionc,
+        mutationp, amplificationp, fusionp]) => {
+
+        if (ment.message !== 'no data') {
+          this.generalReportEMR = ment[0].generalReport;
+          this.specialmentEMR = ment[0].specialment;
+          this.notementEMR = ment[0].notement;
+        } else {
+          this.generalReportEMR = '';
+          this.specialmentEMR = '';
+          this.notementEMR = '';
+        }
+
+        if (mutationc.message !== 'no data') {
+          let tempmu;
+          if (mutationc.length > 1) {
+            tempmu = mutationc.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempmu = mutationc;
+          }
+          tempmu.forEach((item, index) => {
+            this.mutationEMR.push({
+              gene: item.gene,
+              aminoAcidChange: item.amino_acid_change,
+              nucleotideChange: item.nucleotide_change,
+              variantAlleleFrequency: item.variant_allele_frequency,
+              ID: item.variant_id,
+              tier: item.tier,
+              seq: index
+            });
+          });
+        } else {
+          this.mutationEMR = [];
+        }
+
+        if (amplificationc.message !== 'no data') {
+          let tempam;
+          if (amplificationc.length > 1) {
+            tempam = amplificationc.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempam = amplificationc;
+          }
+          tempam.forEach((item, index) => {
+            this.amplificationsEMR.push({
+              gene: item.gene,
+              region: item.region,
+              copynumber: item.estimated_copy_num,
+              tier: item.tier,
+              seq: index
+            });
+          });
+        } else {
+          this.amplificationsEMR = [];
+        }
+
+        if (fusionc.message !== 'no data') {
+          let tempfu;
+          if (fusionc.length > 1) {
+            tempfu = fusionc.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempfu = fusionc;
+          }
+          tempfu.forEach((item, index) => {
+            this.fusionEMR.push({
+              gene: item.gene,
+              breakpoint: item.fusion_breakpoint,
+              readcount: item.readcount,
+              functions: item.fusion_function,
+              tier: item.tier
+            });
+          });
+        } else {
+          this.fusionEMR = [];
+        }
+
+        if (mutationp.message !== 'no data') {
+          let tempimu;
+          if (mutationp.length > 1) {
+            tempimu = mutationp.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempimu = mutationp;
+          }
+          tempimu.forEach((item, index) => {
+            this.imutationEMR.push({
+              gene: item.gene,
+              aminoAcidChange: item.amino_acid_change,
+              nucleotideChange: item.nucleotide_change,
+              variantAlleleFrequency: item.variant_allele_frequency,
+              ID: item.variant_id,
+              tier: item.tier
+            });
+          });
+        } else {
+          this.imutationEMR = [];
+        }
+
+        if (amplificationp.message !== 'no data') {
+          let tempiam;
+          if (amplificationp.length > 1) {
+            tempiam = amplificationp.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempiam = amplificationp;
+          }
+          tempiam.forEach((item, index) => {
+            this.iamplificationsEMR.push({
+              gene: item.gene,
+              region: item.region,
+              copynumber: item.estimated_copy_num,
+              note: item.note
+            });
+          });
+        } else {
+          this.iamplificationsEMR = [];
+        }
+
+        if (fusionp.message !== 'no data') {
+          let tempifu;
+          if (fusionp.length > 1) {
+            tempifu = fusionp.sort((a, b) => {
+              return parseInt(a.seq, 10) - parseInt(b.seq, 10);
+            });
+          } else {
+            tempifu = fusionp;
+          }
+          tempifu.forEach((item, index) => {
+            this.ifusion.push({
+              gene: item.gene,
+              breakpoint: item.fusion_breakpoint,
+              functions: item.fusion_function,
+              tier: item.tier
+            });
+          });
+        } else {
+          this.ifusionEMR = [];
+        }
+
+        this.toEMR();
+      }); // End of combineLatest
+
+  }
+
+  toEMR(): void {
+    console.log('[EMR 검사자/확인자]', this.examednoEMR, this.examednameEMR, this.checkerednoEMR, this.checkernameEMR);
+    console.log('[EMR 환자정보]', this.basicInfoEMR, this.extractionEMR);
+    console.log('[EMR 검사내용]', this.mutationEMR, this.amplificationsEMR, this.fusionEMR);
+    console.log('[EMR 검사내용]', this.imutationEMR, this.iamplificationsEMR, this.ifusionEMR);
+    console.log('[EMR tumor/msi]', this.tumorMutationalBurdenEMR, this.msiScoreEMR);
+    console.log('[EMR 멘트]', this.generalReportEMR, this.specialmentEMR, this.notementEMR);
+    const form = makeReport(
+      this.examednoEMR,    // 검사자 번호
+      this.examednameEMR,  // 검사자 이름
+      this.checkerednoEMR, // 확인자 번호
+      this.checkernameEMR, // 확인자 이름
+      '', '',
+      this.basicInfoEMR, this.extractionEMR,
+      this.mutationEMR, this.amplificationsEMR, this.fusionEMR,
+      this.imutationEMR, this.iamplificationsEMR, this.ifusionEMR,
+      this.tumorMutationalBurdenEMR, this.msiScoreEMR,
+      this.generalReportEMR, this.specialmentEMR, this.notementEMR
+    );
+    console.log(form);
+    // NU로 데이터 전송
+    this.pathologyService.sendEMR(this.patientInfo, form).subscribe(data => {
+      console.log('[1566][sendEMR 보낸결과]', data);
+      alert('EMR로 전송했습니다.');
+    });
+
+    this.searchService.resetscreenstatus(this.pathologyNum, '3')
+      .subscribe(data => {
+        this.patientInfo.screenstatus = '3';
+        this.screenstatus = '3';
+        console.log('[EMR 전송후 상태]', this.screenstatus);
+      });
 
   }
 
