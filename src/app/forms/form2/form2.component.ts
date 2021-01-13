@@ -267,14 +267,16 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       console.log('[204][form2][detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // detected variant 저장
       this.recoverVariants.forEach(item => {
+        console.log('[270][recoverDetected]', item.functional_impact);
         this.recoverVariant(item);  // 354
         if (item.functional_impact === 'VUS') {
           this.vusstatus = true;
           this.store.setVUSStatus(this.vusstatus);
-        } else {
-          this.store.setVUSStatus(this.vusstatus);
-          this.vusstatus = false;
         }
+        // } else {
+        //   this.store.setVUSStatus(this.vusstatus);
+        //   this.vusstatus = false;
+        // }
       });
       this.putCheckboxInit(); // 체크박스 초기화
     });
@@ -385,9 +387,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             if (dvariable.functional_impact === 'VUS') {
               this.vusstatus = true;
               this.store.setVUSStatus(this.vusstatus); // VUS 상태정보 저장
-            } else {
-              this.store.setVUSStatus(this.vusstatus);
             }
+            // } else {
+            //   this.store.setVUSStatus(this.vusstatus);
+            // }
 
           }
 
@@ -499,16 +502,16 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // VUS 검사
-  checkVue(): boolean {
+  // checkVue(): boolean {
 
-    const idx = this.tsvLists.findIndex(item => item.loc1 === 'VUS');
-    // console.log('[306][checkVue]', this.tsvLists, idx);
-    if (idx === -1) {
-      this.ment = '';
-      return false;
-    }
-    return true;
-  }
+  //   const idx = this.tsvLists.findIndex(item => item.loc1 === 'VUS');
+
+  //   if (idx === -1) {
+  //     this.ment = '';
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   // tslint:disable-next-line:typedef
   result(event) {
@@ -549,7 +552,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         nucleotideChange: coding,
         aminoAcidChange: tsv.amino_acid_change,
         // zygosity: item.zygosity,
-        zygosity: 'heterozygous',
+        zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: item.reference,
         cosmicID: item.cosmic_id,
@@ -1027,6 +1030,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.comments = [];
     }
 
+    if (this.vusstatus === false) {
+      this.vusmsg = '';
+    }
+
     console.log('[904][form2][comments] ', this.comments);
     const makeForm = makeBForm(
       this.resultStatus,
@@ -1036,7 +1043,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.accept_date, // 검사의뢰일
       this.specimenMessage,
       this.fusion,
-      this.ment,
+      this.vusmsg,    // this.ment,
       this.patientInfo,
       reformData,
       this.comments,
@@ -1089,6 +1096,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const formData = control.getRawValue();
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
 
+    if (this.vusstatus === false) {
+      this.vusmsg = '';
+    }
     console.log('[904][form2][comments] ', this.comments);
     const makeForm = makeAForm(
       this.resultStatus,
@@ -1098,7 +1108,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.accept_date, // 검사의뢰일
       this.specimenMessage,
       this.fusion,
-      this.ment,
+      this.vusmsg,            //          this.ment,  // VUS 멘트
       this.patientInfo,
       reformData,
       this.firstReportDay,

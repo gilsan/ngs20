@@ -496,7 +496,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         nucleotideChange: coding,
         aminoAcidChange: tsv.amino_acid_change,
         // zygosity: item.zygosity,
-        zygosity: 'heterozygous',
+        zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: item.reference,
         cosmicID: item.cosmic_id,

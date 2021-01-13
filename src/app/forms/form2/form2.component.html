@@ -287,26 +287,46 @@
                 <img [src]="'assets/images/cancel.png'">
             </td> 
             <td><input type="checkbox"  class="ckbox"   checked (change)="boxstatus(i, $event)"></td> 
-            <td><input type="text" size="10"  class="clr-input textcenter  tdbox"  formControlName="igv"></td>
+            <td><input type="text" size="10" 
+                (keydown.enter)="$event.preventDefault()"
+                class="clr-input textcenter  tdbox"  formControlName="igv"></td>
             <td>
                 <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="sanger"></textarea>
                 
             </td>
-            <td><input type="text" size="10"  class="clr-input textcenter tdbox"  formControlName="type"></td>
-            <td ><input type="text" size="20" #gene
+            <td><input type="text" size="10" 
+                (keydown.enter)="$event.preventDefault()"
+                class="clr-input textcenter tdbox"  formControlName="type"></td>
+            <td ><input type="text" size="20" #gene  (keydown.enter)="$event.preventDefault()"
                  class="clr-input textcenter tdbox" formControlName="gene"></td>
-            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="functionalImpact"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="transcript"></td> 
-            <td><input type="text" size="15"  class="clr-input textcenter  tdbox" formControlName="exonIntro"></td>
-            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" formControlName="nucleotideChange"></td>
-            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" formControlName="aminoAcidChange"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="zygosity"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" 
+                (keydown.enter)="$event.preventDefault()"
+                formControlName="functionalImpact"></td>
+            <td><input type="text" size="20" 
+                (keydown.enter)="$event.preventDefault()"
+                class="clr-input textcenter  tdbox" formControlName="transcript"></td> 
+            <td><input type="text" size="15" 
+                (keydown.enter)="$event.preventDefault()"
+                class="clr-input textcenter  tdbox" formControlName="exonIntro"></td>
+            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" 
+                (keydown.enter)="$event.preventDefault()"
+                formControlName="nucleotideChange"></td>
+            <td><input type="text" size="40"  class="clr-input textcenter  tdbox" 
+                (keydown.enter)="$event.preventDefault()"
+                formControlName="aminoAcidChange"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter  tdbox"
+                (keydown.enter)="$event.preventDefault()"
+                formControlName="zygosity"></td>
             <td>
                 <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="vafPercent"></textarea>
-                
+               
             </td>
-            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" formControlName="references"></td>
-            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="cosmicID"></td>
+            <td><input type="text" size="10"  class="clr-input textcenter  tdbox" 
+                (keydown.enter)="$event.preventDefault()"
+                formControlName="references"></td>
+            <td><input type="text" size="20"  class="clr-input textcenter  tdbox" 
+                (keydown.enter)="$event.preventDefault()"
+                formControlName="cosmicID"></td>
             
             <td  class="txt_c" style="display:flex;align-items: flex-end;justify-content:center;margin-top: 20px;">
               <select class="select_01" name="options" (change)="saveInhouse(i, inhouse.value)" 
@@ -348,7 +368,7 @@
             </ul>            
             </div> 
         <div  class="comment_box_50">   
-        <form [formGroup]="tablerowForm">            
+        <form [formGroup]="tablerowForm" >            
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result">
                <colgroup>
                 <col style="width:7%;" />
@@ -371,8 +391,15 @@
                   <!-- <tr *ngFor="let comment of comments;"> -->
                   <ng-container formArrayName="commentsRows" *ngFor="let group of commentsRows().controls; let i=index">
                       <tr  [formGroupName]="i">
-                        <td class="table_result_line"  ><input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02  textcenter" size="10" formControlName="gene" ></td>
-                        <td><input type="text" style="width:88%;display:block;margin:0 auto;" class="input_02  textcenter" size="10" formControlName="variant_id"></td>
+                        <td class="table_result_line">
+                            <input type="text" style="width:88%;display:block;margin:0 auto;"
+                            (keydown.enter)="$event.preventDefault()"
+                             class="input_02  textcenter" size="10" formControlName="gene">
+                        </td>
+                        <td><input type="text" style="width:88%;display:block;margin:0 auto;" 
+                            (keydown.enter)="$event.preventDefault()"
+                            class="input_02  textcenter" size="10" formControlName="variant_id">
+                        </td>
                         <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="comment"></textarea></td>
                         <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="reference"></textarea></td> 
                         <td  align="center">

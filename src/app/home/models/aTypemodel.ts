@@ -20,7 +20,7 @@ export function makeAForm(
 	formData: IAFormVariant[],
 	firstReportDay: string,
 	lastReportDay: string,
-	genelists: IGeneList[]
+	genelists: IGeneList[],
 ): string {
 
 	// 금일날자:
