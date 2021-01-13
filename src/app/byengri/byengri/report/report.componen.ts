@@ -154,6 +154,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   noneAm = 'None';
 
   msgAm = `* Deletion의 경우 Note와 이미지 보고서를 참고해 주시기 바랍니다.`;
+  msgAm2 = `* Deletion의 경우 이미지 보고서를 참고해 주시기 바랍니다.`;
 
   noneFu = 'None';
   noneIMu = 'None';
