@@ -311,10 +311,10 @@ export class PatientsListService {
           let tsv: IFilteredTSV;
 
           tsv = item;
-          // item.genes = item.genes.replace(/;/g, ',');
-          //  item.coding = item.coding.replace(/;/g, ',');
+          item.genes = item.genes.replace(/;/g, ',');
+          // item.coding = item.coding.replace(/;/g, ',');
           if (item.genes || item.coding) {
-            //  console.log('[315][유전체]', item.genes, item.coding);
+            console.log('[315][유전체]', item.genes, item.coding);
             // const genes = item.genes;  // genes: "CSDE1;NRAS" => "CSDE1,NRAS"
             const genesemi = item.genes.indexOf(',');
             if (genesemi !== -1) {  // 있는경우
@@ -325,21 +325,22 @@ export class PatientsListService {
               gene2 = 'none';
             }
 
-            const semi = item.coding.indexOf(',');
-            if (semi !== -1) {
-              coding = item.coding.split(',')[0];
-            } else {
-              coding = item.coding;
-            }
+            // const semi = item.coding.indexOf(',');
+            // if (semi !== -1) {
+            //   coding = item.coding.split(',')[0];
+            // } else {
+            //   coding = item.coding;
+            // }
+            coding = item.coding.replace(/;/g, ',');
             const id = item.id;
-            // console.log('===== [335][coding]', coding);
+            console.log('===== [335][gene1/coding]', gene1, coding);
             return { id, gene1, gene2, coding, tsv };
           }
         });
       }), // End of tap
       switchMap(() => from(this.geneCoding)),
       concatMap(item => {
-        // console.log('[341][geneCoding]', item);
+        console.log('[341][geneCoding]', item);
         if (item.gene2 === 'none') {
           return this.getArtifactsInfoCount(item.gene1, item.coding).pipe(
             map(gene1Count => {

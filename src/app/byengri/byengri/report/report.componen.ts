@@ -1812,6 +1812,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addMutation(): void {
+    console.log('[1815][addMutation]');
     this.mutationLists().push(this.newMutation());
     this.mutation.push({
       gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: '', seq: ''
@@ -1824,7 +1825,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.noneMu = 'None';
     }
 
-    console.log('[1307][addMutation]', len, this.noneMu);
+    console.log('[1828][addMutation]', len, this.noneMu);
   }
 
   removeMutation(i: number): void {
