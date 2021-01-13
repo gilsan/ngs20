@@ -98,7 +98,7 @@
         <div class="pd_r20">
           <div class="sub_title_04"> (1) Mutation: <span *ngIf="!mutation.length" class="sub_title_04">{{noneMu}}</span></div>
           <div>
-            <form [formGroup]="mutationForm"  (keydown.enter)="$event.preventDefault()">
+            <form [formGroup]="mutationForm">
               <!-- <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35"> -->
                 <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                   <!-- <colgroup>
@@ -179,7 +179,7 @@
           <!-- <ng-template #deletion>{{msgAm}}</ng-template> -->
           <!-- <div class="font_14 pd_l35 pd_b15">* Copy number loss에 관해서는 뒷부분에 첨부된 이미지 보고서를 참고하여 주십시오.</div> -->
           <div>
-            <form [formGroup]="amplificationsForm"  (keydown.enter)="$event.preventDefault()">
+            <form [formGroup]="amplificationsForm">
               <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                 <thead>
                   <tr>
@@ -221,7 +221,7 @@
 
           <!-- ---------------------------------------- -->
           <div>
-            <form [formGroup]="fusionForm"  (keydown.enter)="$event.preventDefault()">
+            <form [formGroup]="fusionForm">
               <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
                 <thead>
                   <tr>
@@ -268,7 +268,7 @@
         <!-- ----------------------------------   -->
 
         <div style="margin-right:18px;">
-          <form [formGroup]="imutationForm" (keydown.enter)="$event.preventDefault()">
+          <form [formGroup]="imutationForm">
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
               <colgroup>
                 <col width="130px">
@@ -334,7 +334,7 @@
 
         <!-- ------------------------------    -->
         <div style="margin-right:18px;">
-          <form [formGroup]="iamplificationsForm"  (keydown.enter)="$event.preventDefault()">
+          <form [formGroup]="iamplificationsForm">
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10">
               <thead>
                 <tr>
@@ -380,7 +380,7 @@
 
         <!--  -------------------------------   -->
         <div style="margin-right:18px;">
-          <form [formGroup]="ifusionForm"  (keydown.enter)="$event.preventDefault()">
+          <form [formGroup]="ifusionForm">
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
               <thead>
                 <tr>
