@@ -1282,28 +1282,31 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const userid = localStorage.getItem('pathuser');
     this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid)
       .subscribe(data => {
-        this.patientsListService.getScreenStatus(this.form2TestedId)
-          .subscribe(msg => {
-            this.screenstatus = msg[0].screenstatus;
-            this.patientsListService.getPatientInfo(this.form2TestedId)
-              .subscribe(patientInfo => {
-                // 초기화
-                // const control = this.tablerowForm.get('tableRows') as FormArray;
-                // control.clear();
-                this.mockData = [];
-                // 코멘트 초기화
-                this.comments = [];
-                // this.init(this.form2TestedId);
-                // 검사자, 판독자 초기화
-                this.examin = '';
-                this.recheck = '';
-                this.lastReportDay = '-';
-                this.ngOnInit();
-                this.setReportdaymgn(patientInfo);
-              });
-
-
+        // this.patientsListService.getScreenStatus(this.form2TestedId)
+        // .subscribe(msg => {
+        // this.screenstatus = msg[0].screenstatus;
+        this.screenstatus = '0';
+        this.patientsListService.getPatientInfo(this.form2TestedId)
+          .subscribe(patientInfo => {
+            // 초기화
+            // const control = this.tablerowForm.get('tableRows') as FormArray;
+            // control.clear();
+            this.mockData = [];
+            // 코멘트 초기화
+            this.comments = [];
+            // this.init(this.form2TestedId);
+            // 검사자, 판독자 초기화
+            this.examin = '';
+            this.recheck = '';
+            this.lastReportDay = '-';
+            this.ngOnInit();
+            this.screenstatus = '0';
+            this.patientInfo.screenstatus = '0';
+            this.setReportdaymgn(patientInfo);
           });
+
+
+        //  });
       });
   }
 
