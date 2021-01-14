@@ -154,7 +154,6 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   noneAm = 'None';
 
   msgAm = `* Deletion의 경우 이미지 보고서를 참고해 주시기 바랍니다.`;
-  msgAm2 = `* Deletion의 경우 이미지 보고서를 참고해 주시기 바랍니다.`;
 
   noneFu = 'None';
   noneIMu = 'None';
@@ -1400,7 +1399,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       fusionc$, mutationp$, amplificationp$, fusionp$])
       .subscribe(([ment, mutationc, amplificationc, fusionc,
         mutationp, amplificationp, fusionp]) => {
-
+        // 멘트
         if (ment.message !== 'no data') {
           this.generalReportEMR = ment[0].generalReport;
           this.specialmentEMR = ment[0].specialment;
@@ -1410,7 +1409,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.specialmentEMR = '';
           this.notementEMR = '';
         }
-
+        // mutation
         if (mutationc.message !== 'no data') {
           let tempmu;
           if (mutationc.length > 1) {
@@ -1533,7 +1532,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             tempifu = fusionp;
           }
           tempifu.forEach((item, index) => {
-            this.ifusion.push({
+            this.ifusionEMR.push({
               gene: item.gene,
               breakpoint: item.fusion_breakpoint,
               functions: item.fusion_function,
@@ -1752,7 +1751,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[1141][report][tempSave][멘트][ment]', this.generalReport, this.specialment, this.notement);
     console.log('[1141][tempSave][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
 
-    this.subs.sink = this.savepathologyService.updatePathologyData(
+    this.subs.sink = this.savepathologyService.savePathologyData(
       this.basicInfo.pathologyNum,
       this.patientInfo,
       this.mutation,
