@@ -1572,6 +1572,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pathologyService.sendEMR(this.patientInfo, form).subscribe(data => {
       console.log('[1566][sendEMR 보낸결과]', data);
       alert('EMR로 전송했습니다.');
+
+      this.mutationEMR = [];
+      this.amplificationsEMR = [];
+      this.fusionEMR = [];
+      this.imutationEMR = [];
+      this.iamplificationsEMR = [];
+      this.ifusionEMR = [];
+      this.tumorMutationalBurdenEMR = '';
+      this.msiScoreEMR = '';
     });
 
     this.searchService.resetscreenstatus(this.pathologyNum, '3')
