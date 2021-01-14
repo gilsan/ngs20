@@ -547,7 +547,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         exonIntro: 'E' + tsv.exon,
         nucleotideChange: coding,
         aminoAcidChange: tsv.amino_acid_change,
-        zygosity: 'heterozygous',
+        zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: '',
         cosmicID: ''

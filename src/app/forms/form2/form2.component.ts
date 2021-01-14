@@ -359,7 +359,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           let type: string;
           let gene: string;
           let dvariable: IAFormVariant;
-          // console.log('[필터링원시자료][247]', data);
+          console.log('********** [필터링원시자료][247]', data);
 
           // 타입 분류
           if (data.mtype === 'M') {  // mutation
@@ -569,7 +569,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         exonIntro: 'E' + tsv.exon,
         nucleotideChange: coding,
         aminoAcidChange: tsv.amino_acid_change,
-        zygosity: 'heterozygous',
+        zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: '',
         cosmicID: ''
