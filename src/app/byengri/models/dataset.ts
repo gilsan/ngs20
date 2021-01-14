@@ -22,7 +22,7 @@ export function makeReport(
   specialment: string,
   notement: string
 ): string {
-
+  let msiscore = '';
   // null 처리
   if (tumorMutationalBurden === null) {
     tumorMutationalBurden = '';
@@ -325,7 +325,21 @@ export function makeReport(
     </Rows>
   </Dataset>`;
 
-  const msiscore = `
+  if (msiScore.split('').includes('(')) {
+    msiscore = `
+    <Dataset id="ds_data5">
+    <ColumnInfo>
+       <Column id="msiscore" type="STRING" size="256"/>
+    </ColumnInfo>
+    <Rows>
+      <Row>
+         <Col id="msiscore">${msiScore}</Col>
+      </Row>
+    </Rows>
+  </Dataset>
+    `;
+  } else {
+    msiscore = `
     <Dataset id="ds_data5">
     <ColumnInfo>
        <Column id="msiscore" type="STRING" size="256"/>
@@ -337,7 +351,22 @@ export function makeReport(
     </Rows>
   </Dataset>
     `;
+  }
 
+  /*
+  msiscore = `
+    <Dataset id="ds_data5">
+    <ColumnInfo>
+       <Column id="msiscore" type="STRING" size="256"/>
+    </ColumnInfo>
+    <Rows>
+      <Row>
+         <Col id="msiscore">${msiScore} (MSS)</Col>
+      </Row>
+    </Rows>
+  </Dataset>
+    `;
+   */
 
   const essential = `
   <Dataset id="ds_data6">

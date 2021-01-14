@@ -18,6 +18,7 @@ export function makeCForm(
 	ment: string,
 	patientInfo: IPatient,
 	formData: IAFormVariant[],
+	comment: IComment[],
 	firstReportDay: string,
 	lastReportDay: string,
 	genelist: IGeneList[]
@@ -42,10 +43,6 @@ export function makeCForm(
 	}
 
 	const today = formatDate(new Date());
-	examin = examin.slice(0, -2);
-	recheck = recheck.slice(0, -2);
-	///////////////////////////////////////////////
-
 	/////////////////////////////////////////////////////
 	const patient = `<root>
 	<Dataset id="ds_1">
@@ -124,12 +121,10 @@ export function makeCForm(
 			`;
 	}
 
-
 	const variantBottom = `
 		</Rows>
 </Dataset>
 	`;
-
 
 	const commentHeader = `
 <Dataset id="ds_3">
@@ -140,6 +135,27 @@ export function makeCForm(
 		<Column id="reference" type="STRING" size="256"/>
 	</ColumnInfo>
 `;
+
+	let commentContent = '';
+	// tslint:disable-next-line: prefer-for-of
+	for (let i = 0; i < comment.length; i++) {
+		commentContent = commentContent + `
+	<Row>
+	<Col id="gene">${comment[i].gene}</Col>
+	<Col id="variants">${comment[i].variant_id}</Col>
+	<Col id="comments">${comment[i].comment}</Col>
+	<Col id="reference">${comment[i].reference}</Col>
+</Row>`;
+	}
+
+	commentContent = `<Rows>
+	${commentContent}
+	</Rows>
+`;
+	const commentBottom = `
+</Dataset>
+`;
+	const comments = commentHeader + commentContent + commentBottom;
 
 
 	const fixedMent = `
@@ -203,7 +219,6 @@ export function makeCForm(
 	const rootbottom = `</Rows>
 	</Dataset>
 </root>`;
-
 
 	return patient + variantHeader + data + variantBottom + fixedMent + list + rootbottom;
 

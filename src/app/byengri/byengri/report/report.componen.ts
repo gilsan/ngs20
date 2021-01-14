@@ -1579,8 +1579,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.imutationEMR = [];
       this.iamplificationsEMR = [];
       this.ifusionEMR = [];
-      this.tumorMutationalBurdenEMR = '';
-      this.msiScoreEMR = '';
+      // this.tumorMutationalBurdenEMR = '';
+      // this.msiScoreEMR = '';
     });
 
     this.searchService.resetscreenstatus(this.pathologyNum, '3')
@@ -2189,6 +2189,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   msiScoreChange(msiscore: string): void {
+    // console.log('[2187][MSISCORE]', msiscore.split('').includes('('));
     this.extraction.msiscore = msiscore;
   }
   ///////////////////////////////////////////////////////////////////

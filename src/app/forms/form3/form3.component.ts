@@ -163,6 +163,39 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   initLoad(): void {
     // 검진부서원 리스트 스토어에서 가져옴.
     // this.lists = this.store.getDiagList();
+    const lists$ = this.utilsService.getDiagList()
+      .pipe(shareReplay());
+
+    lists$.pipe(
+      map(lists => lists.filter(list => list.part === 'D'))
+    ).subscribe(data => {
+      const len = data.length - 1;
+      data.forEach((list, index) => {
+        if (index === len) {
+          this.recheck = this.recheck + list.user_nm + ' M.D.';
+        } else {
+          this.recheck = this.recheck + list.user_nm + ' M.D./';
+        }
+      });
+    });
+
+    lists$.pipe(
+      map(lists => lists.filter(list => list.part === 'T'))
+    ).subscribe(data => {
+      const len = data.length - 1;
+      data.forEach((list, index) => {
+        if (index === len) {
+          this.examin = this.examin + list.user_nm + ' M.T.';
+        } else {
+          this.examin = this.examin + list.user_nm + ' M.T./';
+        }
+      });
+    });
+
+
+
+
+    /*
     this.utilsService.getDiagList().subscribe(data => {
       data.forEach(list => {
         if (list.part === 'D') {
@@ -172,7 +205,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         }
       });
     });
-
+    */
     this.form2TestedId = this.patientsListService.getTestedID();
 
     // 검사자 정보 가져오기
@@ -925,6 +958,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       this.ment,
       this.patientInfo,
       reformData,
+      this.comments,
       this.firstReportDay,
       this.lastReportDay,
       this.genelists
