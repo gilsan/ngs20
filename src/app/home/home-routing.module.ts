@@ -40,7 +40,7 @@ const routes: Routes = [
       { path: 'managestatistics', component: ManageStatisticsComponent },
       { path: 'managefunctions', component: ManageFunctionsComponent },
       { path: 'detailfunctions', component: DetailFunctionsComponent },
-      { path: 'manageusers', component: MgngeneComponent },
+      { path: 'manageusers', component: ManageUsersComponent },
       { path: 'disease_test', component: DiseaseformComponent },
       { path: '**', component: MainscreenComponent },
 

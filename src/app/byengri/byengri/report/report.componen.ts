@@ -181,7 +181,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   imutationForm: FormGroup;
   iamplificationsForm: FormGroup;
   ifusionForm: FormGroup;
-
+  msiTag = false;
   // <a [href]="fileUrl" download="file.txt">DownloadFile</a>
   // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
 
@@ -288,11 +288,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       this.tumorMutationalBurden = this.patientInfo.tumorburden;
-      this.msiScore = this.patientInfo.msiscore;
       this.extraction.tumorburden = this.tumorMutationalBurden;
+
+      if (this.patientInfo.msiscore.split('').includes('(')) {
+        this.msiTag = true;
+      }
+      // console.log('[296]', this.patientInfo.msiscore.split('').includes('('));
+      this.msiScore = this.patientInfo.msiscore;
       this.extraction.msiscore = this.msiScore;
       // console.log('[검체]', this.extraction);
-      // 검체 검사자,확인자 
+      // 검체 검사자,확인자
       this.examin = this.patientInfo.examin; // 기사
       const exam = this.patientInfo.examin.split('_');
       this.examedno = exam[0];
