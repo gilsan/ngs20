@@ -55,35 +55,14 @@
              <tbody>
                <tr *ngFor="let list2 of lists2; let i =index;">
                  <td class="txt_c" (click)="genename(cell, i, j)"
+                 [class.selected]="selectedgene === cell ? true : false" 
                   *ngFor="let cell of list2; let j = index">{{cell}}
                  </td>
                </tr>
              </tbody>
            </table>
          </div>
-       </div>
-
-       <div>
-         <table class="table table-bordered">
-           <thead>
-             <tr>
-               <th *ngFor="let weekday of weekdays">
-                 <div>{{weekday}}</div>
-               </th>
-             </tr>
-           </thead>
-           <tbody>
-             <tr scope="row" *ngFor="let time of times">
-               <td>{{time}}</td>
-               <th *ngFor="let weekday of weekdaysForClick" (click)="onClick(weekday, time)" [ngClass]="'active'"
-                 [class.selected]="selected === weekday"></th>
-             </tr>
-           </tbody>
-         </table>
-
-
-       </div>
-
+       </div>   
      </div>
    </div>
  </div>

@@ -153,7 +153,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   noneMu = 'None';
   noneAm = 'None';
 
-  msgAm = `* Deletion의 경우 Note와 이미지 보고서를 참고해 주시기 바랍니다.`;
+  msgAm = `* Deletion의 경우 이미지 보고서를 참고해 주시기 바랍니다.`;
   msgAm2 = `* Deletion의 경우 이미지 보고서를 참고해 주시기 바랍니다.`;
 
   noneFu = 'None';
@@ -292,6 +292,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.msiScore = this.patientInfo.msiscore;
       this.extraction.tumorburden = this.tumorMutationalBurden;
       this.extraction.msiscore = this.msiScore;
+      // console.log('[검체]', this.extraction);
       // 검체 검사자,확인자 
       this.examin = this.patientInfo.examin; // 기사
       const exam = this.patientInfo.examin.split('_');
@@ -308,6 +309,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.basicInfo.pathologyNum = this.patientInfo.pathology_num;
       this.basicInfo.age = this.patientInfo.age;
 
+      // console.log('[기본정보]', this.basicInfo);
+      // console.log('[확인자/검사자]', this.examedno, this.examedname, this.checkeredno, this.checkername);
       this.checkingMent(this.patientInfo.tumor_type);
       this.getDataFromDB(this.patientInfo);
 
@@ -2116,6 +2119,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.searchService.resetscreenstatus(this.pathologyNum, '1')
       .subscribe(data => {
+        /*
         console.log('1786', data);
         if (data.message === 'SUCCESS') {
           this.mutationLists().clear();
@@ -2157,6 +2161,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             });
 
         }
+        */
+        this.patientInfo.screenstatus = '1';
+        this.screenstatus = '1';
+        console.log(this.screenstatus);
       });
 
   }

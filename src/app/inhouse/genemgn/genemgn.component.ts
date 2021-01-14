@@ -8,7 +8,6 @@ import { AddgeneComponent } from './addgene/addgene.component';
 import { UpdategeneComponent } from './updategene/updategene.component';
 import { DeletegeneComponent } from './deletegene/deletegene.component';
 
-
 export interface IGTYPE {
   gene: string;
   type: string;
@@ -20,17 +19,13 @@ export interface IGTYPE {
 })
 export class GenemgnComponent implements OnInit {
 
-  weekdays: string[] = ['#', 'Monday', 'Thusday', 'Wednesday', 'Thursday', 'Friday']
-  times: string[] = ['8:30 - 9:15', '9:15 - 10:00', '10:15 - 11:00', '11:00 - 11:45', '12:30 - 13:15', '13:15 - 14:00', '14:15 - 15:00']
-  weekdaysForClick: string[] = ['Monday', 'Thusday', 'Wednesday', 'Thursday', 'Friday'];
-  wasClicked = false;
-
-  AML2 = [][10];
-  ALL2 = [][10];
-  LYM2 = [][10];
-  MDS2 = [][10];
+  AML = [][10];
+  ALL = [][10];
+  LYM = [][10];
+  MDS = [][10];
   lists2 = [][10];
-
+  row = 0;
+  col = 0;
   genetype = 'AML';
   selectedgene: string;
   active = false;
@@ -44,6 +39,7 @@ export class GenemgnComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+
   }
 
   init(): void {
@@ -52,49 +48,54 @@ export class GenemgnComponent implements OnInit {
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'AML')),
     ).subscribe(data => {
-      this.AML2 = this.makegenelist(data);
-      this.lists2 = this.AML2;
+      this.AML = this.makegenelist(data);
+      this.lists2 = this.AML;
+      this.selectedgene = this.lists2[0][0];
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'ALL')),
     ).subscribe(data => {
-      this.ALL2 = this.makegenelist(data);
+      this.ALL = this.makegenelist(data);
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'LYM')),
     ).subscribe(data => {
-      this.LYM2 = this.makegenelist(data);
+      this.LYM = this.makegenelist(data);
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'MDS')),
     ).subscribe(data => {
-      this.MDS2 = this.makegenelist(data);
+      this.MDS = this.makegenelist(data);
     });
 
   }
 
-
   genelists(type: string): void {
     if (type === 'ALL') {
       this.genetype = 'ALL';
-      this.lists2 = this.ALL2;
+      this.lists2 = this.ALL;
+      this.selectedgene = this.lists2[0][0];
     } else if (type === 'AML') {
       this.genetype = 'AML';
-      this.lists2 = this.AML2;
+      this.lists2 = this.AML;
+      this.selectedgene = this.lists2[0][0];
     } else if (type === 'LYM') {
       this.genetype = 'LYM';
-      this.lists2 = this.LYM2;
+      this.lists2 = this.LYM;
+      this.selectedgene = this.lists2[0][0];
     } else if (type === 'MDS') {
       this.genetype = 'MDS';
-      this.lists2 = this.MDS2;
+      this.lists2 = this.MDS;
+      this.selectedgene = this.lists2[0][0];
     }
   }
 
   makegenelist(lists: IGTYPE[]): any {
     let len: number;
+    let count = 0;
     const listgenes = [[]];
     let listgene = [];
     len = lists.length - 1;
@@ -106,7 +107,6 @@ export class GenemgnComponent implements OnInit {
         listgene[i] = lists[index].gene;
       } else if (i === 2) {
         listgene[i] = lists[index].gene;
-
       } else if (i === 3) {
         listgene[i] = lists[index].gene;
       } else if (i === 4) {
@@ -124,10 +124,11 @@ export class GenemgnComponent implements OnInit {
       }
 
       if (i === 9) {
-        listgenes.push(listgene);
+        listgenes[count] = listgene;
         listgene = [];
+        count++;
       } else if (len === index) {
-        listgenes.push(listgene);
+        listgenes[count] = listgene;
       }
     } // End of for loop
     return listgenes;
@@ -136,37 +137,83 @@ export class GenemgnComponent implements OnInit {
 
 
   genename(gene: string, i: number, j: number): void {
-
     this.selectedgene = gene;
-    console.log(this.genetype, gene, i, j);
+    this.row = i;
+    this.col = j;
   }
 
   mystyle(i: number, j: number): any {
     let len;
     if (this.genetype === 'ALL') {
-      len = this.ALL2.length;
+      len = this.ALL.length;
     } else if (this.genetype === 'AML') {
-      len = this.AML2.length;
+      len = this.AML.length;
     } else if (this.genetype === 'LYM') {
-      len = this.LYM2.length;
+      len = this.LYM.length;
     } else if (this.genetype === 'MDS') {
-      len = this.MDS2.length;
+      len = this.MDS.length;
     }
 
   }
-
-
+  // 생성 다이얼로그
   addOpenDialog(): void {
     const addDialogRef = this.dialog.open(AddgeneComponent, {
       width: '300px',
       height: '260px',
     });
 
-    addDialogRef.afterClosed().subscribe(
-      val => console.log('Add Dialog output:', val)
-    );
+    addDialogRef.afterClosed().subscribe(val => {
+      if (this.genetype === 'ALL') {
+        const alen = this.ALL.length;
+        const blen = this.ALL[alen - 1].length;
+        this.addNewgene('ALL', alen, blen, val.gene);
+      } else if (this.genetype === 'AML') {
+        const alen = this.AML.length;
+        const blen = this.AML[alen - 1].length;
+        this.addNewgene('AML', alen, blen, val.gene);
+      } else if (this.genetype === 'LYM') {
+        const alen = this.LYM.length;
+        const blen = this.LYM[alen - 1].length;
+        this.addNewgene('LYM', alen, blen, val.gene);
+      } else if (this.genetype === 'MDS') {
+        const alen = this.MDS.length;
+        const blen = this.MDS[alen - 1].length;
+        this.addNewgene('MDS', alen, blen, val.gene);
+      }
+      this.geneService.geneInsert(this.genetype, val.gene)
+        .subscribe(data => console.log(data));
+    });
   }
 
+  addNewgene(type: string, alen: number, blen: number, gene: string): void {
+    if (type === 'ALL') {
+      if (blen < 10) {
+        this.ALL[alen - 1].push(gene);
+      } else {
+        this.ALL.push([gene]);
+      }
+    } else if (type === 'AML') {
+      if (blen < 10) {
+        this.AML[alen - 1].push(gene);
+      } else {
+        this.AML.push([gene]);
+      }
+    } else if (type === 'LYM') {
+      if (blen < 10) {
+        this.LYM[alen - 1].push(gene);
+      } else {
+        this.LYM.push([gene]);
+      }
+    } else if (type === 'MDS') {
+      if (blen < 10) {
+        this.MDS[alen - 1].push(gene);
+      } else {
+        this.MDS.push([gene]);
+      }
+    }
+  }
+
+  // 수정 다이얼로그
   updateOpenDialog(): void {
     const updateDialogRef = this.dialog.open(UpdategeneComponent, {
       width: '330px',
@@ -174,11 +221,34 @@ export class GenemgnComponent implements OnInit {
       data: this.selectedgene,
     });
 
-    updateDialogRef.afterClosed().subscribe(
-      val => console.log('Update Dialog output:', val)
-    );
+    updateDialogRef.afterClosed().subscribe(val => {
+      if (this.genetype === 'ALL') {
+        this.updateGene(val.newgene);
+      } else if (this.genetype === 'AML') {
+        this.updateGene(val.newgene);
+      } else if (this.genetype === 'LYM') {
+        this.updateGene(val.newgene);
+      } else if (this.genetype === 'MDS') {
+        this.updateGene(val.newgene);
+      }
+      this.geneService.geneUpdate(this.genetype, val.oldgene, val.newgene)
+        .subscribe(data => console.log('[갱신]', data));
+    });
+
   }
 
+  updateGene(newgene: string): void {
+    if (this.genetype === 'ALL') {
+      this.ALL[this.row][this.col] = newgene;
+    } else if (this.genetype === 'AML') {
+      this.AML[this.row][this.col] = newgene;
+    } else if (this.genetype === 'LYM') {
+      this.LYM[this.row][this.col] = newgene;
+    } else if (this.genetype === 'MDS') {
+      this.MDS[this.row][this.col] = newgene;
+    }
+  }
+  // 삭제 다이얼로그
   deleteOpenDialog(): void {
     const deleteDialogRef = this.dialog.open(DeletegeneComponent, {
       width: '300px',
@@ -186,23 +256,50 @@ export class GenemgnComponent implements OnInit {
       data: this.selectedgene,
     });
 
-    deleteDialogRef.afterClosed().subscribe(
-      val => console.log('Delete Dialog output:', val)
-    );
+    deleteDialogRef.afterClosed().subscribe(val => {
+      if (val.message === 'YES') {
+        const gene = val.gene;
+        if (this.genetype === 'ALL') {
+          this.deleteGene(val.gene);
+        } else if (this.genetype === 'AML') {
+          this.deleteGene(val.gene);
+        } else if (this.genetype === 'LYM') {
+          this.deleteGene(val.gene);
+        } else if (this.genetype === 'MDS') {
+          this.deleteGene(val.gene);
+        }
+      }
+    });
+
   }
 
-  // tslint:disable-next-line:member-ordering
-  selected: '';
-  onClick(weekday, time): void {
-    console.log(this.selected, weekday);
-    if (this.selected === weekday) {
-      this.selected = '';
-    } else {
-      this.selected = weekday;
+  deleteGene(gene: string): void {
+    if (this.genetype === 'ALL') {
+      this.ALL[this.row].splice(this.col, 1);
+      this.geneService.geneDelete('ALL', gene)
+        .subscribe(() => {
+          this.init();
+        });
+    } else if (this.genetype === 'AML') {
+      this.AML[this.row].splice(this.col, 1);
+      this.geneService.geneDelete('AML', gene)
+        .subscribe(() => {
+          this.init();
+        });
+    } else if (this.genetype === 'LYM') {
+      this.LYM[this.row].splice(this.col, 1);
+      this.geneService.geneDelete('LYM', gene)
+        .subscribe(() => {
+          this.init();
+        });
+    } else if (this.genetype === 'MDS') {
+      this.MDS[this.row].splice(this.col, 1);
+      this.geneService.geneDelete('MDS', gene)
+        .subscribe(() => {
+          this.init();
+        });
     }
   }
-
-
 
 }
 

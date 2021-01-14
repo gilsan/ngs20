@@ -23,7 +23,7 @@ export class DeletegeneComponent implements OnInit {
   save(): void {
     const result = confirm('정말로 지우시겠습니까?');
     if (result) {
-      this.dialogRef.close({ message: 'YES' });
+      this.dialogRef.close({ message: 'YES', gene: this.genename });
     } else {
       this.dialogRef.close({ message: 'NO' });
     }

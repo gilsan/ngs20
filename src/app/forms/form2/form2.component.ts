@@ -1082,6 +1082,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       ).subscribe((msg: { screenstatus: string }) => {
         // this.screenstatus = msg[0].screenstatus;
         this.screenstatus = '3';
+        console.log('[1085][SEND EMR][AML] ', msg, this.screenstatus);
         alert('EMR로 전송했습니다.');
       });
 
@@ -1129,6 +1130,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
         this.screenstatus = '3';
+        console.log('[1132][SEND EMR][ALL] ', msg, this.screenstatus);
         //  this.screenstatus = msg[0].screenstatus;
         alert('EMR로 전송했습니다.');
       });
@@ -1292,6 +1294,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
                 // 코멘트 초기화
                 this.comments = [];
                 // this.init(this.form2TestedId);
+                // 검사자, 판독자 초기화
+                this.examin = '';
+                this.recheck = '';
+                this.lastReportDay = '-';
                 this.ngOnInit();
                 this.setReportdaymgn(patientInfo);
               });

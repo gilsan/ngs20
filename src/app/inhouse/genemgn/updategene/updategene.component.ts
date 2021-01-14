@@ -32,7 +32,7 @@ export class UpdategeneComponent implements OnInit {
   }
 
   save(gene: string): void {
-    this.dialogRef.close({ odlgene: this.genename, newgene: gene });
+    this.dialogRef.close({ oldgene: this.genename, newgene: gene });
   }
 
   cancel(): void {
