@@ -160,6 +160,7 @@ export class GenemgnComponent implements OnInit {
     const addDialogRef = this.dialog.open(AddgeneComponent, {
       width: '300px',
       height: '260px',
+      disableClose: true
     });
 
     addDialogRef.afterClosed().subscribe(val => {
@@ -219,6 +220,7 @@ export class GenemgnComponent implements OnInit {
       width: '330px',
       height: '260px',
       data: this.selectedgene,
+      disableClose: true
     });
 
     updateDialogRef.afterClosed().subscribe(val => {
@@ -254,6 +256,7 @@ export class GenemgnComponent implements OnInit {
       width: '300px',
       height: '220px',
       data: this.selectedgene,
+      disableClose: true
     });
 
     deleteDialogRef.afterClosed().subscribe(val => {

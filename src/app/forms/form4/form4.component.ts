@@ -25,6 +25,13 @@ import { UtilsService } from '../commons/utils.service';
 import { CommentsService } from 'src/app/services/comments.service';
 import { makeDForm } from 'src/app/home/models/dTypemodel';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+
+/**
+ *  ALL/AML   LYM           MDS
+ * leukemia                 diagnosis
+ * flt3itd    bonemarrow    genetictest
+ * chron      chron         chron
+ */
 @Component({
   selector: 'app-form4',
   templateUrl: './form4.component.html',

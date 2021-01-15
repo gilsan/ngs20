@@ -6,7 +6,10 @@
            <td class="mail_title">유전자관리</td>
          </tr>
        </table>
-       <div class="box mg_b20 pd_20 search">
+
+
+       
+       <div class="box mg_b20 pd_20">
          <select class="select_01 select_001" #gene (change)="genelists(gene.value)">
            <option value="AML">AML</option>
            <option value="ALL">ALL</option>
@@ -15,6 +18,9 @@
          </select>&nbsp;&nbsp;
          <!-- <input type="text" class="input_01" placeholder="" />
          <button type="button" class="btn btn_02" style="margin-left: 10px;">조회</button> -->
+
+       </div>
+       <div class="total">
          <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
           <tr>
             <td class="main_btn">
@@ -33,6 +39,7 @@
           </tr>
         </table>
        </div>
+
        <div class="box">
          <div class="box_100">
            <table border="0" cellpadding="0" cellspacing="0" class="table_list  fixed_header table_resul_x">
