@@ -9,8 +9,8 @@ export interface IPatient {
   testedNum: string;
   leukemiaAssociatedFusion?: string;
   leukemiaassociatedfusion?: string;
-  IKZK1Deletion: string;
-  FLT3ITD: string;
+  IKZK1Deletion?: string;
+  FLT3ITD?: string;
   bonemarrow?: string;
   diagnosis?: string;
   genetictest?: string;
@@ -39,11 +39,21 @@ export interface IPatient {
 }
 
 export interface IProfile {
-  leukemia: string;
-  flt3itd: string;
+  leukemia?: string;
+  flt3itd?: string;
   chron: string;
   IKZK1Deletion?: string;
+  bonemarrow?: string;
+  genetictest?: string;
+  diagnosis?: string;
 }
+
+export interface ILYMProfile {
+  bonemarrow: string;
+  chron: string;
+}
+
+
 
 export interface IAMLProfile {
   leukemia: string;

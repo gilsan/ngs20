@@ -302,9 +302,9 @@ export class MainComponent implements OnInit, OnDestroy {
       if (parseInt(status, 10) === 0 && filename.length) {
         return '시작';
       } else if (parseInt(status, 10) === 1) {
-        return '1차완료';
+        return '저장';
       } else if (parseInt(status, 10) === 2) {
-        return '2차완료';
+        return '저장';
       } else if (parseInt(status, 10) === 3) {
         return 'EMR전송완료';
       } else {

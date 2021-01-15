@@ -267,7 +267,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       console.log('[204][form2][detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // detected variant 저장
       this.recoverVariants.forEach(item => {
-        console.log('[270][recoverDetected]', item.functional_impact);
+        // console.log('[270][recoverDetected]', item.functional_impact);
         this.recoverVariant(item);  // 354
         if (item.functional_impact === 'VUS') {
           this.vusstatus = true;
@@ -286,18 +286,20 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.subs.sink = this.variantsService.screenComment(this.form2TestedId)
       .subscribe(dbComments => {
         if (dbComments !== undefined && dbComments !== null && dbComments.length > 0) {
-          console.log('[247][COMMENT 가져오기]', dbComments);
+          // console.log('[247][COMMENT 가져오기]', dbComments);
           dbComments.forEach(comment => {
-
+            console.log('[291][\n 을 <br />로 변경하기]', comment.reference.replace(/\\r\\n|\\r|\\n/g, '<br />'));
             this.comments.push(
               {
-                gene: comment.gene, comment: comment.comment, reference: comment.reference,
+                gene: comment.gene, comment: comment.comment,
+                reference: comment.reference,
                 variant_id: comment.variants
               }
             );
             this.commentsRows().push(this.createCommentRow(
               {
-                gene: comment.gene, comment: comment.comment, reference: comment.reference,
+                gene: comment.gene, comment: comment.comment,
+                reference: comment.reference,
                 variant_id: comment.variants
               }
             ));
@@ -359,7 +361,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           let type: string;
           let gene: string;
           let dvariable: IAFormVariant;
-          console.log('********** [필터링원시자료][247]', data);
+          // console.log('********** [필터링원시자료][247]', data);
 
           // 타입 분류
           if (data.mtype === 'M') {  // mutation
@@ -405,9 +407,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
           // comments 분류
           if (data.mtype === 'M') {
-            console.log('[327][코멘트]', data, data.commentList1, data.commentList2);
+            // console.log('[410][코멘트]', data, data.commentList1, data.commentList2);
+            // console.log('[411]', data.commentList1.reference;
             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
               if (parseInt(data.comments1Count, 10) > 0) {
+
                 const variant_id = data.tsv.amino_acid_change;
                 const comment = { ...data.commentList1, variant_id, type: this.reportType };
                 // console.log('[286][코멘트]', comment);
