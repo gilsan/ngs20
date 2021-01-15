@@ -1,22 +1,3 @@
-<style>
-    table {
-        table-layout: fixed; 
-    }
-     
-    /*** 테이블 헤더 고정 ***/
-    .fixed_header th {
-        position: sticky;
-        top: 0;
-        font-size: 12px;
-        color: #666666;
-        padding: 10px;
-        background-color: #fafafa;
-        border: 1px solid #e0e0e0;
-    }
-    /*** /테이블 헤더 고정 ***/ 
-   
-
-</style>
 
 <div id="container">
     <div id="content">
@@ -40,34 +21,34 @@
                 
             </tr>
         </table> 
-        <div class="box mg_b20 pd_20">
+        <div class="box mg_b20 pd_20 search">
             <input type="text" class="input_01" placeholder="Genes" #genes>
             <button type="button" class="btn btn_02" (click)="search(genes.value)" style="margin-left: 10px;">조회</button>
+            <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+                <tr>
+                    <td class="main_btn">
+                        <ul>
+                            <li>
+                                <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
+                            </li>
+                            <!--
+                            <li>
+                                <button type="button" class="btn btn_01">저장</button>
+                            </li>
+                            -->
+                        </ul>
+                    </td>
+                    
+                </tr>
+            </table>
         </div>
 
     <div class="total"> 
-        <span>Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages</span> 
-        <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
-            <tr>
-                <td class="main_btn">
-                    <ul>
-                        <li>
-                            <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
-                        </li>
-                        <!--
-                        <li>
-                            <button type="button" class="btn btn_01">저장</button>
-                        </li>
-                        -->
-                    </ul>
-                </td>
-                
-            </tr>
-        </table> 
+        <span>Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages</span>  
     </div>
     <div class="table-box-wrap">
-        <div class="table-box box_100">         
-            <table border="0" cellpadding="0" cellspacing="0" class="fixed_header table_list" style="min-width: 1800px; width:100%">
+        <div class="table-box box" style="overflow-x: auto;">         
+            <table border="0" cellpadding="0" cellspacing="0" class="header-fix table_list" style="min-width:2000px; width:100%">
                 <thead>
                     <tr>
                         <th >No.</th>

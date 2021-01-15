@@ -6,34 +6,32 @@
            <td class="mail_title">유전자관리</td>
          </tr>
        </table>
-       <div class="box mg_b20 pd_20">
+       <div class="box mg_b20 pd_20 search">
          <select class="select_01 select_001" #gene (change)="genelists(gene.value)">
            <option value="AML">AML</option>
            <option value="ALL">ALL</option>
            <option value="LYM">Lymphoma</option>
            <option value="MDS">MDS/MPN</option>
          </select>&nbsp;&nbsp;
-         <input type="text" class="input_01" placeholder="" />
-         <button type="button" class="btn btn_02" style="margin-left: 10px;">조회</button>
-       </div>
-       <div class="total">
+         <!-- <input type="text" class="input_01" placeholder="" />
+         <button type="button" class="btn btn_02" style="margin-left: 10px;">조회</button> -->
          <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
-           <tr>
-             <td class="main_btn">
-               <ul>
-                 <li>
-                   <button type="button" class="btn btn_01" (click)="addOpenDialog()">추가</button>
-                 </li>
-                 <li>
-                   <button type="button" class="btn btn_01" (click)="updateOpenDialog()">수정</button>
-                 </li>
-                 <li>
-                   <button type="button" class="btn btn_01" (click)="deleteOpenDialog()">삭제</button>
-                 </li>
-               </ul>
-             </td>
-           </tr>
-         </table>
+          <tr>
+            <td class="main_btn">
+              <ul>
+                <li>
+                  <button type="button" class="btn btn_01" (click)="addOpenDialog()">추가</button>
+                </li>
+                <li>
+                  <button type="button" class="btn btn_01" (click)="updateOpenDialog()">수정</button>
+                </li>
+                <li>
+                  <button type="button" class="btn btn_01" (click)="deleteOpenDialog()">삭제</button>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
        </div>
        <div class="box">
          <div class="box_100">

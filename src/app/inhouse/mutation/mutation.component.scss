@@ -1,3 +1,33 @@
+caption {
+    position: absolute;
+    font-size: 0;
+    left: -99999px;
+}
+.table-box-wrap {
+    position: relative;
+    /*width:509px;*/
+    // padding-top: 40px;
+
+}
+.table-box-wrap .table-box {
+    max-height: 358px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.table_list td {
+    background-color: #fff;
+}
+
+.table_list td {
+    text-align: center !important;
+}
+.table_list.header-fix > thead th {
+    position: sticky;
+    top: 0;
+    text-align: center !important;
+}
+
 .btn-edit, .btn-delete, .btn-cancel, .btn-save {
     display: inline-block;
     width: 24px;
@@ -39,11 +69,11 @@
 //    background-color: #2090e9;
 }
 
-.table_bg > .txt_c {
-    padding: 0;
-    border-top: #e0e0e0 solid 1px;
-    line-height: 50px;
-}
+// .table_bg > .txt_c {
+//     padding: 0;
+//     border-top: #e0e0e0 solid 1px;
+//     line-height: 50px;
+// }
 
 .txt_c > p {
     margin-top: 0;

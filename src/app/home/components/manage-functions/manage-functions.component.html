@@ -6,14 +6,11 @@
             </tr>
         </table>
         
-        <div class="box mg_b20 pd_20">
+        <div class="box mg_b20 pd_20 search">
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:180px;"/> ~ 
             <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
             <input type="text" placeholder="함수명" class="input_01" #functionName />&nbsp;&nbsp; 
             <button type="button" class="btn btn_02" (click)="search(start.value, end.value, functionName.value)" >조회</button>
-        </div>
-        <div class="total"> 
-            <span>Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages</span>
             <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
                 <tr>
                     <td class="main_btn">  
@@ -25,9 +22,11 @@
                     </td>
                 </tr>
             </table>
-
+        </div>
+        <div class="total"> 
+            <span>Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages</span>
         </div>    
-        <div class="box">
+        <div class="box" style="overflow-y: auto;">
             <table border="0" cellpadding="0" cellspacing="0" class="table_list">
                 <colgroup>
                 <col style="width:5%;" />

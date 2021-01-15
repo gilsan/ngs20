@@ -14,7 +14,7 @@
             <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value)" >조회</button>
         </div>
         <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>    
-        <div class="box">
+        <div class="box"  style="overflow-y: auto;">
             <table border="0" cellpadding="0" cellspacing="0" class="table_list">
                 <colgroup>
                 <col style="width:5%;" />
