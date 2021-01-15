@@ -348,8 +348,8 @@
 <!---  ---------------------------   -->
       </div>
       <div>
-        <div  class="font_14 pd_t15" *ngIf="vusstatus">
-            <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea>
+        <div  class="font_14 pd_t15">
+            <textarea style="width:98%" class="textarea_01" [(ngModel)]= vusmsg></textarea>
           </div>
       </div>
 
@@ -401,7 +401,7 @@
                             class="input_02  textcenter" size="10" formControlName="variant_id">
                         </td>
                         <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;" class="textarea_01" formControlName="comment"></textarea></td>
-                        <td class="textarea01"><textarea style="width:96%;display:block;margin:0 auto;white-space: pre-wrap;" class="textarea_01" formControlName="reference"></textarea></td> 
+                        <td class="textarea01" style="white-space: pre-wrap;"><textarea style="width:96%;display:block;margin:0 auto;white-space: pre-wrap;" class="textarea_01" formControlName="reference"></textarea></td> 
                         <td  align="center">
                             <img [src]="'assets/images/cancel.png'" (click)="removeCommentRow(i)">
                         </td>

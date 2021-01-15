@@ -168,8 +168,8 @@
 <!---  ---------------------------   -->
       </div>
       <div>
-        <div  class="font_14 pd_t15" *ngIf="vusstatus">
-            <textarea style="width:98%"class="textarea_01">VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.</textarea>
+        <div  class="font_14 pd_t15">
+            <textarea style="width:98%"class="textarea_01" [(ngModel)="vusmsg"]></textarea>
           </div>
       </div>
 

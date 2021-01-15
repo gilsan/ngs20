@@ -939,7 +939,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       this.comments = [];
     }
 
-    if (this.vusstatus === false) {
+    if (this.vusmsg.length === 0) {
       this.vusmsg = '';
     }
 

@@ -151,7 +151,7 @@ export function makeDForm(
 	</ColumnInfo>
 	<Rows>
 		<Row>
-			<Col id="methods">Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6.</Col>
+			<Col id="methods">Total genomic DNA was extracted from the each sample.  The TruSeq DNA Sample Preparation kit of Illumina was used to make the library. The Agilent SureSelect Target enrichment kit was used for in-solution enrichment of target regions. The enriched fragments were then amplified and sequenced on the MiSeqDx system (illumina). After demultiplexing, the reads were aligned to the human reference genome hg19 (GRCh37) using BWA (0.7.12) and duplicate reads were removed with Picard MarkDuplicates (1.98). Local realignment, score recalibiration and filtering sequence data were performed with GATK (2.3-9). Variants were annotated using SnpEff (4.2).</Col>
 		</Row>
 	</Rows>
 </Dataset>
@@ -162,7 +162,7 @@ export function makeDForm(
 	</ColumnInfo>
 	<Rows>
 		<Row>
-			<Col id="technique">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.</Col>
+			<Col id="technique">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test.</Col>
 		</Row>
 	</Rows>
 </Dataset>

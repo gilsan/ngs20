@@ -1101,7 +1101,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const formData = control.getRawValue();
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
 
-    if (this.vusstatus === false) {
+    if (this.vusmsg.length === 0) {
       this.vusmsg = '';
     }
     console.log('[904][form2][comments] ', this.comments);
