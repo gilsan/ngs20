@@ -168,12 +168,30 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   initLoad(): void {
     // 검진부서원 리스트 스토어에서 가져옴.
-    // this.lists = this.store.getDiagList();
-    this.utilsService.getDiagList().subscribe(data => {
-      data.forEach(list => {
-        if (list.part === 'D') {
+    const lists$ = this.utilsService.getDiagList()
+      .pipe(shareReplay());
+
+    lists$.pipe(
+      map(lists => lists.filter(list => list.part === 'D'))
+    ).subscribe(data => {
+      const len = data.length - 1;
+      data.forEach((list, index) => {
+        if (index === len) {
+          this.recheck = this.recheck + list.user_nm + ' M.D.';
+        } else {
           this.recheck = this.recheck + list.user_nm + ' M.D./';
-        } else if (list.part === 'T') {
+        }
+      });
+    });
+
+    lists$.pipe(
+      map(lists => lists.filter(list => list.part === 'T'))
+    ).subscribe(data => {
+      const len = data.length - 1;
+      data.forEach((list, index) => {
+        if (index === len) {
+          this.examin = this.examin + list.user_nm + ' M.T.';
+        } else {
           this.examin = this.examin + list.user_nm + ' M.T./';
         }
       });
@@ -284,7 +302,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
           if (profile[0].FLT3ITD === null) {
             this.profile.flt3itd = '';
           } else {
-            this.profile.flt3itd = profile[0].FLT3ITD;
+            this.profile.flt3itd = profile[0].genetictest;
           }
         }
 
@@ -292,7 +310,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         if (profile[0].leukemiaassociatedfusion === null) {
           this.profile.leukemia = '';
         } else {
-          this.profile.leukemia = profile[0].leukemiaassociatedfusion;
+          this.profile.leukemia = profile[0].diagnosis;
         }
         // console.log('[257][variantesService][profile]', this.profile, profile);
       });
@@ -301,8 +319,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(data => {
         if (data !== undefined && data !== null && data.length > 0) {
           this.profile.chron = data[0].chromosomalanalysis;
-          this.profile.flt3itd = data[0].FLT3ITD;
-          this.profile.leukemia = data[0].leukemiaassociatedfusion;
+          this.profile.flt3itd = data[0].genetictest;
+          this.profile.leukemia = data[0].diagnosis;
           this.store.setProfile(this.profile); // profile 저장
           // console.log('[216][profile]', this.profile);
         }
@@ -402,10 +420,10 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       // 검사자 정보 가져오기
       this.profile.chron = this.patientInfo.chromosomalanalysis;
       if (this.reportType === 'MDS') {
-        this.profile.flt3itd = this.patientInfo.FLT3ITD;
+        this.profile.flt3itd = this.patientInfo.genetictest;
       }
 
-      this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
+      this.profile.leukemia = this.patientInfo.diagnosis;
       this.store.setProfile(this.profile); // profile 저장
 
     } else {   // End of form2TestedId loop
@@ -418,6 +436,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         testedNum: '',
         leukemiaAssociatedFusion: '',
         IKZK1Deletion: '',
+        diagnosis: '',
+        genetictest: '',
         chromosomalAnalysis: '',
         targetDisease: '',
         method: '',
@@ -520,7 +540,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         exonIntro: 'E' + tsv.exon,
         nucleotideChange: coding,
         aminoAcidChange: tsv.amino_acid_change,
-        zygosity: 'heterozygous',
+        zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: '',
         cosmicID: ''
@@ -919,6 +939,18 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     const formData = control.getRawValue();
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
 
+    // 코멘트가 있는경우
+    if (this.comments.length) {
+      const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
+      this.comments = commentControl.getRawValue();
+    } else {  // 코멘트가 신규인 경우
+      this.comments = [];
+    }
+
+    if (this.vusmsg.length === 0) {
+      this.vusmsg = '';
+    }
+
     console.log('[904][form2][comments] ', this.comments);
     const makeForm = makeDForm(
       this.resultStatus,
@@ -928,14 +960,14 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.accept_date, // 검사의뢰일
       this.specimenMessage,
       this.fusion,
-      this.ment,
+      this.vusmsg,   // this.ment,
       this.patientInfo,
       reformData,
       this.firstReportDay,
       this.lastReportDay,
       this.genelists
     );
-    console.log('[918] ', makeForm);
+    console.log('[970] ', makeForm);
 
     this.patientsListService.sendEMR(
       this.patientInfo.specimenNo,
@@ -1106,7 +1138,13 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
                 this.mockData = [];
                 // 코멘트 초기화
                 this.comments = [];
+                // 검사자, 판독자 초기화
+                this.examin = '';
+                this.recheck = '';
+                this.lastReportDay = '-';
                 this.ngOnInit();
+                this.screenstatus = '0';
+                this.patientInfo.screenstatus = '0';
                 this.setReportdaymgn(patientInfo);
               });
 
@@ -1147,14 +1185,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       });
   }
   /////////////////////////////////////////////////////////////////////
-
   onDrop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.getFormControls(), event.previousIndex, event.currentIndex);
     this.getFormControls().forEach((user, idx) => {
       user.order = idx + 1;
     });
   }
-
-
   ////////////////////////////////////////////////////////////////////
 }

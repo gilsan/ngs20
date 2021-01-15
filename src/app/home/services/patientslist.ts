@@ -317,14 +317,16 @@ export class PatientsListService {
             // console.log('[315][유전체]', item.genes, item.coding);
             // const genes = item.genes;  // genes: "CSDE1;NRAS" => "CSDE1,NRAS"
             const genesemi = item.genes.indexOf(',');
-            if (genesemi !== -1) {  // 있는경우
-              gene1 = item.genes.split(',')[0];
-              gene2 = item.genes.split(',')[1];
-            } else {
-              gene1 = item.genes;
-              gene2 = 'none';
-            }
-
+            // if (genesemi !== -1) {  // ,있는경우
+            //   gene1 = item.genes.split(',')[0];
+            //   gene2 = item.genes.split(',')[1];
+            // } else {
+            //   gene1 = item.genes;
+            //   gene2 = 'none';
+            // }
+            // 유전자가 2개인 경우도 2개의 유전자로 검색
+            gene1 = item.genes;
+            gene2 = 'none';
             // const semi = item.coding.indexOf(',');
             // if (semi !== -1) {
             //   coding = item.coding.split(',')[0];
