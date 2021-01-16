@@ -304,6 +304,48 @@ export class GenemgnComponent implements OnInit {
     }
   }
 
+  // 중복체크
+  checkDuplicate(type: string, alen: number, blen: number, gene: string): boolean {
+    if (this.genetype === 'ALL') {
+      for (let i = 0; i < alen; i++) {
+        for (let j = 0; j < blen; j++) {
+          if (this.ALL[i][j] === gene) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (this.genetype === 'AML') {
+      for (let i = 0; i < alen; i++) {
+        for (let j = 0; j < blen; j++) {
+          if (this.AML[i][j] === gene) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (this.genetype === 'LYM') {
+      for (let i = 0; i < alen; i++) {
+        for (let j = 0; j < blen; j++) {
+          if (this.LYM[i][j] === gene) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (this.genetype === 'MDS') {
+      for (let i = 0; i < alen; i++) {
+        for (let j = 0; j < blen; j++) {
+          if (this.MDS[i][j] === gene) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+  }
+
+
 }
 
 
