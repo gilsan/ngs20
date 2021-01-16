@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'fileupload', component: FileuploadComponent },
       { path: 'fileupload/:id', component: FileuploadComponent },
       { path: 'report', component: ReportComponent },
+      { path: 'report/:id', component: ReportComponent },
       { path: 'managestatistics', component: ManageStatisticsComponent },
       { path: 'manageusers', component: ManageUsersComponent },
       { path: 'report/:pathologyNum', component: ReportComponent },

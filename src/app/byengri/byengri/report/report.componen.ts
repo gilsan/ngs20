@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Items } from '@clr/angular/data/datagrid/providers/items';
 import { Observable, combineLatest, concat, partition, of } from 'rxjs';
 import { CombineLatestOperator } from 'rxjs/internal/observable/combineLatest';
-import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 import * as converter from 'xml-js';
 import { SubSink } from 'subsink';
 import { makeReport } from '../../models/dataset';
@@ -186,10 +186,9 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
 
   ngOnInit(): void {
-
     // this.pathologyService.getPatientList().subscribe();
+
     this.loadForm();
-    // this.getParams();
     this.checker();
   }
 
@@ -201,6 +200,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
+
 
   back(): void {
     this.navigationServie.back();
@@ -214,12 +214,18 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     this.route.paramMap.pipe(
-      map(route => route.get('pathologyNum'))
+      map(route => route.get('id')),
+      take(1)
     ).subscribe(pathologyNum => {
-      // console.log('[167][getParams]', pathologyNum);
+      console.log('[167][getParams]', pathologyNum);
       this.pathologyNum = pathologyNum; // 검체번호 저장
+      // this.pathologyService.findPatientinfo(pathologyNum)
+      //   .subscribe(patientinfo => {
+      //     console.log('[233][]', this.patientInfo);
+      //     this.patientInfo = patientinfo;
+      //     this.init(pathologyNum);
+      //   });
       this.patientInfo = this.pathologyService.patientInfo.filter(item => item.pathology_num === pathologyNum)[0];
-      console.log('[169]', this.patientInfo);
       this.init(pathologyNum);
     });
   }
@@ -251,7 +257,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       // 현재 상태정보 1: 저장, 3:EMR전송, 0: 시작
       this.screenstatus = this.patientInfo.screenstatus;
       // 검체정보
-      console.log('[216][환자정보], ', this.patientInfo);
+      // console.log('[216][환자정보], ', this.patientInfo);
       this.extraction.dnarna = 'FFPE tissue';
       this.extraction.managementNum = this.patientInfo.rel_pathology_num;
       // console.log('[216]', this.patientInfo.key_block);
@@ -1264,6 +1270,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   // tslint:disable-next-line: typedef
   sendEMR() {
     const userid = localStorage.getItem('pathuser');
+    const emrDate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
     this.convertFormData();
     console.log('[1064][Burden/MSI', this.tumorMutationalBurden, this.msiScore);
     console.log('[1064][검사자/확인자]', this.examedno, this.examedname, this.checkeredno, this.checkername);
@@ -1273,6 +1280,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.fusion, this.imutation, this.iamplifications, this.ifusion);
     /////////////
     const form = makeReport(
+      emrDate,
       this.examedno,    // 검사자 번호
       this.examedname,  // 검사자 이름
       this.checkeredno, // 확인자 번호
@@ -1554,13 +1562,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toEMR(): void {
+    console.log('[EMR 전송날자]', this.patientInfo.sendEMRDate.toString().slice(0, 10));
     console.log('[EMR 검사자/확인자]', this.examednoEMR, this.examednameEMR, this.checkerednoEMR, this.checkernameEMR);
     console.log('[EMR 환자정보]', this.basicInfoEMR, this.extractionEMR);
     console.log('[EMR 검사내용]', this.mutationEMR, this.amplificationsEMR, this.fusionEMR);
     console.log('[EMR 검사내용]', this.imutationEMR, this.iamplificationsEMR, this.ifusionEMR);
     console.log('[EMR tumor/msi]', this.tumorMutationalBurdenEMR, this.msiScoreEMR);
     console.log('[EMR 멘트]', this.generalReportEMR, this.specialmentEMR, this.notementEMR);
+    const emrDate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
     const form = makeReport(
+      emrDate,   // EMR 전송일
       this.examednoEMR,    // 검사자 번호
       this.examednameEMR,  // 검사자 이름
       this.checkerednoEMR, // 확인자 번호

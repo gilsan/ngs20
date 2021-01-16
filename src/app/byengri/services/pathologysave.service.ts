@@ -16,8 +16,6 @@ export class PathologySaveService {
     private http: HttpClient
   ) { }
 
-
-
   savePathologyData(
     pathologyNum: string,
     patientinfo: IPatient,

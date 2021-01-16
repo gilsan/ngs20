@@ -64,7 +64,9 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   indexNum = 0;
   selectedItem = 'mutation';
   tsvInfo: IFilteredTSV;
-  profile: IProfile = { leukemia: '', flt3itd: '', chron: '' };
+  profile: IProfile = {
+    leukemia: '', flt3itd: '', chron: ''
+  };
   // tslint:disable-next-line:variable-name
   variant_id: string;
   tempid: string;
@@ -111,6 +113,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
+
+  genetictest = `LPC139
+  LPC174
+  LPC188
+  LPE405`;
 
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   @ViewChild('box100', { static: true }) box100: ElementRef;
@@ -206,7 +213,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.patientInfo = this.getPatientinfo(this.form2TestedId);
-    console.log('[162][환자정보]', this.patientInfo);
+    console.log('[216][환자정보]', this.patientInfo);
     this.store.setPatientInfo(this.patientInfo); // 환자정보 저장
     this.requestDate = this.patientInfo.accept_date;
     if (this.patientInfo.specimen === '015') {
@@ -299,8 +306,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
           this.profile.chron = profile[0].chromosomalanalysis;
         }
         if (this.reportType === 'MDS') {
-          if (profile[0].FLT3ITD === null) {
-            this.profile.flt3itd = '';
+          if (profile[0].genetictest === null) {
+            this.profile.flt3itd = this.genetictest;
           } else {
             this.profile.flt3itd = profile[0].genetictest;
           }
@@ -418,9 +425,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         }); // End of Subscribe
 
       // 검사자 정보 가져오기
+      // console.log('[428][검사자정보]', this.patientInfo, this.reportType);
       this.profile.chron = this.patientInfo.chromosomalanalysis;
       if (this.reportType === 'MDS') {
-        this.profile.flt3itd = this.patientInfo.genetictest;
+        this.profile.flt3itd = this.genetictest;
+        //  this.profile.flt3itd = this.patientInfo.genetictest;
       }
 
       this.profile.leukemia = this.patientInfo.diagnosis;
