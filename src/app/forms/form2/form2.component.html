@@ -1,14 +1,16 @@
 <div id="result">
-  <div id="container">
-      <h2 *ngIf="reportType === 'AML'">Actual Myeloid Leukemia NGS</h2>
-      <h2 *ngIf="reportType === 'ALL'">Actual Lymphoblastic Leukemia NGS</h2>
+  <div id="container" style="position: relative;">
+      <h2 *ngIf="reportType === 'AML'" style="margin-top: 5px;">Actual Myeloid Leukemia NGS</h2>
+      <h2 *ngIf="reportType === 'ALL'" style="margin-top: 5px;">Actual Lymphoblastic Leukemia NGS</h2>
+      <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>
+      <button type="button" class="excel" (click)="excelDownload()">Excel</button>
       <div id="content">
           <div class="box pd_20">
               <div class="box_100 main-table" >
-                  <table width="200%" cellpadding="0" cellspacing="0" class="table_result  fixed_header table_resul_x" style="text-align: center;">
+                  <table cellpadding="0" cellspacing="0" class="table_list header-fix" style="text-align: center;">
                       <thead>
                           <tr>
-                              <th width="10px" class="table_result_line"></th>
+                              <th width="30px" class="border-left-1"></th>
                               <th width="200px">Locus</th>
                               <th width="200px">Genotype</th>
                               <th width="80px">Filter</th>
@@ -151,9 +153,6 @@
                   </table>
                 
               </div>
-              <div>
-                <button type="button" class="excel" (click)="excelDownload()">Excel</button>
-              </div>
               <div class="sub_title">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -164,13 +163,13 @@
                         <input type="radio" id="vertical-radio1" name="radio-full" value="notdetected" class="clr-radio"  (change)="result($event)" [checked]="radioStatus('Not Detected')">
                         <label for="vertical-radio1" class="clr-col-12 clr-col-md-2">Not Detected</label>
                     </td>
-                    <td rowspan="2" class="main_btn">
+                    <!-- <td rowspan="2" class="main_btn">
                         <ul>
                             <li>
                                 <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>
                             </li>
                         </ul>
-                    </td>
+                    </td> -->
                 </tr>
                 <tr>
                     <td class="txt_02"> Other molecular and cytogenetic profiles</td>
@@ -231,12 +230,12 @@
                   </tbody>
               </table>
               <div class="sub_title">Detected variants</div>
-    <div class="box pd_20">
+    <div class="box">
               <div class="box_100" #box100>
 <!--    -------------------------------------                     -->
 <form [formGroup]="tablerowForm"> 
      
-    <table class="table table-margin-top fixed_header"  style="text-align: center;">
+    <table class="table_list header-fix"  style="text-align: center;">
         <colgroup>           
             <col style="width:80px"/>
             <col style="width:80px"/>  <!--     -->
@@ -253,13 +252,13 @@
             <col style="width:250px"/>  <!--  VAF %   -->  
             <col style="width:100px"/>  <!--   References  -->
             <col style="width:80px"/>   <!--  COSMIC ID   -->
-            <col style="width:100px"/>  <!--   Site  -->
+            <col style="width:120px"/>  <!--   Site  -->
             <col style="width:80px"/>   <!--  Action -->           
             </colgroup>
       <thead>
           <tr>
               <th>
-                <button class="btn btn_01" (click)="addRow()">추가</button>
+                <button class="btn btn_01 btn-s" (click)="addRow()">추가</button>
               </th> 
               <th></th>
               <th>IGV</th>
@@ -328,16 +327,19 @@
                 (keydown.enter)="$event.preventDefault()"
                 formControlName="cosmicID"></td>
             
-            <td  class="txt_c" style="display:flex;align-items: flex-end;justify-content:center;margin-top: 20px;">
-              <select class="select_01" name="options" (change)="saveInhouse(i, inhouse.value)" 
+            <td  class="txt_c">
+              <select class="select_01" style="width: 100%;" name="options" (change)="saveInhouse(i, inhouse.value)" 
               *ngIf="checkType(i)" #inhouse>
                 <option value="mutation" selected>Mutation</option>
                 <option value="artifacts">Artifacts</option>
                 <option value="benign">Benign</option>
               </select>                    
             </td>
-           <td  class="txt_c" (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">저장</td>   
- 
+           <td  class="txt_c" (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">
+               저장
+               <!-- <button class="btn-s blue">저장</button> -->
+               <!-- 작업후 td class="save_mute" 삭제해주세요 -->
+            </td>
             </tr>                               
           </ng-container>
       </tbody>
@@ -349,7 +351,7 @@
       </div>
       <div>
         <div  class="font_14 pd_t15">
-            <textarea style="width:98%" class="textarea_01" [(ngModel)]= vusmsg></textarea>
+            <textarea style="width:100%" class="textarea_01" [(ngModel)]= vusmsg></textarea>
           </div>
       </div>
 

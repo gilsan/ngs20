@@ -489,6 +489,10 @@
   overflow: hidden;
 }
 
+.table_list th.border-left-1 {
+  border-left: 1px solid #e0e0e0;
+}
+
 .table_list td {
   font-size: 13px;
   color: #666666;

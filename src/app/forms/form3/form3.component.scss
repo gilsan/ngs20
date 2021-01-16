@@ -48,12 +48,12 @@ h2 {
   text-align: center;
 }
 
-td {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-bottom: 0 !important;
-  padding-top: 0 !important;
-}
+// td {
+//   padding-left: 0 !important;
+//   padding-right: 0 !important;
+//   padding-bottom: 0 !important;
+//   padding-top: 0 !important;
+// }
 
 input[type="text"] {
   width: 80%;
@@ -66,6 +66,13 @@ input[type="text"] {
   cursor: pointer;
   vertical-align: middle;
   background-color: lightblue;
+}
+
+.btn-s.blue {
+  cursor: pointer;
+  vertical-align: middle;
+  background-color: lightblue;
+  border-radius: 3px;
 }
 
 .modal-overlay {
@@ -108,13 +115,13 @@ input[type="text"] {
   width: 100%;
 }
 
-img {
-  display: flex;
-  align-items: flex-end;
-  margin-top: 30px;
-  margin-left: 40px;
-  justify-content: center;
-}
+// img {
+//   display: flex;
+//   align-items: flex-end;
+//   margin-top: 30px;
+//   margin-left: 40px;
+//   justify-content: center;
+// }
 
 .tdbox {
   display: flex;

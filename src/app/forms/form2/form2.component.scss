@@ -18,29 +18,36 @@
  .preview__button {
    color: red;
    background-color: #f0e5e5;
-   height: 2rem;
-   width: 7rem;
-   position: fixed;
-   top: 0.1rem;
-   right: 0.5rem;
-   border-radius: 10px;
+   border: 1px solid #e0cccc;
+   position: absolute;
+   top: 5px;
+   right: 30px;
+   border-radius: 3px;
    z-index: 2000;
    -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
    text-align: center;
    cursor: pointer;
+   box-sizing: border-box;
+   padding: 5px 30px;
  }
-
 
  .excel {
-   color: black;
-   font-size: 1rem;
-   font-weight: 500;
-   border: none;
-   background-color: #f0e5e5;
-   cursor: pointer;
-   padding: 2px 20px;
- }
+  color: red;
+  background-color: #f0e5e5;
+  border: 1px solid #e0cccc;
+  position: absolute;
+  top: 5px;
+  right: 160px;
+  border-radius: 3px;
+  z-index: 2000;
+  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 5px 30px;
+}
 
  h2 {
    font-size: 16px;
@@ -48,12 +55,10 @@
    text-align: center;
  }
 
- td {
-   padding-left: 0 !important;
-   padding-right: 0 !important;
-   padding-bottom: 0 !important;
-   padding-top: 0 !important;
- }
+ .table_list.header-fix > thead th {
+  position: sticky;
+  top: 0;
+}
 
  input[type="text"] {
    width: 80%;
@@ -67,6 +72,13 @@
    vertical-align: middle;
    background-color: lightblue;
  }
+
+ .btn-s.blue {
+  cursor: pointer;
+  vertical-align: middle;
+  background-color: lightblue;
+  border-radius: 3px;
+}
 
  .modal-overlay {
    display: inline-block;
@@ -107,13 +119,13 @@
    width: 100%;
  }
 
- img {
-   display: flex;
-   align-items: flex-end;
-   margin-top: 30px;
-   margin-left: 40px;
-   justify-content: center;
- }
+//  img {
+//    display: flex;
+//    align-items: flex-end;
+//    margin-top: 30px;
+//    margin-left: 40px;
+//    justify-content: center;
+//  }
 
  .tdbox {
    display: flex;
@@ -221,3 +233,9 @@ img:hover {
    text-overflow: ellipsis;
  }
  */
+
+ .btn-s {
+  padding: 0 !important;
+  min-width: 50px !important;
+  min-height: auto !important;
+ }
