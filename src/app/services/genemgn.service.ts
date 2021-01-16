@@ -39,6 +39,10 @@ export class GeneService {
     return this.http.post(`${this.apiUrl}/diagGene/delete`, { type, gene });
   }
 
+  geneDuplicate(type: string, gene: string): any {
+    return this.http.post(`${this.apiUrl}/diagGene/duplicate`, { type, gene });
+  }
+
 
 
 }
