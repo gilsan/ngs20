@@ -6,7 +6,7 @@ caption {
 .table-box-wrap {
     position: relative;
     /*width:509px;*/
-    padding-top: 40px;
+    // padding-top: 40px;
   
 }
 .table-box-wrap .table-box {
@@ -14,42 +14,53 @@ caption {
     overflow: auto;
     overflow-x: hidden;
 }
-.table-box-wrap .table-box table {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0;
-    border-collapse: collapse;
+
+.table_list td {
+    text-align: center !important;
 }
-.table-box-wrap .table-box table thead tr {
-    position: absolute;
+
+.table_list.header-fix > thead th {
+    position: sticky;
     top: 0;
-}
-.table-box-wrap .table-box table thead tr th {
-    font-weight: normal;
-    width: 120px;
-    height: 40px;
-    font-size: 12px;
-    color: #666666;
-    padding: 10px;
-    background-color: #fafafa;
-    border: 1px solid #e0e0e0;
+    text-align: center !important;
 }
 
-.table-box-wrap .table-box table td {
-    text-align: left;
-    height: 40px;
-    border-top: 1px solid #ccc;
-}
+// .table-box-wrap .table-box table {
+//     width: 100%;
+//     table-layout: fixed;
+//     border-spacing: 0;
+//     border-collapse: collapse;
+// }
+// .table-box-wrap .table-box table thead tr {
+//     position: absolute;
+//     top: 0;
+// }
+// .table-box-wrap .table-box table thead tr th {
+//     font-weight: normal;
+//     width: 120px;
+//     height: 40px;
+//     font-size: 12px;
+//     color: #666666;
+//     padding: 10px;
+//     background-color: #fafafa;
+//     border: 1px solid #e0e0e0;
+// }
 
-.table-box-wrap .table-box table tr {
-    display: inline-table;
-    width: 100%;
-    table-layout: fixed;
-}
+// .table-box-wrap .table-box table td {
+//     text-align: left;
+//     height: 40px;
+//     border-top: 1px solid #ccc;
+// }
 
-.table-box-wrap .table-box table tbody tr {
-   display: table-row;
-}
+// .table-box-wrap .table-box table tr {
+//     display: inline-table;
+//     width: 100%;
+//     table-layout: fixed;
+// }
+
+// .table-box-wrap .table-box table tbody tr {
+//    display: table-row;
+// }
 
 .clr-input.wid120 {
     width: 125px !important;
@@ -117,12 +128,12 @@ caption {
 //    margin : 10px;
 // }
 
-tr.pd-r-12 {
-    left: -1px;
-}
-tr.pd-r-12::after {
-    content: '';
-    display: table-cell;
-    width: 11px;
-    background-color: #fafafa;
-}
+// tr.pd-r-12 {
+//     left: -1px;
+// }
+// tr.pd-r-12::after {
+//     content: '';
+//     display: table-cell;
+//     width: 11px;
+//     background-color: #fafafa;
+// }
