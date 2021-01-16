@@ -38,19 +38,22 @@ export class ArtifactsComponent implements OnInit {
   }
 
   deleteRow(id: string, genes: string): void {
-    const result = confirm('삭제 하시겠습니까?');
-    if (result) {
-      debugger;
+    
       if(id===""){ 
-          this.lists = this.lists.slice(0,this.lists.length-1); 
-      }else{ 
-        this.artifactsService.deleteArtifactsList(id, genes)
-          .subscribe((data) => {
-          console.log('[170][benign 삭제]', data); 
-          alert("삭제 되었습니다.");
-          this.search(genes); 
-        }); 
-      }
+        const result = confirm('삭제 하시겠습니까?');
+    	if (result) { 
+			 this.lists = this.lists.slice(0,this.lists.length-1);
+		} 
+      }else{
+		const result = confirm(genes+'을 삭제 하시겠습니까?');
+		if (result) {  
+	        this.artifactsService.deleteArtifactsList(id, genes)
+	          .subscribe((data) => {
+	          console.log('[170][benign 삭제]', data); 
+	          alert("삭제 되었습니다.");
+	          this.search(genes); 
+	        }); 
+      	 }
     }  
   }
 

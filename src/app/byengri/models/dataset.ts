@@ -2,6 +2,7 @@ import { IAmplification, IBasicInfo, IExtraction, IFusion, IIAmplification, IMut
 
 
 export function makeReport(
+  emrDate: string,         // EMR 전송일
   examedno: string,        // 검사자 번호
   examedname: string,      // 검사자 이름
   checkeredno: string,     // 확인자 번호
@@ -96,7 +97,7 @@ export function makeReport(
               <Col id="tumortype">${extraction.tumortype}</Col>
               <Col id="pathologicaldiagnosis">${extraction.diagnosis}</Col>
               <Col id="execprcpuniqno">1234567890123456789</Col>
-              <Col id="reptdt" >${reportDate}</Col>
+              <Col id="reptdt" >${emrDate}</Col>
 			        <Col id="examid" >${examedno}</Col>
 			        <Col id="examnm" >${examedname}</Col>
 			        <Col id="checkid">${checkeredno}</Col>

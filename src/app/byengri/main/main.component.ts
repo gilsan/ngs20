@@ -51,6 +51,7 @@ export class MainComponent implements OnInit, OnDestroy {
     // <a [href]="fileUrl" download="file.txt">DownloadFile</a>
     // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
     // console.log('[52] [ngOnInit]');
+
     this.checkStore();
     if (this.storeStartDay === null || this.storeEndDay === null) {
       this.init();

@@ -129,9 +129,9 @@ export class ManageUsersComponent implements OnInit {
       this.lists$ = this.manageUsersService.setManageUsersApproved(id, approved );
         this.lists$.subscribe((data) => {
         alert("정상 처리 되었습니다.");  
-        this.init();
       });   
     }
+    this.init();
   } 
   
   toggle(i: number): any {

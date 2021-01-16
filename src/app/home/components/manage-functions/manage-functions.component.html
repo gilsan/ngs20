@@ -64,7 +64,7 @@
                         <td class="text-right">
                             <span class="bdnone" *ngIf="status.value === 'R' ">
                                 <a class="btn-edit" (click)="status.value='U'">수정</a>
-                                <a class="btn-delete" (click)="deleteRow(list.function_id)">삭제</a>
+                                <a class="btn-delete" (click)="deleteRow(list.function_id, list.function_name)">삭제</a>
                             </span>
                             <span class="wid120 bdnone" *ngIf="status.value === 'U' ">
                                 <a class="btn-cancel" (click)="status.value='R'">취소</a> 

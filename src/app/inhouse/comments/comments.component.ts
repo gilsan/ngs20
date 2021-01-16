@@ -37,20 +37,23 @@ export class CommentsComponent implements OnInit {
     this.search('');
   }
 
-  deleteRow(id: string, gene: string): void {
-    const result = confirm('삭제 하시겠습니까?');
-    if (result) {
-      if (id === "") {
-        this.lists = this.lists.slice(0, this.lists.length - 1);
+  deleteRow(id: string,type: string, gene: string): void {
+     if (id === "") {
+        const result = confirm('삭제 하시겠습니까?');
+    	if (result) {
+			this.lists = this.lists.slice(0, this.lists.length - 1);
+		}	
       } else {
-        this.commentsService.deleteCommentsList(id, gene)
-          .subscribe((data) => {
-            console.log('[170][benign 삭제]', data);
-            alert("삭제 되었습니다.");
-            this.search(gene);
-          });
+		const result = confirm(type +'-'+gene +'를 삭제 하시겠습니까?');
+		if (result) {
+    	  this.commentsService.deleteCommentsList(id, gene)
+	          .subscribe((data) => {
+	            console.log('[170][benign 삭제]', data);
+	            alert("삭제 되었습니다.");
+	            this.search('');
+	      });
+      	}
       }
-    }
   }
 
   updateRow(id: string): void {

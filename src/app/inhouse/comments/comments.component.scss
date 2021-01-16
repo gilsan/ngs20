@@ -143,3 +143,15 @@ caption {
 //     width: 11px;
 //     background-color: #fafafa;
 // }
+
+
+.pre-box {
+	display: inline-block;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+textarea.padding-5 {
+	box-sizing: border-box;
+	padding: 5px;
+}

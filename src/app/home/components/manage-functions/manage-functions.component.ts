@@ -112,20 +112,24 @@ export class ManageFunctionsComponent implements OnInit {
  
 
  
- deleteRow(functionId: string): void {
-  const result = confirm('삭제 하시겠습니까?');
-  if (result) { 
+ deleteRow(functionId: string, functionName: string): void {
+ 
     if(functionId===""){ 
-        this.lists = this.lists.slice(0,this.lists.length-1); 
+	  	const result = confirm('삭제 하시겠습니까?');
+	  	if (result) {  
+       		this.lists = this.lists.slice(0,this.lists.length-1);
+		} 
     }else{  
-      this.manageFunctionsService.deleteManageList(functionId)
-        .subscribe((data) => {
-        console.log('[170][function 삭제]', data); 
-        alert("삭제 되었습니다.");
-        this.search(this.startToday(), this.endToday(), '');
-      });  
-    }
-  }  
+        const result = confirm(functionName+ '를 삭제 하시겠습니까?');
+  		if (result) { 
+			this.manageFunctionsService.deleteManageList(functionId)
+	        .subscribe((data) => {
+	        console.log('[170][function 삭제]', data); 
+	        alert("삭제 되었습니다.");
+	        this.search(this.startToday(), this.endToday(), '');
+	      });  
+	    }
+  	}
 }
 
   updateRow(functionId: string): void {  
