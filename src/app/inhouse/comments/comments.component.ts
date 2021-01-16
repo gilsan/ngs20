@@ -50,7 +50,7 @@ export class CommentsComponent implements OnInit {
 	          .subscribe((data) => {
 	            console.log('[170][benign 삭제]', data);
 	            alert("삭제 되었습니다.");
-	            this.search(gene);
+	            this.search('');
 	      });
       	}
       }
