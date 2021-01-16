@@ -38,19 +38,24 @@ export class MutationComponent implements OnInit {
     this.search('');
   }
 
-  deleteRow(id: string, genes: string): void {
-    const result = confirm('삭제 하시겠습니까?');
-
+  deleteRow(id: string, genes: string, patientName: string ): void {
+   
     if(id===""){ 
-      this.lists = this.lists.slice(0,this.lists.length-1); 
-    }else{ 
-      this.mutationService.deleteMutationList(id, genes)
-        .subscribe((data) => {
-        console.log('[170][mutation 삭제]', data); 
-        alert("삭제 되었습니다.");
-        this.search(genes); 
-      }); 
-    } 
+		const result = confirm('삭제 하시겠습니까?');
+		if (result) { 
+      		this.lists = this.lists.slice(0,this.lists.length-1);
+		} 
+    }else{
+		const result = confirm(patientName +'를 삭제 하시겠습니까?');
+		if (result) { 
+		      this.mutationService.deleteMutationList(id, genes)
+		        .subscribe((data) => {
+		        console.log('[170][mutation 삭제]', data); 
+		        alert("삭제 되었습니다.");
+		        this.search(genes); 
+		      });
+		} 
+	} 
   }
 
   updateRow(id: string): void {

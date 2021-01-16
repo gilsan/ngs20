@@ -49,6 +49,29 @@
     <div class="table-box-wrap">
         <div class="table-box box" style="overflow-x: auto;">         
             <table border="0" cellpadding="0" cellspacing="0" class="header-fix table_list" style="min-width:2200px; width:100%">
+            	<colgroup>
+                    <col width="3%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col/>
+                    <col  width="7%"/>
+                </colgroup>
                 <thead>
                     <tr>
                         <th >No.</th>
@@ -170,7 +193,7 @@
                             <td class="txt_c">
                                 <span *ngIf="status.value === 'R'">
                                     <a class="btn-edit" (click)="status.value='U'" >수정</a>
-                                    <a class="btn-delete" (click)="deleteRow(list.id, list.genes)">삭제</a>
+                                    <a class="btn-delete" (click)="deleteRow(list.id, list.gene,list.patient_name)">삭제</a>
                                 </span>
                                 <span *ngIf="status.value === 'U'">    
                                     <a class="btn-cancel" (click)="status.value='R'">취소</a> 
