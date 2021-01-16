@@ -7,11 +7,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddgeneComponent } from './addgene/addgene.component';
 import { UpdategeneComponent } from './updategene/updategene.component';
 import { DeletegeneComponent } from './deletegene/deletegene.component';
+import { IGTYPE } from './models';
 
-export interface IGTYPE {
-  gene: string;
-  type: string;
-}
+
 @Component({
   selector: 'app-genemgn',
   templateUrl: './genemgn.component.html',
@@ -160,29 +158,37 @@ export class GenemgnComponent implements OnInit {
     const addDialogRef = this.dialog.open(AddgeneComponent, {
       width: '300px',
       height: '260px',
-      disableClose: true
+      disableClose: true,
+      data: this.genetype
     });
 
     addDialogRef.afterClosed().subscribe(val => {
-      if (this.genetype === 'ALL') {
+      if (this.genetype === 'ALL' && val.gene.length) {
         const alen = this.ALL.length;
         const blen = this.ALL[alen - 1].length;
         this.addNewgene('ALL', alen, blen, val.gene);
-      } else if (this.genetype === 'AML') {
+        this.geneService.geneInsert(this.genetype, val.gene)
+          .subscribe(data => console.log(data));
+      } else if (this.genetype === 'AML' && val.gene.length) {
         const alen = this.AML.length;
         const blen = this.AML[alen - 1].length;
         this.addNewgene('AML', alen, blen, val.gene);
-      } else if (this.genetype === 'LYM') {
+        this.geneService.geneInsert(this.genetype, val.gene)
+          .subscribe(data => console.log(data));
+      } else if (this.genetype === 'LYM' && val.gene.length) {
         const alen = this.LYM.length;
         const blen = this.LYM[alen - 1].length;
         this.addNewgene('LYM', alen, blen, val.gene);
-      } else if (this.genetype === 'MDS') {
+        this.geneService.geneInsert(this.genetype, val.gene)
+          .subscribe(data => console.log(data));
+      } else if (this.genetype === 'MDS' && val.gene.length) {
         const alen = this.MDS.length;
         const blen = this.MDS[alen - 1].length;
         this.addNewgene('MDS', alen, blen, val.gene);
+        this.geneService.geneInsert(this.genetype, val.gene)
+          .subscribe(data => console.log(data));
       }
-      this.geneService.geneInsert(this.genetype, val.gene)
-        .subscribe(data => console.log(data));
+
     });
   }
 
@@ -219,22 +225,29 @@ export class GenemgnComponent implements OnInit {
     const updateDialogRef = this.dialog.open(UpdategeneComponent, {
       width: '330px',
       height: '260px',
-      data: this.selectedgene,
+      data: { type: this.genetype, gene: this.selectedgene },
       disableClose: true
     });
 
     updateDialogRef.afterClosed().subscribe(val => {
-      if (this.genetype === 'ALL') {
+      if (this.genetype === 'ALL' && val.newgene.length) {
         this.updateGene(val.newgene);
-      } else if (this.genetype === 'AML') {
+        this.geneService.geneUpdate(this.genetype, val.oldgene, val.newgene)
+          .subscribe();
+      } else if (this.genetype === 'AML' && val.newgene.length) {
         this.updateGene(val.newgene);
-      } else if (this.genetype === 'LYM') {
+        this.geneService.geneUpdate(this.genetype, val.oldgene, val.newgene)
+          .subscribe();
+      } else if (this.genetype === 'LYM' && val.newgene.length) {
         this.updateGene(val.newgene);
-      } else if (this.genetype === 'MDS') {
+        this.geneService.geneUpdate(this.genetype, val.oldgene, val.newgene)
+          .subscribe();
+      } else if (this.genetype === 'MDS' && val.newgene.length) {
         this.updateGene(val.newgene);
+        this.geneService.geneUpdate(this.genetype, val.oldgene, val.newgene)
+          .subscribe();
       }
-      this.geneService.geneUpdate(this.genetype, val.oldgene, val.newgene)
-        .subscribe(data => console.log('[갱신]', data));
+
     });
 
   }
