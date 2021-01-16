@@ -52,18 +52,18 @@
                     <col width="7%" />
                     <col width="7%" />
                     <col width="7%" />
-                    <col width="30%" />
-                    <col width="30%" />
                     <col width="*" />
+                    <col width="30%" />
+                    <col width="7%" />
                 </colgroup>
                 <thead>
                     <tr class="pd-r-12">
-                        <th class="txt_l">No</th>
-                        <th class="txt_l">Type</th>
-                        <th class="txt_l">Gene</th>
-                        <th class="txt_l">Variant Id</th>
-                        <th class="txt_l">Comment</th> 
-                        <th class="txt_l">Reference</th>
+                        <th class="txt_c">No.</th>
+                        <th class="txt_c">Type</th>
+                        <th class="txt_c">Gene</th>
+                        <th class="txt_c">Variant Id</th>
+                        <th class="txt_c">Comment</th> 
+                        <th class="txt_c">Reference</th>
                         <th class="txt_c">수정/삭제</th> 
                     </tr>
                 </thead>
@@ -83,11 +83,11 @@
                                 <span class="bdnone" *ngIf="status.value === 'R'">{{list.variant_id}}</span>
                                 <span class="bdnone" *ngIf="status.value === 'U'"><input type="text"  class="clr-input wid120" value="{{list.variant_id}}" id="variant_id{{list.id}}"   ></span>
                             </td>  
-                            <td>
+                            <td class="txt_l">
                                 <span class="bdnone" *ngIf="status.value === 'R'">{{list.comment}}</span>
                                 <span class="bdnone" *ngIf="status.value === 'U'"><textarea rows="10"  cols="70" class="wid500" id="comment{{list.id}}"  >{{list.comment}}</textarea></span>
                             </td>
-                            <td>
+                            <td class="txt_l">
                                 <span class="bdnone" *ngIf="status.value === 'R'">{{list.reference}}</span>
                                 <span class="bdnone" *ngIf="status.value === 'U'"><textarea rows="10"  cols="70" class="wid500" id="reference{{list.id}}"   >{{list.reference}}</textarea></span>
                             </td>

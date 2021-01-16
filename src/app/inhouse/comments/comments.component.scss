@@ -18,11 +18,13 @@ caption {
 .table_list td {
     text-align: center !important;
 }
+.table_list td.txt_l {
+    text-align: left !important;
+}
 
 .table_list.header-fix > thead th {
     position: sticky;
     top: 0;
-    text-align: center !important;
 }
 
 // .table-box-wrap .table-box table {
