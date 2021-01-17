@@ -41,3 +41,17 @@ th {
   align-items: center;
 
 }
+
+.btn-close {
+  color: red;
+  background-color: #f0e5e5;
+  border: 1px solid #e0cccc;
+  border-radius: 3px;
+  z-index: 3;
+  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 5px 30px;
+}

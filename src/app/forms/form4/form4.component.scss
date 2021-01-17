@@ -18,17 +18,18 @@ table {
 .preview__button {
   color: red;
   background-color: #f0e5e5;
-  height: 2rem;
-  width: 7rem;
-  position: fixed;
-  top: 0.1rem;
-  right: 0.5rem;
-  border-radius: 10px;
-  z-index: 2000;
+  border: 1px solid #e0cccc;
+  position: absolute;
+  top: 5px;
+  right: 30px;
+  border-radius: 3px;
+  z-index: 3;
   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   text-align: center;
   cursor: pointer;
+  box-sizing: border-box;
+  padding: 5px 30px;
 }
 
 
