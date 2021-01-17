@@ -257,7 +257,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       // 현재 상태정보 1: 저장, 3:EMR전송, 0: 시작
       this.screenstatus = this.patientInfo.screenstatus;
       // 검체정보
-      // console.log('[216][환자정보], ', this.patientInfo);
+      console.log('[216][환자정보], ', this.patientInfo);
       this.extraction.dnarna = 'FFPE tissue';
       this.extraction.managementNum = this.patientInfo.rel_pathology_num;
       // console.log('[216]', this.patientInfo.key_block);
@@ -2206,11 +2206,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  removeGeneCheck(gene: string, amion: string, nucleotide: string): number {
+  removeGeneCheck(gene: string, amino: string, nucleotide: string): number {
     const result = this.polymorphismList.findIndex(item =>
-      item.gene === gene && item.aminoAcidChange === amion && item.necleotideChange === nucleotide
+      item.gene === gene && item.amino_acid_change === amino && item.nucleotide_change === nucleotide
     );
-    return result;
+    console.log('[2210][removeGeneCheck]', this.polymorphismList);
+    console.log('[2211]', gene, amino, nucleotide, result);
+    // return result;
+    // 검증완료후 삭제 1.17
+    return -1;
   }
 
   tumormutationalburdenChange(burden: string): void {

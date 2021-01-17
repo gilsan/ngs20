@@ -285,17 +285,11 @@ export class MainComponent implements OnInit, OnDestroy {
     if (this.storeStartDay && this.storeEndDay) {
       this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
     }
-    // if (status === 'mainscreen') {
-    //   this.search(this.startToday(), this.endToday(), '', '');
-    // } else if (status === 'searchscreen') {
-    //   this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
-    // }
+
   }
 
   getUrl(list: IPatient, type: string): SafeResourceUrl {
-    // http://112.169.53.30:3000//
-    // path/2020/12/05
-    // M20-11575_v1_faf05a1d-f4da-4bed-9023-63b11029114a_2020-10-11_19-10-25-443_All_OR.tsv
+
     if (type === 'OR') {
       const orpath = list.orpath;
       const orfilename = list.tsvorfilename;
