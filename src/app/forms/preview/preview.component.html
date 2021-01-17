@@ -3,7 +3,11 @@
     <div id="container">
         <div id="content" style="padding: 0 !important;">
             <div class="box pd_20" style="padding: 20px !important;">
-                <div class="sub_title_01">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
+                <div  class="preview">
+                    <div class="sub_title_01">Patient: {{patientInfo.name}}, {{patientInfo.patientID}} ({{patientInfo.gender}}/{{patientInfo.age}})</div>
+                    <div><button>닫기</button></div>
+                </div>
+                
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td class="txt_02" ><span class="fb">Result</span>:  {{result}} </td>                 
