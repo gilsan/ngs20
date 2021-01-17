@@ -779,7 +779,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
             let aminoAcidChange = itemMembers[1];
             const tempAminoAcidChange = itemMembers[1];
-            // console.log('====[569][clinically]: ', gene, tempAminoAcidChange);
+            console.log('====[569][clinically]: ', gene, tempAminoAcidChange);
             if (type === 'exon') {
               nucleotideChange = '';
             } else {

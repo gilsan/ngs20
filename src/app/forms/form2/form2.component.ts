@@ -288,7 +288,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         if (dbComments !== undefined && dbComments !== null && dbComments.length > 0) {
           // console.log('[247][COMMENT 가져오기]', dbComments);
           dbComments.forEach(comment => {
-            console.log('[291][\n 을 <br />로 변경하기]', comment.reference.replace(/\\r\\n|\\r|\\n/g, '<br />'));
+            // console.log('[291]', comment.reference);
             this.comments.push(
               {
                 gene: comment.gene, comment: comment.comment,
@@ -489,7 +489,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.patientInfo.sendEMRDate.slice(0, 10);
       this.lastReportDay = this.patientInfo.report_date.slice(0, 10);
     } else {
-      this.firstReportDay = this.today();
+      this.firstReportDay = '-';
       this.lastReportDay = '-';
     }
   }
