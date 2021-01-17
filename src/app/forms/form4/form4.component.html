@@ -190,7 +190,7 @@
       </div>
       <div>
         <div  class="font_14 pd_t15">
-            <textarea style="width:100%"class="textarea_01" [(ngModel)="vusmsg"]></textarea>
+            <textarea style="width:100%"class="textarea_01" [(ngModel)]="vusmsg"></textarea>
           </div>
       </div>
 
@@ -247,6 +247,19 @@
         </div>    
       </div>
   <!--  -------------------------------   -->
+  <div class="sub_title">*Methods</div>
+
+  <div class="pd_r20">
+    <textarea class="textarea_01">Total genomic DNA was extracted from the each sample.  The TruSeq DNA Sample Preparation kit of Illumina was used to make the library. The Agilent SureSelect Target enrichment kit was used for in-solution enrichment of target regions. The enriched fragments were then amplified and sequenced on the MiSeqDx system (illumina). After demultiplexing, the reads were aligned to the human reference genome hg19 (GRCh37) using BWA (0.7.12) and duplicate reads were removed with Picard MarkDuplicates (1.98). Local realignment, score recalibiration and filtering sequence data were performed with GATK (2.3-9). Variants were annotated using SnpEff (4.2).</textarea>
+</div>
+
+<div class="sub_title">Genernal limitations of the technique</div>
+<div class="pd_r20">
+    <textarea class="textarea_01">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test.</textarea>
+</div>  
+
+  <!-- --------------------------      -->
+  <div class="sub_title">Target genes</div>
   <table cellpadding="0" cellspacing="0" class="table_result02">
        <colgroup>
           <col style="width:10%;"/>
