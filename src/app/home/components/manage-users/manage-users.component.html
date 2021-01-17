@@ -42,8 +42,8 @@
                     <tr [ngClass]="toggle(i)"  *ngFor="let list of lists; let i = index">    
                         <td class="txt_c" ><span>{{ (curPage-1)*10 + i + 1}}</span></td> 
                         <td class="txt_c" ><span>{{list.user_id}}</span></td> 
-                        <td class="txt_c" ><span>{{list.dept_nm}}</span></td> 
-                        <td class="txt_c" ><span>{{list.user_gb_nm}}</span></td>
+                        <td class="txt_c" ><span *ngIf="list.dept =='D'">진검</span><span *ngIf="list.dept =='P'">병리</span></td> 
+                        <td class="txt_c" ><span *ngIf="list.user_gb =='U'">사용자</span><span *ngIf="list.user_gb =='A'">관리자</span></td>
                         <td class="txt_c" ><span>{{list.user_nm}}</span></td>
                         <td class="txt_c" ><span>{{list.reg_date}}</span></td>
                         <td class="txt_c" ><span>{{list.login_date}}</span></td>  
