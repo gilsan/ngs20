@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IAFormVariant, IComment, IPatient, IProfile } from 'src/app/home/models/patients';
 import { StoreService } from '../store.current';
 
@@ -11,6 +11,7 @@ export class PreviewComponent implements OnInit {
 
   @Input() result: string;
   @Input() type: string;
+  @Output() closemodal = new EventEmitter<void>();
   patientInfo: IPatient;
   profile: IProfile;  //  { leukemia: '', flt3itd: '', chron: '' };
   dts: IAFormVariant[];
@@ -35,6 +36,10 @@ export class PreviewComponent implements OnInit {
     console.log('[30][preview][프로파일]', this.profile);
     console.log('[31][preview][mockData]\n', this.specimenMsg, this.vusstatus);
     console.log('[32][preview][comments]\n', this.comments);
+  }
+
+  closeModal(): void {
+    this.closemodal.emit(null);
   }
 
 }

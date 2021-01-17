@@ -529,7 +529,9 @@
   <!--    -->
    <div class="modal-overlay" *ngIf="isVisible">
        <div class="modal-body">
-           <app-preview  [result]="resultStatus" [type]="reportType"></app-preview>
+           <app-preview  [result]="resultStatus"
+        (closemodal)="previewToggle()"
+           [type]="reportType"></app-preview>
        </div>
    </div>
 
