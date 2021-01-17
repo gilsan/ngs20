@@ -457,7 +457,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.patientInfo.sendEMRDate.slice(0, 10);
       this.lastReportDay = this.patientInfo.report_date.slice(0, 10);
     } else {
-      this.firstReportDay = this.today();
+      this.firstReportDay = '-';
       this.lastReportDay = '-';
     }
   }

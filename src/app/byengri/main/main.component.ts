@@ -28,8 +28,8 @@ export class MainComponent implements OnInit, OnDestroy {
   isSelected = false; // 화일등록이 되었는지 확인하는 플래그
   startday: string;
   endday: string;
-  pathologyno: string;
-  patientid: string;
+  pathologyno = '';
+  patientid = '';
 
   usesearch = 'N';
   storeStartDay: string;
@@ -48,16 +48,16 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // <a [href]="fileUrl" download="file.txt">DownloadFile</a>
-    // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
-    // console.log('[52] [ngOnInit]');
 
     this.checkStore();
     if (this.storeStartDay === null || this.storeEndDay === null) {
       this.init();
     }
 
-    this.search(this.startToday(), this.endToday(), '', '');
+    console.log('[57][main]', this.pathologyno, this.patientid);
+    if (this.pathologyno.length === 0 && this.patientid.length === 0) {
+      this.search(this.startToday(), this.endToday(), '', '');
+    }
   }
 
   ngOnDestroy(): void {
@@ -174,8 +174,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.pathologyNo = pathologyNo;
   }
 
-  search(start: string, end: string, pathologynum: string, patient: string, saveStore = 'N'): void {
-    console.log('[177] [search]');
+  search(start: string, end: string, pathologynum: string = '', patient: string = '', saveStore = 'N'): void {
+    console.log('[177][main] [찿기]', start, end, pathologynum, patient, saveStore);
     this.startday = start;
     this.endday = end;
     this.pathologyNo = pathologynum;
@@ -195,11 +195,11 @@ export class MainComponent implements OnInit, OnDestroy {
     const startdate = start.toString().replace(/-/gi, '');
     const enddate = end.toString().replace(/-/gi, '');
     // console.log('[176][main][search]', startdate, enddate, patient, pathologynum);
-    if (patient !== undefined) {
+    if (patient !== undefined && patient !== null) {
       patient = patient.trim();
     }
 
-    if (pathologynum !== undefined) {
+    if (pathologynum !== undefined && pathologynum !== null) {
       pathologynum = pathologynum.trim();
     }
     this.lists$ = this.pathologyService.search(startdate, enddate, patient, pathologynum);
@@ -261,12 +261,26 @@ export class MainComponent implements OnInit, OnDestroy {
     const status = this.store.getWhichstate();
     this.storeStartDay = this.store.getSearchStartDay();
     this.storeEndDay = this.store.getSearchEndDay();
-    this.storePatientID = this.store.getPatientID();
-    this.storePathologyNo = this.store.getPathologyNo();
+
+    const pid = this.store.getPatientID();
+    if (pid === undefined || pid === null) {
+      this.storePatientID = '';
+    } else {
+      this.storePatientID = this.store.getPatientID();
+    }
+
+    const pnum = this.store.getPathologyNo();
+    if (pnum === undefined || pnum === null) {
+      this.storePathologyNo = '';
+    } else {
+      this.storePathologyNo = this.store.getPathologyNo();
+    }
+
+
     this.startday = this.storeStartDay;
     this.endday = this.storeEndDay;
     this.pathologyno = this.storePathologyNo;
-    this.patientid = this.patientID;
+    this.patientid = this.storePatientID;
     console.log('=== [236][저장된것 불러온값]', this.startday, this.endday, this.pathologyno, this.patientid);
     if (this.storeStartDay && this.storeEndDay) {
       this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
@@ -344,11 +358,11 @@ export class MainComponent implements OnInit, OnDestroy {
     const startdate = start.toString().replace(/-/gi, '');
     const enddate = end.toString().replace(/-/gi, '');
     // console.log('[345][main][search]', startdate, enddate, patient, pathologynum);
-    if (patient !== undefined) {
+    if (patient !== undefined && patient !== null) {
       patient = patient.trim();
     }
 
-    if (pathologynum !== undefined) {
+    if (pathologynum !== undefined && pathologynum !== null) {
       pathologynum = pathologynum.trim();
     }
     this.lists$ = this.pathologyService.search(startdate, enddate, patient, pathologynum);

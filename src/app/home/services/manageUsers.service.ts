@@ -18,8 +18,8 @@ export class ManageUsersService {
     private http: HttpClient
   ) { }
  
-  public getManageUsersList(startDay: String, endDay: String, userId: String, userNm: String): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/manageUsers/list`, { startDay, endDay, userId, userNm });
+  public getManageUsersList(startDay: string, endDay: string, userId: string, userNm: string, dept: string): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/manageUsers/list`, { startDay, endDay, userId, userNm, dept });
   }
 
   

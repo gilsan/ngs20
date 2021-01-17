@@ -161,7 +161,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     ).subscribe(data => {
       console.log('[138][findType]', data);
       this.reportType = data;
-      this.getGeneList(this.reportType); // 진검 유전자 목록 가져옴.
+      this.getGeneList('MDS'); // 진검 유전자 목록 가져옴.
     });
   }
 
@@ -471,7 +471,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.patientInfo.sendEMRDate.slice(0, 10);
       this.lastReportDay = this.patientInfo.report_date.slice(0, 10);
     } else {
-      this.firstReportDay = this.today();
+      this.firstReportDay = '-';
       this.lastReportDay = '-';
     }
   }

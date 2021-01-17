@@ -112,7 +112,7 @@ export class ManageUsersComponent implements OnInit {
  
   search(startDay: string, endDay: string, userId: string, userNm: string ): void {   
       this.totRecords = 0;
-      this.lists$ = this.manageUsersService.getManageUsersList(startDay, endDay, userId, userNm );
+      this.lists$ = this.manageUsersService.getManageUsersList(startDay, endDay, userId, userNm, 'D' );
       this.lists$.subscribe((data) => {
       console.log('[170][Users 검색]', data);
       this.listManageUsers = data;
