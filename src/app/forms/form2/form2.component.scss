@@ -23,7 +23,7 @@
    top: 5px;
    right: 30px;
    border-radius: 3px;
-   z-index: 2000;
+   z-index: 3;
    -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
    text-align: center;
@@ -40,7 +40,7 @@
   top: 5px;
   right: 160px;
   border-radius: 3px;
-  z-index: 2000;
+  z-index: 3;
   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -60,12 +60,12 @@
   top: 0;
 }
 
- input[type="text"] {
-   width: 80%;
-   box-sizing: border-box;
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
- }
+//  input[type="text"] {
+//    width: 80%;
+//    box-sizing: border-box;
+//    -webkit-box-sizing: border-box;
+//    -moz-box-sizing: border-box;
+//  }
 
  .save_mute {
    cursor: pointer;
@@ -112,12 +112,12 @@
    cursor: pointer;
  }
 
- .ckbox {
-   display: flex;
-   align-items: flex-end;
-   margin-top: 35px;
-   width: 100%;
- }
+//  .ckbox {
+//    display: flex;
+//    align-items: flex-end;
+//    margin-top: 35px;
+//    width: 100%;
+//  }
 
 //  img {
 //    display: flex;
@@ -128,10 +128,10 @@
 //  }
 
  .tdbox {
-   display: flex;
-   align-items: flex-end;
-   margin-top: 20px;
-   width: 100%;
+  //  display: flex;
+  //  align-items: flex-end;
+  //  margin-top: 20px;
+   width: 96%;
  }
 
  /*
