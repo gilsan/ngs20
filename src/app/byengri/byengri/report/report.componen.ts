@@ -1562,6 +1562,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toEMR(): void {
+    const userid = localStorage.getItem('pathuser');
+    console.log('[EMR 사용자ID]', userid);
     console.log('[EMR 전송날자]', this.patientInfo.sendEMRDate.toString().slice(0, 10));
     console.log('[EMR 검사자/확인자]', this.examednoEMR, this.examednameEMR, this.checkerednoEMR, this.checkernameEMR);
     console.log('[EMR 환자정보]', this.basicInfoEMR, this.extractionEMR);
@@ -1569,6 +1571,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[EMR 검사내용]', this.imutationEMR, this.iamplificationsEMR, this.ifusionEMR);
     console.log('[EMR tumor/msi]', this.tumorMutationalBurdenEMR, this.msiScoreEMR);
     console.log('[EMR 멘트]', this.generalReportEMR, this.specialmentEMR, this.notementEMR);
+
     const emrDate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
     const form = makeReport(
       emrDate,   // EMR 전송일
@@ -1605,6 +1608,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.screenstatus = '3';
         console.log('[EMR 전송후 상태]', this.screenstatus);
       });
+
+    this.searchService.finishPathologyEMRScreen(this.patientInfo.pathology_num, userid)
+      .subscribe(data => {
+        console.log('[1101][][finishPathologyEMRScreen]', data);
+        if (data.message === 'SUCCESS') {
+          // alert(data);
+          // this.router.navigate(['/pathology']);
+        }
+      });
+
 
   }
 
