@@ -18,6 +18,7 @@ export function makeAForm(
 	ment: string,
 	patientInfo: IPatient,
 	formData: IAFormVariant[],
+	comment: IComment[],
 	firstReportDay: string,
 	lastReportDay: string,
 	genelists: IGeneList[],
@@ -132,6 +133,44 @@ export function makeAForm(
 </Dataset>
 	`;
 
+	let comments = '';
+	const commentHeader = `
+<Dataset id="ds_3">
+	<ColumnInfo>
+		<Column id="gene" type="STRING" size="256"/>
+		<Column id="variants" type="STRING" size="256"/>
+		<Column id="comments" type="STRING" size="256"/>
+		<Column id="reference" type="STRING" size="256"/>
+	</ColumnInfo>
+`;
+
+	let commentContent = '';
+	// tslint:disable-next-line: prefer-for-of
+	for (let i = 0; i < comment.length; i++) {
+		commentContent = commentContent + `
+		<Row>
+		<Col id="gene">${comment[i].gene}</Col>
+		<Col id="variants">${comment[i].variant_id}</Col>
+		<Col id="comments">${comment[i].comment}</Col>
+		<Col id="reference">${comment[i].reference}</Col>
+	</Row>`;
+	}
+
+	commentContent = `<Rows>
+		${commentContent}
+		</Rows>
+	`;
+	const commentBottom = `
+	</Dataset>
+	`;
+	if (comment.length > 0) {
+		comments = commentHeader + commentContent + commentBottom;
+	}
+
+
+
+
+
 	const fixedMent = `
 	<Dataset id="ds_4">
 	<ColumnInfo>
@@ -193,6 +232,6 @@ export function makeAForm(
 	</Dataset>
 </root>`;
 
-	return patient + variantHeader + data + variantBottom + fixedMent + list + rootbottom;
+	return patient + variantHeader + data + variantBottom + comments + fixedMent + list + rootbottom;
 
 }
