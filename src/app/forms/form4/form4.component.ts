@@ -105,8 +105,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   animal: string;
   name: string;
   sendEMR = 0; // EMR 보낸 수
-  firstReportDay = ''; // 검사보고일
-  lastReportDay = '';  // 수정보고일
+  firstReportDay = '-'; // 검사보고일
+  lastReportDay = '-';  // 수정보고일
   reportType: string; // 
 
   genelists: IGeneList[] = [];
@@ -137,7 +137,6 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.findType();
     this.box100.nativeElement.scrollLeft += 250;
-
 
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
@@ -417,7 +416,6 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
                 tempArray = [];
               }
             }
-
           }
 
           this.addVarient(type, dvariable, gene, data.coding, data.tsv);
@@ -466,13 +464,13 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   // 검사일/검사보고일/수정보고일 관리
   setReportdaymgn(patientInfo: IPatient): void {
     // 전송횟수, 검사보고일, 수정보고일  저장
-    if (parseInt(patientInfo.sendEMR, 10) > 0) {
-      this.sendEMR = Number(this.patientInfo.sendEMR);
-      this.firstReportDay = this.patientInfo.sendEMRDate.slice(0, 10);
-      this.lastReportDay = this.patientInfo.report_date.slice(0, 10);
-    } else {
-      this.firstReportDay = '-';
-      this.lastReportDay = '-';
+    console.log('[487][검사일/검사보고일/수정보고일 관리]', patientInfo);
+    this.sendEMR = Number(patientInfo.sendEMR);
+    if (patientInfo.sendEMRDate.length) {
+      this.firstReportDay = patientInfo.sendEMRDate.replace(/-/g, '.').slice(0, 10);
+    }
+    if (this.sendEMR > 1) {
+      this.lastReportDay = patientInfo.report_date.replace(/-/g, '.').slice(0, 10);
     }
   }
 
@@ -603,7 +601,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     }
     return;
   }
-
+  /////////////////////////////////////////////////////////////
+  //
   createRow(item: IAFormVariant): FormGroup {
     return this.fb.group({
       igv: [item.igv],
@@ -619,7 +618,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [item.vafPercent],
       references: [item.references],
       cosmicID: [item.cosmicID],
-      id: [item.id]
+      id: [item.id],
+
     });
   }
 
@@ -684,7 +684,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       zygosity: [],
       vafPercent: [],
       references: [],
-      cosmicID: []
+      cosmicID: [],
     });
   }
 
@@ -704,7 +704,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       zygosity: [],
       vafPercent: [],
       references: [],
-      cosmicID: []
+      cosmicID: [],
     });
   }
 
@@ -770,9 +770,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         row.references,
         row.cosmicID
       ).subscribe((data: any) => {
-
         alert('mutation에 추가 했습니다.');
-
       });
     } else if (this.selectedItem === 'artifacts') {
       console.log('[715][save][artifacts] ', row);
@@ -808,7 +806,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   checkType(index: number) {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
-    if (row.type === 'New') {
+    if (row.type === 'New' || row.type === null) {
       return true;
     }
     return false;
@@ -976,7 +974,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.lastReportDay,
       this.genelists
     );
-    console.log('[970] ', makeForm);
+    console.log('[979][MDS XML] ', makeForm);
 
     this.patientsListService.sendEMR(
       this.patientInfo.specimenNo,
@@ -986,12 +984,18 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       makeForm)
       .pipe(
         concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
-        concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, this.sendEMR++)), // EMR 발송횟수 전송
-        concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
+        concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, ++this.sendEMR)), // EMR 발송횟수 전송
+        // concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
         this.screenstatus = '3';
-        //  this.screenstatus = msg[0].screenstatus;
         alert('EMR로 전송했습니다.');
+
+        // 환자정보 가져오기
+        this.patientsListService.getPatientInfo(this.form2TestedId)
+          .subscribe(patient => {
+            console.log('[999][MDS EMR][검체정보]', this.sendEMR, patient);
+            this.setReportdaymgn(patient);
+          });
       });
 
   }

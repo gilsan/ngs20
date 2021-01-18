@@ -104,8 +104,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   animal: string;
   name: string;
   sendEMR = 0; // EMR 보낸 수
-  firstReportDay = ''; // 검사보고일
-  lastReportDay = '';  // 수정보고일
+  firstReportDay = '-'; // 검사보고일
+  lastReportDay = '-';  // 수정보고일
   reportType: string; //
 
   genelists: IGeneList[] = [];
@@ -155,7 +155,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     ).subscribe(data => {
       console.log('[138][findType]', data);
       this.reportType = data;
-      this.getGeneList(this.reportType); // 진검 유전자 목록 가져옴.
+      this.getGeneList('LYM'); // 진검 유전자 목록 가져옴.
     });
   }
 
@@ -452,14 +452,15 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   // 검사일/검사보고일/수정보고일 관리
   setReportdaymgn(patientInfo: IPatient): void {
     // 전송횟수, 검사보고일, 수정보고일  저장
-    if (parseInt(patientInfo.sendEMR, 10) > 0) {
-      this.sendEMR = Number(this.patientInfo.sendEMR);
-      this.firstReportDay = this.patientInfo.sendEMRDate.slice(0, 10);
-      this.lastReportDay = this.patientInfo.report_date.slice(0, 10);
-    } else {
-      this.firstReportDay = '-';
-      this.lastReportDay = '-';
+    console.log('[487][검사일/검사보고일/수정보고일 관리]', patientInfo);
+    this.sendEMR = Number(patientInfo.sendEMR);
+    if (patientInfo.sendEMRDate.length) {
+      this.firstReportDay = patientInfo.sendEMRDate.replace(/-/g, '.').slice(0, 10);
     }
+    if (this.sendEMR > 1) {
+      this.lastReportDay = patientInfo.report_date.replace(/-/g, '.').slice(0, 10);
+    }
+
   }
 
   // tslint:disable-next-line: typedef
@@ -791,7 +792,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   checkType(index: number) {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
-    if (row.type === 'New') {
+    if (row.type === 'New' || row.type === null) {
       return true;
     }
     return false;
@@ -924,6 +925,64 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   gotoEMR(): void {
     const userid = localStorage.getItem('pathuser');
+
+    const control = this.tablerowForm.get('tableRows') as FormArray;
+    const formData = control.getRawValue();
+    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+
+    // 코멘트가 있는경우
+    if (this.comments.length) {
+      const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
+      this.comments = commentControl.getRawValue();
+    } else {  // 코멘트가 신규인 경우
+      this.comments = [];
+    }
+
+    if (this.vusmsg.length === 0) {
+      this.vusmsg = '';
+    }
+    // console.log('[944][LYN EMR][comments] ', this.comments);
+    const makeForm = makeCForm(
+      this.resultStatus,
+      this.examin, // 검사자
+      this.recheck, // 확인자
+      this.profile,
+      this.patientInfo.accept_date, // 검사의뢰일
+      this.specimenMessage,
+      this.vusmsg,            //          this.ment,  // VUS 멘트
+      this.patientInfo,
+      reformData,
+      this.comments,
+      this.firstReportDay,
+      this.lastReportDay,
+      this.genelists
+    );
+    console.log('[1150][LYN XML] ', makeForm);
+
+    this.patientsListService.sendEMR(
+      this.patientInfo.specimenNo,
+      this.patientInfo.patientID,
+      this.patientInfo.test_code,
+      this.patientInfo.name,
+      makeForm)
+      .pipe(
+        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
+        concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, ++this.sendEMR)), // EMR 발송횟수 전송
+        // concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
+      ).subscribe((msg: { screenstatus: string }) => {
+        this.screenstatus = '3';
+        alert('EMR로 전송했습니다.');
+
+        // 환자정보 가져오기
+        this.patientsListService.getPatientInfo(this.form2TestedId)
+          .subscribe(patient => {
+            console.log('[1171][ALL EMR][검체정보]', this.sendEMR, patient);
+            this.setReportdaymgn(patient);
+          });
+      });
+
+    /*
+    const userid = localStorage.getItem('pathuser');
     if (this.sendEMR > 1) {
       this.lastReportDay = this.today();
     }
@@ -976,7 +1035,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         //  this.screenstatus = msg[0].screenstatus;
         alert('EMR로 전송했습니다.');
       });
-
+  */
   }
 
   putCheckboxInit(): void {
