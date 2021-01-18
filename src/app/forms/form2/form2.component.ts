@@ -100,7 +100,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   reportType: string; // AML ALL
 
   genelists: IGeneList[] = [];
-
+  // variant detect 선택값 저장소
+  vd: { sequence: number, selectedname: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
 
@@ -806,11 +807,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   save(index: number) {
+    const selected = this.vd.find(item => item.sequence === index);
+    this.selectedItem = selected.selectedname;
+    console.log('[812][저장] ', index, this.vd, selected);
     const control = this.tablerowForm.get('tableRows') as FormArray;
+
     const row = control.value[index];
-
-    console.log('[691][mutation/artifacts] ', row, this.patientInfo);
-
+    // console.log('[814][저장][mutation/artifacts] ', row, this.patientInfo);
     if (this.selectedItem === 'mutation') {
       this.subs.sink = this.patientsListService.saveMutation(
         row.igv,
@@ -830,36 +833,42 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       ).subscribe((data: any) => {
 
         alert('mutation에 추가 했습니다.');
-
+        this.selectedItem = '';
       });
     } else if (this.selectedItem === 'artifacts') {
-      console.log('[715][save][artifacts] ', row);
+      console.log('[838][저장][artifacts] ', row);
       this.subs.sink = this.patientsListService.insertArtifacts(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[719][result][artifacts] ', data);
+        console.log('[842][저장][artifacts] ', data);
         alert('artifacts에 추가 했습니다.');
-
+        this.selectedItem = '';
       });
     } else if (this.selectedItem === 'benign') {
-      console.log('[724][save][benign] ', row);
+      console.log('[847][저장][benign] ', row);
       this.subs.sink = this.patientsListService.insertBenign(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[728][save][benign] ', data);
+        console.log('[851][저장][benign] ', data);
         alert('benign에 추가 했습니다.');
+        this.selectedItem = '';
 
       });
 
     }
-
   }
 
   // tslint:disable-next-line: typedef
   saveInhouse(i: number, selecteditem: string) {
     this.indexNum = i;
     this.selectedItem = selecteditem;
-    console.log('[741][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
+    // const idx = this.vd.findIndex(list => list.sequence === i);
+    this.vd.forEach(item => {
+      if (item.sequence === i) {
+        item.selectedname = selecteditem;
+      }
+    });
+    console.log('[871][saveInhouse][selectedItem] ', this.vd);
   }
 
   // tslint:disable-next-line: typedef
@@ -867,6 +876,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
     if (row.type === 'New' || row.type === null) {
+      const idx = this.vd.findIndex(item => item.sequence === index);
+      if (idx === -1) {
+        this.vd.push({ sequence: index, selectedname: 'mutation' });
+        console.log('[876][checkType]', this.vd);
+      }
+
       return true;
     }
     return false;

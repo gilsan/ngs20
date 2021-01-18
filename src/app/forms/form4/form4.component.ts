@@ -939,9 +939,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   gotoEMR(): void {
     const userid = localStorage.getItem('pathuser');
-    if (this.sendEMR > 1) {
-      this.lastReportDay = this.today();
-    }
+
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
