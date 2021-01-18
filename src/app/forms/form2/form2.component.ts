@@ -836,20 +836,20 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.selectedItem = '';
       });
     } else if (this.selectedItem === 'artifacts') {
-      console.log('[838][저장][artifacts] ', row);
+      // console.log('[838][저장][artifacts] ', row);
       this.subs.sink = this.patientsListService.insertArtifacts(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[842][저장][artifacts] ', data);
+        // console.log('[842][저장][artifacts] ', data);
         alert('artifacts에 추가 했습니다.');
         this.selectedItem = '';
       });
     } else if (this.selectedItem === 'benign') {
-      console.log('[847][저장][benign] ', row);
+      // console.log('[847][저장][benign] ', row);
       this.subs.sink = this.patientsListService.insertBenign(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[851][저장][benign] ', data);
+        // console.log('[851][저장][benign] ', data);
         alert('benign에 추가 했습니다.');
         this.selectedItem = '';
 

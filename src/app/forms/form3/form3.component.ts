@@ -109,7 +109,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   reportType: string; //
 
   genelists: IGeneList[] = [];
-
+  // variant detect 선택값 저장소
+  vd: { sequence: number, selectedname: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
 
@@ -734,10 +735,14 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   save(index: number) {
+    const selected = this.vd.find(item => item.sequence === index);
+    this.selectedItem = selected.selectedname;
+    console.log('[740][저장] ', index, this.vd, selected);
+
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
 
-    console.log('[691][mutation/artifacts] ', row, this.patientInfo);
+    // console.log('[691][mutation/artifacts] ', row, this.patientInfo);
 
     if (this.selectedItem === 'mutation') {
       this.subs.sink = this.patientsListService.saveMutation(
@@ -785,6 +790,11 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   saveInhouse(i: number, selecteditem: string) {
     this.indexNum = i;
     this.selectedItem = selecteditem;
+    this.vd.forEach(item => {
+      if (item.sequence === i) {
+        item.selectedname = selecteditem;
+      }
+    });
     console.log('[781][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
   }
 
@@ -793,6 +803,11 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
     if (row.type === 'New' || row.type === null) {
+      const idx = this.vd.findIndex(item => item.sequence === index);
+      if (idx === -1) {
+        this.vd.push({ sequence: index, selectedname: 'mutation' });
+        console.log('[800][checkType]', this.vd);
+      }
       return true;
     }
     return false;
