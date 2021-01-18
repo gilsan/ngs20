@@ -18,8 +18,8 @@ export class ManageStatisticsService {
     private http: HttpClient
   ) { }
  
-  public getManageStatisticsList(startDay: String, endDay: String, userId: String, userNm: String): Observable<any> { 
-    return this.http.post(`${this.apiUrl}/manageStatistics/list`, { startDay, endDay, userId, userNm });
+  public getManageStatisticsList(startDay: String, endDay: String, userId: String, userNm: String, dept: string): Observable<any> { 
+    return this.http.post(`${this.apiUrl}/manageStatistics/list`, { startDay, endDay, userId, userNm, dept });
   } 
  
   public updateManageFunctions(functionId: String, functionName: string, serviceStatus: string): Observable<any> {  
