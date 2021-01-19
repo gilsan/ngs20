@@ -87,7 +87,8 @@
 <form [formGroup]="tablerowForm"> 
      
     <table class="table_list header-fix"  style="text-align: center;">
-        <colgroup>           
+        <colgroup>  
+            <col style="width:20px"/>         
             <col style="width:80px"/>
             <col style="width:40px"/>  <!--     -->
             <col style="width:80px"/>  <!-- IGV -->
@@ -108,7 +109,7 @@
             </colgroup>
       <thead>
           <tr>
-              
+              <th></th>
               <th>
                 <button class="btn btn_01 btn-s" (click)="addRow()">추가</button>
               </th> 
@@ -130,16 +131,16 @@
               <th>Action</th>                        
           </tr>
       </thead>
-      <tbody>
+      <tbody cdkDropList (cdkDropListDropped)="droped($event)">
          
         <ng-container formArrayName="tableRows"  *ngFor="let group of getFormControls.controls; let i=index">
-          <tr  [formGroupName]="i" >
-              <!-- <td>
-                <div class="drag-handle">
-                <ng-container [ngTemplateOutlet]="dragHandleTmpl">
-                </ng-container>
-                </div>
-              </td> -->
+          <tr  [formGroupName]="i"  cdkDrag>
+              <td>
+              <button type="button" class="drag-handle"   cdkDragHandle>
+                <!-- <mat-icon>unfold_more</mat-icon> -->
+                <img [src]="'assets/baseline_unfold_more_black_18dp.png'">
+              </button>
+              </td>
             <td class="trash"  (click)="deleteRow(i)">
                  <img [src]="'assets/images/cancel.png'">
             </td> 

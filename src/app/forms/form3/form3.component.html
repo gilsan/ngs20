@@ -1,6 +1,6 @@
 <div id="result">
   <div id="container" style="position: relative;">
-      <h2 style="margin-top: 5px;">MDS/MPN NGS</h2>   
+      <h2 style="margin-top: 5px;">Lymphoma NGS</h2>   
       <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>  
       <div id="content">
           <div class="box pd_20">
@@ -99,6 +99,7 @@
         </colgroup>
       <thead>
           <tr>
+              <th></th>
               <th>
                 <button class="btn btn_01 btn-s" (click)="addRow()">추가</button>
               </th> 
@@ -120,10 +121,16 @@
               <th>Action</th>                        
           </tr>
       </thead>
-      <tbody>
+      <tbody  cdkDropList (cdkDropListDropped)="droped($event)">
          
         <ng-container formArrayName="tableRows" *ngFor="let group of getFormControls.controls; let i=index">
-          <tr  [formGroupName]="i">
+          <tr  [formGroupName]="i"  cdkDrag>
+
+            <td>
+                <button type="button" class="drag-handle"   cdkDragHandle>
+                  <img [src]="'assets/baseline_unfold_more_black_18dp.png'">
+                </button>
+            </td>            
             <td class="trash"  (click)="deleteRow(i)">
                  <img [src]="'assets/images/cancel.png'">
             </td> 

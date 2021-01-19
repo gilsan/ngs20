@@ -110,8 +110,10 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   reportType: string; // 
 
   genelists: IGeneList[] = [];
+
+  deleteRowNumber: number;
   // variant detect 선택값 저장소
-  vd: { sequence: number, selectedname: string }[] = [];
+  vd: { sequence: number, selectedname: string, gene: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
 
@@ -389,7 +391,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
           // comments 분류
           if (data.mtype === 'M') {
-            console.log('[327][코멘트]', data, data.commentList1, data.commentList2);
+            // console.log('[327][코멘트]', data, data.commentList1, data.commentList2);
             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
               if (parseInt(data.comments1Count, 10) > 0) {
                 const variant_id = data.tsv.amino_acid_change;
@@ -717,8 +719,23 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   deleteRow(index: number) {
+    this.deleteRowNumber = index;
     const control = this.tablerowForm.get('tableRows') as FormArray;
+    const controlLen = control.length - 1;
+    // this.deleteRowStatus = { idx: index, gene: control.value[index].gene, type: control.value[index].type };
+    const tempvd = [...this.vd];
+    const idx = tempvd.findIndex(item => item.sequence === index);
+    if (idx !== -1) {
+      this.vd.splice(idx, 1);
+    }
+    // console.log(this.vd);
     control.removeAt(index);
+    if (controlLen !== index) {
+      if (this.vd.length > 0) {
+        this.vd.forEach(item => item.sequence = item.sequence - 1);
+      }
+    }
+    console.log('[725][deleteRow]', index, idx, this.vd);
   }
   /////////////////////////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef
@@ -755,9 +772,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
-
-    console.log('[691][mutation/artifacts] ', row, this.patientInfo);
-
+    // console.log('[691][mutation/artifacts] ', row, this.patientInfo);
     if (this.selectedItem === 'mutation') {
       this.subs.sink = this.patientsListService.saveMutation(
         row.igv,
@@ -814,14 +829,19 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   checkType(index: number) {
+    // console.log('[821][checkType][deleteRowStatus]', this.deleteRowStatus);
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
+    const tempVD = [...this.vd];
     if (row.type === 'New' || row.type === null) {
-      const idx = this.vd.findIndex(item => item.sequence === index);
-      if (idx === -1) {
-        this.vd.push({ sequence: index, selectedname: 'mutation' });
-        console.log('[814][checkType]', this.vd);
+
+      const idx = tempVD.findIndex(item => item.sequence === index && item.gene === row.gene);
+      // console.log('===[826][checkType][type]', type, index, idx, row, this.vd, this.deleteRowNumber);
+      if (idx === -1 && this.deleteRowNumber !== index) {
+        this.vd.push({ sequence: index, selectedname: 'mutation', gene: row.gene });
+        console.log('####[842][checkType]', this.vd);
       }
+
       return true;
     }
     return false;
@@ -1218,4 +1238,50 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     });
   }
   ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  droped(event: CdkDragDrop<string[]>): void {
+    // this.formArray = this.ifusionLists()
+    const from1 = event.previousIndex;
+    const to = event.currentIndex;
+    console.log(event);
+    console.log('[1246][droped]', from1, to);
+    this.vd.forEach(item => {
+      if (item.sequence === from1) {
+        item.sequence = to;
+      }
+    });
+    const control = this.tablerowForm.get('tableRows') as FormArray;
+    this.moveItemInFormArray(control, from1, to);
+  }
+
+  /**
+   * Moves an item in a FormArray to another position.
+   * @param formArray FormArray instance in which to move the item.
+   * @param fromIndex Starting index of the item.
+   * @param toIndex Index to which he item should be moved.
+   */
+  moveItemInFormArray(formArray: FormArray, fromIndex: number, toIndex: number): void {
+    const from2 = this.clamp(fromIndex, formArray.length - 1);
+    const to2 = this.clamp(toIndex, formArray.length - 1);
+
+    if (from2 === to2) {
+      return;
+    }
+
+    const previous = formArray.at(from2);
+    const current = formArray.at(to2);
+    formArray.setControl(to2, previous);
+    formArray.setControl(from2, current);
+  }
+
+  /** Clamps a number between zero and a maximum. */
+  clamp(value: number, max: number): number {
+    return Math.max(0, Math.min(max, value));
+  }
+
+
+  //////////////////////////////////////////////////////////////////////
+
+
+
 }
