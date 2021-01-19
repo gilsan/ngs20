@@ -33,14 +33,22 @@ table {
 }
 
 
+
 .excel {
-  color: black;
-  font-size: 1rem;
-  font-weight: 500;
-  border: none;
+  color: red;
   background-color: #f0e5e5;
+  border: 1px solid #e0cccc;
+  position: absolute;
+  top: 5px;
+  right: 160px;
+  border-radius: 3px;
+  z-index: 3;
+  -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
   cursor: pointer;
-  padding: 2px 20px;
+  box-sizing: border-box;
+  padding: 5px 30px;
 }
 
 h2 {
@@ -56,12 +64,12 @@ h2 {
 //   padding-top: 0 !important;
 // }
 
-input[type="text"] {
-  width: 80%;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
+// input[type="text"] {
+//   width: 80%;
+//   box-sizing: border-box;
+//   -webkit-box-sizing: border-box;
+//   -moz-box-sizing: border-box;
+// }
 
 .save_mute {
   cursor: pointer;
@@ -108,12 +116,12 @@ input[type="text"] {
   cursor: pointer;
 }
 
-.ckbox {
-  display: flex;
-  align-items: flex-end;
-  margin-top: 35px;
-  width: 100%;
-}
+// .ckbox {
+//   display: flex;
+//   align-items: flex-end;
+//   margin-top: 35px;
+//   width: 100%;
+// }
 
 // img {
 //   display: flex;
@@ -124,10 +132,10 @@ input[type="text"] {
 // }
 
 .tdbox {
-  display: flex;
-  align-items: flex-end;
-  margin-top: 20px;
-  width: 100%;
+  // display: flex;
+  // align-items: flex-end;
+  // margin-top: 20px;
+  width: 96%;
 }
 
 .drag-handle {
@@ -239,3 +247,9 @@ td {
   text-overflow: ellipsis;
 }
 */
+
+.btn-s {
+  padding: 0 !important;
+  min-width: 50px !important;
+  min-height: auto !important;
+}
