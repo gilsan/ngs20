@@ -62,7 +62,7 @@
                   </colgroup>
                   <tbody>
                       <tr> 
-                          <td>TARGET DISEASE:MDS/MPN</td>
+                          <td>TARGET DISEASE:Lymphoma</td>
                           <td> METHOD:*Massively parallel sequencing</td>
                       </tr>
                       <tr>
@@ -245,13 +245,13 @@
 <div class="sub_title">*Methods</div>
 
 <div class="pd_r20">
-    <textarea class="textarea_01">Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6. </textarea>
+    <textarea class="textarea_01" [(ngModel)]="methodmsg">{{methodmsg}}</textarea>
 </div>
 
 <div class="sub_title">Genernal limitations of the technique</div>
  
 <div class="pd_r20">
-    <textarea class="textarea_01">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.</textarea>
+    <textarea class="textarea_01" [(ngModel)]="technique">{{technique}}</textarea>
 </div>  
   <!--  -------------------------------   -->
   <div class="sub_title">Target genes</div>
