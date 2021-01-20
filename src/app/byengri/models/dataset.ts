@@ -481,7 +481,8 @@ export function makeReport(
   <Dataset id="ds_data10">
   <ColumnInfo>
     <Column id="imgurl"   type="STRING" size="256"/>
-  </ColumnInfo>`;
+  </ColumnInfo>
+  `;
 
   let urlcontent = '';
   if (pathimage.length) {
@@ -496,13 +497,12 @@ export function makeReport(
    <Rows>
     ${urlcontent}
    </Rows>
- </Dataset>
     `;
   }
-
+  const pathimgbottom = `</Dataset>`;
   // const urlbottom = ``;
   // console.log('[284][]', ifusionContent);
-  const urllist = urlheader + urlcontent;
+  const urllist = urlheader + urlcontent + pathimgbottom;
 
   const bottomroot = `
 </root>`;

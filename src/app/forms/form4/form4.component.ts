@@ -121,7 +121,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   technique = `The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test.`;
 
-  genetictest = `LPC139
+  genetictest = `  LPC139
   LPC174
   LPC188
   LPE405`;

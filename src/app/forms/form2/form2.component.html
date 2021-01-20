@@ -1,7 +1,7 @@
 <div id="result">
   <div id="container" style="position: relative;">
-      <h2 *ngIf="reportType === 'AML'" style="margin-top: 5px;">Actual Myeloid Leukemia NGS</h2>
-      <h2 *ngIf="reportType === 'ALL'" style="margin-top: 5px;">Actual Lymphoblastic Leukemia NGS</h2>
+      <h2 *ngIf="reportType === 'AML'" style="margin-top: 5px;">Acute Myeloid Leukemia NGS</h2>
+      <h2 *ngIf="reportType === 'ALL'" style="margin-top: 5px;">Acute Lymphoblastic Leukemia NGS</h2>
       <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>
       <button type="button" class="excel" (click)="excelDownload()">Excel</button>
       <div id="content">
@@ -218,8 +218,8 @@
                   <tbody>
                       <tr>
                           <!-- <td>TARGET DISESSE:{{patientInfo.targetDisease}}</td>  <th *ngIf="reportType === 'AML'">FLT3-ITD</th>-->
-                          <td *ngIf="reportType === 'AML'">TARGET DISEASE:Acute myeloid leukemia</td>
-                          <td *ngIf="reportType === 'ALL'">TARGET DISEASE:Acute lymphoblastic leukemia</td>
+                          <td *ngIf="reportType === 'AML'">TARGET DISEASE: Acute myeloid leukemia</td>
+                          <td *ngIf="reportType === 'ALL'">TARGET DISEASE: Acute lymphoblastic leukemia</td>
                           <td> METHOD:*Massively parallel sequencing</td>
                           <!-- <td>METHODS: {{patientInfo.method}}</td> -->
                       </tr>

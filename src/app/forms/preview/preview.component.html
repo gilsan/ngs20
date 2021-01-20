@@ -36,18 +36,24 @@
 
                             <th *ngIf="type === 'AML'">FLT3-ITD</th>
                             <th *ngIf="type === 'ALL'">IKZF1 deletion</th>
-                            <th *ngIf="type === 'MDS'">Genetic test</th>
+                            <th *ngIf="type === 'MDS'">Generic test</th>
                             <th *ngIf="type === 'LYN'">Bone marrow aspiralion analysis</th>
                             <th>Chromosomal analysis</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="type === 'AML' || type === 'ALL' || type === 'MDS'">
                         <tr>
                             <td class="table_result_line txt_c"> {{profile.leukemia}} </td>
                             <td class="txt_c">{{profile.flt3itd}}</td>
                             <td class="txt_c">{{profile.chron}}</td>
                         </tr>
                     </tbody>
+                    <tbody *ngIf="type === 'LYM'">
+                        <tr>
+                            <td class="table_result_line txt_c">{{profile.flt3itd}}</td>
+                            <td class="txt_c">{{profile.chron}}</td>
+                        </tr>
+                    </tbody>                    
                 </table>
                 <div class="sub_title">Test Information</div>
                 <table cellpadding="0" cellspacing="0" class="table_result02">
@@ -57,10 +63,10 @@
                     </colgroup>
                     <tbody>
                         <tr>
-                            <td *ngIf="type === 'AML'">TARGET DISEASE:Acute myeloid leukemia</td>
-                            <td *ngIf="type === 'ALL'">TARGET DISEASE:Acute lymphoblastic leukemia</td>
-                            <td *ngIf="type === 'MDS'">TARGET DISEASE:MDS/MPN</td>
-                            <td *ngIf="type === 'LYN'">TARGET DISEASE:Lymphoma</td>
+                            <td *ngIf="type === 'AML'">TARGET DISEASE: Acute myeloid leukemia</td>
+                            <td *ngIf="type === 'ALL'">TARGET DISEASE: Acute lymphoblastic leukemia</td>
+                            <td *ngIf="type === 'MDS'">TARGET DISEASE: MDS/MPN</td>
+                            <td *ngIf="type === 'LYN'">TARGET DISEASE: Lymphoma</td>
                             <td>METHODS: *Massivery parallel sequencing</td>
                         </tr>
                         <tr>
