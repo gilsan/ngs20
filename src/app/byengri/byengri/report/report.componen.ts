@@ -131,7 +131,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   examin: string; // 검사자
   examinSeq: number;
 
-  pathimage: string[]; // 이미지 url
+  pathimage: string[] = []; // 이미지 url
 
   recheck: string; // 확인자
   // recheckSeq: number;
@@ -1408,12 +1408,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const mutationp$ = this.searchService.getMutationP(pathologyNo);
     const amplificationp$ = this.searchService.getAmplificationP(pathologyNo);
     const fusionp$ = this.searchService.getFusionP(pathologyNo);
-    const pathologyimage$ = this.searchService.getPathmentlist(pathologyNo);
+    const pathologyimage$ = this.searchService.getPathImage(pathologyNo);
 
     combineLatest([ment$, mutationc$, amplificationc$,
       fusionc$, mutationp$, amplificationp$, fusionp$, pathologyimage$])
       .subscribe(([ment, mutationc, amplificationc, fusionc,
-        mutationp, amplificationp, fusionp, pathimage]) => {
+        mutationp, amplificationp, fusionp, pathimagelist]) => {
         // 멘트
         if (ment.message !== 'no data') {
           this.generalReportEMR = ment[0].generalReport;
@@ -1559,10 +1559,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
 
-        if (pathimage.message !== 'no data') {
-          pathimage.forEach(item => {
+        if (pathimagelist.message !== 'no data') {
+          // console.log('[1563][pathimage]', pathimagelist);
+          pathimagelist.forEach(item => {
             this.pathimage.push(item.filepath);
           });
+        } else {
+          this.pathimage = [];
         }
 
         this.toEMR();

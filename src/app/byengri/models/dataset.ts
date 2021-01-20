@@ -477,7 +477,8 @@ export function makeReport(
     </Dataset>`;
 
 
-  const urlheader = `<Dataset id="ds_data10">
+  const urlheader = `
+  <Dataset id="ds_data10">
   <ColumnInfo>
     <Column id="imgurl"   type="STRING" size="256"/>
   </ColumnInfo>`;
@@ -486,23 +487,25 @@ export function makeReport(
   if (pathimage.length) {
     // tslint:disable-next-line:forin
     for (const idx in pathimage) {
-      urlcontent = urlcontent + `<Row>
-        <Col id="geneexon">${pathimage[idx]}</Col>
-     </Row>`;
+      urlcontent = urlcontent + `
+       <Row>
+         <Col id="imgurl">${pathimage[idx]}</Col>
+       </Row>`;
     }
-    urlcontent = `<Rows>
+    urlcontent = `
+   <Rows>
     ${urlcontent}
-     </Rows>
+   </Rows>
+ </Dataset>
     `;
   }
 
-  const urlbottom = `</Dataset>`;
+  // const urlbottom = ``;
   // console.log('[284][]', ifusionContent);
-  const urllist = urlheader + urlcontent + urlbottom;
+  const urllist = urlheader + urlcontent;
 
-  const bottomroot = `</root>`;
-
-
+  const bottomroot = `
+</root>`;
 
   // tslint:disable-next-line: max-line-length
   return extractionContent + mutationValue + amplificationValue + fusionValue + imutationValue + iamplificationValue + ifusionValue + tumor + msiscore + restpart + urllist + bottomroot;

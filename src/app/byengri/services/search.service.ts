@@ -102,8 +102,8 @@ export class SearchService {
   }
 
   // 병리 그림 경로 가져오기
-  public getPathImage(pathologynum: string): any {
-    return this.http.post<IMsg>(`${this.apiUrl}/pathologyimage/lists`, { pathologynum });
+  public getPathImage(pathologynum: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pathologyimage/lists`, { pathologynum });
   }
 
 
