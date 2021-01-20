@@ -482,7 +482,7 @@ export function makeReport(
   <ColumnInfo>
     <Column id="imgurl"   type="STRING" size="256"/>
   </ColumnInfo>
-  `;
+`;
 
   let urlcontent = '';
   if (pathimage.length) {
