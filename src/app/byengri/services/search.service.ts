@@ -101,7 +101,10 @@ export class SearchService {
     return this.http.post<IMsg>(`${this.apiUrl}/loginPath/listPathUpdate`, { userId, pickselect, part });
   }
 
-  // cancer type 에 따라 메세지 찿아옴
+  // 병리 그림 경로 가져오기
+  public getPathImage(pathologynum: string): any {
+    return this.http.post<IMsg>(`${this.apiUrl}/pathologyimage/lists`, { pathologynum });
+  }
 
 
 

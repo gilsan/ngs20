@@ -7,8 +7,8 @@ export function makeReport(
   examedname: string,      // 검사자 이름
   checkeredno: string,     // 확인자 번호
   checkername: string,     // 확인자 이름
-  dnarna: string,
-  organ: string,
+  dnarna: string = '',
+  organ: string = '',
   basicInfo: IBasicInfo,
   extraction: IExtraction,
   mutations: IMutation[],
@@ -21,7 +21,8 @@ export function makeReport(
   msiScore: string,
   generalReport: string,
   specialment: string,
-  notement: string
+  notement: string,
+  pathimage: string[]
 ): string {
   let msiscore = '';
   // null 처리
@@ -293,6 +294,8 @@ export function makeReport(
   let ifusionContent = '';
   // console.log('[263][]', iifusion);
   if (iifusion.length) {
+
+
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < iifusion.length; i++) {
       ifusionContent = ifusionContent + `
@@ -471,12 +474,38 @@ export function makeReport(
              <Col id="targetgenetitle">Oncomine Comprehensive Assay plus (ThermoFisher scientific)</Col>
           </Row>
        </Rows>
-    </Dataset>
-</root>
-  `;
+    </Dataset>`;
+
+
+  const urlheader = `<Dataset id="ds_data10">
+  <ColumnInfo>
+    <Column id="imgurl"   type="STRING" size="256"/>
+  </ColumnInfo>`;
+
+  let urlcontent = '';
+  if (pathimage.length) {
+    // tslint:disable-next-line:forin
+    for (const idx in pathimage) {
+      urlcontent = urlcontent + `<Row>
+        <Col id="geneexon">${pathimage[idx]}</Col>
+     </Row>`;
+    }
+    urlcontent = `<Rows>
+    ${urlcontent}
+     </Rows>
+    `;
+  }
+
+  const urlbottom = `</Dataset>`;
+  // console.log('[284][]', ifusionContent);
+  const urllist = urlheader + urlcontent + urlbottom;
+
+  const bottomroot = `</root>`;
+
+
 
   // tslint:disable-next-line: max-line-length
-  return extractionContent + mutationValue + amplificationValue + fusionValue + imutationValue + iamplificationValue + ifusionValue + tumor + msiscore + restpart;
+  return extractionContent + mutationValue + amplificationValue + fusionValue + imutationValue + iamplificationValue + ifusionValue + tumor + msiscore + restpart + urllist + bottomroot;
 
   /*
       <Dataset id="ds_data10">

@@ -131,7 +131,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   examin: string; // 검사자
   examinSeq: number;
 
-
+  pathimage: string[]; // 이미지 url
 
   recheck: string; // 확인자
   // recheckSeq: number;
@@ -1299,7 +1299,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.msiScore,
       this.generalReport,
       this.specialment,
-      this.notement
+      this.notement,
+      this.pathimage
     );
     console.log(form);
 
@@ -1407,11 +1408,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const mutationp$ = this.searchService.getMutationP(pathologyNo);
     const amplificationp$ = this.searchService.getAmplificationP(pathologyNo);
     const fusionp$ = this.searchService.getFusionP(pathologyNo);
+    const pathologyimage$ = this.searchService.getPathmentlist(pathologyNo);
 
     combineLatest([ment$, mutationc$, amplificationc$,
-      fusionc$, mutationp$, amplificationp$, fusionp$])
+      fusionc$, mutationp$, amplificationp$, fusionp$, pathologyimage$])
       .subscribe(([ment, mutationc, amplificationc, fusionc,
-        mutationp, amplificationp, fusionp]) => {
+        mutationp, amplificationp, fusionp, pathimage]) => {
         // 멘트
         if (ment.message !== 'no data') {
           this.generalReportEMR = ment[0].generalReport;
@@ -1556,6 +1558,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.ifusionEMR = [];
         }
 
+
+        if (pathimage.message !== 'no data') {
+          pathimage.forEach(item => {
+            this.pathimage.push(item.filepath);
+          });
+        }
+
         this.toEMR();
       }); // End of combineLatest
 
@@ -1571,6 +1580,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[EMR 검사내용]', this.imutationEMR, this.iamplificationsEMR, this.ifusionEMR);
     console.log('[EMR tumor/msi]', this.tumorMutationalBurdenEMR, this.msiScoreEMR);
     console.log('[EMR 멘트]', this.generalReportEMR, this.specialmentEMR, this.notementEMR);
+    console.log('[EMR 사진경로]', this.pathimage);
 
     const emrDate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
     const form = makeReport(
@@ -1584,7 +1594,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mutationEMR, this.amplificationsEMR, this.fusionEMR,
       this.imutationEMR, this.iamplificationsEMR, this.ifusionEMR,
       this.tumorMutationalBurdenEMR, this.msiScoreEMR,
-      this.generalReportEMR, this.specialmentEMR, this.notementEMR
+      this.generalReportEMR, this.specialmentEMR, this.notementEMR,
+      this.pathimage
     );
     console.log(form);
     // NU로 데이터 전송
