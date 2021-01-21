@@ -977,7 +977,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   gotoEMR(): void {
-    const userid = localStorage.getItem('pathuser');
+    const userid = localStorage.getItem('diaguser');
 
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();

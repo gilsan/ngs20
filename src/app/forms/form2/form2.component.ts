@@ -1126,7 +1126,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   // ALL 인 경우
   gotoEMR(): void {
-    const userid = localStorage.getItem('pathuser');
+    const userid = localStorage.getItem('diaguser');
 
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
