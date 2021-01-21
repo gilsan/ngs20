@@ -1020,7 +1020,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.name,
       makeForm)
       .pipe(
-        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
+        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid, 'MDS/MPN')),
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, ++this.sendEMR)), // EMR 발송횟수 전송
         // concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
@@ -1177,7 +1177,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   reset(): void {
     const userid = localStorage.getItem('pathuser');
-    this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid)
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid, 'MDS/MPN')
       .subscribe(data => {
         this.patientsListService.getScreenStatus(this.form2TestedId)
           .subscribe(msg => {
