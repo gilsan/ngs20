@@ -42,15 +42,14 @@ export class GenemgnComponent implements OnInit {
 
   init(): void {
     const allList$ = this.geneService.geneAllList();
-    this.AML = [][10];
-    this.ALL = [][10];
-    this.LYM = [][10];
-    this.MDS = [][10];
+
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'AML')),
     ).subscribe(data => {
       this.AML = this.makegenelist(data);
-      this.lists2 = this.AML;
+      if (this.genetype === 'AML') {
+        this.lists2 = this.AML;
+      }
       this.selectedgene = this.lists2[0][0];
     });
 
@@ -58,18 +57,31 @@ export class GenemgnComponent implements OnInit {
       map(lists => lists.filter(list => list.type === 'ALL')),
     ).subscribe(data => {
       this.ALL = this.makegenelist(data);
+      if (this.genetype === 'ALL') {
+        this.lists2 = this.ALL;
+        this.selectedgene = this.lists2[0][0];
+      }
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'LYM')),
     ).subscribe(data => {
       this.LYM = this.makegenelist(data);
+      if (this.genetype === 'LYM') {
+        this.lists2 = this.LYM;
+        this.selectedgene = this.lists2[0][0];
+      }
     });
 
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'MDS')),
     ).subscribe(data => {
       this.MDS = this.makegenelist(data);
+      // console.log('[73][다시 가져옴]', this.MDS);
+      if (this.genetype === 'MDS') {
+        this.lists2 = this.MDS;
+        this.selectedgene = this.lists2[0][0];
+      }
     });
 
   }
@@ -215,6 +227,7 @@ export class GenemgnComponent implements OnInit {
         this.LYM.push([gene]);
       }
     } else if (type === 'MDS') {
+      // console.log('[218][유전자추가]', gene, this.MDS);
       if (blen < 10) {
         this.MDS[alen - 1].push(gene);
       } else {
@@ -256,7 +269,7 @@ export class GenemgnComponent implements OnInit {
   }
 
   updateGene(newgene: string): void {
-    console.log('===== [256] row/col', this.row, this.col);
+    // console.log('===== [256] row/col', this.row, this.col);
     if (this.genetype === 'ALL') {
       this.ALL[this.row][this.col] = newgene;
     } else if (this.genetype === 'AML') {
@@ -313,6 +326,7 @@ export class GenemgnComponent implements OnInit {
           this.init();
         });
     } else if (this.genetype === 'MDS') {
+      console.log('[][]', gene, this.MDS);
       this.MDS[this.row].splice(this.col, 1);
       this.geneService.geneDelete('MDS', gene)
         .subscribe(() => {
