@@ -33,6 +33,7 @@ export class ByengriComponent implements OnInit {
     this.store.setWhichstate('mainscreen');
     this.store.setSearchStartDay('');
     this.store.setSearchEndDay('');
+    this.store.setScrollyPosition(0);
   }
 
   goHome(): void {
