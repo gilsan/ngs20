@@ -1573,7 +1573,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log('[1572][]', howmanyimages);
 
         if (howmanyimages.count === 0) {
-          msg = '이미지가 확인되지 않았습니다. 그래도 전송 하시겠습니까?';
+          msg = '이미지가 확인되지 않았습니다. 전송 하시겠습니까?';
           result = confirm(msg);
           if (result === true) {
             this.toEMR();
@@ -1581,7 +1581,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
           }
         } else {
-          this.toEMR();
+          msg = '이미지가 확인되었습니다. 전송 하시겠습니까?';
+          result = confirm(msg);
+          if (result === true) {
+            this.toEMR();
+          } else {
+            return;
+          }
         }
 
       }); // End of combineLatest
