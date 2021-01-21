@@ -23,7 +23,7 @@ export class StorePathService {
 
   whichstate = 'mainscreen'; // mainscreen, searchscreen
 
-
+  scrolly = 0;
   // list.pathology_num, i, 'N')">파일등록/변환
   // 화일등록/변환 저장
   fileuploadInfo: { pathologyNum: string, i: number, type: string } = {
@@ -164,6 +164,16 @@ export class StorePathService {
 
   getWhichstate(): string {
     return this.whichstate;
+  }
+
+  // scroll 위치 저장
+  setScrollyPosition(position: number): void {
+    // console.log('scroll....', position);
+    this.scrolly = position;
+  }
+
+  getScrollyPosition(): number {
+    return this.scrolly;
   }
 
 

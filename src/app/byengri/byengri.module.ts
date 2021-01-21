@@ -15,6 +15,7 @@ import { MaterialModule } from '../material.module';
 import { ManageUsersComponent } from './byengri/manage-users/manage-users.component';
 import { ManageStatisticsComponent } from './byengri/manage-statistics/manage-statistics.component';
 import { NgxBarcodeModule } from 'ngx-barcode';
+import { ScrollMonitorDirective } from './directives/scroll-monitor.directive';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     PathReportComponent,
     ManageUsersComponent,
     ManageStatisticsComponent,
+    ScrollMonitorDirective,
 
 
   ],

@@ -42,7 +42,10 @@ export class GenemgnComponent implements OnInit {
 
   init(): void {
     const allList$ = this.geneService.geneAllList();
-
+    this.AML = [][10];
+    this.ALL = [][10];
+    this.LYM = [][10];
+    this.MDS = [][10];
     allList$.pipe(
       map(lists => lists.filter(list => list.type === 'AML')),
     ).subscribe(data => {
@@ -253,6 +256,7 @@ export class GenemgnComponent implements OnInit {
   }
 
   updateGene(newgene: string): void {
+    console.log('===== [256] row/col', this.row, this.col);
     if (this.genetype === 'ALL') {
       this.ALL[this.row][this.col] = newgene;
     } else if (this.genetype === 'AML') {

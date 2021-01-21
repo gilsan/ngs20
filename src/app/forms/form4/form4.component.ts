@@ -143,8 +143,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.findType();
-    this.box100.nativeElement.scrollLeft += 250;
-
+    this.box100.nativeElement.scrollLeft = 250;
+    // this.box100.nativeElement.scrollY = 1000;
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
       this.recoverDetected();
@@ -165,7 +165,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       filter(data => data !== null || data !== undefined),
       map(route => route.get('type'))
     ).subscribe(data => {
-      console.log('[138][findType]', data);
+      // console.log('[138][findType]', data);
       this.reportType = data;
       this.getGeneList('MDS'); // 진검 유전자 목록 가져옴.
     });

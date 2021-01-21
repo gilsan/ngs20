@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ import * as moment from 'moment';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private subs = new SubSink();
   lists$: Observable<IPatient[]>;
@@ -39,6 +39,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private apiUrl = emrUrl;
 
+  @ViewChild('pbox100', { static: true }) pbox100: ElementRef;
   constructor(
     private pathologyService: PathologyService,
     private serachService: SearchService,
@@ -54,10 +55,18 @@ export class MainComponent implements OnInit, OnDestroy {
       this.init();
     }
 
-    console.log('[57][main]', this.pathologyno, this.patientid);
+    // console.log('[57][main]', this.pathologyno, this.patientid);
     if (this.pathologyno.length === 0 && this.patientid.length === 0) {
       this.search(this.startToday(), this.endToday(), '', '');
     }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const scrolly = this.store.getScrollyPosition();
+      this.pbox100.nativeElement.scrollTop = scrolly;
+    }, 300);
+
   }
 
   ngOnDestroy(): void {
@@ -65,7 +74,7 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   init(): void {
-    console.log('65 init');
+    // console.log('65 init');
     this.lists$ = this.pathologyService.getPatientList();
 
     this.subs.sink = this.lists$.subscribe(data => {
@@ -281,7 +290,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.endday = this.storeEndDay;
     this.pathologyno = this.storePathologyNo;
     this.patientid = this.storePatientID;
-    console.log('=== [236][저장된것 불러온값]', this.startday, this.endday, this.pathologyno, this.patientid);
+
+    console.log('=== [289][저장된것 불러온값]', this.startday, this.endday, this.pathologyno, this.patientid);
     if (this.storeStartDay && this.storeEndDay) {
       this.search(this.storeStartDay, this.storeEndDay, this.storePathologyNo, this.storePatientID);
     }
