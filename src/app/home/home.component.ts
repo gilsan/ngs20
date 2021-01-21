@@ -35,6 +35,13 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/login');
     this.dstore.setamlPatientID('');
     this.dstore.setamlSpecimenID('');
+    this.dstore.setStatus('');
+    this.dstore.setSheet('');
+    this.dstore.setWhichstate('mainscreen');
+    this.dstore.setSearchStartDay('');
+    this.dstore.setSearchEndDay('');
+
+
   }
 
   goHome(): void {

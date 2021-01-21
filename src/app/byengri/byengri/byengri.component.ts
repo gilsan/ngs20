@@ -30,6 +30,9 @@ export class ByengriComponent implements OnInit {
     this.endToday();
     this.store.setPathologyNo('');
     this.store.setPatientID('');
+    this.store.setWhichstate('mainscreen');
+    this.store.setSearchStartDay('');
+    this.store.setSearchEndDay('');
   }
 
   goHome(): void {
