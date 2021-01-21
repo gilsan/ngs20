@@ -9,8 +9,8 @@
         <div class="box mg_b20 pd_20">
             <input type="date" [value]="startToday()" class="input_01" #start  style="width:180px;"/> ~ 
             <input type="date" [value]="endToday()" class="input_01"   #end   style="width:180px;"/> &nbsp;&nbsp;&nbsp;  
-            <input type="text" placeholder="사용자ID" class="input_01" #userId />&nbsp;&nbsp;
-            <input type="text" placeholder="사용자명" class="input_01" #userNm />&nbsp;&nbsp;
+            <input type="text" placeholder="환자ID" class="input_01" #userId />&nbsp;&nbsp;
+            <input type="text" placeholder="환자명" class="input_01" #userNm />&nbsp;&nbsp;
             <button type="button" class="btn btn_02" (click)="search(start.value, end.value, userId.value, userNm.value, 'P')" >조회</button>
         </div>
         <div> Total: {{totRecords}} Records  ({{curPage}} / {{totPage}}) Pages  </div>   
