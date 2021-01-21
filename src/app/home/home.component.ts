@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('userpart');
     localStorage.removeItem('diaguser');
     this.router.navigateByUrl('/login');
-
+    this.dstore.setamlPatientID('');
+    this.dstore.setamlSpecimenID('');
   }
 
   goHome(): void {
@@ -67,11 +68,11 @@ export class HomeComponent implements OnInit {
     console.log('home logout:', this.store.getSearchEndDay());
   }
 
-  link(url: string): void { 
-	let item = {
-        url : '/diag/'+url+'Component'
+  link(url: string): void {
+    let item = {
+      url: '/diag/' + url + 'Component'
     };
-    this.router.navigateByUrl(item.url); 		
-  }			
-	
+    this.router.navigateByUrl(item.url);
+  }
+
 }

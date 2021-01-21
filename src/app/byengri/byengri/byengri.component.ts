@@ -14,7 +14,7 @@ export class ByengriComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: StorePathService
+    private store: StorePathService,
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +28,8 @@ export class ByengriComponent implements OnInit {
     // storage 시간동기화
     this.startToday();
     this.endToday();
+    this.store.setPathologyNo('');
+    this.store.setPatientID('');
   }
 
   goHome(): void {

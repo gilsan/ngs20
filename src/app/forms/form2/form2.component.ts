@@ -1106,7 +1106,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.name,
       makeForm)
       .pipe(
-        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
+        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid, 'AML')),
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, ++this.sendEMR)), // EMR 발송횟수 전송
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
@@ -1169,7 +1169,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.name,
       makeForm)
       .pipe(
-        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid)),
+        concatMap(() => this.patientsListService.resetscreenstatus(this.form2TestedId, '3', userid, 'ALL')),
         concatMap(() => this.patientsListService.setEMRSendCount(this.form2TestedId, ++this.sendEMR)), // EMR 발송횟수 전송
         concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
       ).subscribe((msg: { screenstatus: string }) => {
@@ -1324,7 +1324,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   reset(): void {
     const userid = localStorage.getItem('pathuser');
-    this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid)
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid, this.reportType)
       .subscribe(data => {
         this.screenstatus = '0';
         this.patientsListService.getPatientInfo(this.form2TestedId)

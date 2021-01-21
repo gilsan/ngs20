@@ -529,8 +529,8 @@ export class PatientsListService {
   }
 
   // 검진 수정버튼 누를때 screenstatus 1번으로 리셋
-  resetscreenstatus(specimenNo: string, num, userid: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/patients_diag/reset`, { specimenNo, num, userid });
+  resetscreenstatus(specimenNo: string, num, userid: string, type: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/patients_diag/reset`, { specimenNo, num, userid, type });
   }
 
   // 현재 설정된 screenstatus 가져오기
