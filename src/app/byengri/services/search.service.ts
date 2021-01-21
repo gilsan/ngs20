@@ -106,6 +106,10 @@ export class SearchService {
     return this.http.post(`${this.apiUrl}/pathologyimage/lists`, { pathologynum });
   }
 
+  // 이미지 그림이 있는지 확인 한다
+  public howManyImages(pathologynum: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pathologyimage/checks`, { pathologynum });
+  }
 
 
 }

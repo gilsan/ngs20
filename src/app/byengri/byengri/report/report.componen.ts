@@ -1399,6 +1399,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   makeEMRData(info: IPatient): void {
+    let msg: string;
+    let result: boolean;
     const pathologyNo = info.pathology_num;
 
     const ment$ = this.searchService.getPathmentlist(pathologyNo);
@@ -1409,11 +1411,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const amplificationp$ = this.searchService.getAmplificationP(pathologyNo);
     const fusionp$ = this.searchService.getFusionP(pathologyNo);
     const pathologyimage$ = this.searchService.getPathImage(pathologyNo);
-
+    const howmanyimages$ = this.searchService.howManyImages(pathologyNo);
     combineLatest([ment$, mutationc$, amplificationc$,
-      fusionc$, mutationp$, amplificationp$, fusionp$, pathologyimage$])
+      fusionc$, mutationp$, amplificationp$, fusionp$, pathologyimage$, howmanyimages$])
       .subscribe(([ment, mutationc, amplificationc, fusionc,
-        mutationp, amplificationp, fusionp, pathimagelist]) => {
+        mutationp, amplificationp, fusionp, pathimagelist, howmanyimages]) => {
         // 멘트
         if (ment.message !== 'no data') {
           this.generalReportEMR = ment[0].generalReport;
@@ -1568,7 +1570,20 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           this.pathimage = [];
         }
 
-        this.toEMR();
+        console.log('[1572][]', howmanyimages);
+
+        if (howmanyimages.count === 0) {
+          msg = '이미지가 확인되지 않았습니다. 그래도 전송 하시겠습니까?';
+          result = confirm(msg);
+          if (result === true) {
+            this.toEMR();
+          } else if (result === false) {
+            return;
+          }
+        } else {
+          this.toEMR();
+        }
+
       }); // End of combineLatest
 
   }
