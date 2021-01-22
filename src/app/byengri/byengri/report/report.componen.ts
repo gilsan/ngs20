@@ -128,12 +128,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   checkerednoEMR: string; // 의사 ID
   checkernameEMR: string; // 의사 이름
 
-  examin: string; // 검사자
+  examin = ''; // 검사자
   examinSeq: number;
 
   pathimage: string[] = []; // 이미지 url
 
-  recheck: string; // 확인자
+  recheck = ''; // 확인자
   // recheckSeq: number;
 
   mt: IList[]; // 기사
@@ -154,7 +154,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   noneAm = 'None';
 
   msgAm = `* Deletion의 경우 이미지 보고서를 참고해 주시기 바랍니다.`;
-
+  imagemsg = '';
   noneFu = 'None';
   noneIMu = 'None';
   noneIAm = 'None';
@@ -226,6 +226,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       //     this.init(pathologyNum);
       //   });
       this.patientInfo = this.pathologyService.patientInfo.filter(item => item.pathology_num === pathologyNum)[0];
+      this.searchService.howManyImages(this.pathologyNum)
+        .subscribe(data => {
+          if (Number(data.count) > 0) {
+            this.imagemsg = '이미지 파일 확인됨';
+          } else {
+            this.imagemsg = '이미지 파일 현재 없음';
+          }
+        });
+
+
       this.init(pathologyNum);
     });
   }
@@ -362,6 +372,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     // this.report.nativeElement.selectionEnd = 5;
     // this.report.selectionStart += 200;
     this.report.selectionEnd = 200;
+
+    // 이미지 파일 있는지 확인
+    // const howmanyimages$ = this.searchService.howManyImages(pathologyNo);
+
     const medi$ = this.searchService.listPath().pipe(
       shareReplay()
     );
@@ -1687,7 +1701,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     //   });
 
     this.patientInfo.recheck = rechecked;
-    console.log('[1269][Rechecked][의사]', this.checkername, this.checkeredno);
+    console.log('[1690][Rechecked][의사]', this.checkername, this.checkeredno);
   }
   // 기사
   examimed(examin: string): void {
@@ -1702,7 +1716,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.patientInfo.examin = examin;
     this.examin = examin;
-    console.log('[1284][Examine][기사]', exam, this.examedname, this.examedno);
+    console.log('[1705][Examine][기사]', exam, this.examedname, this.examedno);
   }
 
   // tslint:disable-next-line: typedef
@@ -1810,19 +1824,28 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////
   tempSave(): void {
+
+    if (this.examedno === 'none') {
+      alert('검사자를 선택해 주십시요.');
+      return;
+    } else if (this.checkeredno === 'none') {
+      alert('확인자를 선택해 주십시요.');
+      return;
+    }
+
     this.convertFormData();
 
-    console.log('[1141][report][tempSave][환자정보][this.basicInfo]', this.basicInfo);
-    console.log('[1141][tempSave][환자정보][patientInfo]', this.patientInfo);
-    console.log('[1141][report][tempSave][검체정보][extraction]', this.extraction);
-    console.log('[1141][report][tempSave][mutaion]', this.mutation);
-    console.log('[1141][report][tempSave][amplifications]', this.amplifications);
-    console.log('[1141][report][tempSave][fusion]', this.fusion);
-    console.log('[1141][report][tempSave][imutation]', this.imutation);
-    console.log('[1141][report][tempSave][iamplifications]', this.iamplifications);
-    console.log('[1141][report][tempSave][ifusion]', this.ifusion);
-    console.log('[1141][report][tempSave][멘트][ment]', this.generalReport, this.specialment, this.notement);
-    console.log('[1141][tempSave][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
+    console.log('[1141][임시저장][환자정보][this.basicInfo]', this.basicInfo);
+    console.log('[1141][임시저장][환자정보][patientInfo]', this.patientInfo);
+    console.log('[1141][임시저장][검체정보][extraction]', this.extraction);
+    console.log('[1141][임시저장][mutaion]', this.mutation);
+    console.log('[1141][임시저장][amplifications]', this.amplifications);
+    console.log('[1141][임시저장][fusion]', this.fusion);
+    console.log('[1141][임시저장][imutation]', this.imutation);
+    console.log('[1141][임시저장][iamplifications]', this.iamplifications);
+    console.log('[1141][임시저장][ifusion]', this.ifusion);
+    console.log('[1141][임시저장][멘트][ment]', this.generalReport, this.specialment, this.notement);
+    console.log('[1141][임시저장][검수자/확인자][]', this.examedname, this.examedno, this.checkername, this.checkeredno);
 
     this.subs.sink = this.savepathologyService.savePathologyData(
       this.basicInfo.pathologyNum,

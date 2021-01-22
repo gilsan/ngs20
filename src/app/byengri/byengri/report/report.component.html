@@ -1168,14 +1168,14 @@
 <!--   --------------     -------------------------- -->
            <td class="txt_c font_16 fb">Examined by :
              <select #examine class="select_01" (change)="examimed(examine.value)" >
-              <option>선택</option>
+              <option [value]="'none'">선택</option>
                <option [value]="part.user_id + '_' + part.user_nm"  [selected]="part.user_nm === this.examedname"
                  *ngFor="let part of mt;let i = index;">{{part.user_nm}}</option>
              </select>
            </td>
            <td class="txt_r font_16 fb">Rechecked by :
              <select #rechecked class="select_01" (change)="checked(rechecked.value)">
-               <option>선택</option>
+               <option [value]="'none'">선택</option>
                <option [value]="part.user_id + '_' + part.user_nm"  [selected]="part.user_nm === this.checkername"
                  *ngFor="let part of dt;let i = index;">{{part.user_nm}}</option>
              </select>
@@ -1202,6 +1202,9 @@
           <li>
             <button type="button" class="btn btn_01" [disabled]="getStatus(3)" (click)="sendEMR()">EMR전송</button>
           </li> -->
+          <li>
+            <input type="text" [value]="imagemsg" class="input_02"  readonly />
+          </li>           
           <li>
             <button type="button" class="btn btn_01" (click)="printScreen()">출력</button>
           </li> 
