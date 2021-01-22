@@ -182,6 +182,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   iamplificationsForm: FormGroup;
   ifusionForm: FormGroup;
   msiTag = false;
+  reportday: string;
   // <a [href]="fileUrl" download="file.txt">DownloadFile</a>
   // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
 
@@ -266,6 +267,22 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.status = true;
       // 현재 상태정보 1: 저장, 3:EMR전송, 0: 시작
       this.screenstatus = this.patientInfo.screenstatus;
+      if (parseInt(this.screenstatus, 10) === 1) {
+        if (this.patientInfo.report_date === null || this.patientInfo.report_date === '') {
+          this.reportday = this.today();
+        } else {
+          this.reportday = this.patientInfo.report_date.replace(/-/g, '.'); // 저장일
+        }
+      } else if (parseInt(this.screenstatus, 10) === 3) {
+        if (this.patientInfo.sendEMRDate.toString() === null || this.patientInfo.sendEMRDate.toString() === '') {
+          this.reportday = this.today();
+        } else {
+          this.reportday = this.patientInfo.sendEMRDate.toString().slice(0, 10).replace(/-/g, '.'); // EMR 전송일
+        }
+      } else {
+        this.reportday = this.today();
+      }
+
       // 검체정보
       console.log('[216][환자정보], ', this.patientInfo);
       this.extraction.dnarna = 'FFPE tissue';
@@ -336,6 +353,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     } else if (parseInt(this.patientInfo.screenstatus, 10) === 0) {  // tsv에서 데이타 가져옴
       // this.initByFile();
+      this.reportday = this.today();
       this.initByDB(pathologyNum);
       // this.status = this.store.getDBSaved();
     }
@@ -1413,8 +1431,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   makeEMRData(info: IPatient): void {
-    let msg: string;
-    let result: boolean;
+    // let msg: string;
+    // let result: boolean;
     const pathologyNo = info.pathology_num;
 
     const ment$ = this.searchService.getPathmentlist(pathologyNo);
@@ -1604,6 +1622,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
        */
+        this.toEMR();
       }); // End of combineLatest
 
   }
@@ -1611,7 +1630,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   toEMR(): void {
     const userid = localStorage.getItem('pathuser');
     console.log('[EMR 사용자ID]', userid);
-    console.log('[EMR 전송날자]', this.patientInfo.sendEMRDate.toString().slice(0, 10));
+    console.log('[EMR 전송날자]', this.today());
     console.log('[EMR 검사자/확인자]', this.examednoEMR, this.examednameEMR, this.checkerednoEMR, this.checkernameEMR);
     console.log('[EMR 환자정보]', this.basicInfoEMR, this.extractionEMR);
     console.log('[EMR 검사내용]', this.mutationEMR, this.amplificationsEMR, this.fusionEMR);
@@ -1620,7 +1639,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[EMR 멘트]', this.generalReportEMR, this.specialmentEMR, this.notementEMR);
     console.log('[EMR 사진경로]', this.pathimage);
 
-    const emrDate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
+    // const emrDate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
+    const emrDate = this.today();
     const form = makeReport(
       emrDate,   // EMR 전송일
       this.examednoEMR,    // 검사자 번호
