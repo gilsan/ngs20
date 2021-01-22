@@ -611,6 +611,25 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   /////////////////////////////////////////////////////////////
   //
   createRow(item: IAFormVariant): FormGroup {
+    if (item.type === 'New') {
+      return this.fb.group({
+        igv: [item.igv],
+        sanger: [item.sanger],
+        type: [item.type],
+        gene: [item.gene],
+        functionalImpact: [item.functionalImpact],
+        transcript: [item.transcript],
+        exonIntro: [item.exonIntro],
+        nucleotideChange: [item.nucleotideChange],
+        aminoAcidChange: [item.aminoAcidChange],
+        zygosity: [item.zygosity],
+        vafPercent: [item.vafPercent],
+        references: [item.references],
+        cosmicID: [item.cosmicID],
+        id: [item.id],
+        status: ['NEW']
+      });
+    }
     return this.fb.group({
       igv: [item.igv],
       sanger: [item.sanger],
@@ -626,7 +645,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       references: [item.references],
       cosmicID: [item.cosmicID],
       id: [item.id],
-
+      status: ['OLD']
     });
   }
 
@@ -712,6 +731,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [],
       references: [],
       cosmicID: [],
+      status: ['NEW']
     });
   }
 
@@ -797,20 +817,20 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         alert('mutation에 추가 했습니다.');
       });
     } else if (this.selectedItem === 'artifacts') {
-      console.log('[715][save][artifacts] ', row);
+      // console.log('[715][save][artifacts] ', row);
       this.subs.sink = this.patientsListService.insertArtifacts(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[719][result][artifacts] ', data);
+        // console.log('[719][result][artifacts] ', data);
         alert('artifacts에 추가 했습니다.');
 
       });
     } else if (this.selectedItem === 'benign') {
-      console.log('[724][save][benign] ', row);
+      // console.log('[724][save][benign] ', row);
       this.subs.sink = this.patientsListService.insertBenign(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[728][save][benign] ', data);
+        // console.log('[728][save][benign] ', data);
         alert('benign에 추가 했습니다.');
 
       });
@@ -828,7 +848,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         item.selectedname = selecteditem;
       }
     });
-    console.log('[741][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
+    // console.log('[741][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
   }
 
   // tslint:disable-next-line: typedef
@@ -836,14 +856,15 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     // console.log('[821][checkType][deleteRowStatus]', this.deleteRowStatus);
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
-    const tempVD = [...this.vd];
-    if (row.type === 'New' || row.type === null) {
 
+    const tempVD = [...this.vd];
+    if (row.status === 'NEW') {
+      // console.log('[840][checkType][row]', row);
       const idx = tempVD.findIndex(item => item.sequence === index && item.gene === row.gene);
       // console.log('===[826][checkType][type]', type, index, idx, row, this.vd, this.deleteRowNumber);
       if (idx === -1 && this.deleteRowNumber !== index) {
         this.vd.push({ sequence: index, selectedname: 'mutation', gene: row.gene });
-        console.log('####[842][checkType]', this.vd);
+        // console.log('####[842][checkType]', this.vd);
       }
 
       return true;
@@ -871,12 +892,12 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
 
-      console.log('[840][screenRead][profile] ', this.profile);
+      // console.log('[840][screenRead][profile] ', this.profile);
       // tslint:disable-next-line:max-line-length
       this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
         .pipe(
           tap(data => {
-            console.log('[843][screenRead] ', data);
+            // console.log('[843][screenRead] ', data);
             alert('저장되었습니다.');
           }),
           concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))

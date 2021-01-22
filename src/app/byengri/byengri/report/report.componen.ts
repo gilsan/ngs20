@@ -1846,11 +1846,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   tempSave(): void {
 
     if (this.examedno === 'none') {
-      alert('검사자를 선택해 주십시요.');
-      return;
+      const tempex = confirm('검사자 선택이 안되어 있습니다. 전송하시겠습니까.');
+      if (tempex === false) {
+        return;
+      }
     } else if (this.checkeredno === 'none') {
-      alert('확인자를 선택해 주십시요.');
-      return;
+      const tempch = confirm('확인자 선택이 안되어 있습니다. 전송하시겠습니까.');
+      if (tempch === false) {
+        return;
+      }
     }
 
     this.convertFormData();

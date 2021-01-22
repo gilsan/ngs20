@@ -33,6 +33,8 @@ export class StoreService {
   status = '';  // 시작, 스크린판독, 판독완료, EMR전송
   sheet = '';    // AML ALL LYN MDS
   whichstate = 'mainscreen'; // mainscreen, searchscreen
+
+  scrolly = 0;
   constructor() { }
   // mainscreen의 검색항목 저장
   // 시작날자, 종료날자, 검체번호, 환자번호
@@ -222,6 +224,16 @@ export class StoreService {
 
   getWhichstate(): string {
     return this.whichstate;
+  }
+
+  // scroll 위치 저장
+  setScrollyPosition(position: number): void {
+    // console.log('scroll....', position);
+    this.scrolly = position;
+  }
+
+  getScrollyPosition(): number {
+    return this.scrolly;
   }
 
 

@@ -106,6 +106,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   vd: { sequence: number, selectedname: string, gene: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
+  allLuk: string[] = ['RUNX1-RUNX1T1', 'CBFB-MYH11', 'PML-RARA(bcr1)', 'PML-RARA(bcr2)',
+    'PML-RARA(bcr3)', 'PML-RARA', 'KMT2A-MLLT3', 'DEK-NUP214', 'PBM15-MKL1', 'BCR-ABL1(e1a2)',
+    'BCR-ABL1(b2a2)', 'BCR-ABL1(b3a2)', 'BCR-ABL1'];
+
+  amlLuk: string[] = ['BCR-ABL1(e1a2)', 'BCR-ABL1(b2a2)', 'BCR-ABL1(b3a2)', 'BCR-ABL1',
+    'KMT2A-AFF1', 'KMT2A-MLLT1', 'KMT2A-MLLT3', 'ETV6-RUNX1', 'IGH-IL3', 'TCF3-PBX1'];
 
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   @ViewChild('box100', { static: true }) box100: ElementRef;
@@ -139,6 +145,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     // this.checker();
+  }
+
+  allLukemia(lukemia: string): void {
+    console.log('[151][allLukemia][profile.leukemia]', this.profile.leukemia);
   }
 
   findType(): void {
@@ -627,6 +637,25 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createRow(item: IAFormVariant): FormGroup {
+    if (item.type === 'New') {
+      return this.fb.group({
+        igv: [item.igv],
+        sanger: [item.sanger],
+        type: [item.type],
+        gene: [item.gene],
+        functionalImpact: [item.functionalImpact],
+        transcript: [item.transcript],
+        exonIntro: [item.exonIntro],
+        nucleotideChange: [item.nucleotideChange],
+        aminoAcidChange: [item.aminoAcidChange],
+        zygosity: [item.zygosity],
+        vafPercent: [item.vafPercent],
+        references: [item.references],
+        cosmicID: [item.cosmicID],
+        id: [item.id],
+        status: ['NEW']
+      });
+    }
     return this.fb.group({
       igv: [item.igv],
       sanger: [item.sanger],
@@ -641,7 +670,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [item.vafPercent],
       references: [item.references],
       cosmicID: [item.cosmicID],
-      id: [item.id]
+      id: [item.id],
+      status: ['OLD']
     });
   }
 
@@ -765,7 +795,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       zygosity: [],
       vafPercent: [],
       references: [],
-      cosmicID: []
+      cosmicID: [],
+      status: ['NEW']
     });
   }
 
@@ -892,7 +923,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
     const tempVD = [...this.vd];
-    if (row.type === 'New' || row.type === null) {
+    if (row.status === 'NEW') {
       const idx = tempVD.findIndex(item => item.sequence === index && item.gene === row.gene);
 
       if (idx === -1 && this.deleteRowNumber !== index) {

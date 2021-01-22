@@ -598,6 +598,25 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createRow(item: IAFormVariant): FormGroup {
+    if (item.type === 'New') {
+      return this.fb.group({
+        igv: [item.igv],
+        sanger: [item.sanger],
+        type: [item.type],
+        gene: [item.gene],
+        functionalImpact: [item.functionalImpact],
+        transcript: [item.transcript],
+        exonIntro: [item.exonIntro],
+        nucleotideChange: [item.nucleotideChange],
+        aminoAcidChange: [item.aminoAcidChange],
+        zygosity: [item.zygosity],
+        vafPercent: [item.vafPercent],
+        references: [item.references],
+        cosmicID: [item.cosmicID],
+        id: [item.id],
+        status: ['NEW']
+      });
+    }
     return this.fb.group({
       igv: [item.igv],
       sanger: [item.sanger],
@@ -612,7 +631,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [item.vafPercent],
       references: [item.references],
       cosmicID: [item.cosmicID],
-      id: [item.id]
+      id: [item.id],
+      status: ['OLD']
     });
   }
 
@@ -697,7 +717,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       zygosity: [],
       vafPercent: [],
       references: [],
-      cosmicID: []
+      cosmicID: [],
+      status: ['NEW']
     });
   }
 
@@ -781,7 +802,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         alert('mutation에 추가 했습니다.');
       });
     } else if (this.selectedItem === 'artifacts') {
-      console.log('[755][artifacts][저장] ', row);
+      // console.log('[755][artifacts][저장] ', row);
       this.subs.sink = this.patientsListService.insertArtifacts(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
@@ -790,11 +811,11 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
       });
     } else if (this.selectedItem === 'benign') {
-      console.log('[764][save][benign] ', row);
+      // console.log('[764][save][benign] ', row);
       this.subs.sink = this.patientsListService.insertBenign(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        console.log('[768][benign][저장] ', data);
+        // console.log('[768][benign][저장] ', data);
         alert('benign에 추가 했습니다.');
 
       });
@@ -812,7 +833,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         item.selectedname = selecteditem;
       }
     });
-    console.log('[781][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
+    // console.log('[781][saveInhouse][selectedItem] ', this.indexNum, this.selectedItem);
   }
 
   // tslint:disable-next-line: typedef
@@ -821,7 +842,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const row = control.value[index];
     const tempVD = [...this.vd];
-    if (row.type === 'New' || row.type === null) {
+    if (row.status === 'NEW') {
 
       const idx = tempVD.findIndex(item => item.sequence === index && item.gene === row.gene);
       // console.log('===[826][checkType][type]', type, index, idx, row, this.vd, this.deleteRowNumber);

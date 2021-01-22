@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { from, Observable, of } from 'rxjs';
@@ -14,7 +14,7 @@ import * as moment from 'moment';
   templateUrl: './mainscreen.component.html',
   styleUrls: ['./mainscreen.component.scss']
 })
-export class MainscreenComponent implements OnInit, OnDestroy {
+export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private subs = new SubSink();
   lists$: Observable<IPatient[]>;
@@ -36,6 +36,9 @@ export class MainscreenComponent implements OnInit, OnDestroy {
   storeSpecimenID: string;
 
   private apiUrl = emrUrl;
+
+  @ViewChild('dbox100', { static: true }) dbox100: ElementRef;
+
   constructor(
     private patientsList: PatientsListService,
     private router: Router,
@@ -50,6 +53,13 @@ export class MainscreenComponent implements OnInit, OnDestroy {
     }
     // console.log('[51][ngOnInit]');
     // this.search(this.startToday(), this.endToday(), '', '');
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const scrolly = this.store.getScrollyPosition();
+      this.dbox100.nativeElement.scrollTop = scrolly;
+    }, 300);
   }
 
   ngOnDestroy(): void {

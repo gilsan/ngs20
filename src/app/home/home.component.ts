@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.dstore.setWhichstate('mainscreen');
     this.dstore.setSearchStartDay('');
     this.dstore.setSearchEndDay('');
-
+    this.dstore.setScrollyPosition(0);
 
   }
 

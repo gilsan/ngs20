@@ -192,10 +192,29 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="table_result_line" style="text-align: center;">
+                        <td  *ngIf="reportType === 'ALL'" class="table_result_line" style="text-align: center;">
+                            <input type="text" class="input_02 textcenter"  (change)="allLukemia(alllukemia.value)"
+                             #alllukemia  list="luke"
+                            [(ngModel)]= "profile.leukemia" [ngModelOptions]="{standalone: true}">
+                            <datalist id="luke">
+                                <option *ngFor="let all of allLuk" [value]="all">
+                            </datalist>
+                        </td>
+
+                        <td  *ngIf="reportType === 'AML'" class="table_result_line" style="text-align: center;">
+                            <input type="text" class="input_02 textcenter"  (change)="allLukemia(amllukemia.value)"
+                             #amllukemia  list="luke"
+                            [(ngModel)]= "profile.leukemia" [ngModelOptions]="{standalone: true}">
+                            <datalist id="luke">
+                                <option *ngFor="let item of amlLuk" [value]="item">
+                            </datalist>
+                        </td>                        
+                        <!-- <td  *ngIf="reportType === 'AML'" class="table_result_line" style="text-align: center;">
                             <input type="text" class="input_02 textcenter"  
                             [(ngModel)]= "profile.leukemia" [ngModelOptions]="{standalone: true}">
-                        </td>
+                        </td> -->
+
+
                         <td class="table_result_line"  style="text-align: center;">
                             <input type="text" class="input_02  textcenter"  
                             [(ngModel)]="profile.flt3itd" [ngModelOptions]="{standalone: true}">
