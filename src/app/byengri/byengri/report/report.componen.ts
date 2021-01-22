@@ -1425,11 +1425,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const amplificationp$ = this.searchService.getAmplificationP(pathologyNo);
     const fusionp$ = this.searchService.getFusionP(pathologyNo);
     const pathologyimage$ = this.searchService.getPathImage(pathologyNo);
-    const howmanyimages$ = this.searchService.howManyImages(pathologyNo);
+    // const howmanyimages$ = this.searchService.howManyImages(pathologyNo);
     combineLatest([ment$, mutationc$, amplificationc$,
-      fusionc$, mutationp$, amplificationp$, fusionp$, pathologyimage$, howmanyimages$])
+      fusionc$, mutationp$, amplificationp$, fusionp$, pathologyimage$])
       .subscribe(([ment, mutationc, amplificationc, fusionc,
-        mutationp, amplificationp, fusionp, pathimagelist, howmanyimages]) => {
+        mutationp, amplificationp, fusionp, pathimagelist]) => {
         // 멘트
         if (ment.message !== 'no data') {
           this.generalReportEMR = ment[0].generalReport;
