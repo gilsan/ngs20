@@ -103,7 +103,7 @@ export class MutationComponent implements OnInit {
     if(id!==""){
       this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
-        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value )
+        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value )
         .subscribe((data) => {
           console.log('[170][Mutation 수정]', data); 
         alert("수정 되었습니다.");
@@ -112,7 +112,7 @@ export class MutationComponent implements OnInit {
     }else{
       this.mutationService.insertMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
-        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value )
+        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value )
         .subscribe((data) => {
         console.log('[170][Mutation 저장]', data); 
         alert("저장 되었습니다.");

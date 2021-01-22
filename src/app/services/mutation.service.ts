@@ -23,22 +23,22 @@ export class MutationService {
     return this.http.post(`${this.apiUrl}/mutation/list`, { genes });
   }
 
-  public insertMutationList(id: string, buccal: string, patientName: string, registerNumber: string, fusion: string, 
+  public insertMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string, 
         gene : string, functionalImpact: string,  transcript: string, exonIntro: String, nucleotideChange: string, 
         aminoAcidChange: string, zygosity : string, vaf : string, reference : String, 
-        siftPolyphenMutationTaster: String, buccal2: string, igv: string, sanger: string ): Observable<any> {  
-     return this.http.post(`${this.apiUrl}/mutation/insert`, { id, buccal, patientName, registerNumber, fusion, gene,
+        siftPolyphenMutationTaster: String, buccal2: string, igv: string, sanger: string, cosmicId: string ): Observable<any> {  
+     return this.http.post(`${this.apiUrl}/mutation/insert`, { id, buccal, name, registerNumber, fusion, gene,
       functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference, 
-      siftPolyphenMutationTaster, buccal2, igv, sanger }); 
+      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId }); 
   }
 
-  public updateMutationList(id: string, buccal: string, patientName: string, registerNumber: string, fusion: string, 
+  public updateMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string, 
       gene : string, functionalImpact: string,  transcript: string, exonIntro: String, nucleotideChange: string,
       aminoAcidChange: string,    zygosity : string, vaf : string, reference : String, 
-      siftPolyphenMutationTaster: String, buccal2: string, igv: string, sanger: string ): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/mutation/update`, { id, buccal, patientName, registerNumber, fusion, gene,
+      siftPolyphenMutationTaster: String, buccal2: string, igv: string, sanger: string, cosmicId: string ): Observable<any> {  
+    return this.http.post(`${this.apiUrl}/mutation/update`, { id, buccal, name, registerNumber, fusion, gene,
       functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference, 
-      siftPolyphenMutationTaster, buccal2, igv, sanger }); 
+      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId }); 
   }
 
   public deleteMutationList(id: string, genes: string): Observable<any> {  
