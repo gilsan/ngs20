@@ -130,6 +130,7 @@ export interface IPatient {
   request?: string;
   sendEMR?: string;
   sendEMRDate?: Date;
+  report_date?: string,
   createDate?: Date;
   tsvFilteredDate?: Date;
   tsvFilteredFilename?: string;
