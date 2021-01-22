@@ -1583,7 +1583,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           this.pathimage = [];
         }
-
+        /*
         console.log('[1572][]', howmanyimages);
 
         if (howmanyimages.count === 0) {
@@ -1603,7 +1603,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
           }
         }
-
+       */
       }); // End of combineLatest
 
   }
