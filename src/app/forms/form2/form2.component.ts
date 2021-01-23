@@ -106,11 +106,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   vd: { sequence: number, selectedname: string, gene: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
-  allLuk: string[] = ['RUNX1-RUNX1T1', 'CBFB-MYH11', 'PML-RARA(bcr1)', 'PML-RARA(bcr2)',
+  amlLuk: string[] = ['RUNX1-RUNX1T1', 'CBFB-MYH11', 'PML-RARA(bcr1)', 'PML-RARA(bcr2)',
     'PML-RARA(bcr3)', 'PML-RARA', 'KMT2A-MLLT3', 'DEK-NUP214', 'PBM15-MKL1', 'BCR-ABL1(e1a2)',
     'BCR-ABL1(b2a2)', 'BCR-ABL1(b3a2)', 'BCR-ABL1'];
 
-  amlLuk: string[] = ['BCR-ABL1(e1a2)', 'BCR-ABL1(b2a2)', 'BCR-ABL1(b3a2)', 'BCR-ABL1',
+  allLuk: string[] = ['BCR-ABL1(e1a2)', 'BCR-ABL1(b2a2)', 'BCR-ABL1(b3a2)', 'BCR-ABL1',
     'KMT2A-AFF1', 'KMT2A-MLLT1', 'KMT2A-MLLT3', 'ETV6-RUNX1', 'IGH-IL3', 'TCF3-PBX1'];
 
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;

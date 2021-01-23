@@ -1,8 +1,8 @@
-td {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  text-align: center !important;
-}
+// td {
+//   padding-top: 0 !important;
+//   padding-bottom: 0 !important;
+//   text-align: center !important;
+// }
 
 .preview__button {
   background-color: #f0e5e5;
@@ -87,4 +87,8 @@ img:hover {
   cursor: pointer;
   box-sizing: border-box;
   padding: 5px 30px;
+}
+
+.textcenter {
+  text-align: center;
 }
