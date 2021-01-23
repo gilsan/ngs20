@@ -366,7 +366,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   init(form2TestedId: string): void {
-
     if (this.form2TestedId) {
       this.subs.sink = this.patientsListService.filtering(this.form2TestedId, this.reportType)
         .subscribe(data => {
@@ -374,7 +373,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           let type: string;
           let gene: string;
           let dvariable: IAFormVariant;
-          // console.log('********** [필터링원시자료][247]', data);
+          // console.log('********** [필터링원시자료][377]', data);
 
           // 타입 분류
           if (data.mtype === 'M') {  // mutation
@@ -419,15 +418,15 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           }
 
           // comments 분류
-          if (data.mtype === 'M') {
-            // console.log('[410][코멘트]', data, data.commentList1, data.commentList2);
-            // console.log('[411]', data.commentList1.reference;
+          if (parseInt(data.comments1Count, 10) > 0) {
+            // console.log('[422][코멘트]', data, data.commentList1, data.commentList2);
+            // console.log('[423]', data.commentList1.reference);
             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
               if (parseInt(data.comments1Count, 10) > 0) {
 
                 const variant_id = data.tsv.amino_acid_change;
                 const comment = { ...data.commentList1, variant_id, type: this.reportType };
-                // console.log('[286][코멘트]', comment);
+                // console.log('[429][코멘트]', comment);
                 this.comments.push(comment);
                 this.store.setComments(this.comments); // 멘트 저장
                 let tempArray = new Array();
