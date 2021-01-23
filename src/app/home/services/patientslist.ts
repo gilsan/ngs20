@@ -389,41 +389,104 @@ export class PatientsListService {
         }
       }),
       concatMap(item => {
-        // console.log('==========[392][patientslists][뮤테이션] getMutationInfoLists', item);
+        console.log('===[392][patientslists][뮤테이션] getMutationInfoLists', item);
         if (item.gene2 === 'none') {
-          return this.getMutationInfoLists(item.gene1, item.coding).pipe(
-            map(lists => {
-              // console.log('========[396][patientslist][뮤테이션]', lists);
-              if (Array.isArray(lists) && lists.length) {
-                return { ...item, mutationList1: lists[0], mutationList2: 'none', mtype: 'M' };
-              } else {
-                return {
-                  ...item, mutationList1: {
-                    gene: 'none',
-                    functionalImpact: '',
-                    transcript: '',
-                    exonIntro: 'none',
-                    nucleotideChange: '',
-                    aminoAcidChange: '',
-                    zygosity: '',
-                    vafPercent: '',
-                    references: '',
-                    cosmicID: '',
-                  }, mutationList2: 'none', mtype: 'none'
-                };
-              }
-            })
-          );
+          const cnt = item.gene1.split(',').length;
+          console.log('====[395][patientslists][뮤테이션길이] getMutationInfoLists', item, cnt);
+          if (cnt === 1) {
+            return this.getMutationInfoLists(item.gene1, item.coding).pipe(
+              map(lists => {
+                // console.log('========[396][patientslist][뮤테이션]', lists);
+                if (Array.isArray(lists) && lists.length) {
+                  return { ...item, mutationList1: lists[0], mutationList2: 'none', mtype: 'M' };
+                } else {
+                  return {
+                    ...item, mutationList1: {
+                      gene: 'none',
+                      functionalImpact: '',
+                      transcript: '',
+                      exonIntro: 'none',
+                      nucleotideChange: '',
+                      aminoAcidChange: '',
+                      zygosity: '',
+                      vafPercent: '',
+                      references: '',
+                      cosmicID: '',
+                    }, mutationList2: 'none', mtype: 'none'
+                  };
+                }
+              })
+            );
+          } else {
+            // CSDE1,NRAS 인경우 NRAS로 찿는다.
+            let tempGene;
+            const tempCoding = item.coding.split(',')[0];
+            // console.log('[420][뮤테이션]', item);
+            if (item.gene1.split(',')[0] === 'NRAS') {
+              tempGene = item.gene1.split(',')[0];
+            } else if (item.gene1.split(',')[1] === 'NRAS') {
+              tempGene = item.gene1.split(',')[1];
+            }
+            console.log('[420][뮤테이션]', item, tempGene, tempCoding);
+            return this.getMutationInfoLists(tempGene, tempCoding).pipe(
+              tap(data => console.log('[patientslist][429][뮤테이션]', data)),
+              map(lists => {
+                if (Array.isArray(lists) && lists.length) {
+                  return { ...item, mutationList1: lists[0], mutationList2: 'none', mtype: 'M' };
+                } else {
+                  return {
+                    ...item, mutationList1: {
+                      gene: 'none',
+                      functionalImpact: '',
+                      transcript: '',
+                      exonIntro: 'none',
+                      nucleotideChange: '',
+                      aminoAcidChange: '',
+                      zygosity: '',
+                      vafPercent: '',
+                      references: '',
+                      cosmicID: '',
+                    }, mutationList2: 'none', mtype: 'none'
+                  };
+                }
+              })
+            );
+          }
+          // return this.getMutationInfoLists(item.gene1, item.coding).pipe(
+          //   map(lists => {
+          //     // console.log('========[396][patientslist][뮤테이션]', lists);
+          //     if (Array.isArray(lists) && lists.length) {
+          //       return { ...item, mutationList1: lists[0], mutationList2: 'none', mtype: 'M' };
+          //     } else {
+          //       return {
+          //         ...item, mutationList1: {
+          //           gene: 'none',
+          //           functionalImpact: '',
+          //           transcript: '',
+          //           exonIntro: 'none',
+          //           nucleotideChange: '',
+          //           aminoAcidChange: '',
+          //           zygosity: '',
+          //           vafPercent: '',
+          //           references: '',
+          //           cosmicID: '',
+          //         }, mutationList2: 'none', mtype: 'none'
+          //       };
+          //     }
+          //   })
+          // );
         } else {
           // CSDE1,NRAS 인경우 NRAS로 찿는다.
           let tempGene;
-          if (item.gene1 === 'NRAS') {
-            tempGene = item.gene1;
-          } else {
-            tempGene = item.gene2;
+          const tempCoding = item.coding.split(',')[0];
+          console.log('[482][뮤테이션]', item);
+          if (item.gene1.split(',')[0] === 'NRAS') {
+            tempGene = item.gene1.split(',')[0];
+          } else if (item.gene1.split(',')[1] === 'NRAS') {
+            tempGene = item.gene1.split(',')[1];
           }
-          return this.getMutationInfoLists(tempGene, item.coding).pipe(
-            // tap(data => console.log('[patientslist][371]', data)),
+          return this.getMutationInfoLists(tempGene, tempCoding).pipe(
+            tap(data => console.log('[patientslist][489][뮤테이션]', data)),
             map(lists => {
               if (Array.isArray(lists) && lists.length) {
                 return { ...item, mutationList1: lists[0], mutationList2: 'none', mtype: 'M' };
