@@ -1156,6 +1156,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.vusmsg = '';
     }
 
+    if (this.firstReportDay === '-') {
+      this.firstReportDay = this.today().replace(/-/g, '.');
+    }
+
     console.log('[1117][form2][comments] ', this.comments);
     const makeForm = makeBForm(
       this.resultStatus,
@@ -1221,6 +1225,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     if (this.vusmsg.length === 0) {
       this.vusmsg = '';
     }
+
+    if (this.firstReportDay === '-') {
+      this.firstReportDay = this.today().replace(/-/g, '.');
+    }
+
     console.log('[1182][ALL EMR][comments] ', this.comments);
     const makeForm = makeAForm(
       this.resultStatus,

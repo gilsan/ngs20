@@ -1068,6 +1068,10 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.vusmsg = '';
     }
 
+    if (this.firstReportDay === '-') {
+      this.firstReportDay = this.today().replace(/-/g, '.');
+    }
+
     console.log('[904][form2][comments] ', this.comments);
     const makeForm = makeDForm(
       this.resultStatus,

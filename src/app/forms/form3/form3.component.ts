@@ -1049,6 +1049,10 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     if (this.vusmsg.length === 0) {
       this.vusmsg = '';
     }
+
+    if (this.firstReportDay === '-') {
+      this.firstReportDay = this.today().replace(/-/g, '.');
+    }
     // console.log('[944][LYN EMR][comments] ', this.comments);
     const makeForm = makeCForm(
       this.resultStatus,
