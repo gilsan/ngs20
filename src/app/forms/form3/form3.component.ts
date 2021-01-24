@@ -469,6 +469,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     }
     if (this.sendEMR > 1) {
       this.lastReportDay = patientInfo.report_date.replace(/-/g, '.').slice(0, 10);
+    } else if (this.sendEMR === 0) {
+      this.firstReportDay = '-';
     }
 
   }

@@ -506,7 +506,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
     if (this.sendEMR > 1) {
       this.lastReportDay = patientInfo.report_date.replace(/-/g, '.').slice(0, 10);
-    } else {
+    } else if (this.sendEMR === 0) {
       this.firstReportDay = '-';
     }
 
