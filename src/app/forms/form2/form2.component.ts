@@ -1160,6 +1160,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.today().replace(/-/g, '.');
     }
 
+    if (this.sendEMR > 1) {
+      this.lastReportDay = this.today().replace(/-/g, '.');
+    }
+
     console.log('[1117][form2][comments] ', this.comments);
     const makeForm = makeBForm(
       this.resultStatus,
@@ -1228,6 +1232,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.firstReportDay === '-') {
       this.firstReportDay = this.today().replace(/-/g, '.');
+    }
+
+    if (this.sendEMR > 1) {
+      this.lastReportDay = this.today().replace(/-/g, '.');
     }
 
     console.log('[1182][ALL EMR][comments] ', this.comments);
@@ -1430,6 +1438,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             this.ngOnInit();
             this.screenstatus = '0';
             this.patientInfo.screenstatus = '0';
+            console.log('=== [reset][1433]', patientInfo);
             this.setReportdaymgn(patientInfo);
           });
         //  });
