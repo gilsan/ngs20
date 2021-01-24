@@ -135,8 +135,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
       this.recoverDetected();
-    } else {
+    } else if (parseInt(this.screenstatus, 10) === 0) {
       this.init(this.form2TestedId);
+    } else {
+      this.firstReportDay = '-';
+      this.lastReportDay = '-';
     }
 
     this.loadForm();
@@ -503,6 +506,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
     if (this.sendEMR > 1) {
       this.lastReportDay = patientInfo.report_date.replace(/-/g, '.').slice(0, 10);
+    } else {
+      this.firstReportDay = '-';
     }
 
   }

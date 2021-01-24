@@ -148,8 +148,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
       this.recoverDetected();
-    } else {
+    } else if (parseInt(this.screenstatus, 10) === 0) {
       this.init(this.form2TestedId);
+    } else {
+      this.firstReportDay = '-';
+      this.lastReportDay = '-';
     }
 
     this.loadForm();
