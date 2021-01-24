@@ -184,6 +184,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   initLoad(): void {
     // 검진부서원 리스트 스토어에서 가져옴.
+    /*
     const lists$ = this.utilsService.getDiagList()
       .pipe(shareReplay());
 
@@ -212,7 +213,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         }
       });
     });
-
+    */
     this.form2TestedId = this.patientsListService.getTestedID();
 
     // 검사자 정보 가져오기
@@ -484,6 +485,52 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.sendEMR === 0) {
       this.firstReportDay = '-';
     }
+
+    // 판독자 , 검사자
+    if (patientInfo.examin.length) {
+      this.examin = patientInfo.examin;
+    }
+
+    if (patientInfo.recheck.length) {
+      this.recheck = patientInfo.recheck;
+    }
+    if (patientInfo.examin.length === 0 && patientInfo.recheck.length === 0) {
+
+      const lists$ = this.utilsService.getDiagList()
+        .pipe(shareReplay());
+
+      lists$.pipe(
+        map(lists => lists.filter(list => list.part === 'D'))
+      ).subscribe(data => {
+        const len = data.length - 1;
+        data.forEach((list, index) => {
+          if (index === len) {
+            this.recheck = this.recheck + list.user_nm + ' M.D.';
+          } else {
+            this.recheck = this.recheck + list.user_nm + ' M.D./';
+          }
+        });
+      });
+
+      lists$.pipe(
+        map(lists => lists.filter(list => list.part === 'T'))
+      ).subscribe(data => {
+        const len = data.length - 1;
+        data.forEach((list, index) => {
+          if (index === len) {
+            this.examin = this.examin + list.user_nm + ' M.T.';
+          } else {
+            this.examin = this.examin + list.user_nm + ' M.T./';
+          }
+        });
+      });
+
+
+    }
+
+
+
+
   }
 
   // tslint:disable-next-line: typedef
