@@ -37,6 +37,7 @@ export class ManageUsersComponent implements OnInit {
     // if (this.storeStartDay === null || this.storeEndDay === null) {
     this.init();
     // } 
+    console.log(' ngOnInit');
   }
 
 
@@ -106,6 +107,7 @@ export class ManageUsersComponent implements OnInit {
   }
 
   goPage(page: string): void {
+
     if (page === "<" && this.pageLine > 0) {
       this.pageLine--;
       this.curPage = this.pageLine * 10 - 1;
@@ -119,6 +121,7 @@ export class ManageUsersComponent implements OnInit {
     }
     page = this.curPage + "";
     this.lists = this.listManageUsers.slice((Number(page) - 1) * 10, (Number(page)) * 10);
+
   }
 
   search(startDay: string, endDay: string, userId: string, userNm: string): void {

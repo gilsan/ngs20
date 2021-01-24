@@ -3,9 +3,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { emrUrl } from 'src/app/config';
-import { IManageUsers} from 'src/app/home/models/manageUsers';  
-import { ManageUsersService } from 'src/app/home/services/manageUsers.service';  
- 
+import { IManageUsers } from 'src/app/home/models/manageUsers';
+import { ManageUsersService } from 'src/app/home/services/manageUsers.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
@@ -16,10 +16,10 @@ export class ManageUsersComponent implements OnInit {
   lists$: Observable<IManageUsers[]>;
   lists: IManageUsers[];
   listManageUsers: IManageUsers[];
-  manageUsers: IManageUsers; 
- 
-  curPage:  number;
-  totPage:  number;
+  manageUsers: IManageUsers;
+
+  curPage: number;
+  totPage: number;
   pageLine: number;
   totRecords: number;
 
@@ -29,17 +29,17 @@ export class ManageUsersComponent implements OnInit {
   storeEndDay: string;
 
 
-  constructor( 
-    private manageUsersService: ManageUsersService 
+  constructor(
+    private manageUsersService: ManageUsersService
   ) { }
 
   ngOnInit(): void {
-   // if (this.storeStartDay === null || this.storeEndDay === null) {
-      this.init();
-   // } 
+    // if (this.storeStartDay === null || this.storeEndDay === null) {
+    this.init();
+    // } 
   }
 
-  
+
   today(): string {
     const today = new Date();
 
@@ -70,6 +70,17 @@ export class ManageUsersComponent implements OnInit {
     return now;
   }
 
+  startToday2(): string {
+    const oneMonthsAgo = moment().subtract(3, 'months');
+    // console.log(oneMonthsAgo.format('YYYY-MM-DD'));
+    const yy = oneMonthsAgo.format('YYYY');
+    const mm = oneMonthsAgo.format('MM');
+    const dd = oneMonthsAgo.format('DD');
+    // console.log('[63][오늘날자]년[' + yy + ']월[' + mm + ']일[' + dd + ']');
+    const now1 = yy + '-' + mm + '-' + dd;
+    return now1;
+  }
+
   endToday(): string {
     const today = new Date();
 
@@ -88,52 +99,52 @@ export class ManageUsersComponent implements OnInit {
 
   init(): void {
 
-    this.search(this.startToday(), this.endToday(), '', '');
+    this.search(this.startToday2(), this.endToday(), '', '');
   }
- 
-  goPage(page: string): void {    
-    if(page ==="<" &&  this.pageLine >0 ) { 
-       this.pageLine--; 
-       this.curPage = this.pageLine *10-1;
-       if(this.curPage <1) this.curPage = 1;
-    }else if(page ===">" &&  this.pageLine < Math.ceil(this.totPage/10)-1  ) { 
-       this.pageLine++;
-       this.curPage = this.pageLine *10+1;
+
+  goPage(page: string): void {
+    if (page === "<" && this.pageLine > 0) {
+      this.pageLine--;
+      this.curPage = this.pageLine * 10 - 1;
+      if (this.curPage < 1) this.curPage = 1;
+    } else if (page === ">" && this.pageLine < Math.ceil(this.totPage / 10) - 1) {
+      this.pageLine++;
+      this.curPage = this.pageLine * 10 + 1;
     } else {
-      if( page !="<" && page !=">" ) 
-         this.curPage = Number(page); 
+      if (page != "<" && page != ">")
+        this.curPage = Number(page);
     }
-    page =  this.curPage +""; 
-    this.lists =  this.listManageUsers.slice((Number(page)-1)*10, (Number(page))*10); 
- }  
- 
-  search(startDay: string, endDay: string, userId: string, userNm: string ): void { 
-      this.totRecords = 0;  
-      this.lists$ = this.manageUsersService.getManageUsersList(startDay, endDay, userId, userNm, 'P' );
-      this.lists$.subscribe((data) => {
+    page = this.curPage + "";
+    this.lists = this.listManageUsers.slice((Number(page) - 1) * 10, (Number(page)) * 10);
+  }
+
+  search(startDay: string, endDay: string, userId: string, userNm: string): void {
+    this.totRecords = 0;
+    this.lists$ = this.manageUsersService.getManageUsersList(startDay, endDay, userId, userNm, 'P');
+    this.lists$.subscribe((data) => {
       console.log('[170][Users 검색]', data);
       this.listManageUsers = data;
-      this.lists = data.slice(0,10);
+      this.lists = data.slice(0, 10);
       this.curPage = 1;
-      this.totPage = Math.ceil(this.listManageUsers.length/10);  
+      this.totPage = Math.ceil(this.listManageUsers.length / 10);
       this.pageLine = 0;
       this.totRecords = this.listManageUsers.length;
-    }); 
-  }  
+    });
+  }
 
-  confirm(id: string, approved: string): void { 
+  confirm(id: string, approved: string): void {
     debugger;
-    let approve = (approved =="Y" ? "승인":"미승인");
-    let result = confirm( approve + " 하시겠습니까?");
-    if (result ==true){  
-      this.lists$ = this.manageUsersService.setManageUsersApproved(id, approved );
-        this.lists$.subscribe((data) => {
-        alert("정상 처리 되었습니다.");  
-      });   
+    let approve = (approved == "Y" ? "승인" : "미승인");
+    let result = confirm(approve + " 하시겠습니까?");
+    if (result == true) {
+      this.lists$ = this.manageUsersService.setManageUsersApproved(id, approved);
+      this.lists$.subscribe((data) => {
+        alert("정상 처리 되었습니다.");
+      });
     }
     this.init();
-  } 
-  
+  }
+
   toggle(i: number): any {
 
     if (i % 2 === 0) {
