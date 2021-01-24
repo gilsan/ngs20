@@ -1164,7 +1164,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.lastReportDay = this.today().replace(/-/g, '.');
     }
 
-    console.log('[1117][form2][comments] ', this.comments);
+    console.log('*******[1167][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     const makeForm = makeBForm(
       this.resultStatus,
       this.examin, // 검사자
@@ -1238,7 +1238,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.lastReportDay = this.today().replace(/-/g, '.');
     }
 
-    console.log('[1182][ALL EMR][comments] ', this.comments);
+    console.log('*******[1241][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     const makeForm = makeAForm(
       this.resultStatus,
       this.examin, // 검사자

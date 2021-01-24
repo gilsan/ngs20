@@ -1076,6 +1076,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.lastReportDay = this.today().replace(/-/g, '.');
     }
 
+
     console.log('[904][form2][comments] ', this.comments);
     const makeForm = makeDForm(
       this.resultStatus,
