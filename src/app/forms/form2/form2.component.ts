@@ -1136,9 +1136,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   goEMR(): void {
     const userid = localStorage.getItem('diaguser');
-    // if (this.sendEMR > 1) {
-    //   this.lastReportDay = this.today();
-    // }
+
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
@@ -1160,8 +1158,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.today().replace(/-/g, '.');
     }
 
-    if (this.sendEMR > 1) {
+    if (this.sendEMR >= 1) {
       this.lastReportDay = this.today().replace(/-/g, '.');
+      console.log('*******[1163][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     }
 
     console.log('*******[1167][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
@@ -1204,7 +1203,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         // 환자정보 가져오기
         this.patientsListService.getPatientInfo(this.form2TestedId)
           .subscribe(patient => {
-            this.setReportdaymgn(patient);
+            // this.setReportdaymgn(patient);
           });
 
       });
@@ -1234,8 +1233,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.today().replace(/-/g, '.');
     }
 
-    if (this.sendEMR > 1) {
+    if (this.sendEMR >= 1) {
       this.lastReportDay = this.today().replace(/-/g, '.');
+      console.log('*******[1238][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     }
 
     console.log('*******[1241][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
@@ -1275,7 +1275,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.patientsListService.getPatientInfo(this.form2TestedId)
           .subscribe(patient => {
             console.log('[1218][ALL EMR][검체정보]', this.sendEMR, patient);
-            this.setReportdaymgn(patient);
+            // this.setReportdaymgn(patient);
           });
       });
   }

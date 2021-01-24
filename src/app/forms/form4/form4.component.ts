@@ -1072,7 +1072,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.firstReportDay = this.today().replace(/-/g, '.');
     }
 
-    if (this.sendEMR > 1) {
+    if (this.sendEMR >= 1) {
       this.lastReportDay = this.today().replace(/-/g, '.');
     }
 
@@ -1113,7 +1113,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         this.patientsListService.getPatientInfo(this.form2TestedId)
           .subscribe(patient => {
             console.log('[999][MDS EMR][검체정보]', this.sendEMR, patient);
-            this.setReportdaymgn(patient);
+            // this.setReportdaymgn(patient);
           });
       });
 
