@@ -232,6 +232,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.patientInfo.specimen === '004') {
       this.specimenMsg = 'EDTA blood';
       this.specimenMessage = 'Genomic DNA isolated from EDTA blood';
+      this.store.setSpecimenMsg(this.specimenMsg);
     }
 
     // 전송횟수, 검사보고일, 수정보고일  저장

@@ -236,7 +236,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.patientInfo = this.getPatientinfo(this.form2TestedId);
-    console.log('=====[239][환자정보]', this.patientInfo);
 
     this.store.setPatientInfo(this.patientInfo); // 환자정보 저장
     this.requestDate = this.patientInfo.accept_date;
@@ -246,6 +245,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     } else if (this.patientInfo.specimen === '004') {
       this.specimenMsg = 'EDTA blood';
       this.specimenMessage = 'Genomic DNA isolated from EDTA blood';
+      this.store.setSpecimenMsg(this.specimenMsg);
     }
 
     // 전송횟수, 검사보고일, 수정보고일  저장
@@ -258,6 +258,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.specimenMessage = 'Genomic DNA isolated from Bone marrow';
       this.store.setSpecimenMsg(this.specimenMsg);
     }
+    console.log('=====[261][환자정보]', this.patientInfo, this.specimenMessage);
     // 필터링된 tsv 파일 가져오기
     this.filteredTSV$ = this.patientsListService.getFilteredTSVtList(this.form2TestedId)
       .pipe(
@@ -962,7 +963,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         item.selectedname = selecteditem;
       }
     });
-    console.log('[923][saveInhouse][selectedItem] ', this.vd);
+    // console.log('[923][saveInhouse][selectedItem] ', this.vd);
   }
 
   // tslint:disable-next-line: typedef
@@ -975,7 +976,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
       if (idx === -1 && this.deleteRowNumber !== index) {
         this.vd.push({ sequence: index, selectedname: 'mutation', gene: row.gene });
-        console.log('####[936][checkType]', this.vd);
+        // console.log('####[936][checkType]', this.vd);
       }
 
       return true;

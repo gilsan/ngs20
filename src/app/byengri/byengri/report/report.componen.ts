@@ -365,9 +365,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       // this.initByFile();
       // this.reportday = this.today();
       const tempReportday = this.patientInfo.report_date.slice(0, 10);
-      if (tempReportday === '1900-01-01') {
+      if (tempReportday === '1900-01-01' || this.patientInfo.report_date === '') {
         this.reportday = this.today();
-        console.log('=== [370][1900-01-01]', tempReportday, this.reportday);
       }
 
 
@@ -816,7 +815,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           // console.log('-------[702][트림 검사]', gene);
           const type = members[1].trim().replace(/"/g, '');
           // console.log('-------[708][트림검사]', type);
-          // console.log('====[552][clinically]: ', item, gene, type);
+          console.log('====[881][clinically]: ', item, gene, type);
           if (type.charAt(0) === 'p' || type === 'exon') {
             // const indexm = this.findGeneInfo(gene);
             let indexm: number;
@@ -829,7 +828,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
             let aminoAcidChange = itemMembers[1];
             const tempAminoAcidChange = itemMembers[1];
-            console.log('====[569][clinically]: ', gene, tempAminoAcidChange);
+            console.log('====[831][clinically]: ', gene, tempAminoAcidChange);
             if (type === 'exon') {
               nucleotideChange = '';
             } else {
@@ -839,7 +838,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             variantAlleleFrequency = this.findFrequency(gene);
             if (type === 'exon') {
               indexm = this.findGeneInfo(gene);
-              nucleotideChange = this.filteredOriginData[indexm].coding;
+              console.log('=== [841]', indexm, this.filteredOriginData);
+              if (indexm !== -1) {
+                nucleotideChange = this.filteredOriginData[indexm].coding;
+              }
             } else {
               indexm = this.withGeneCoding(gene, nucleotideChange);
             }
@@ -847,7 +849,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             if (indexm !== -1) {
               customid = this.filteredOriginData[indexm].variantID;
               if (customid === undefined || customid === null) { customid = ''; }
-              console.log('==== [586][]', gene, tempAminoAcidChange, type);
+              console.log('==== [850][]', gene, tempAminoAcidChange, type);
               if (gene === 'TERT' && tempAminoAcidChange === 'p.(?)') {
                 aminoAcidChange = 'Promotor mutant';
               } else if (gene !== 'TERT' && tempAminoAcidChange === 'p.(?)') {
@@ -875,7 +877,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               if (customid.indexOf('vc.novel') !== -1) {
                 customid = '';
               }
-              console.log('==== [684][mutation] ', gene);
+              console.log('==== [978][mutation] ', gene);
               this.mutation.push({
                 gene,
                 aminoAcidChange,
@@ -892,7 +894,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             const indexa = this.findGeneInfo(gene);
             const atier = this.findTier(gene);
             const geneindexlist = this.findMultiGeneInfo(gene);
-            console.log(' ####### [790][amplification] ', gene, indexa, atier, type, geneindexlist);
+            console.log(' ####### [895][amplification] ', gene, indexa, atier, type, geneindexlist);
             if (indexa !== -1) {
               let cylen;
               const cytobandlen = this.filteredOriginData[indexa].cytoband.length;
@@ -910,7 +912,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
               });
 
-              console.log('[793][cytoband]', cytobandlen);
+              console.log('[913][cytoband]', cytobandlen);
               /*
                 const cytoband = this.filteredOriginData[indexa].cytoband.split(')');
                 this.amplifications.push({
@@ -929,7 +931,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
             // const index = this.findGeneInfo(gene);
             const index = this.findFusionInfo(gene);
             const ftier = this.findTier(gene);
-            console.log('****** [719][FUSION][', type, gene, index);
+            console.log('****** [932][FUSION][', type, gene, index);
 
             if (index !== -1) {  // 여기주의
               if (this.filteredOriginData[index].oncomine === 'Loss-of-function') {
@@ -953,14 +955,14 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         if (this.mutation.length) {
-          console.log('====== [742][mutation]', this.mutation);
+          console.log('====== [956][mutation]', this.mutation);
           this.mutation.forEach((mItem, index) => {
             this.mutationLists().push(this.createMutaion(mItem, index.toString()));
           });
         }
 
         if (this.amplifications.length) {
-          console.log('###### [742][amplifications]', this.amplifications);
+          console.log('###### [963][amplifications]', this.amplifications);
           this.amplifications.forEach((aItem, index) => {
             this.amplificationsLists().push(this.createAmplifications(aItem, index.toString()));
           });
