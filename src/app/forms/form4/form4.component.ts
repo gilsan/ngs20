@@ -55,7 +55,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   ngsData = [];
   private subs = new SubSink();
 
-  resultStatus = 'Not Detected';
+  resultStatus = 'Detected';
   fusion = '';
   flt3itd = '';
   chronmosomal = '';
@@ -88,7 +88,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   rsltdesc = '';
   screenstatus: string;
   specimenMsg: string;
-  specimenMessage: string;
+  specimenMessage = 'Genomic DNA isolated from peripheral blood';
 
   comments: IComment[] = [];
   tempCommentGene = '';
@@ -223,7 +223,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.patientInfo = this.getPatientinfo(this.form2TestedId);
-    console.log('[216][환자정보]', this.patientInfo);
+    console.log('[226][환자정보]', this.patientInfo);
     this.store.setPatientInfo(this.patientInfo); // 환자정보 저장
     this.requestDate = this.patientInfo.accept_date;
     if (this.patientInfo.specimen === '015') {
@@ -264,11 +264,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   }
   ////////////////////////////////////////
   recoverDetected(): void {
-    // 디비에서 detected variant_id 와 comments 가져오기
+    // 디비에서 Detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
-      console.log('[204][form2][detected variant_id]', this.recoverVariants);
-      this.store.setDetactedVariants(data); // detected variant 저장
+      console.log('[204][form2][Detected variant_id]', this.recoverVariants);
+      this.store.setDetactedVariants(data); // Detected variant 저장
       this.recoverVariants.forEach(item => {
         this.recoverVariant(item);  // 354
         if (item.functional_impact === 'VUS') {
@@ -552,8 +552,9 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line:typedef
   result(event) {
+    console.log(event);
     this.resultStatus = event.srcElement.defaultValue;
-
+    console.log('[556][라디오 검체]', this.resultStatus);
   }
 
   radioStatus(type: string): boolean {
@@ -1089,6 +1090,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.vusmsg,   // this.ment,
       this.patientInfo,
       reformData,
+      this.comments,
       this.firstReportDay,
       this.lastReportDay,
       this.genelists
@@ -1144,7 +1146,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   previewToggle(): void {
     this.isVisible = !this.isVisible;
-    // detected variants 값을 store에 저장
+    // Detected variants 값을 store에 저장
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue() as IAFormVariant[];
     console.log('[1129][form2][previewToggle][] ', formData);
@@ -1232,7 +1234,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     console.log('[1040][tableerowForm]', formData);
     console.log('[1041][checkbox]', this.checkboxStatus);
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1043][detected variants]', reformData);
+    console.log('[1043][Detected variants]', reformData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();

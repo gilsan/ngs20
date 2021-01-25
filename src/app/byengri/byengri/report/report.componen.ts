@@ -267,9 +267,19 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       this.status = true;
       // 현재 상태정보 1: 저장, 3:EMR전송, 0: 시작
       this.screenstatus = this.patientInfo.screenstatus;
+      // 시험용 1900-01-01
+      // const tempsendemrdate = this.patientInfo.sendEMRDate.toString().slice(0, 10);
+      // if (tempsendemrdate === '1900-01-01') {
+      //   console.log('===== [273]', tempsendemrdate);
+      // }
+
+      // 저장일
+      const tempReportday = this.patientInfo.report_date.slice(0, 10);
       if (parseInt(this.screenstatus, 10) === 1) {
-        if (this.patientInfo.report_date === null || this.patientInfo.report_date === '') {
+        if (this.patientInfo.report_date === null || this.patientInfo.report_date === '' ||
+          tempReportday === '1900-01-01') {
           this.reportday = this.today();
+          console.log('=== [281][1900-01-01]', tempReportday, this.reportday);
         } else {
           this.reportday = this.patientInfo.report_date.replace(/-/g, '.'); // 저장일
         }
@@ -353,7 +363,15 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
     } else if (parseInt(this.patientInfo.screenstatus, 10) === 0) {  // tsv에서 데이타 가져옴
       // this.initByFile();
-      this.reportday = this.today();
+      // this.reportday = this.today();
+      const tempReportday = this.patientInfo.report_date.slice(0, 10);
+      if (tempReportday === '1900-01-01') {
+        this.reportday = this.today();
+        console.log('=== [370][1900-01-01]', tempReportday, this.reportday);
+      }
+
+
+
       this.initByDB(pathologyNum);
       // this.status = this.store.getDBSaved();
     }
@@ -692,9 +710,9 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
 
         console.log('[553][tumorcellpercentage]', tumorcellpercentageVal);
         if (tumorcellpercentageVal.length > 0) {
-          console.log('-------[603][트림검사]');
+          // console.log('-------[603][트림검사]');
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰
-          console.log('-------[605][트림검사]');
+          // console.log('-------[605][트림검사]');
         } else {
           this.tumorcellpercentage = '';
         }
@@ -791,13 +809,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         // tslint:disable-next-line:prefer-const
 
         this.clinically.forEach(item => {
-          console.log('-------[698][트림 검사]', item);
+          // console.log('-------[698][트림 검사]', item);
           const members = item.trim().split(' ');
-          console.log('-------[709][트림 검사]', members);
+          // console.log('-------[709][트림 검사]', members);
           const gene = members[0].trim().replace(/"/g, '');
-          console.log('-------[702][트림 검사]', gene);
+          // console.log('-------[702][트림 검사]', gene);
           const type = members[1].trim().replace(/"/g, '');
-          console.log('-------[708][트림검사]', type);
+          // console.log('-------[708][트림검사]', type);
           // console.log('====[552][clinically]: ', item, gene, type);
           if (type.charAt(0) === 'p' || type === 'exon') {
             // const indexm = this.findGeneInfo(gene);

@@ -9,10 +9,10 @@
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td class="txt_02" ><span class="fb">Result </span>:
-                        <input type="radio" id="vertical-radio2" name="radio-full" value="detected" [checked]="radioStatus('Detected')" class="clr-radio"  (change)="result($event)">
+                        <input type="radio" id="vertical-radio2" name="radio-full" [value]="'Detected'" [checked]="radioStatus('Detected')" class="clr-radio"  (change)="result($event)">
                         <label for="vertical-radio2" class="  clr-col-12 clr-col-md-2">Detected</label>
                         &nbsp;&nbsp;
-                        <input type="radio" id="vertical-radio1" name="radio-full" value="notdetected" class="clr-radio"  (change)="result($event)" [checked]="radioStatus('Not Detected')">
+                        <input type="radio" id="vertical-radio1" name="radio-full" [value]="'Not Detected'" class="clr-radio"  (change)="result($event)" [checked]="radioStatus('Not Detected')">
                         <label for="vertical-radio1" class="clr-col-12 clr-col-md-2">Not Detected</label>
                     </td>
                     <!-- <td rowspan="2" class="main_btn">

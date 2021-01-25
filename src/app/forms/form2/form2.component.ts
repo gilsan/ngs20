@@ -48,7 +48,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   ngsData = [];
   private subs = new SubSink();
 
-  resultStatus = 'Not Detected';
+  resultStatus = 'Detected';
   fusion = '';
   flt3itd = '';
   chronmosomal = '';
@@ -278,11 +278,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
   ////////////////////////////////////////
   recoverDetected(): void {
-    // 디비에서 detected variant_id 와 comments 가져오기
+    // 디비에서 Detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
-      console.log('[204][form2][detected variant_id]', this.recoverVariants);
-      this.store.setDetactedVariants(data); // detected variant 저장
+      console.log('[204][form2][Detected variant_id]', this.recoverVariants);
+      this.store.setDetactedVariants(data); // Detected variant 저장
       this.recoverVariants.forEach(item => {
         // console.log('[270][recoverDetected]', item.functional_impact);
         this.recoverVariant(item);  // 354
@@ -1305,7 +1305,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   previewToggle(): void {
     this.isVisible = !this.isVisible;
-    // detected variants 값을 store에 저장
+    // Detected variants 값을 store에 저장
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue() as IAFormVariant[];
     console.log('[1252][form2][previewToggle][] ', formData);
@@ -1393,7 +1393,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     console.log('[1334][tableerowForm]', formData);
     console.log('[1335][checkbox]', this.checkboxStatus);
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1337][detected variants]', reformData);
+    console.log('[1337][Detected variants]', reformData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();

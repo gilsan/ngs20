@@ -145,15 +145,26 @@ export function makeAForm(
 `;
 
 	let commentContent = '';
-	// tslint:disable-next-line: prefer-for-of
-	for (let i = 0; i < comment.length; i++) {
-		commentContent = commentContent + `
+	if (comment.length > 0) {
+		// tslint:disable-next-line: prefer-for-of
+		for (let i = 0; i < comment.length; i++) {
+			commentContent = commentContent + `
 		<Row>
 		<Col id="gene">${comment[i].gene}</Col>
 		<Col id="variants">${comment[i].variant_id}</Col>
 		<Col id="comments">${comment[i].comment}</Col>
 		<Col id="reference">${comment[i].reference}</Col>
 	</Row>`;
+		}
+	} else {
+		commentContent = `
+ <Row>
+ <Col id="gene"></Col>
+ <Col id="variants"></Col>
+ <Col id="comments"></Col>
+ <Col id="reference"></Col>
+</Row>
+ `;
 	}
 
 	commentContent = `<Rows>
@@ -163,13 +174,8 @@ export function makeAForm(
 	const commentBottom = `
 	</Dataset>
 	`;
-	if (comment.length > 0) {
-		comments = commentHeader + commentContent + commentBottom;
-	}
 
-
-
-
+	comments = commentHeader + commentContent + commentBottom;
 
 	const fixedMent = `
 	<Dataset id="ds_4">
