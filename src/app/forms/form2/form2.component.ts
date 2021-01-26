@@ -248,6 +248,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.store.setSpecimenMsg(this.specimenMsg);
     }
 
+    // 검체 감염유부 확인
+    if (parseInt(this.patientInfo.detected, 10) === 0) {
+      this.resultStatus = 'Detected';
+    } else if (parseInt(this.patientInfo.detected, 10) === 1) {
+      this.resultStatus = 'Not Detected';
+    }
+
     // 전송횟수, 검사보고일, 수정보고일  저장
     this.setReportdaymgn(this.patientInfo);
 
@@ -386,7 +393,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             if (data.mutationList1.exonIntro !== 'none') {
               dvariable = data.mutationList1;
               // mutaion에 있으면 detected로 표시
-              this.resultStatus = 'Detected';
+              // this.resultStatus = 'Detected';
             }
             // dvariable = data.mutationList1;
           } else if (parseInt(data.artifacts1Count, 10) > 0 ||
