@@ -707,7 +707,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
           tumortypes = '';
         }
 
-        console.log('[553][tumorcellpercentage]', tumorcellpercentageVal);
+        console.log('[710][tumorcellpercentage]', tumorcellpercentageVal);
         if (tumorcellpercentageVal.length > 0) {
           // console.log('-------[603][트림검사]');
           this.tumorcellpercentage = tumorcellpercentageVal[0].tumorcellpercentage.trim(); // 공백 없앰
@@ -964,7 +964,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         if (this.amplifications.length) {
-          // console.log('###### [963][amplifications]', this.amplifications);
+          console.log('###### [967][amplifications]', this.amplifications);
           this.amplifications.forEach((aItem, index) => {
             this.amplificationsLists().push(this.createAmplifications(aItem, index.toString()));
           });
@@ -1214,7 +1214,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   setManagementNum(rel_pathology_num: string): void {
     this.extraction.managementNum = rel_pathology_num;
-    console.log('********* [906][환자병리번호]', this.extraction.managementNum);
+    // console.log('********* [906][환자병리번호]', this.extraction.managementNum);
   }
 
   setKeyblock(keyblock: string): void {

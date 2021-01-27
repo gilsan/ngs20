@@ -264,7 +264,7 @@ export class PathologyService {
   public setFilteredTSV(data: IFilteredOriginData[]): void {
     this.filteredOriginData = data;
     this.filteredOriginData$.next(this.filteredOriginData);
-    // console.log('========== [서비스][222][filteredOriginData]', this.filteredOriginData);
+    console.log('========== [서비스][267][filteredOriginData]', this.filteredOriginData);
     this.http.post(`${this.apiUrl}/filteredOriginData/insert`, { data })
       .subscribe(result => {
         // console.log('[252][filteredOriginData][insert]', result);

@@ -444,11 +444,11 @@ export class UploadComponent implements OnInit {
             pathologyNum: this.pathologyNum,
             */
           });
-          console.log('==== [313][upload][filteredOriginData] ', this.filteredOriginData);
+          // console.log('==== [313][upload][filteredOriginData] ', this.filteredOriginData);
         }
 
       });
-
+      // console.log('==== [449][upload][OR 유전자 데이터] ', this.filteredOriginData);
       this.pathologyService.setFilteredTSV(this.filteredOriginData);
       data.forEach(item => {
         const checkshap = item.toString().indexOf('#');
