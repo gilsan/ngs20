@@ -265,7 +265,7 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-              // console.log('[263][index]' + index + '[start]' + start + ' ' + list[0] + '  [' + list[4] + ']');
+              console.log('[263][index]' + index + '[start]' + start + ' [LIST] ' + list + list[0] + '  [' + list[4] + ']');
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {
@@ -273,7 +273,7 @@ export class UploadComponent implements OnInit {
                 const tier = list[2].substring(0, list[2].length - 1);
                 // filteredlist 길이
                 const filteredlistLen = filteredlist.length;
-                if (filteredlistLen === 2 || filteredlistLen === 3) {
+                if (filteredlistLen >= 2) {  //
                   if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
                     this.clinically.push(list[0]); // 유전자
