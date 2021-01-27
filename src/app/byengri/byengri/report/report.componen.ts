@@ -1963,13 +1963,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addMutation(): void {
-    console.log('[1815][addMutation]');
+    // console.log('[1815][addMutation]');
     this.mutationLists().push(this.newMutation());
     this.mutation.push({
       gene: '', aminoAcidChange: '', nucleotideChange: '', variantAlleleFrequency: '', ID: '', seq: ''
     });
     const len = this.mutationLists().getRawValue().length;
-    console.log('[1233][addMutation]', len);
+    // console.log('[1233][addMutation]', len);
     if (len > 0) {
       this.noneMu = '';
     } else {
@@ -2321,8 +2321,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     const result = this.polymorphismList.findIndex(item =>
       item.gene === gene && item.amino_acid_change === amino && item.nucleotide_change === nucleotide
     );
-    console.log('[2210][removeGeneCheck]', this.polymorphismList);
-    console.log('[2211]', gene, amino, nucleotide, result);
+    // console.log('[2210][removeGeneCheck]', this.polymorphismList);
+    // console.log('[2211]', gene, amino, nucleotide, result);
     // return result;
     // 검증완료후 삭제 1.17
     return -1;

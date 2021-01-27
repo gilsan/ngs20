@@ -268,31 +268,33 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-              // console.log('[263][index]' + index + '[start]' + start + ' [LIST] ' + list + list[0] + '  [' + list[4] + ']');
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {
                 const filteredlist = list[0].trim().split(' ');
                 const tier = list[2].substring(0, list[2].length - 1);
-                // console.log('[277][filteredlist] ', filteredlist);
                 // filteredlist 길이
                 const filteredlistLen = filteredlist.length;
-                if (filteredlistLen >= 2) {  //
+                if (filteredlistLen >= 2 && list[0].length) {  //
                   if (filteredlist[1] !== 'deletion' && filteredlist[1] !== 'stable') {
+
                     this.clinical.push({ gene: filteredlist[0], tier, frequency: list[3] });  // 티어
                     this.clinically.push(list[0]); // 유전자
                     this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
                     list[0] = '';
+
                   }
 
-                  if (filteredlist.includes('exon') && filteredlist[1] === 'exon') {
+                  if (filteredlist.includes('exon') && filteredlist[1] === 'exon' && list[0].length) {
                     this.clinical.push({ gene: filteredlist[0].trim(), tier, frequency: list[3] });
                     this.clinically.push(list[0]);
                     this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
                     list[0] = '';
+
                   }
+
                 } else if (filteredlistLen === 4) {
                   if (filteredlist.includes('exon')) {
                     this.clinical.push({ gene: filteredlist[0].trim(), tier, frequency: list[3] });
@@ -300,14 +302,14 @@ export class UploadComponent implements OnInit {
                     this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
                     list[0] = '';
-                    // console.log('==== [275][clinically]', this.clinically);
+
                   }
                 }
 
               } else if (len > 1) {
                 const tempGene = list[0].split(';');
                 const tempfre = list[3].split('(')[0].split(';');
-
+                // console.log('==== [322][네번째][clinically]', this.clinically, clinicallyCount);
                 for (let i = 0; i < tempGene.length; i++) {
                   const onetier = list[2].substring(0, list[2].length - 1);
                   const tempfilteredlist = tempGene[i].trim().split(' ');
@@ -316,7 +318,7 @@ export class UploadComponent implements OnInit {
                     this.clinically.push(tempGene[i].trim());
                     this.clinically2.push({ gene: tempGene[i].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
-                    // console.log('==== [288][clinically]', this.clinically);
+
                   }
 
                 } // End of for loop
