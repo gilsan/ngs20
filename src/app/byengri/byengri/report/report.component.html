@@ -43,14 +43,23 @@
         </table>
         <div class="main_title mg_t20 mg_b10 main_title_height_25">검체정보</div>
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_result">
+          <colgroup>
+            <col width="200px">
+            <col width="150px">
+            <col width="130px">
+            <col width="80px">
+            <col width="200px">
+            <col width="270px">
+            <col width="*">
+          </colgroup>
           <thead>
             <tr>
-              <th class="table_result_line fontsize" style="width: 200px;">DNA and RNA extraction</th>
-              <th class="fontsize" style="width: 110px;">관련병리번호</th>
-              <th class="fontsize" style="width: 130px;">Key block</th>
-              <th class="fontsize" style="width: 80px;">Tumor cell percentage</th>
-              <th class="fontsize" style="width:200px;">Organ</th>
-              <th class="fontsize" style='width:270px;'>Tumor type</th>
+              <th class="table_result_line fontsize">DNA and RNA extraction</th>
+              <th class="fontsize m-w-110">관련병리번호</th>
+              <th class="fontsize">Key block</th>
+              <th class="fontsize">Tumor cell percentage</th>
+              <th class="fontsize">Organ</th>
+              <th class="fontsize">Tumor type</th>
               <th class="fontsize">Pathological diagnosis</th>
             </tr>
           </thead>
@@ -116,8 +125,8 @@
                     <col width="*">
                     <col width="10%">
                     <col width="130px">
-                    <col width="130px">
-                    <col width="130px">
+                    <col width="8%">
+                    <col width="8%">
                   </colgroup>
                 <thead>
                   <tr>
@@ -129,12 +138,12 @@
                     <th style="font-size: 14px;">Tier</th>
                     <th style="font-size: 14px;"> -->
                     <th class="table_result_line fontsize">Gene</th>
-                    <th class="fontsize">Amino acid change</th>
+                    <th class="fontsize m-w-160">Amino acid change</th>
                     <th class="fontsize">Nucleotide change</th>
                     <th class="fontsize">Variant allele frequency</th>
-                    <th style="font-size: 14x;">ID</th>
-                    <th style="font-size: 14px">Tier</th>
-                    <th>                      
+                    <th style="font-size: 14px;">ID</th>
+                    <th style="font-size: 14px;" class="m-w-90">Tier</th>
+                    <th class="m-w-90">                      
                       <button class="btn btn_01" (click)="addMutation()">추가</button>
                     </th>
                   </tr>
@@ -159,10 +168,10 @@
                       <td class="txt_c">
                         <input type="text"  size="10"  class="clr-input" formControlName="ID">
                       </td>
-                      <td class="txt_c">
+                      <td class="txt_c m-w-90">
                         <input type="text" size="3" class="clr-input" formControlName="tier" style="color: red;">
                       </td>
-                      <td align="center">
+                      <td align="center" class="m-w-90">
                         <img [src]="'assets/images/cancel.png'" (click)="removeMutation(i)">
                       </td>
                     </tr>
@@ -181,13 +190,20 @@
           <div>
             <form [formGroup]="amplificationsForm">
               <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+                <colgroup>
+                  <col width="130px">
+                  <col width="*">
+                  <col width="45%">
+                  <col width="8%">
+                  <col width="8%">
+                </colgroup>
                 <thead>
                   <tr>
                     <th class="table_result_line fontsize" style="width:150px;">Gene</th>
-                    <th class="fontsize">Region </th>
+                    <th class="fontsize m-w-150">Region </th>
                     <th class="fontsize">Estimated copy number </th>
-                    <th style="width:130px;font-size: 14px;">Tier</th>
-                    <th style="width:130px;">
+                    <th style="font-size: 14px;" class="m-w-90">Tier</th>
+                    <th class="m-w-90">
                       <button class="btn btn_01" (click)="addAmplifications()">추가</button>
                     </th>
                   </tr>
@@ -223,13 +239,20 @@
           <div>
             <form [formGroup]="fusionForm">
               <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+                <colgroup>
+                  <col width="200px">
+                  <col width="*">
+                  <col width="150px">
+                  <col width="8%">
+                  <col width="8%">
+                </colgroup>
                 <thead>
                   <tr>
                     <th class="table_result_line fontsize" style="width:200px;">Gene (exon)</th>
                     <th class="fontsize">Breakpoint </th>
-                    <th class="fontsize" style="width:150px;">Function</th>
-                    <th style="width:120px;font-size: 14px;">Tier</th>
-                    <th style="width:130px;">
+                    <th class="fontsize">Function</th>
+                    <th class="m-w-90" style="font-size: 14px;">Tier</th>
+                    <th class="m-w-90">
                       <button class="btn btn_01" (click)="addFusion()">추가</button>
                     </th>
                   </tr>
@@ -276,18 +299,18 @@
                 <col width="*">
                 <col width="10%">
                 <col width="130px">
-                <col width="130px">
-                <col width="130px">
+                <col width="8%">
+                <col width="8%">
               </colgroup>
               <thead>
                 <tr>
                   <th class="table_result_line fontsize">Gene</th>
-                  <th class="fontsize">Amino acid change</th>
+                  <th class="fontsize m-w-160">Amino acid change</th>
                   <th class="fontsize">Nucleotide change</th>
                   <th class="fontsize">Variant allele frequency</th>
                   <th style="font-size: 14x;">ID</th>
-                  <th style="font-size: 14px">Note</th>
-                  <th>
+                  <th class="m-w-90" style="font-size: 14px">Note</th>
+                  <th class="m-w-90">
                     <button class="btn btn_01" (click)="addIMutation()">추가</button>
                   </th>
                 </tr>
@@ -336,13 +359,20 @@
         <div style="margin-right:18px;">
           <form [formGroup]="iamplificationsForm">
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35 mg_b10">
+              <colgroup>
+                <col width="130px">
+                <col width="*">
+                <col width="45%">
+                <col width="8%">
+                <col width="8%">
+              </colgroup>
               <thead>
                 <tr>
                   <th class="table_result_line fontsize" style="width:130px;">Gene</th>
-                  <th class="fontsize">Region </th>
+                  <th class="fontsize m-w-150">Region </th>
                   <th class="fontsize">Estimated copy number </th>
-                  <th style="width:130px;font-size: 14px;">Note </th>
-                  <th style="width:130px;">
+                  <th class="m-w-90" style="font-size: 14px;">Note </th>
+                  <th class="m-w-90">
                     <button class="btn btn_01" (click)="addIAmplifications()">추가</button>
                   </th>
                 </tr>
@@ -382,13 +412,20 @@
         <div style="margin-right:18px;">
           <form [formGroup]="ifusionForm">
             <table width="100%" cellpadding="0" cellspacing="0" class="table_result pd_l35">
+              <colgroup>
+                <col width="200px">
+                <col width="*">
+                <col width="130px">
+                <col width="8%">
+                <col width="8%">
+              </colgroup>
               <thead>
                 <tr>
                   <th class="table_result_line fontsize" style="width:200px;">Gene (exon)</th>
-                  <th class="fontsize">Breakpoint</th>
+                  <th class="fontsize min-w">Breakpoint</th>
                   <th class="fontsize" style="width:150px;">Function</th>
-                  <th style="width:120px;font-size: 14px;">Note</th>
-                  <th style="width:130px;">
+                  <th class="m-w-90" style="font-size: 14px;">Note</th>
+                  <th class="m-w-90">
                     <button class="btn btn_01" (click)="addIFusion()">추가</button>
                   </th>
                 </tr>
