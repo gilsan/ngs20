@@ -274,7 +274,7 @@ export class UploadComponent implements OnInit {
               if (len === 1) {
                 const filteredlist = list[0].trim().split(' ');
                 const tier = list[2].substring(0, list[2].length - 1);
-                console.log('[277][filteredlist] ', filteredlist);
+                // console.log('[277][filteredlist] ', filteredlist);
                 // filteredlist 길이
                 const filteredlistLen = filteredlist.length;
                 if (filteredlistLen >= 2) {  //
@@ -462,7 +462,7 @@ export class UploadComponent implements OnInit {
         }
 
       });
-      console.log('==== [457][upload][유전자 데이터][filteredOriginData]  ===== \n ', this.filteredOriginData);
+      console.log('==== [465][upload][유전자 데이터 중복검색][filteredOriginData]  ===== \n ', this.filteredOriginData);
       this.pathologyService.setFilteredTSV(this.filteredOriginData);
       data.forEach(item => {
         const checkshap = item.toString().indexOf('#');
