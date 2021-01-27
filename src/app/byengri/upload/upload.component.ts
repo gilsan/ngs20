@@ -152,7 +152,8 @@ export class UploadComponent implements OnInit {
         const diseaseFilename = filename.split('_');
         this.diseaseNumber = diseaseFilename[0];
         //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
-        this.pathologyNum = this.pathologyService.getPathologyNum();
+        // this.pathologyNum = this.pathologyService.getPathologyNum();
+        this.pathologyNum = this.store.getPathologyNo();
         console.log('[142][pathologyNum]', this.pathologyNum);
         this.type = this.pathologyService.getType();
 
@@ -184,7 +185,8 @@ export class UploadComponent implements OnInit {
         const diseaseFilename = filename.split('_');
         this.diseaseNumber = diseaseFilename[0];
         //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
-        this.pathologyNum = this.pathologyService.getPathologyNum();
+        // this.pathologyNum = this.pathologyService.getPathologyNum();
+        this.pathologyNum = this.store.getPathologyNo();
         if (this.pathologyNum === undefined || this.pathologyNum === null) {
           this.pathologyNum = this.store.getPathologyNo();
         }
