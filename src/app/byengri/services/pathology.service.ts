@@ -82,8 +82,7 @@ export class PathologyService {
   // 병리 환자의 정보를 가져 온다.
   public getPatientList(): Observable<IPatient[]> {
     return this.http.get<IPatient[]>(`${this.apiUrl}/patients_path/list`).pipe(
-      tap(data => this.patientInfo = data),
-      shareReplay()
+      tap(data => this.patientInfo = data)
     );
   }
 
@@ -264,7 +263,7 @@ export class PathologyService {
   public setFilteredTSV(data: IFilteredOriginData[]): void {
     this.filteredOriginData = data;
     this.filteredOriginData$.next(this.filteredOriginData);
-    console.log('========== [서비스][267][filteredOriginData]', this.filteredOriginData);
+    console.log('========== [서비스][267][filteredOriginData][저장]', this.filteredOriginData);
     this.http.post(`${this.apiUrl}/filteredOriginData/insert`, { data })
       .subscribe(result => {
         // console.log('[252][filteredOriginData][insert]', result);

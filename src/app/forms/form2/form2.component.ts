@@ -1087,7 +1087,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   getStatus(index): boolean {
     // console.log('[834][getStatus]', index, this.screenstatus);
-    if (index === 1) {
+    if (index === 1) {  // 스크린 완료
       if (parseInt(this.screenstatus, 10) === 0) {
         return false;
       } else if (parseInt(this.screenstatus, 10) === 1) {
@@ -1098,7 +1098,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         return true;
       }
 
-    } else if (index === 2) {
+    } else if (index === 2) {  // 판독완료
       if (parseInt(this.screenstatus, 10) === 0) {
         return true;
       } else if (parseInt(this.screenstatus, 10) === 1) {
@@ -1108,7 +1108,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       } else if (parseInt(this.screenstatus, 10) === 3) {
         return true;
       }
-    } else if (index === 3) {
+    } else if (index === 3) {  // EMR 전송
       if (parseInt(this.screenstatus, 10) === 0) {
         return true;
       } else if (parseInt(this.screenstatus, 10) === 1) {
@@ -1118,7 +1118,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       } else if (parseInt(this.screenstatus, 10) === 3) {
         return true;
       }
-    } else if (index === 4) {
+    } else if (index === 4) {  // 수정
       if (parseInt(this.screenstatus, 10) === 0) {
         return true;
       } else if (parseInt(this.screenstatus, 10) === 1) {
@@ -1424,32 +1424,44 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         alert('저장되었습니다.');
       });
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*
+    reset(): void {
+      const userid = localStorage.getItem('pathuser');
+      this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid, this.reportType)
+        .subscribe(data => {
+          this.screenstatus = '0';
+          this.patientsListService.getPatientInfo(this.form2TestedId)
+            .subscribe(patientInfo => {
+              // 초기화
+              // const control = this.tablerowForm.get('tableRows') as FormArray;
+              // control.clear();
+              this.mockData = [];
+              // 코멘트 초기화
+              this.comments = [];
+              // this.init(this.form2TestedId);
+              // 검사자, 판독자 초기화
+              this.examin = '';
+              this.recheck = '';
+              // this.lastReportDay = '-';
+              this.ngOnInit();
+              this.screenstatus = '0';
+              this.patientInfo.screenstatus = '0';
+              console.log('=== [reset][1433]', patientInfo);
+              this.setReportdaymgn(patientInfo);
+            });
+          //  });
+        });
+    }
+   */
 
   reset(): void {
     const userid = localStorage.getItem('pathuser');
-    this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid, this.reportType)
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '2', userid, this.reportType)
       .subscribe(data => {
-        this.screenstatus = '0';
-        this.patientsListService.getPatientInfo(this.form2TestedId)
-          .subscribe(patientInfo => {
-            // 초기화
-            // const control = this.tablerowForm.get('tableRows') as FormArray;
-            // control.clear();
-            this.mockData = [];
-            // 코멘트 초기화
-            this.comments = [];
-            // this.init(this.form2TestedId);
-            // 검사자, 판독자 초기화
-            this.examin = '';
-            this.recheck = '';
-            // this.lastReportDay = '-';
-            this.ngOnInit();
-            this.screenstatus = '0';
-            this.patientInfo.screenstatus = '0';
-            console.log('=== [reset][1433]', patientInfo);
-            this.setReportdaymgn(patientInfo);
-          });
-        //  });
+        this.screenstatus = '2';
+        this.patientInfo.screenstatus = '2';
+        console.log('[1462]', this.screenstatus);
       });
   }
 

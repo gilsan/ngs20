@@ -90,7 +90,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((data) => {
         // console.log(data);
         this.lists.push(data);
-        // console.log('[mainscreen][환자정보]', this.lists);
+        console.log('[mainscreen][환자정보]', this.lists);
       });
   }
 
@@ -286,7 +286,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
         }),
         // tap(list => console.log(list)),
       ).subscribe((data) => {
-        // console.log('[286][mainscreen][search][검색]', data);
+        console.log('[286][mainscreen][search][검색]', data);
         // this.lists = data;
 
         this.lists.push(data);
@@ -310,11 +310,11 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     if (parseInt(status, 10) === 0 && filename.length) {
       return '시작';
     } else if (parseInt(status, 10) === 1) {
-      return '스크린판독';
+      return '스크린완료';
     } else if (parseInt(status, 10) === 2) {
-      return '판독확정';
+      return '판독완료';
     } else if (parseInt(status, 10) === 3) {
-      return '검사완료';
+      return '전송완료';
     }
   }
 

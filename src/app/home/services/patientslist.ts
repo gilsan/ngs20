@@ -34,7 +34,7 @@ export class PatientsListService {
         // console.log('[29][getPatientList]', data);
         this.patientInfo = data;
       }),
-      tap(data => console.log('[28][getPatientList]', this.patientInfo))
+      tap(data => console.log('[28][patientslist][getPatientList]', this.patientInfo))
 
     );
   }
