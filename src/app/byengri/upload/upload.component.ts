@@ -215,9 +215,10 @@ export class UploadComponent implements OnInit {
   // tslint:disable-next-line: typedef
   allOR(file: File) {
     const reader = new FileReader();
+    let data;
     reader.onload = (e) => {
       const lists = [];
-      const data = this.loadData(reader.result);
+      data = this.loadData(reader.result);
 
       let start = 0;
       let status = false;
@@ -273,6 +274,7 @@ export class UploadComponent implements OnInit {
               if (len === 1) {
                 const filteredlist = list[0].trim().split(' ');
                 const tier = list[2].substring(0, list[2].length - 1);
+                console.log('[277][filteredlist] ', filteredlist);
                 // filteredlist 길이
                 const filteredlistLen = filteredlist.length;
                 if (filteredlistLen >= 2) {  //
@@ -282,7 +284,14 @@ export class UploadComponent implements OnInit {
                     this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
                     clinicallyCount++;
                     list[0] = '';
-                    // console.log('==== [270][한개인경우][clinically]', this.clinically);
+                  }
+
+                  if (filteredlist.includes('exon') && filteredlist[1] === 'exon') {
+                    this.clinical.push({ gene: filteredlist[0].trim(), tier, frequency: list[3] });
+                    this.clinically.push(list[0]);
+                    this.clinically2.push({ gene: list[0].trim(), seq: clinicallyCount.toString() }); // 신규
+                    clinicallyCount++;
+                    list[0] = '';
                   }
                 } else if (filteredlistLen === 4) {
                   if (filteredlist.includes('exon')) {
@@ -365,6 +374,7 @@ export class UploadComponent implements OnInit {
         });
 
     };
+    data = [];
     reader.readAsText(file);
   }
 
@@ -379,7 +389,7 @@ export class UploadComponent implements OnInit {
           lists.push(item[0]);
         }
       });
-
+      // console.log('==== [382][nonfilter]', lists);
       lists.forEach(list => {
         const msiList = list.split('##')[1].split('=');
 
@@ -406,7 +416,9 @@ export class UploadComponent implements OnInit {
       const lists = [];
 
       const data = this.loadData(reader.result);
-      // console.log('==== [313][filteredOriginData] ', data);
+      this.filteredOriginData = [];
+      // console.log('==== [411][filteredOriginData] ', data);
+      // console.log('==== [412][filteredOriginData] ', this.filteredOriginData);
       // 기본자료 수집
       data.forEach((list, index) => {
         if (index === 18) {
@@ -450,7 +462,7 @@ export class UploadComponent implements OnInit {
         }
 
       });
-      // console.log('==== [449][upload][OR 유전자 데이터] ', this.filteredOriginData);
+      console.log('==== [457][upload][유전자 데이터][filteredOriginData]  ===== \n ', this.filteredOriginData);
       this.pathologyService.setFilteredTSV(this.filteredOriginData);
       data.forEach(item => {
         const checkshap = item.toString().indexOf('#');
@@ -458,7 +470,7 @@ export class UploadComponent implements OnInit {
           lists.push(item[0]);
         }
       });
-
+      // console.log('==== [461][upload][OR 유전자 데이터] ', lists);
       lists.forEach(list => {
         const msiList = list.split('##')[1].split('=');
         if (msiList[0] === 'MSI Score') {
@@ -471,6 +483,7 @@ export class UploadComponent implements OnInit {
 
       // console.log('[320][upload][msiScore]', this.msiScore);
     };
+
     reader.readAsText(file);
 
   }
@@ -498,6 +511,8 @@ export class UploadComponent implements OnInit {
         scenarios.push(row);
       }
     });
+    // console.log('=================\n, scenarios', scenarios);
+    // console.log('===================\n');
     return scenarios;
   }
 
