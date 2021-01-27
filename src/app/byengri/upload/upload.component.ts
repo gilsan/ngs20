@@ -265,7 +265,7 @@ export class UploadComponent implements OnInit {
             }
 
             if (index >= start && status) {
-              console.log('[263][index]' + index + '[start]' + start + ' [LIST] ' + list + list[0] + '  [' + list[4] + ']');
+              // console.log('[263][index]' + index + '[start]' + start + ' [LIST] ' + list + list[0] + '  [' + list[4] + ']');
               const len = this.checkListNum(list[0]);
 
               if (len === 1) {

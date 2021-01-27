@@ -661,7 +661,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   initByDB(pathologynum: string): void {
     let tumortypes;
     console.log('[663][initByDB][tsv화일 올린후]', pathologynum);
-
+    this.reportday = this.today();
     const filteredOriginaData$ = this.filteredService.getfilteredOriginDataList(pathologynum)
       .pipe(
         // tap(itemlists => console.log('[473][tab]', itemlists)),
