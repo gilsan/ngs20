@@ -19,7 +19,7 @@ export class PreviewComponent implements OnInit {
   specimenMsg: string;
   vusstatus: boolean;
   comments: IComment[];
-
+  vusMsg: string;
   constructor(
     private store: StoreService
   ) { }
@@ -30,9 +30,9 @@ export class PreviewComponent implements OnInit {
     this.profile = this.store.getProfile();
     this.dts = this.store.getDetactedVariants(); // 스토어에 detected variants 저장
     this.specimenMsg = this.store.getSpecimenMsg();
-    this.vusstatus = this.store.getVUSstatus();
+    // this.vusstatus = this.store.getVUSstatus();
     this.comments = this.store.getComments();
-
+    this.vusMsg = this.vusmsg;
     console.log('[30][preview]', this.dts);
     console.log('[30][preview][프로파일]', this.profile);
     console.log('[31][preview][mockData]\n', this.specimenMsg, this.vusstatus);

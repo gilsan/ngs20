@@ -555,7 +555,7 @@
   <!--    -->
    <div class="modal-overlay" *ngIf="isVisible">
        <div class="modal-body">
-           <app-preview  [result]="resultStatus"
+           <app-preview  [result]="resultStatus" [vusmsg]="vusmsg"
         (closemodal)="previewToggle()"
            [type]="reportType"></app-preview>
        </div>

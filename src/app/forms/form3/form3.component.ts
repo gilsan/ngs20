@@ -336,7 +336,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
           this.profile.leukemia = '';
           this.profile.chron = data[0].chromosomalanalysis;
           this.profile.flt3itd = data[0].bonemarrow;
-          // this.store.setProfile(this.profile); // profile 저장
+          this.store.setProfile(this.profile); // profile 저장
           // console.log('[216][profile]', this.profile);
         }
       });
@@ -435,11 +435,11 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       // 검사자 정보 가져오기
       this.profile.leukemia = '';
       this.profile.chron = this.patientInfo.chromosomalanalysis;
-      if (this.reportType === 'MDS') {
+      if (this.reportType === 'LYM') {
         this.profile.flt3itd = this.patientInfo.bonemarrow;
       }
 
-      // this.store.setProfile(this.profile); // profile 저장
+      this.store.setProfile(this.profile); // profile 저장
 
     } else {   // End of form2TestedId loop
       this.patientInfo = {
