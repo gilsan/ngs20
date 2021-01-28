@@ -948,8 +948,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               }
 
               this.fusion.push({
-                // gene: this.filteredOriginData[index].gene,
-                gene,
+                gene: this.filteredOriginData[index].gene,
+                // gene,
                 breakpoint: this.filteredOriginData[index].locus,
                 readcount: this.filteredOriginData[index].readcount,
                 functions: oncomine,
@@ -989,16 +989,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         this.prevalent.forEach(item => {
-          // console.log('-------[852][트림검사]');
           const members = item.trim().split(',');
-          // console.log('-------[854][트림검사]');
           const temps = members[0].split(' ');
-          // console.log('-------[856][트림검사]');
           const gene = temps[0].trim().replace(/"/g, '');
-          // console.log('-----[858][트림검사]', gene);
           const type = temps[1].trim().replace(/"/g, '');
-          // console.log('-------[849][트림검사]');
-          // console.log('[561][prevalent]', gene, type);
           if (type.charAt(0) === 'p') {
             let customid = '';
             let variantAlleleFrequency = '';
