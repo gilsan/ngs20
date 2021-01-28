@@ -301,7 +301,13 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.patientInfo.key_block === undefined || this.patientInfo.key_block === null) {
         this.extraction.keyblock = '';
       } else if (this.patientInfo.key_block.length > 0) {
-        this.extraction.keyblock = this.patientInfo.key_block;
+        // this.extraction.keyblock = this.patientInfo.key_block;
+        const firstChar = this.patientInfo.key_block.charAt(0);
+        if (firstChar === '#') {
+          this.extraction.keyblock = this.patientInfo.key_block;
+        } else {
+          this.extraction.keyblock = '#' + this.patientInfo.key_block;
+        }
       } else {
         this.extraction.keyblock = '';
       }
@@ -770,7 +776,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.extraction.dnarna = 'FFPE tissue';
         this.extraction.managementNum = this.patientInfo.rel_pathology_num;
 
-        // console.log('[570]', this.patientInfo.key_block);
+        console.log('[570]', this.patientInfo.key_block);
         if (this.patientInfo.key_block === undefined || this.patientInfo.key_block === null) {
           this.extraction.keyblock = '';
         } else if (this.patientInfo.key_block.length > 0) {
@@ -942,8 +948,8 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
               }
 
               this.fusion.push({
-                // gene: this.filteredOriginData[index].gene,
-                gene,
+                gene: this.filteredOriginData[index].gene,
+                // gene,
                 breakpoint: this.filteredOriginData[index].locus,
                 readcount: this.filteredOriginData[index].readcount,
                 functions: oncomine,
@@ -983,16 +989,10 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         this.prevalent.forEach(item => {
-          // console.log('-------[852][트림검사]');
           const members = item.trim().split(',');
-          // console.log('-------[854][트림검사]');
           const temps = members[0].split(' ');
-          // console.log('-------[856][트림검사]');
           const gene = temps[0].trim().replace(/"/g, '');
-          // console.log('-----[858][트림검사]', gene);
           const type = temps[1].trim().replace(/"/g, '');
-          // console.log('-------[849][트림검사]');
-          // console.log('[561][prevalent]', gene, type);
           if (type.charAt(0) === 'p') {
             let customid = '';
             let variantAlleleFrequency = '';

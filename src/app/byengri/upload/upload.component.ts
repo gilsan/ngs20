@@ -30,6 +30,7 @@ export class UploadComponent implements OnInit {
   diseaseNumber: string;
   mutationScore: string;
   msiScore: string;
+  msiUnit: string;
   type: string;
   percentage: number;
   status$ = new Subject();
@@ -475,13 +476,16 @@ export class UploadComponent implements OnInit {
       // console.log('==== [461][upload][OR 유전자 데이터] ', lists);
       lists.forEach(list => {
         const msiList = list.split('##')[1].split('=');
+        if (msiList[0] === 'MSI Status') {
+          this.msiUnit = msiList[1];
+        }
         if (msiList[0] === 'MSI Score') {
           this.msiScore = msiList[1];
           // this.pathologyService.setMSIScore(this.msiScore, this.pathologyNum);
           this.status$.next('msi');
         }
       });
-      this.pathologyService.setMSIScore(this.msiScore, this.pathologyNum);
+      this.pathologyService.setMSIScore(this.msiScore + '(' + this.msiUnit + ')', this.pathologyNum);
 
       // console.log('[320][upload][msiScore]', this.msiScore);
     };
