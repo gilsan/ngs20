@@ -9,6 +9,7 @@ import { StoreService } from '../store.current';
 })
 export class PreviewComponent implements OnInit {
 
+  @Input() vusmsg: string;
   @Input() result: string;
   @Input() type: string;
   @Output() closemodal = new EventEmitter<void>();
@@ -36,6 +37,7 @@ export class PreviewComponent implements OnInit {
     console.log('[30][preview][프로파일]', this.profile);
     console.log('[31][preview][mockData]\n', this.specimenMsg, this.vusstatus);
     console.log('[32][preview][comments]\n', this.comments);
+    console.log('[32][preview][vusmsg]\n', this.vusmsg);
   }
 
   closeModal(): void {

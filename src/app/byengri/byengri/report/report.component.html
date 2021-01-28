@@ -460,7 +460,7 @@
             (change)="tumormutationalburdenChange(tumormutationalburden.value)" class="input_02" size="5"
             style="font-weight:bold; font-size:16px;text-align: center;" /></div>
 
-        <div *ngIf="!msiTag" class="sub_title_03_E">MSI Score:<input type="text" [value]="msiScore" class="input_02" size="13"
+        <div *ngIf="!msiTag" class="sub_title_03_E">MSI Score:<input type="text" [value]="msiScore + '(MSS)'" class="input_02" size="13"
             #msiscore (change)="msiScoreChange(msiscore.value)"
             style="font-weight:bold; font-size:16px;text-align:center;" />
           </div>
