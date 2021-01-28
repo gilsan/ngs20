@@ -144,7 +144,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.findType();
     this.box100.nativeElement.scrollLeft = 250;
-    // this.box100.nativeElement.scrollY = 1000;
+
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
       this.recoverDetected();
@@ -175,7 +175,6 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadForm(): void {
-    // console.log('[120][loadForm] ', this.comments);
     this.tablerowForm = this.fb.group({
       tableRows: this.fb.array(this.mockData.map(list => this.createRow(list))),
       commentsRows: this.fb.array([])
@@ -1236,13 +1235,13 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
 
   tempSave(): void {
-    console.log('[1037][tempSave]');
+    // console.log('[1037][tempSave]');
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    console.log('[1040][tableerowForm]', formData);
-    console.log('[1041][checkbox]', this.checkboxStatus);
+    // console.log('[1040][tableerowForm]', formData);
+    // console.log('[1041][checkbox]', this.checkboxStatus);
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1043][Detected variants]', reformData);
+    // console.log('[1043][Detected variants]', reformData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1260,13 +1259,14 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
 
     // tslint:disable-next-line:max-line-length
-    this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
-        console.log('[1065]', data);
+        // console.log('[1065]', data);
         alert('저장되었습니다.');
       });
   }
 
+  /*
   reset(): void {
     const userid = localStorage.getItem('pathuser');
     this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid, 'MDS/MPN')
@@ -1293,6 +1293,17 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
           });
       });
   }
+  */
+  reset(): void {
+    const userid = localStorage.getItem('pathuser');
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '2', userid, this.reportType)
+      .subscribe(data => {
+        this.screenstatus = '2';
+        this.patientInfo.screenstatus = '2';
+        console.log('[1462]', this.screenstatus);
+      });
+  }
+
 
   ///////////////////////////////////////////////////////////////////////
   // commentsRows()

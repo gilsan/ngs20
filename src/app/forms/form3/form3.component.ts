@@ -1294,13 +1294,14 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
 
     // tslint:disable-next-line:max-line-length
-    this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
         console.log('[1065]', data);
         alert('저장되었습니다.');
       });
   }
 
+  /*
   reset(): void {
     const userid = localStorage.getItem('pathuser');
     this.patientsListService.resetscreenstatus(this.form2TestedId, '0', userid, 'LYM')
@@ -1326,7 +1327,16 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         //  });
       });
   }
-
+  */
+  reset(): void {
+    const userid = localStorage.getItem('pathuser');
+    this.patientsListService.resetscreenstatus(this.form2TestedId, '2', userid, this.reportType)
+      .subscribe(data => {
+        this.screenstatus = '2';
+        this.patientInfo.screenstatus = '2';
+        console.log('[1462]', this.screenstatus);
+      });
+  }
   ///////////////////////////////////////////////////////////////////////
   // commentsRows()
   saveComments(): any {

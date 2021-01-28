@@ -286,7 +286,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
         }),
         // tap(list => console.log(list)),
       ).subscribe((data) => {
-        console.log('[286][mainscreen][search][검색]', data);
+        // console.log('[286][mainscreen][search][검색]', data);
         // this.lists = data;
 
         this.lists.push(data);

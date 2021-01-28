@@ -1418,7 +1418,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
 
     // tslint:disable-next-line:max-line-length
-    this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
         console.log('[1356]', data);
         alert('저장되었습니다.');

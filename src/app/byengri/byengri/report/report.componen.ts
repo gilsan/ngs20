@@ -181,7 +181,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
   imutationForm: FormGroup;
   iamplificationsForm: FormGroup;
   ifusionForm: FormGroup;
-  msiTag = false;
+  msiTag = true;
   reportday: string;
   // <a [href]="fileUrl" download="file.txt">DownloadFile</a>
   // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl()
