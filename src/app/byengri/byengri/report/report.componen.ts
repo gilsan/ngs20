@@ -690,11 +690,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
         this.filteredOriginData = filteredOriginaDataVal; // filtered 된 데이터 가져옴
         // MSISCORE
         // console.log('==== [686][MSI SCORE]', msiscoreVal);
-        /*
-              if (msiscoreVal[0].msiscore.split('').includes('(')) {
-                this.msiTag = true;
-              }
-        */
+
+        if (msiscoreVal[0].msiscore.split('').includes('(')) {
+          this.msiTag = true;
+        }
+
         if (msiscoreVal.length > 0) {
           this.msiScore = msiscoreVal[0].msiscore; // MSI Score
           this.extraction.msiscore = msiscoreVal[0].msiscore;
