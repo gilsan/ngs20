@@ -379,95 +379,115 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   init(form2TestedId: string): void {
     if (this.form2TestedId) {
-      this.subs.sink = this.patientsListService.filtering(this.form2TestedId, this.reportType)
-        .subscribe(data => {
-
-          let type: string;
-          let gene: string;
-          let dvariable: IAFormVariant;
-          // console.log('********** [필터링원시자료][377]', data);
-
-          // 타입 분류
-          if (data.mtype === 'M') {  // mutation
-            type = 'M';
-            if (data.mutationList1.exonIntro !== 'none') {
-              dvariable = data.mutationList1;
-              // mutaion에 있으면 detected로 표시
-              // this.resultStatus = 'Detected';
-            }
-            // dvariable = data.mutationList1;
-          } else if (parseInt(data.artifacts1Count, 10) > 0 ||
-            parseInt(data.artifacts2Count, 10) > 0) {
-            type = 'A';
-            // this.resultStatus = 'Not Detected';
-          } else if (parseInt(data.benign1Count, 10) > 0 ||
-            parseInt(data.benign2Count, 10) > 0) {
-            type = 'B';
-            // this.resultStatus = 'Not Detected';
-          } else {
-            type = 'New';
-            // this.resultStatus = 'Not Detected';
-          }
-          if (dvariable) {
-            // console.log('[247][form2][dvariable]', dvariable.functional_impact);
-            if (dvariable.functional_impact === 'VUS') {
+      this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
+        if (data.length > 0) {
+          this.recoverVariants = data;
+          this.store.setDetactedVariants(data); // Detected variant 저장
+          this.recoverVariants.forEach(item => {
+            // console.log('[270][recoverDetected]', item.functional_impact);
+            this.recoverVariant(item);  // 354
+            if (item.functional_impact === 'VUS') {
               this.vusstatus = true;
-              this.store.setVUSStatus(this.vusstatus); // VUS 상태정보 저장
+              this.store.setVUSStatus(this.vusstatus);
             }
-            // } else {
-            //   this.store.setVUSStatus(this.vusstatus);
-            // }
+          });
+          this.putCheckboxInit(); // 체크박스 초기화
 
-          }
+        } else {
+          this.addDetectedVariant();
+        }
+      });
 
-          // 유전자명
-          if (data.gene1 !== 'none' && data.gene2 !== 'none') {
-            gene = data.gene1 + ',' + data.gene2;
-          } else if (data.gene1 !== 'none' && data.gene2 === 'none') {
-            gene = data.gene1;
-          } else if (data.gene1 === 'none' && data.gene2 === 'none') {
-            gene = data.gene2;
-          }
-
-          // comments 분류
-          if (parseInt(data.comments1Count, 10) > 0) {
-            // console.log('[422][코멘트]', data, data.commentList1, data.commentList2);
-            // console.log('[423]', data.commentList1.reference);
-            if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
-              if (parseInt(data.comments1Count, 10) > 0) {
-
-                const variant_id = data.tsv.amino_acid_change;
-                const comment = { ...data.commentList1, variant_id, type: this.reportType };
-                // console.log('[429][코멘트]', comment);
-                this.comments.push(comment);
-                this.store.setComments(this.comments); // 멘트 저장
-                let tempArray = new Array();
-                tempArray.push(comment);
-                tempArray.forEach(ment => {
-                  this.commentsRows().push(this.createCommentRow(ment));
-                });
-                tempArray = [];
-              }
-            } else if (typeof data.commentList2 !== 'undefined' && data.commentList2 !== 'none') {
-              if (data.comments2Count > 0) {
-                const comment = { ...data.commentList2 as any, variant_id: '' };
-                this.comments.push(comment);
-                this.store.setComments(this.comments); // 멘트 저장
-                let tempArray = new Array();
-                tempArray.push(comment);
-                tempArray.forEach(ment => {
-                  this.commentsRows().push(this.createCommentRow(ment));
-                });
-                tempArray = [];
-              }
-            }
-
-          }
-
-          this.addVarient(type, dvariable, gene, data.coding, data.tsv);
-
-        }); // End of Subscribe
-
+      /*
+       this.subs.sink = this.patientsListService.filtering(this.form2TestedId, this.reportType)
+         .subscribe(data => {
+ 
+           let type: string;
+           let gene: string;
+           let dvariable: IAFormVariant;
+           // console.log('********** [필터링원시자료][377]', data);
+ 
+           // 타입 분류
+           if (data.mtype === 'M') {  // mutation
+             type = 'M';
+             if (data.mutationList1.exonIntro !== 'none') {
+               dvariable = data.mutationList1;
+               // mutaion에 있으면 detected로 표시
+               // this.resultStatus = 'Detected';
+             }
+             // dvariable = data.mutationList1;
+           } else if (parseInt(data.artifacts1Count, 10) > 0 ||
+             parseInt(data.artifacts2Count, 10) > 0) {
+             type = 'A';
+             // this.resultStatus = 'Not Detected';
+           } else if (parseInt(data.benign1Count, 10) > 0 ||
+             parseInt(data.benign2Count, 10) > 0) {
+             type = 'B';
+             // this.resultStatus = 'Not Detected';
+           } else {
+             type = 'New';
+             // this.resultStatus = 'Not Detected';
+           }
+           if (dvariable) {
+             // console.log('[247][form2][dvariable]', dvariable.functional_impact);
+             if (dvariable.functional_impact === 'VUS') {
+               this.vusstatus = true;
+               this.store.setVUSStatus(this.vusstatus); // VUS 상태정보 저장
+             }
+             // } else {
+             //   this.store.setVUSStatus(this.vusstatus);
+             // }
+ 
+           }
+ 
+           // 유전자명
+           if (data.gene1 !== 'none' && data.gene2 !== 'none') {
+             gene = data.gene1 + ',' + data.gene2;
+           } else if (data.gene1 !== 'none' && data.gene2 === 'none') {
+             gene = data.gene1;
+           } else if (data.gene1 === 'none' && data.gene2 === 'none') {
+             gene = data.gene2;
+           }
+ 
+           // comments 분류
+           if (parseInt(data.comments1Count, 10) > 0) {
+             // console.log('[422][코멘트]', data, data.commentList1, data.commentList2);
+             // console.log('[423]', data.commentList1.reference);
+             if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
+               if (parseInt(data.comments1Count, 10) > 0) {
+ 
+                 const variant_id = data.tsv.amino_acid_change;
+                 const comment = { ...data.commentList1, variant_id, type: this.reportType };
+                 // console.log('[429][코멘트]', comment);
+                 this.comments.push(comment);
+                 this.store.setComments(this.comments); // 멘트 저장
+                 let tempArray = new Array();
+                 tempArray.push(comment);
+                 tempArray.forEach(ment => {
+                   this.commentsRows().push(this.createCommentRow(ment));
+                 });
+                 tempArray = [];
+               }
+             } else if (typeof data.commentList2 !== 'undefined' && data.commentList2 !== 'none') {
+               if (data.comments2Count > 0) {
+                 const comment = { ...data.commentList2 as any, variant_id: '' };
+                 this.comments.push(comment);
+                 this.store.setComments(this.comments); // 멘트 저장
+                 let tempArray = new Array();
+                 tempArray.push(comment);
+                 tempArray.forEach(ment => {
+                   this.commentsRows().push(this.createCommentRow(ment));
+                 });
+                 tempArray = [];
+               }
+             }
+ 
+           }
+ 
+           this.addVarient(type, dvariable, gene, data.coding, data.tsv);
+ 
+         }); // End of Subscribe
+         */
       // 검사자 정보 가져오기
       this.profile.chron = this.patientInfo.chromosomalanalysis;
       if (this.reportType === 'AML') {
@@ -503,6 +523,100 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         recheck: ''
       };
     }
+  }
+
+
+  addDetectedVariant(): void {
+    this.subs.sink = this.patientsListService.filtering(this.form2TestedId, this.reportType)
+      .subscribe(data => {
+
+        let type: string;
+        let gene: string;
+        let dvariable: IAFormVariant;
+        // console.log('********** [필터링원시자료][377]', data);
+
+        // 타입 분류
+        if (data.mtype === 'M') {  // mutation
+          type = 'M';
+          if (data.mutationList1.exonIntro !== 'none') {
+            dvariable = data.mutationList1;
+            // mutaion에 있으면 detected로 표시
+            // this.resultStatus = 'Detected';
+          }
+          // dvariable = data.mutationList1;
+        } else if (parseInt(data.artifacts1Count, 10) > 0 ||
+          parseInt(data.artifacts2Count, 10) > 0) {
+          type = 'A';
+          // this.resultStatus = 'Not Detected';
+        } else if (parseInt(data.benign1Count, 10) > 0 ||
+          parseInt(data.benign2Count, 10) > 0) {
+          type = 'B';
+          // this.resultStatus = 'Not Detected';
+        } else {
+          type = 'New';
+          // this.resultStatus = 'Not Detected';
+        }
+        if (dvariable) {
+          // console.log('[247][form2][dvariable]', dvariable.functional_impact);
+          if (dvariable.functional_impact === 'VUS') {
+            this.vusstatus = true;
+            this.store.setVUSStatus(this.vusstatus); // VUS 상태정보 저장
+          }
+          // } else {
+          //   this.store.setVUSStatus(this.vusstatus);
+          // }
+
+        }
+
+        // 유전자명
+        if (data.gene1 !== 'none' && data.gene2 !== 'none') {
+          gene = data.gene1 + ',' + data.gene2;
+        } else if (data.gene1 !== 'none' && data.gene2 === 'none') {
+          gene = data.gene1;
+        } else if (data.gene1 === 'none' && data.gene2 === 'none') {
+          gene = data.gene2;
+        }
+
+        // comments 분류
+        if (parseInt(data.comments1Count, 10) > 0) {
+          // console.log('[422][코멘트]', data, data.commentList1, data.commentList2);
+          // console.log('[423]', data.commentList1.reference);
+          if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
+            if (parseInt(data.comments1Count, 10) > 0) {
+
+              const variant_id = data.tsv.amino_acid_change;
+              const comment = { ...data.commentList1, variant_id, type: this.reportType };
+              // console.log('[429][코멘트]', comment);
+              this.comments.push(comment);
+              this.store.setComments(this.comments); // 멘트 저장
+              let tempArray = new Array();
+              tempArray.push(comment);
+              tempArray.forEach(ment => {
+                this.commentsRows().push(this.createCommentRow(ment));
+              });
+              tempArray = [];
+            }
+          } else if (typeof data.commentList2 !== 'undefined' && data.commentList2 !== 'none') {
+            if (data.comments2Count > 0) {
+              const comment = { ...data.commentList2 as any, variant_id: '' };
+              this.comments.push(comment);
+              this.store.setComments(this.comments); // 멘트 저장
+              let tempArray = new Array();
+              tempArray.push(comment);
+              tempArray.forEach(ment => {
+                this.commentsRows().push(this.createCommentRow(ment));
+              });
+              tempArray = [];
+            }
+          }
+
+        }
+
+        this.addVarient(type, dvariable, gene, data.coding, data.tsv);
+
+      }); // End of Subscribe
+
+
   }
 
   // 검사일/검사보고일/수정보고일 관리
