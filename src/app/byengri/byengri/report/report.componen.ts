@@ -687,6 +687,12 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       tumortype$, clinically$, clinical$, prevalent$, tumorcellpercentage$])
       .subscribe(([filteredOriginaDataVal, msiscoreVal, tumorMutationalBurdenVal,
         tumortypeVal, clinicallyVal, clinicalVal, prevalentVal, tumorcellpercentageVal]) => {
+
+        if (filteredOriginaDataVal.length === 0) {
+          alert('변환된 TSV 파일이 없습니다.');
+          this.router.navigate(['/pathology']);
+          return;
+        }
         this.filteredOriginData = filteredOriginaDataVal; // filtered 된 데이터 가져옴
         // MSISCORE
         // console.log('==== [686][MSI SCORE]', msiscoreVal);
