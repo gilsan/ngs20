@@ -861,19 +861,19 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   putTableRowGroup() {
     return this.fb.group({
       id: [],
-      igv: [],
-      sanger: [],
-      type: [],
-      gene: [],
-      functionalImpact: [],
-      transcript: [],
-      exonIntro: [],
-      nucleotideChange: [],
-      aminoAcidChange: [],
-      zygosity: [],
-      vafPercent: [],
-      references: [],
-      cosmicID: []
+      igv: [''],
+      sanger: [''],
+      type: [''],
+      gene: [''],
+      functionalImpact: [''],
+      transcript: [''],
+      exonIntro: [''],
+      nucleotideChange: [''],
+      aminoAcidChange: [''],
+      zygosity: [''],
+      vafPercent: [''],
+      references: [''],
+      cosmicID: ['']
     });
   }
 
@@ -881,19 +881,19 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   addTableRowGroup() {
     return this.fb.group({
       id: [],
-      igv: [],
-      sanger: [],
-      type: [],
-      gene: [],
-      functionalImpact: [],
-      transcript: [],
-      exonIntro: [],
-      nucleotideChange: [],
-      aminoAcidChange: [],
-      zygosity: [],
-      vafPercent: [],
-      references: [],
-      cosmicID: [],
+      igv: [''],
+      sanger: [''],
+      type: [''],
+      gene: [''],
+      functionalImpact: [''],
+      transcript: [''],
+      exonIntro: [''],
+      nucleotideChange: [''],
+      aminoAcidChange: [''],
+      zygosity: [''],
+      vafPercent: [''],
+      references: [''],
+      cosmicID: [''],
       status: ['NEW']
     });
   }
@@ -902,6 +902,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   addRow() {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     control.push(this.addTableRowGroup());
+    this.addBoxStatus(control.length - 1); // 체크박스 추가
   }
 
   // tslint:disable-next-line: typedef
@@ -921,6 +922,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         this.vd.forEach(item => item.sequence = item.sequence - 1);
       }
     }
+    this.removeBoxStatus(index); // 체크박스 아이템 삭제
   }
   /////////////////////////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef
@@ -1286,6 +1288,22 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     for (let i = 0; i < this.detactedVariants.length; i++) {
       this.checkboxStatus.push(i);
     }
+  }
+
+  // detected varient 줄이 증가/삭제 시 체크상태 길이 변경
+  addBoxStatus(idx: number): void {
+    this.checkboxStatus.push(idx);
+  }
+  removeBoxStatus(i: number): void {
+    const temp: number[] = [];
+    this.checkboxStatus.forEach(val => {
+      if (val > i) {
+        temp.push(val - 1);
+      } else if (val < i) {
+        temp.push(val);
+      }
+    });
+    this.checkboxStatus = temp;
   }
 
   getCommentGene(gene): void {
