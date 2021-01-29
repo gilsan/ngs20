@@ -78,7 +78,8 @@
           <tbody>
             <tr [ngClass]="toggle(i)" *ngFor="let list of  lists; let i = index;">
               <td class="txt_c">{{ i + 1}}</td>
-              <td class="txt_c">{{list.prescription_date}}</td>
+              <!--2021.01.29 td class="txt_c">{{list.prescription_date}}</td-->
+              <td class="txt_c">{{list.accept_date}}</td>
               <td class="txt_c">{{list.name}}</td>
               <td class="txt_c">{{list.age}}</td>
               <td class="txt_c">{{list.gender}}</td>
