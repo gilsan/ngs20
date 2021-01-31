@@ -172,6 +172,7 @@ export interface IAFormVariant {
   vaf?: string;
   reference?: string;
   cosmic_id?: string;
+  checked?: boolean;
 }
 
 export interface IFitering {
@@ -221,6 +222,7 @@ export interface IRecoverVariants {
   transcript: string;
   vaf: string;
   zygosity: string;
+  checked?: boolean;
 }
 
 export interface IDetectedVariants {
