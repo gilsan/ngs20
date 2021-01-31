@@ -270,8 +270,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.patientInfo = this.getPatientinfo(this.form2TestedId);
-
+    console.log('[273][환자정보]', this.patientInfo);
     this.store.setPatientInfo(this.patientInfo); // 환자정보 저장
+
     this.requestDate = this.patientInfo.accept_date;
     if (this.patientInfo.specimen === '015') {
       this.specimenMsg = 'Bone marrow';
@@ -328,6 +329,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.recoverVariants.forEach(item => {
         // console.log('[270][recoverDetected]', item.functional_impact);
         this.recoverVariant(item);  // 354
+
+        // VUS 메제시 확인
+        if (this.patientInfo.vusmsg.length > 0) {
+          this.vusmsg = this.patientInfo.vusmsg;
+        }
+
         if (item.functional_impact === 'VUS') {
           this.vusstatus = true;
           this.store.setVUSStatus(this.vusstatus);
@@ -419,8 +426,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           this.recoverVariants = data;
           this.store.setDetactedVariants(data); // Detected variant 저장
           this.recoverVariants.forEach(item => {
-
             this.recoverVariant(item);  // 354
+            // VUS 메제시 확인
+            if (this.patientInfo.vusmsg.length > 0) {
+              this.vusmsg = this.patientInfo.vusmsg;
+            }
             if (item.functional_impact === 'VUS') {
               this.vusstatus = true;
               this.store.setVUSStatus(this.vusstatus);
@@ -1140,8 +1150,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       //  this.patientInfo.recheck = this.
       // tslint:disable-next-line:max-line-length
       console.log('[1137][screenRead][profile] ', this.profile);
-      // tslint:disable-next-line:max-line-length
-      this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+      this.patientInfo.vusmsg = this.vusmsg;
+      this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData,
+        this.comments, this.profile, this.resultStatus, this.patientInfo)
         .pipe(
           tap(data => {
             // console.log('[986][screenRead] ', data);
@@ -1180,7 +1191,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       // this.store.setExamin(this.patientInfo.examin);
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
-
+      this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
           console.log('[판독완료] screen Updated ....[1181]', data);
@@ -1536,6 +1547,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.store.setComments(this.comments);
     this.patientInfo.recheck = this.recheck;
     this.patientInfo.examin = this.examin;
+    this.patientInfo.vusmsg = this.vusmsg;
     console.log('[1345][tempSave]patient,reform,comment]', this.patientInfo, formData, this.comments);
 
     this.store.setRechecker(this.patientInfo.recheck);
