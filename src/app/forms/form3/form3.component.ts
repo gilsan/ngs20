@@ -812,12 +812,19 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   createRow(item: IAFormVariant): FormGroup {
     let checktype: boolean;
-    if (String(item.checked) === 'true' || item.checked === null) {
-      checktype = true;
-    } else if (String(item.checked) === 'false') {
+    // if (String(item.checked) === 'true' || item.checked === null) {
+    //   checktype = true;
+    // } else if (String(item.checked) === 'false') {
+    //   checktype = false;
+    // }
+
+    if (String(item.checked) === 'false') {
       checktype = false;
+    } else {
+      checktype = true;
     }
-    console.log('[768][createRow]', checktype);
+
+    console.log('[827][createRow]', checktype);
     if (item.type === 'New') {
       return this.fb.group({
         igv: [item.igv],

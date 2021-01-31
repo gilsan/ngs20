@@ -824,12 +824,16 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   //
   createRow(item: IAFormVariant): FormGroup {
     let checktype: boolean;
-    if (String(item.checked) === 'true' || item.checked === null) {
-      checktype = true;
-    } else {
+    // if (String(item.checked) === 'true' || item.checked === null) {
+    //   checktype = true;
+    // } else {
+    //   checktype = false;
+    // }
+    if (String(item.checked) === 'false') {
       checktype = false;
+    } else {
+      checktype = true;
     }
-
     if (item.type === 'New') {
       return this.fb.group({
         igv: [item.igv],
