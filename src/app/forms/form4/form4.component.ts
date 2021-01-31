@@ -850,7 +850,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         references: [item.references],
         cosmicID: [item.cosmicID],
         id: [item.id],
-        checked: [true],
+        checked: [checktype],
         status: ['NEW']
       });
     }
