@@ -1230,7 +1230,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-
+    console.log('=== [1233][LYM][EMR로 보내기, 체크박스]', this.checkboxStatus);
+    console.log('=== [1234][LYM][EMR로 보내기 DV]', reformData);
     // 코멘트가 있는경우
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
@@ -1355,7 +1356,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         this.checkboxStatus.push(i);
       }
     }
-    console.log('[1307][putCheckboxInit]', this.checkboxStatus);
+    console.log('[1359][putCheckboxInit]', this.detactedVariants);
+    console.log('[1360][putCheckboxInit]', this.checkboxStatus);
   }
 
   // detected varient 줄이 증가/삭제 시 체크상태 길이 변경
@@ -1534,6 +1536,17 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   }
   */
   reset(): void {
+    const control = this.tablerowForm.get('tableRows') as FormArray;
+    const temp = control.getRawValue();
+    this.checkboxStatus = [];
+    for (let i = 0; i < temp.length; i++) {
+      if (String(temp[i].checked) === 'true') {
+        this.checkboxStatus.push(i);
+      }
+    }
+    console.log('[1547][reset][checkboxStatus]', this.checkboxStatus);
+    console.log('[1548][reset]', temp);
+
     const userid = localStorage.getItem('pathuser');
     this.patientsListService.resetscreenstatus(this.form2TestedId, '2', userid, this.reportType)
       .subscribe(data => {
