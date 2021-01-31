@@ -47,7 +47,41 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   filteredTSV$: Observable<IFilteredTSV[]>;
 
   tsvLists: IFilteredTSV[] = [];
-  patientInfo: IPatient;
+  patientInfo: IPatient = {
+    name: '',
+    patientID: '',
+    age: '',
+    gender: '',
+    testedNum: '',
+    leukemiaAssociatedFusion: '',
+    leukemiaassociatedfusion: '',
+    IKZK1Deletion: '',
+    FLT3ITD: '',
+    bonemarrow: '',
+    diagnosis: '',
+    genetictest: '',
+    chromosomalAnalysis: '',
+    chromosomalanalysis: '',
+    targetDisease: '',
+    method: '',
+    accept_date: '',
+    specimen: '',
+    detected: '',
+    request: '',
+    tsvFilteredFilename: '',
+    path: '',
+    //  createDate:  0000-00-00,
+    tsvFilteredStatus: '',
+    //  tsvFilteredDate: 0000-00-00,
+    bamFilename: '',
+    sendEMRDate: '',
+    report_date: '',
+    specimenNo: '',
+    test_code: '',
+    screenstatus: '',
+    recheck: '',
+    examin: '',
+  };
   geneCoding: IGeneCoding[];
   detactedVariants: IAFormVariant[] = [];
   recoverVariants: IRecoverVariants[] = [];
@@ -767,6 +801,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: item.vaf,
       references: item.reference,
       cosmicID: item.cosmic_id,
+      checked: item.checked,
       id: item.id
     };
 
@@ -788,6 +823,13 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   /////////////////////////////////////////////////////////////
   //
   createRow(item: IAFormVariant): FormGroup {
+    let checktype: boolean;
+    if (String(item.checked) === 'true' || item.checked === null) {
+      checktype = true;
+    } else {
+      checktype = false;
+    }
+
     if (item.type === 'New') {
       return this.fb.group({
         igv: [item.igv],
@@ -804,6 +846,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         references: [item.references],
         cosmicID: [item.cosmicID],
         id: [item.id],
+        checked: [true],
         status: ['NEW']
       });
     }
@@ -822,6 +865,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       references: [item.references],
       cosmicID: [item.cosmicID],
       id: [item.id],
+      checked: [checktype],
       status: ['OLD']
     });
   }
@@ -888,6 +932,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [''],
       references: [''],
       cosmicID: [''],
+      checked: [true]
     });
   }
 
@@ -908,6 +953,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [''],
       references: [''],
       cosmicID: [''],
+      checked: [true],
       status: ['NEW']
     });
   }
@@ -1055,7 +1101,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   screenRead(): void {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+    // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1073,7 +1119,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
       // console.log('[840][screenRead][profile] ', this.profile);
       // tslint:disable-next-line:max-line-length
-      this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+      this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
         .pipe(
           tap(data => {
             // console.log('[843][screenRead] ', data);
@@ -1092,7 +1138,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   screenReadFinish(): void {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+    // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1106,7 +1152,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
 
-      this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, reformData, this.comments, this.profile, this.patientInfo)
+      this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
           console.log('[판독완료] screen Updated ....[566]', data);
           alert('저장되었습니다.');
@@ -1250,7 +1296,9 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   putCheckboxInit(): void {
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.detactedVariants.length; i++) {
-      this.checkboxStatus.push(i);
+      if (String(this.detactedVariants[i].checked) === 'true') {
+        this.checkboxStatus.push(i);
+      }
     }
   }
 
@@ -1379,8 +1427,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     const formData = control.getRawValue();
     // console.log('[1040][tableerowForm]', formData);
     // console.log('[1041][checkbox]', this.checkboxStatus);
-    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    // console.log('[1043][Detected variants]', reformData);
+    // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+    console.log('[1043][Detected variants]', formData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1389,7 +1437,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     this.store.setComments(this.comments);
     this.patientInfo.recheck = this.recheck;
     this.patientInfo.examin = this.examin;
-    console.log('[1054][tempSave]patient,reform,comment]', this.patientInfo, reformData, this.comments);
+    console.log('[1054][tempSave]patient,reform,comment]', this.patientInfo, formData, this.comments);
 
     this.store.setRechecker(this.patientInfo.recheck);
     this.store.setExamin(this.patientInfo.examin);
@@ -1398,7 +1446,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
 
     // tslint:disable-next-line:max-line-length
-    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
         // console.log('[1065]', data);
         alert('저장되었습니다.');

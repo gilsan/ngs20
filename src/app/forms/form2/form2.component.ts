@@ -40,7 +40,41 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   filteredTSV$: Observable<IFilteredTSV[]>;
 
   tsvLists: IFilteredTSV[] = [];
-  patientInfo: IPatient;
+  patientInfo: IPatient = {
+    name: '',
+    patientID: '',
+    age: '',
+    gender: '',
+    testedNum: '',
+    leukemiaAssociatedFusion: '',
+    leukemiaassociatedfusion: '',
+    IKZK1Deletion: '',
+    FLT3ITD: '',
+    bonemarrow: '',
+    diagnosis: '',
+    genetictest: '',
+    chromosomalAnalysis: '',
+    chromosomalanalysis: '',
+    targetDisease: '',
+    method: '',
+    accept_date: '',
+    specimen: '',
+    detected: '',
+    request: '',
+    tsvFilteredFilename: '',
+    path: '',
+    //  createDate:  0000-00-00,
+    tsvFilteredStatus: '',
+    //  tsvFilteredDate: 0000-00-00,
+    bamFilename: '',
+    sendEMRDate: '',
+    report_date: '',
+    specimenNo: '',
+    test_code: '',
+    screenstatus: '',
+    recheck: '',
+    examin: '',
+  };
   geneCoding: IGeneCoding[];
   detactedVariants: IAFormVariant[] = [];
   recoverVariants: IRecoverVariants[] = [];
@@ -151,7 +185,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   allLukemia(lukemia: string): void {
-    console.log('[151][allLukemia][profile.leukemia]', this.profile.leukemia);
+    console.log('[188][allLukemia][profile.leukemia]', this.profile.leukemia);
   }
 
   findType(): void {
@@ -159,7 +193,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       filter(data => data !== null || data !== undefined),
       map(route => route.get('type'))
     ).subscribe(data => {
-      console.log('[138][findType]', data);
+      // console.log('[196][findType]', data);
       this.reportType = data;
       this.getGeneList(this.reportType); // 진검 유전자 목록 가져옴.
     });
@@ -289,7 +323,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // 디비에서 Detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
-      console.log('[204][form2][Detected variant_id]', this.recoverVariants);
+      console.log('[326][form2][Detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // Detected variant 저장
       this.recoverVariants.forEach(item => {
         // console.log('[270][recoverDetected]', item.functional_impact);
@@ -361,7 +395,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.profile.leukemia = profile[0].leukemiaassociatedfusion;
         }
-        // console.log('[257][variantesService][profile]', this.profile, profile);
+        // console.log('[398][variantesService][profile]', this.profile, profile);
       });
 
     this.subs.sink = this.variantsService.getScreenTested(this.form2TestedId)
@@ -380,11 +414,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   init(form2TestedId: string): void {
     if (this.form2TestedId) {
       this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
+        console.log('==== [417][detected variants]', data);
         if (data.length > 0) {
           this.recoverVariants = data;
           this.store.setDetactedVariants(data); // Detected variant 저장
           this.recoverVariants.forEach(item => {
-            // console.log('[270][recoverDetected]', item.functional_impact);
+
             this.recoverVariant(item);  // 354
             if (item.functional_impact === 'VUS') {
               this.vusstatus = true;
@@ -533,7 +568,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         let type: string;
         let gene: string;
         let dvariable: IAFormVariant;
-        // console.log('********** [필터링원시자료][377]', data);
+        // console.log('********** [필터링원시자료][571]', data);
 
         // 타입 분류
         if (data.mtype === 'M') {  // mutation
@@ -557,7 +592,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           // this.resultStatus = 'Not Detected';
         }
         if (dvariable) {
-          // console.log('[247][form2][dvariable]', dvariable.functional_impact);
+          // console.log('[595][form2][dvariable]', dvariable.functional_impact);
           if (dvariable.functional_impact === 'VUS') {
             this.vusstatus = true;
             this.store.setVUSStatus(this.vusstatus); // VUS 상태정보 저장
@@ -579,14 +614,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
         // comments 분류
         if (parseInt(data.comments1Count, 10) > 0) {
-          // console.log('[422][코멘트]', data, data.commentList1, data.commentList2);
-          // console.log('[423]', data.commentList1.reference);
           if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
             if (parseInt(data.comments1Count, 10) > 0) {
 
               const variant_id = data.tsv.amino_acid_change;
               const comment = { ...data.commentList1, variant_id, type: this.reportType };
-              // console.log('[429][코멘트]', comment);
+
               this.comments.push(comment);
               this.store.setComments(this.comments); // 멘트 저장
               let tempArray = new Array();
@@ -622,7 +655,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   // 검사일/검사보고일/수정보고일 관리
   setReportdaymgn(patientInfo: IPatient): void {
     // 전송횟수, 검사보고일, 수정보고일  저장
-    console.log('[503][검사일/검사보고일/수정보고일 관리]', patientInfo);
+    console.log('[658][검사일/검사보고일/수정보고일 관리]', patientInfo);
     this.sendEMR = Number(patientInfo.sendEMR);
     if (patientInfo.sendEMRDate.length) {
       this.firstReportDay = patientInfo.sendEMRDate.replace(/-/g, '.').slice(0, 10);
@@ -682,17 +715,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.subs.unsubscribe();
   }
 
-  // VUS 검사
-  // checkVue(): boolean {
-
-  //   const idx = this.tsvLists.findIndex(item => item.loc1 === 'VUS');
-
-  //   if (idx === -1) {
-  //     this.ment = '';
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   // tslint:disable-next-line:typedef
   result(event) {
@@ -732,7 +754,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         exonIntro: 'E' + tsv.exon,
         nucleotideChange: coding,
         aminoAcidChange: tsv.amino_acid_change,
-        // zygosity: item.zygosity,
         zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: item.reference,
@@ -753,7 +774,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         zygosity: 'Heterozygous',
         vafPercent: tsv.frequency,
         references: '',
-        cosmicID: ''
+        cosmicID: '',
       };
     }
     //
@@ -766,7 +787,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     for (let i = 0; i < this.detactedVariants.length; i++) {
       this.checkboxStatus.push(i);
     }
-    // this.putCheckboxInit(); // 체크박스 초기화
   }
 
   recoverVariant(item: IRecoverVariants): void {
@@ -786,6 +806,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: item.vaf,
       references: item.reference,
       cosmicID: item.cosmic_id,
+      checked: item.checked,
       id: item.id
     };
 
@@ -806,6 +827,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   createRow(item: IAFormVariant): FormGroup {
+    let checktype: boolean;
+    if (String(item.checked) === 'true' || item.checked === null) {
+      checktype = true;
+    } else {
+      checktype = false;
+    }
     if (item.type === 'New') {
       return this.fb.group({
         igv: [item.igv],
@@ -822,6 +849,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         references: [item.references],
         cosmicID: [item.cosmicID],
         id: [item.id],
+        checked: [true],
         status: ['NEW']
       });
     }
@@ -840,12 +868,12 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       references: [item.references],
       cosmicID: [item.cosmicID],
       id: [item.id],
+      checked: [checktype],
       status: ['OLD']
     });
   }
 
   addNewRow(row: IAFormVariant): void {
-    // console.log('[544][addNewRow]', row);
     const control = this.tablerowForm.get('tableRows') as FormArray;
     control.push(this.createRow(row));
   }
@@ -884,43 +912,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.commentsRows().removeAt(i);
   }
   //////////////////////////////////////////////////////////////
-  // singleCommentForm
-  /////////////////////////////////////////////////////////////
-  /*
-  createSingleCommentRow(comment: IComment): FormGroup {
-    return this.fb.group({
-      gene: comment.gene,
-      comment: comment.comment,
-      reference: comment.reference,
-      variant_id: comment.variant_id
-    });
-  }
-
-  newSingleCommentRow(): FormGroup {
-    return this.fb.group({
-      gene: '',
-      comment: '',
-      reference: '',
-      variant_id: '',
-      type: 'AML'
-    });
-  }
-
-  singleCommentsRows(): FormArray {
-    return this.singleCommentForm.get('singleComments') as FormArray;
-  }
-
-  addNewSingleCommentRow(): void {
-    console.log('[608] addNewSingleCommentRow');
-    this.singleCommentsRows().push(this.newSingleCommentRow());
-  }
-
-  removeSingleCommentRow(i: number): void {
-
-    this.singleCommentsRows().removeAt(i);
-  }
-  */
-  /////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////
   get getFormControls(): any {
@@ -944,7 +935,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       zygosity: [''],
       vafPercent: [''],
       references: [''],
-      cosmicID: ['']
+      cosmicID: [''],
+      checked: [true]
     });
   }
 
@@ -965,6 +957,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       vafPercent: [''],
       references: [''],
       cosmicID: [''],
+      checked: [true],
       status: ['NEW']
     });
   }
@@ -1026,7 +1019,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   save(index: number) {
     const selected = this.vd.find(item => item.sequence === index);
     this.selectedItem = selected.selectedname;
-    console.log('[864][저장] ', index, this.vd, selected);
+    console.log('[1022][저장] ', index, this.vd, selected);
     const control = this.tablerowForm.get('tableRows') as FormArray;
 
     const row = control.value[index];
@@ -1053,20 +1046,18 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.selectedItem = '';
       });
     } else if (this.selectedItem === 'artifacts') {
-      // console.log('[838][저장][artifacts] ', row);
       this.subs.sink = this.patientsListService.insertArtifacts(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        // console.log('[842][저장][artifacts] ', data);
         alert('artifacts에 추가 했습니다.');
         this.selectedItem = '';
       });
     } else if (this.selectedItem === 'benign') {
-      // console.log('[847][저장][benign] ', row);
+
       this.subs.sink = this.patientsListService.insertBenign(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
       ).subscribe((data: any) => {
-        // console.log('[851][저장][benign] ', data);
+
         alert('benign에 추가 했습니다.');
         this.selectedItem = '';
 
@@ -1079,7 +1070,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   saveInhouse(i: number, selecteditem: string) {
     this.indexNum = i;
     this.selectedItem = selecteditem;
-    // const idx = this.vd.findIndex(list => list.sequence === i);
+
     this.vd.forEach(item => {
       if (item.sequence === i) {
         item.selectedname = selecteditem;
@@ -1122,7 +1113,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   screenRead(): void {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+    // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1143,17 +1134,17 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
       //  this.patientInfo.recheck = this.
       // tslint:disable-next-line:max-line-length
-      console.log('[981][screenRead][profile] ', this.profile);
+      console.log('[1137][screenRead][profile] ', this.profile);
       // tslint:disable-next-line:max-line-length
-      this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+      this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
         .pipe(
           tap(data => {
-            console.log('[986][screenRead] ', data);
+            // console.log('[986][screenRead] ', data);
             alert('저장되었습니다.');
           }),
           concatMap(() => this.patientsListService.getScreenStatus(this.form2TestedId))
         ).subscribe(msg => {
-          console.log('[991][sendscreen]', msg[0].screenstatus);
+          // console.log('[991][sendscreen]', msg[0].screenstatus);
           this.screenstatus = msg[0].screenstatus;
         });
     }
@@ -1164,7 +1155,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   screenReadFinish(): void {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+    // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1177,8 +1168,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
     this.store.setComments(this.comments);
     // console.log('[809][screenReadFinish][검사/확인자]', this.examin, this.recheck);
-
-
     // console.log('[812][스크린판독완료] ', this.form2TestedId, formData, this.comments, this.profile);
     const result = confirm('판독완료 전송하시겠습니까?');
     if (result) {
@@ -1187,9 +1176,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
 
-      this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, reformData, this.comments, this.profile, this.patientInfo)
+      this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
-          console.log('[판독완료] screen Updated ....[1027]', data);
+          console.log('[판독완료] screen Updated ....[1181]', data);
           alert('저장되었습니다.');
           this.patientsListService.getScreenStatus(this.form2TestedId)
             .subscribe(msg => {
@@ -1254,7 +1243,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       const index = this.checkboxStatus.findIndex(idx => idx === i);
       this.checkboxStatus.splice(index, 1);
     }
-    console.log('[1092][boxstatus]', this.checkboxStatus.sort());
+    // console.log('[1246][상태][boxstatus]', this.checkboxStatus.sort());
   }
 
   goEMR(): void {
@@ -1283,10 +1272,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.sendEMR >= 1) {
       this.lastReportDay = this.today().replace(/-/g, '.');
-      console.log('*******[1163][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
+      // console.log('*******[1275][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     }
 
-    console.log('*******[1167][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
+    // console.log('*******[1167][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     const makeForm = makeBForm(
       this.resultStatus,
       this.examin, // 검사자
@@ -1303,7 +1292,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.lastReportDay,
       this.genelists
     );
-    console.log('[1134] ', makeForm);
+    console.log('[1295] ', makeForm);
 
     //  실전사용시 사용
 
@@ -1320,7 +1309,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       ).subscribe((msg: { screenstatus: string }) => {
         // this.screenstatus = msg[0].screenstatus;
         this.screenstatus = '3';
-        console.log('[1151][SEND EMR][AML] ', msg, this.screenstatus);
+        // console.log('[1312][SEND EMR][AML] ', msg, this.screenstatus);
         alert('EMR로 전송했습니다.');
 
         // 환자정보 가져오기
@@ -1358,10 +1347,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.sendEMR >= 1) {
       this.lastReportDay = this.today().replace(/-/g, '.');
-      console.log('*******[1238][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
+      // console.log('*******[1238][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     }
 
-    console.log('*******[1241][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
+    // console.log('*******[1241][ALL][EMR전송횟수] ', this.sendEMR, this.lastReportDay);
     const makeForm = makeAForm(
       this.resultStatus,
       this.examin, // 검사자
@@ -1397,7 +1386,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         // 환자정보 가져오기
         this.patientsListService.getPatientInfo(this.form2TestedId)
           .subscribe(patient => {
-            console.log('[1218][ALL EMR][검체정보]', this.sendEMR, patient);
+            console.log('[1389][ALL EMR][검체정보]', this.sendEMR, patient);
             // this.setReportdaymgn(patient);
           });
       });
@@ -1406,7 +1395,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   putCheckboxInit(): void {
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < this.detactedVariants.length; i++) {
-      this.checkboxStatus.push(i);
+      if (String(this.detactedVariants[i].checked) === 'true') {
+        this.checkboxStatus.push(i);
+      }
     }
   }
 
@@ -1447,7 +1438,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // Detected variants 값을 store에 저장
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue() as IAFormVariant[];
-    console.log('[1252][form2][previewToggle][] ', formData);
+    console.log('[1441][form2][previewToggle][] ', formData);
     this.store.setDetactedVariants(formData);
 
     const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
@@ -1530,9 +1521,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
     console.log('[1334][tableerowForm]', formData);
-    console.log('[1335][checkbox]', this.checkboxStatus);
-    const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1337][Detected variants]', reformData);
+    // console.log('[1335][checkbox]', this.checkboxStatus);
+    // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
+    console.log('[1337][Detected variants]', formData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1540,7 +1531,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.store.setComments(this.comments);
     this.patientInfo.recheck = this.recheck;
     this.patientInfo.examin = this.examin;
-    console.log('[1345][tempSave]patient,reform,comment]', this.patientInfo, reformData, this.comments);
+    console.log('[1345][tempSave]patient,reform,comment]', this.patientInfo, formData, this.comments);
 
     this.store.setRechecker(this.patientInfo.recheck);
     this.store.setExamin(this.patientInfo.examin);
@@ -1549,9 +1540,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
 
     // tslint:disable-next-line:max-line-length
-    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, reformData, this.comments, this.profile, this.resultStatus, this.patientInfo)
+    this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
-        console.log('[1356]', data);
+        console.log('[1545]', data);
         alert('저장되었습니다.');
       });
   }
@@ -1592,14 +1583,14 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(data => {
         this.screenstatus = '2';
         this.patientInfo.screenstatus = '2';
-        console.log('[1462]', this.screenstatus);
+        console.log('[1586]', this.screenstatus);
       });
   }
 
   ///////////////////////////////////////////////////////////////////////
   // commentsRows()
   saveComments(): any {
-    console.log('saveComments');
+    // console.log('saveComments');
     this.comments.forEach(item => {
       this.commentsRows().push(this.createCommentRow(item));
     });
@@ -1607,7 +1598,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // this.createCommentRow(this.comments[0]);
     this.patientsListService.insertComments(this.comments)
       .subscribe(data => {
-        console.log('[1399][saveComments]', this.comments);
+        console.log('[1601][saveComments]', this.comments);
         console.log(data);
       });
   }
@@ -1616,13 +1607,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   //////////////////////////////////////////////////////////////////////
   //
   findMutationBygene(gene: string): void {
-    console.log('[1408][findMutationBygene]', this.resultStatus);
+    console.log('[1610][findMutationBygene]', this.resultStatus);
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    console.log('[1411][tableerowForm]', formData);
+    // console.log('[1411][tableerowForm]', formData);
     this.patientsListService.findMutationBygene(gene)
       .subscribe(data => {
-        console.log('[1413][findMutationBygene]', data);
+        // console.log('[1413][findMutationBygene]', data);
         if (data === 0) {
           this.resultStatus = 'Not Detected';
         } else {
@@ -1635,8 +1626,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // this.formArray = this.ifusionLists()
     const from1 = event.previousIndex;
     const to = event.currentIndex;
-    console.log(event);
-    console.log('[1428][droped]', from1, to);
+    // console.log(event);
+    // console.log('[1428][droped]', from1, to);
     this.vd.forEach(item => {
       if (item.sequence === from1) {
         item.sequence = to;
@@ -1670,8 +1661,18 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   clamp(value: number, max: number): number {
     return Math.max(0, Math.min(max, value));
   }
-
-
+  /////////////////////////////////////////////////////////
+  showGroup(i): boolean {
+    const control = this.tablerowForm.get('tableRows') as FormArray;
+    // console.log('\n***********************\n', control.at(i).value.checked, i);
+    return control.at(i).value.checked;
+  }
+  checkboxuncheck(): boolean {
+    return false;
+  }
+  checkboxcheck(): boolean {
+    return true;
+  }
   ////////////////////////////////////////////////////////
 
 

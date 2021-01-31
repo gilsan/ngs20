@@ -144,7 +144,7 @@
             <td class="trash"  (click)="deleteRow(i)">
                  <img [src]="'assets/images/cancel.png'">
             </td> 
-            <td><input type="checkbox" class="ckbox"  checked (change)="boxstatus(i, $event)"></td> 
+            <td><input type="checkbox" class="ckbox" formControlName="checked" (change)="boxstatus(i, $event)"></td> 
             <td><input type="text" size="10"  class="clr-input textcenter  tdbox"  formControlName="igv"></td>
             <td>
                 <textarea class="textarea_01"  style="width: 100%; height: 100%; border: none" formControlName="sanger"></textarea>

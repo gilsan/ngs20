@@ -308,10 +308,12 @@
                     <img [src]="'assets/baseline_unfold_more_black_18dp.png'">
                 </button>
             </td> 
-            <td class="trash"  (click)="deleteRow(i)">
+            <td class="trash"  (click)="deleteRow(i)"> 
                 <img [src]="'assets/images/cancel.png'">
             </td> 
-            <td><input type="checkbox"  class="ckbox"   checked (change)="boxstatus(i, $event)"></td> 
+            <td> 
+                <input type="checkbox"  class="ckbox" formControlName="checked"   (change)="boxstatus(i, $event)">
+            </td> 
             <td><input type="text" size="10" 
                 (keydown.enter)="$event.preventDefault()"
                 class="clr-input textcenter  tdbox"  formControlName="igv"></td>
@@ -373,7 +375,7 @@
     </table>
  
   </form>
- 
+
 <!---  ---------------------------   -->
       </div>
       <div>
