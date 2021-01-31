@@ -312,9 +312,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         this.recoverVariant(item);  // 354
 
         // VUS 메제시 확인
-        if (this.patientInfo.vusmsg.length > 0) {
-          this.vusmsg = this.patientInfo.vusmsg;
-        }
+        this.vusmsg = this.patientInfo.vusmsg;
 
         if (item.functional_impact === 'VUS') {
           this.vusstatus = true;
@@ -396,9 +394,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
             // console.log('[270][recoverDetected]', item.functional_impact);
             this.recoverVariant(item);  // 354
             // VUS 메제시 확인
-            if (this.patientInfo.vusmsg.length > 0) {
-              this.vusmsg = this.patientInfo.vusmsg;
-            }
+            this.vusmsg = this.patientInfo.vusmsg;
 
             if (item.functional_impact === 'VUS') {
               this.vusstatus = true;
