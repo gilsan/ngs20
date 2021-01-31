@@ -830,12 +830,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     let checktype: boolean;
 
     console.log('==== [832][createRow]', item);
-    // if (String(item.checked) === 'true' || item.checked === null) {
-    //   checktype = true;
-    // } else {
-    //   checktype = false;
-    // }
+
     if (String(item.checked) === 'false') {
+      console.log('==== [835][createRow]', item.id, item.gene, item.checked);
       checktype = false;
     } else {
       checktype = true;
@@ -857,7 +854,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         references: [item.references],
         cosmicID: [item.cosmicID],
         id: [item.id],
-        checked: [true],
+        checked: [checktype],
         status: ['NEW']
       });
     }
@@ -1251,7 +1248,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       const index = this.checkboxStatus.findIndex(idx => idx === i);
       this.checkboxStatus.splice(index, 1);
     }
-    // console.log('[1246][상태][boxstatus]', this.checkboxStatus.sort());
+    console.log('[1251][상태][boxstatus]', this.checkboxStatus.sort());
   }
 
   goEMR(): void {
