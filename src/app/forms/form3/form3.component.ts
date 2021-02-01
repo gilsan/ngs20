@@ -1224,11 +1224,27 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     // console.log('[922][boxstatus]', this.checkboxStatus.sort());
   }
 
+  checkboxRefill(): void {
+    const control = this.tablerowForm.get('tableRows') as FormArray;
+    const temp = control.getRawValue();
+    this.checkboxStatus = [];
+    for (let i = 0; i < temp.length; i++) {
+      if (String(temp[i].checked) === 'true') {
+        this.checkboxStatus.push(i);
+      }
+    }
+  }
+
   gotoEMR(): void {
     const userid = localStorage.getItem('diaguser');
 
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
+
+    if (this.checkboxStatus.length === 0) {
+      this.checkboxRefill();
+    }
+
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
     console.log('=== [1233][LYM][EMR로 보내기, 체크박스]', this.checkboxStatus);
     console.log('=== [1234][LYM][EMR로 보내기 DV]', reformData);
