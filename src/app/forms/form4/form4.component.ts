@@ -25,6 +25,7 @@ import { UtilsService } from '../commons/utils.service';
 import { CommentsService } from 'src/app/services/comments.service';
 import { makeDForm } from 'src/app/home/models/dTypemodel';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AnalysisService } from '../commons/analysis.service';
 
 /**
  *  ALL/AML   LYM           MDS
@@ -172,7 +173,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private utilsService: UtilsService,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private analysisService: AnalysisService,
   ) { }
 
   ngOnInit(): void {
@@ -353,6 +355,20 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       });
 
     // profile 가져오기
+    this.subs.sink = this.analysisService.getAanlysisMDSInfo(this.form2TestedId)
+      .subscribe(data => {
+
+        if (data.length > 0) {
+          this.profile.leukemia = data[0].diagnosis;
+          this.profile.flt3itd = data[0].genetictest;
+          this.profile.chron = data[0].chromosomalanalysis;
+        } else {
+          this.profile.leukemia = '';
+          this.profile.flt3itd = '';
+          this.profile.chron = '';
+        }
+      });
+    /*
     this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
       .subscribe(profile => {
         if (profile[0].chromosomalanalysis === null) {
@@ -376,17 +392,17 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
         }
         // console.log('[257][variantesService][profile]', this.profile, profile);
       });
+      */
+    // this.subs.sink = this.analysisService.getAanlysisMDSInfo(this.form2TestedId)
+    //   .subscribe(data => {
+    //     if (data !== undefined && data !== null && data.length > 0) {
+    //       this.profile.chron = data[0].chromosomalanalysis;
+    //       this.profile.flt3itd = data[0].genetictest;
+    //       this.profile.leukemia = data[0].diagnosis;
+    //       this.store.setProfile(this.profile);  
 
-    this.subs.sink = this.variantsService.getScreenTested(this.form2TestedId)
-      .subscribe(data => {
-        if (data !== undefined && data !== null && data.length > 0) {
-          this.profile.chron = data[0].chromosomalanalysis;
-          this.profile.flt3itd = data[0].genetictest;
-          this.profile.leukemia = data[0].diagnosis;
-          this.store.setProfile(this.profile); // profile 저장
-          // console.log('[216][profile]', this.profile);
-        }
-      });
+    //     }
+    //   });
 
   }
 
@@ -503,14 +519,22 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
        */
       // 검사자 정보 가져오기
       // console.log('[428][검사자정보]', this.patientInfo, this.reportType);
-      this.profile.chron = this.patientInfo.chromosomalanalysis;
-      if (this.reportType === 'MDS') {
-        this.profile.flt3itd = this.genetictest;
-        //  this.profile.flt3itd = this.patientInfo.genetictest;
-      }
-
-      this.profile.leukemia = this.patientInfo.diagnosis;
-      this.store.setProfile(this.profile); // profile 저장
+      // 저장된 검사자의 값이 있으면 표시
+      this.analysisService.getAanlysisMDSInfo(this.form2TestedId)
+        .subscribe(data => {
+          if (data.length > 0) {
+            this.profile.leukemia = data[0].diagnosis;
+            this.profile.flt3itd = data[0].genetictest;
+            this.profile.chron = data[0].chromosomalanalysis;
+          } else {
+            this.profile.chron = this.patientInfo.chromosomalanalysis;
+            if (this.reportType === 'MDS') {
+              this.profile.flt3itd = this.genetictest;
+            }
+            this.profile.leukemia = this.patientInfo.diagnosis;
+            this.store.setProfile(this.profile); // profile 저장
+          }
+        });
 
     } else {   // End of form2TestedId loop
       this.patientInfo = {
@@ -1128,6 +1152,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
 
       // console.log('[840][screenRead][profile] ', this.profile);
+      this.analysisService.putAnalysisMDS(
+        this.form2TestedId,
+        this.profile.leukemia,
+        this.profile.flt3itd,
+        this.profile.chron).subscribe(data => console.log('MDS INSERT'));
 
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData,
@@ -1163,6 +1192,13 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       this.store.setRechecker(this.patientInfo.recheck);
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
+
+      this.analysisService.putAnalysisMDS(
+        this.form2TestedId,
+        this.profile.leukemia,
+        this.profile.flt3itd,
+        this.profile.chron).subscribe(data => console.log('MDS INSERT'));
+
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
@@ -1475,8 +1511,15 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     this.store.setExamin(this.patientInfo.examin);
     this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
     this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
-
-
+    // MDS 분석 보내기
+    // diagnosis: string,
+    // genetictest: string,
+    // chromosomalanalysis: string
+    this.analysisService.putAnalysisMDS(
+      this.form2TestedId,
+      this.profile.leukemia,
+      this.profile.flt3itd,
+      this.profile.chron).subscribe(data => console.log('MDS INSERT'));
     // tslint:disable-next-line:max-line-length
     this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {

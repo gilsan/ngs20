@@ -24,6 +24,7 @@ import { makeAForm } from 'src/app/home/models/aTypemodel';
 import { UtilsService } from '../commons/utils.service';
 import { CommentsService } from 'src/app/services/comments.service';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AnalysisService } from '../commons/analysis.service';
 
 @Component({
   selector: 'app-form2',
@@ -159,7 +160,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private utilsService: UtilsService,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private analysisService: AnalysisService,
   ) { }
 
   ngOnInit(): void {
@@ -373,46 +375,74 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       });
 
     // profile 가져오기
-    this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
-      .subscribe(profile => {
-        if (profile[0].chromosomalanalysis === null) {
-          this.profile.chron = '';
-        } else {
-          this.profile.chron = profile[0].chromosomalanalysis;
-        }
-        if (this.reportType === 'AML') {
-          if (profile[0].FLT3ITD === null) {
-            this.profile.flt3itd = '';
+    if (this.reportType === 'AML') {
+      this.subs.sink = this.analysisService.getAanlysisAMLInfo(this.form2TestedId)
+        .subscribe(data => {
+          if (data.length > 0) {
+            this.profile.leukemia = data[0].leukemiaassociatedfusion;
+            this.profile.flt3itd = data[0].FLT3ITD;
+            this.profile.chron = data[0].chromosomalanalysis;
           } else {
-            this.profile.flt3itd = profile[0].FLT3ITD;
-          }
-        } else if (this.reportType === 'ALL') {
-          if (profile[0].FLT3ITD === null) {
+            this.profile.leukemia = '';
             this.profile.flt3itd = '';
-          } else {
-            this.profile.flt3itd = profile[0].IKZK1Deletion;
+            this.profile.chron = '';
           }
-        }
+        });
+    }
+    if (this.reportType === 'ALL') {
+      this.subs.sink = this.analysisService.getAanlysisALLInfo(this.form2TestedId)
+        .subscribe(data => {
+          if (data.length > 0) {
+            this.profile.leukemia = data[0].leukemiaassociatedfusion;
+            this.profile.flt3itd = data[0].IKZK1Deletion;
+            this.profile.chron = data[0].chromosomalanalysis;
+          } else {
+            this.profile.leukemia = '';
+            this.profile.flt3itd = '';
+            this.profile.chron = '';
+          }
+        });
+    }
+    // this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
+    //   .subscribe(profile => {
+    //     if (profile[0].chromosomalanalysis === null) {
+    //       this.profile.chron = '';
+    //     } else {
+    //       this.profile.chron = profile[0].chromosomalanalysis;
+    //     }
+    //     if (this.reportType === 'AML') {
+    //       if (profile[0].FLT3ITD === null) {
+    //         this.profile.flt3itd = '';
+    //       } else {
+    //         this.profile.flt3itd = profile[0].FLT3ITD;
+    //       }
+    //     } else if (this.reportType === 'ALL') {
+    //       if (profile[0].FLT3ITD === null) {
+    //         this.profile.flt3itd = '';
+    //       } else {
+    //         this.profile.flt3itd = profile[0].IKZK1Deletion;
+    //       }
+    //     }
 
 
-        if (profile[0].leukemiaassociatedfusion === null) {
-          this.profile.leukemia = '';
-        } else {
-          this.profile.leukemia = profile[0].leukemiaassociatedfusion;
-        }
-        // console.log('[398][variantesService][profile]', this.profile, profile);
-      });
+    //     if (profile[0].leukemiaassociatedfusion === null) {
+    //       this.profile.leukemia = '';
+    //     } else {
+    //       this.profile.leukemia = profile[0].leukemiaassociatedfusion;
+    //     }
+    //     // console.log('[398][variantesService][profile]', this.profile, profile);
+    //   });
 
-    this.subs.sink = this.variantsService.getScreenTested(this.form2TestedId)
-      .subscribe(data => {
-        if (data !== undefined && data !== null && data.length > 0) {
-          this.profile.chron = data[0].chromosomalanalysis;
-          this.profile.flt3itd = data[0].FLT3ITD;
-          this.profile.leukemia = data[0].leukemiaassociatedfusion;
-          this.store.setProfile(this.profile); // profile 저장
-          // console.log('[216][profile]', this.profile);
-        }
-      });
+    // this.subs.sink = this.variantsService.getScreenTested(this.form2TestedId)
+    //   .subscribe(data => {
+    //     if (data !== undefined && data !== null && data.length > 0) {
+    //       this.profile.chron = data[0].chromosomalanalysis;
+    //       this.profile.flt3itd = data[0].FLT3ITD;
+    //       this.profile.leukemia = data[0].leukemiaassociatedfusion;
+    //       this.store.setProfile(this.profile); // profile 저장
+    //       // console.log('[216][profile]', this.profile);
+    //     }
+    //   });
 
   }
 
@@ -530,14 +560,46 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
          }); // End of Subscribe
          */
       // 검사자 정보 가져오기
-      this.profile.chron = this.patientInfo.chromosomalanalysis;
       if (this.reportType === 'AML') {
-        this.profile.flt3itd = this.patientInfo.FLT3ITD;
-      } else if (this.reportType === 'ALL') {
-        this.profile.flt3itd = this.patientInfo.IKZK1Deletion;
+        this.analysisService.getAanlysisAMLInfo(this.form2TestedId)
+          .subscribe(data => {
+            console.log('========[566][AML]', data);
+            if (data.length > 0) {
+              this.profile.leukemia = data[0].leukemiaassociatedfusion;
+              this.profile.flt3itd = data[0].FLT3ITD;
+              this.profile.chron = data[0].chromosomalanalysis;
+            } else {
+              this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
+              this.profile.flt3itd = this.patientInfo.FLT3ITD;
+              this.profile.chron = this.patientInfo.chromosomalanalysis;
+            }
+          });
       }
 
-      this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
+      if (this.reportType === 'ALL') {
+        this.analysisService.getAanlysisALLInfo(this.form2TestedId)
+          .subscribe(data => {
+            console.log('========[582][ALL]', data);
+            if (data.length > 0) {
+              this.profile.leukemia = data[0].leukemiaassociatedfusion;
+              this.profile.flt3itd = data[0].IKZK1Deletion;
+              this.profile.chron = data[0].chromosomalanalysis;
+            } else {
+              this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
+              this.profile.flt3itd = this.patientInfo.IKZK1Deletion;
+              this.profile.chron = this.patientInfo.chromosomalanalysis;
+            }
+          });
+      }
+
+      // this.profile.chron = this.patientInfo.chromosomalanalysis;
+      // if (this.reportType === 'AML') {
+      //   this.profile.flt3itd = this.patientInfo.FLT3ITD;
+      // } else if (this.reportType === 'ALL') {
+      //   this.profile.flt3itd = this.patientInfo.IKZK1Deletion;
+      // }
+
+      // this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
       this.store.setProfile(this.profile); // profile 저장
 
     } else {   // End of form2TestedId loop
@@ -1146,6 +1208,22 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       //  this.patientInfo.recheck = this.
       // tslint:disable-next-line:max-line-length
       console.log('[1137][screenRead][profile] ', this.profile);
+      if (this.reportType === 'AML') {
+        this.analysisService.putAnalysisAML(
+          this.form2TestedId,
+          this.profile.leukemia,
+          this.profile.flt3itd,
+          this.profile.chron).subscribe(data => console.log('AML INSERT'));
+      } else if (this.reportType === 'ALL') {
+        this.analysisService.putAnalysisALL(
+          this.form2TestedId,
+          this.profile.leukemia,
+          this.profile.flt3itd,
+          this.profile.chron).subscribe(data => console.log('ALL INSERT'));
+      }
+
+
+
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData,
         this.comments, this.profile, this.resultStatus, this.patientInfo)
@@ -1187,6 +1265,23 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       // this.store.setExamin(this.patientInfo.examin);
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
+
+      if (this.reportType === 'AML') {
+        this.analysisService.putAnalysisAML(
+          this.form2TestedId,
+          this.profile.leukemia,
+          this.profile.flt3itd,
+          this.profile.chron).subscribe(data => console.log('AML INSERT'));
+      } else if (this.reportType === 'ALL') {
+        this.analysisService.putAnalysisALL(
+          this.form2TestedId,
+          this.profile.leukemia,
+          this.profile.flt3itd,
+          this.profile.chron).subscribe(data => console.log('ALL INSERT'));
+      }
+
+
+
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
@@ -1577,6 +1672,20 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
     this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
 
+    if (this.reportType === 'AML') {
+      this.analysisService.putAnalysisAML(
+        this.form2TestedId,
+        this.profile.leukemia,
+        this.profile.flt3itd,
+        this.profile.chron).subscribe(data => console.log('AML INSERT'));
+    } else if (this.reportType === 'ALL') {
+      console.log('*****[1681][ALL]', this.profile);
+      this.analysisService.putAnalysisALL(
+        this.form2TestedId,
+        this.profile.leukemia,
+        this.profile.flt3itd,
+        this.profile.chron).subscribe(data => console.log('ALL INSERT'));
+    }
 
     // tslint:disable-next-line:max-line-length
     this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
