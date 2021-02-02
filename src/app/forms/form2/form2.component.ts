@@ -387,6 +387,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             this.profile.flt3itd = '';
             this.profile.chron = '';
           }
+          this.store.setProfile(this.profile); // profile 저장
         });
     }
     if (this.reportType === 'ALL') {
@@ -401,6 +402,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
             this.profile.flt3itd = '';
             this.profile.chron = '';
           }
+          this.store.setProfile(this.profile); // profile 저장
         });
     }
     // this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
@@ -573,6 +575,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
               this.profile.flt3itd = this.patientInfo.FLT3ITD;
               this.profile.chron = this.patientInfo.chromosomalanalysis;
             }
+            this.store.setProfile(this.profile); // profile 저장
           });
       }
 
@@ -589,6 +592,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
               this.profile.flt3itd = this.patientInfo.IKZK1Deletion;
               this.profile.chron = this.patientInfo.chromosomalanalysis;
             }
+            this.store.setProfile(this.profile); // profile 저장
           });
       }
 
@@ -600,7 +604,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       // }
 
       // this.profile.leukemia = this.patientInfo.leukemiaassociatedfusion;
-      this.store.setProfile(this.profile); // profile 저장
+      // this.store.setProfile(this.profile); // profile 저장
 
     } else {   // End of form2TestedId loop
       this.patientInfo = {

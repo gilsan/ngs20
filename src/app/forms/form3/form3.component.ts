@@ -364,7 +364,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
           this.profile.chron = '';
           this.profile.flt3itd = '';
         }
-
+        this.store.setProfile(this.profile); // profile 저장
       });
     /*
     this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
@@ -527,9 +527,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
             if (this.reportType === 'LYM') {
               this.profile.flt3itd = this.patientInfo.bonemarrow;
             }
-            this.store.setProfile(this.profile); // profile 저장
           }
-
+          this.store.setProfile(this.profile); // profile 저장
         });
 
 

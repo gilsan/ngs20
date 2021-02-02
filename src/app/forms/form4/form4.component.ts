@@ -357,7 +357,6 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
     // profile 가져오기
     this.subs.sink = this.analysisService.getAanlysisMDSInfo(this.form2TestedId)
       .subscribe(data => {
-
         if (data.length > 0) {
           this.profile.leukemia = data[0].diagnosis;
           this.profile.flt3itd = data[0].genetictest;
@@ -367,6 +366,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
           this.profile.flt3itd = '';
           this.profile.chron = '';
         }
+        this.store.setProfile(this.profile); // profile 저장
       });
     /*
     this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
@@ -532,8 +532,8 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
               this.profile.flt3itd = this.genetictest;
             }
             this.profile.leukemia = this.patientInfo.diagnosis;
-            this.store.setProfile(this.profile); // profile 저장
           }
+          this.store.setProfile(this.profile); // profile 저장
         });
 
     } else {   // End of form2TestedId loop
