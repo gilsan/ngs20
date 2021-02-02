@@ -27,6 +27,7 @@ import { CommentsService } from 'src/app/services/comments.service';
 import { makeDForm } from 'src/app/home/models/dTypemodel';
 import { makeCForm } from 'src/app/home/models/cTypemodel';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AnalysisService } from '../commons/analysis.service';
 
 /**  profile
  *  ALL/AML   LYM           MDS
@@ -166,7 +167,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private utilsService: UtilsService,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private analysisService: AnalysisService,
   ) { }
 
   ngOnInit(): void {
@@ -243,7 +245,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         }
       });
     });
-   */
+     */
     this.form2TestedId = this.patientsListService.getTestedID();
 
     // 검사자 정보 가져오기
@@ -351,6 +353,20 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       });
 
     // profile 가져오기
+    this.analysisService.getAanlysisLYMInfo(this.form2TestedId)
+      .subscribe(data => {
+        if (data.length > 0) {
+          this.profile.leukemia = '';
+          this.profile.flt3itd = data[0].bonemarrow;
+          this.profile.chron = data[0].chromosomalanalysis;
+        } else {
+          this.profile.leukemia = '';
+          this.profile.chron = '';
+          this.profile.flt3itd = '';
+        }
+
+      });
+    /*
     this.subs.sink = this.variantsService.screenFind(this.form2TestedId)
       .subscribe(profile => {
         if (profile[0].chromosomalanalysis === null) {
@@ -368,17 +384,17 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         this.profile.leukemia = '';
         // console.log('[257][variantesService][profile]', this.profile, profile);
       });
+     */
+    // this.subs.sink = this.variantsService.getScreenTested(this.form2TestedId)
+    //   .subscribe(data => {
+    //     if (data !== undefined && data !== null && data.length > 0) {
+    //       this.profile.leukemia = '';
+    //       this.profile.chron = data[0].chromosomalanalysis;
+    //       this.profile.flt3itd = data[0].bonemarrow;
+    //       this.store.setProfile(this.profile); // profile 저장
 
-    this.subs.sink = this.variantsService.getScreenTested(this.form2TestedId)
-      .subscribe(data => {
-        if (data !== undefined && data !== null && data.length > 0) {
-          this.profile.leukemia = '';
-          this.profile.chron = data[0].chromosomalanalysis;
-          this.profile.flt3itd = data[0].bonemarrow;
-          this.store.setProfile(this.profile); // profile 저장
-          // console.log('[216][profile]', this.profile);
-        }
-      });
+    //     }
+    //   });
 
   }
 
@@ -499,13 +515,24 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         }); // End of Subscribe
       */
       // 검사자 정보 가져오기
-      this.profile.leukemia = '';
-      this.profile.chron = this.patientInfo.chromosomalanalysis;
-      if (this.reportType === 'LYM') {
-        this.profile.flt3itd = this.patientInfo.bonemarrow;
-      }
+      this.analysisService.getAanlysisLYMInfo(this.form2TestedId)
+        .subscribe(data => {
+          if (data.length > 0) {
+            this.profile.leukemia = '';
+            this.profile.flt3itd = data[0].bonemarrow;
+            this.profile.chron = data[0].chromosomalanalysis;
+          } else {
+            this.profile.leukemia = '';
+            this.profile.chron = this.patientInfo.chromosomalanalysis;
+            if (this.reportType === 'LYM') {
+              this.profile.flt3itd = this.patientInfo.bonemarrow;
+            }
+            this.store.setProfile(this.profile); // profile 저장
+          }
 
-      this.store.setProfile(this.profile); // profile 저장
+        });
+
+
 
     } else {   // End of form2TestedId loop
       this.patientInfo = {
@@ -782,8 +809,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   recoverVariant(item: IRecoverVariants): void {
     let tempvalue;
-    console.log(item);
-    console.log('id: ' + item.id + '  checked: ' + item.checked);
+    // console.log(item);
+    // console.log('id: ' + item.id + '  checked: ' + item.checked);
     tempvalue = {
       igv: item.igv,
       sanger: item.sanger,
@@ -1119,6 +1146,11 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
       console.log('[840][screenRead][profile] ', this.profile);
 
+      this.analysisService.putAnalysisLYM(
+        this.form2TestedId,
+        this.profile.flt3itd,
+        this.profile.chron).subscribe(data => console.log('LYM INSERT'));
+
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenInsert(this.form2TestedId, formData,
         this.comments, this.profile, this.resultStatus, this.patientInfo)
@@ -1153,6 +1185,12 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       this.store.setRechecker(this.patientInfo.recheck);
       this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
       this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
+
+      this.analysisService.putAnalysisLYM(
+        this.form2TestedId,
+        this.profile.flt3itd,
+        this.profile.chron).subscribe(data => console.log('LYM INSERT'));
+
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
@@ -1515,6 +1553,10 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     this.patientsListService.updateExaminer('recheck', this.patientInfo.recheck, this.patientInfo.specimen);
     this.patientsListService.updateExaminer('exam', this.patientInfo.examin, this.patientInfo.specimen);
 
+    this.analysisService.putAnalysisLYM(
+      this.form2TestedId,
+      this.profile.flt3itd,
+      this.profile.chron).subscribe(data => console.log('LYM INSERT'));
 
     // tslint:disable-next-line:max-line-length
     this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
