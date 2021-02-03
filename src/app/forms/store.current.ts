@@ -228,7 +228,7 @@ export class StoreService {
 
   // scroll 위치 저장
   setScrollyPosition(position: number): void {
-    // console.log('scroll....', position);
+    // console.log('scroll....[서비스][store.current] ', position);
     this.scrolly = position;
   }
 
