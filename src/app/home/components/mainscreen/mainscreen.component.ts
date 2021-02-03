@@ -94,16 +94,24 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  scrollPosition(): void {
+    setTimeout(() => {
+      const scrolly = this.store.getScrollyPosition();
+      this.dbox100.nativeElement.scrollTop = scrolly;
+    }, 1000);
+  }
+
   onSelected(): void {
     // 리스트 업데이트 함
     this.lists = [];
-    console.log('[87][onSelected]', this.lists, this.startday, this.endday);
+
     if (this.startday.length && this.endday.length) {
       this.search(this.startday, this.endday, this.specimenno, this.patientid);
     } else {
       this.init();
     }
     this.isVisible = true;
+
   }
 
   onCanceled(): void {
@@ -264,7 +272,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     if (specimenNo !== undefined) {
       specimenNo = specimenNo.trim();
     }
-    console.log('[265][search]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + status + '][' + sheet + ']');
+    console.log('[275][검색]' + '[' + startdate + '][' + enddate + '][' + patientId + '][' + specimenNo + '][' + status + '][' + sheet + ']');
     this.lists$ = this.patientsList.search(startdate, enddate, patientId, specimenNo, status, sheet);
     this.subs.sink = this.lists$
       .pipe(
@@ -292,6 +300,9 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
         this.lists.push(data);
         this.patientID = '';
         this.specimenNo = '';
+
+        // const scrolly = this.store.getScrollyPosition();
+        // console.log('[304][스크롤][검색]', scrolly);
       });
 
   }

@@ -1293,9 +1293,9 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       this.comments = [];
     }
 
-    if (this.vusmsg.length === 0) {
-      this.vusmsg = '';
-    }
+    // if (this.vusmsg.length === 0) {
+    //   this.vusmsg = '';
+    // }
 
     if (this.firstReportDay === '-') {
       this.firstReportDay = this.today().replace(/-/g, '.');

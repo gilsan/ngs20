@@ -121,7 +121,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   tempCommentVariants = '';
   tempCommentreference = '';
   tempCommentComment = '';
-  vusstatus = false;
+  vusstatus = true;
   preview = true;
   isVisible = false;
 
@@ -326,7 +326,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // 디비에서 Detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
-      console.log('[326][form2][Detected variant_id]', this.recoverVariants);
+      console.log('[329][form2][Detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // Detected variant 저장
       this.recoverVariants.forEach(item => {
         // console.log('[270][recoverDetected]', item.functional_impact);
@@ -1379,10 +1379,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       // this.comments = commentControl.getRawValue();
       this.comments = [];
     }
-
-    if (this.vusstatus === false) {
-      this.vusmsg = '';
-    }
+    // 버그 여기
+    // if (this.vusstatus === false) {
+    //   this.vusmsg = '';
+    // }
 
     if (this.firstReportDay === '-') {
       this.firstReportDay = this.today().replace(/-/g, '.');
@@ -1472,9 +1472,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.comments = [];
     }
 
-    if (this.vusmsg.length === 0) {
-      this.vusmsg = '';
-    }
+    // if (this.vusmsg.length === 0) {
+    //   this.vusmsg = '';
+    // }
 
     if (this.firstReportDay === '-') {
       this.firstReportDay = this.today().replace(/-/g, '.');
