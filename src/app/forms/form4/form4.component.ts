@@ -130,7 +130,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
   tempCommentVariants = '';
   tempCommentreference = '';
   tempCommentComment = '';
-  vusstatus = false;
+  vusstatus = true;
   preview = true;
   isVisible = false;
 
