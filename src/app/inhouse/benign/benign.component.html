@@ -21,7 +21,9 @@
         
         <div class="box mg_b20 pd_20 search">
             <input type="text" class="input_01" placeholder="Genes" #genes>
-            <button type="button" class="btn btn_02" (click)="search(genes.value)" style="margin-left: 10px;">조회</button>
+            &nbsp;&nbsp;&nbsp;
+            <input type="text" class="input_01" placeholder="Coding" #coding>
+            <button type="button" class="btn btn_02" (click)="search(genes.value, coding.value)" style="margin-left: 10px;">조회</button>
             <table border="0" cellspacing="0" cellpadding="0" class="mg_b10">
                 <tr>
                     <td class="main_btn">
@@ -29,11 +31,11 @@
                             <li>
                                 <button type="button" class="btn btn_01" (click)="insertRow()" >추가</button>
                             </li>
-                            <!--
+                            
                             <li>
-                                <button type="button" class="btn btn_01">저장</button>
+                                <button type="button" class="btn btn_01" (click)="excelDownload()">Excel</button>
                             </li>
-                            -->
+                            
                         </ul>
                     </td> 
                 </tr>

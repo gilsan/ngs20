@@ -1,7 +1,8 @@
 <div id="result">
   <div id="container" style="position: relative;">
       <h2 style="margin-top: 5px;">Lymphoma NGS</h2>   
-      <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>  
+      <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button> 
+      <button type="button" class="excel" (click)="excelDownload()">Excel</button> 
       <div id="content">
           <div class="box pd_20">
               <app-filtered [tsvLists]="tsvLists"></app-filtered>
@@ -158,8 +159,7 @@
             <td><input type="text" size="20"  class="clr-input textcenter  tdbox" formControlName="cosmicID"></td>
             
             <td  class="txt_c">
-              <select class="select_01" style="width: 100%;" name="options" (change)="saveInhouse(i, inhouse.value)" 
-              *ngIf="checkType(i)" #inhouse>
+              <select class="select_01" style="width: 100%;" name="options" (change)="saveInhouse(i, inhouse.value)"   #inhouse>
                 <option value="mutation" selected>Mutation</option>
                 <option value="artifacts">Artifacts</option>
                 <option value="benign">Benign</option>
@@ -168,7 +168,7 @@
            <!-- <td  class="txt_c" (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">
                저장 -->
                <td>
-            <button class="btn-s blue"  (click)="save(i)" *ngIf="checkType(i)">저장</button> 
+            <button class="btn-s blue"  (click)="save(i)" >저장</button> 
                <!-- 작업후 td class="save_mute" 삭제해주세요 -->
             </td>   
  

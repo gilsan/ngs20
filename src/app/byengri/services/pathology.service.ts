@@ -239,7 +239,7 @@ export class PathologyService {
     this.tumorCellPercentage = percentage;
     return this.http.post(`${this.apiUrl}/tumorcellpercentage/insert`, { percentage, pathologyNum })
       .subscribe(result => {
-        // console.log('[242][pathology.service][setTumorCellPercentage]', pathologyNum, percentage, result);
+        console.log('[242][서비스][pathology.service][setTumorCellPercentage]', pathologyNum, percentage, result);
       });
 
   }

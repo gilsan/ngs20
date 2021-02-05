@@ -6,6 +6,7 @@ import { emrUrl } from 'src/app/config';
 import { IBenign } from '../models/benign';
 import { BenignService } from 'src/app/services/benign.service';
 import { $ } from 'protractor';
+import { ExcelService } from 'src/app/home/services/excelservice';
 
 @Component({
   selector: 'app-benign',
@@ -15,7 +16,8 @@ import { $ } from 'protractor';
 export class BenignComponent implements OnInit {
 
   constructor(
-    private benignService: BenignService
+    private benignService: BenignService,
+    private excel: ExcelService,
   ) { }
   lists$: Observable<IBenign[]>;
   lists: IBenign[];
@@ -38,23 +40,23 @@ export class BenignComponent implements OnInit {
     this.search('');
   }
 
-  deleteRow(id: string, genes: string ): void {
-      if (id === "") {
-        const result = confirm('삭제 하시겠습니까?');
-    	if (result) {
-			this.lists = this.lists.slice(0, this.lists.length - 1);
-		}
-      } else {
-		 const result = confirm(genes +'을 삭제 하시겠습니까?');
-		 if (result) {
-		      this.benignService.deleteBenignList(id, genes)
-	          .subscribe((data) => {
-	            console.log('[170][benign 삭제]', data);
-	            alert('삭제 되었습니다.');
-	            this.search(genes);
-	          });
-	      }
-    	}
+  deleteRow(id: string, genes: string): void {
+    if (id === "") {
+      const result = confirm('삭제 하시겠습니까?');
+      if (result) {
+        this.lists = this.lists.slice(0, this.lists.length - 1);
+      }
+    } else {
+      const result = confirm(genes + '을 삭제 하시겠습니까?');
+      if (result) {
+        this.benignService.deleteBenignList(id, genes)
+          .subscribe((data) => {
+            console.log('[170][benign 삭제]', data);
+            alert('삭제 되었습니다.');
+            this.search(genes);
+          });
+      }
+    }
   }
 
 
@@ -127,9 +129,9 @@ export class BenignComponent implements OnInit {
     this.lists = this.listBenigns.slice((Number(page) - 1) * 10, (Number(page)) * 10);
   }
 
-  search(genes: string): void {
+  search(genes: string, coding: string = ''): void {
     this.totRecords = 0;
-    this.lists$ = this.benignService.getBenignList(genes);
+    this.lists$ = this.benignService.getBenignList(genes, coding);
     this.lists$.subscribe((data) => {
       //   console.log('[170][benign 검색]', data);
       this.lists = data;
@@ -143,5 +145,10 @@ export class BenignComponent implements OnInit {
 
   }
 
+
+  excelDownload(): void {
+    console.log('excel', this.listBenigns);
+    this.excel.exportAsExcelFile(this.listBenigns, 'benign');
+  }
 
 }
