@@ -13,7 +13,10 @@ export class DiagScrollMonitorDirective {
 
   @HostListener('scroll', ['$event'])
   scrolly($event): void {
-    this.store.setScrollyPosition($event.target.scrollTop);
+    if ($event.target.scrollTop !== 0) {
+      // const scrolltop = this.store.getScrollyPosition();
+      this.store.setScrollyPosition($event.target.scrollTop);
+    }
   }
 
 }

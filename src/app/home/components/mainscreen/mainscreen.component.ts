@@ -111,7 +111,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
       this.init();
     }
     this.isVisible = true;
-
+    this.scrollPosition();
   }
 
   onCanceled(): void {
