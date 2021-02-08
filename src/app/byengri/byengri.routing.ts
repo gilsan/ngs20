@@ -7,6 +7,7 @@ import { ReportComponent } from './byengri/report/report.componen';
 
 import { FileuploadComponent } from './fileupload/fileupload.component';
 import { MainComponent } from './main/main.component';
+import { MainpaComponent } from './mainpa/mainpa.component';
 import { PathReportComponent } from './path-report/path-report.component';
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
       { path: 'managestatistics', component: ManageStatisticsComponent },
       { path: 'manageusers', component: ManageUsersComponent },
       { path: 'report/:pathologyNum', component: ReportComponent },
-      { path: 'sheet', component: PathReportComponent }
+      { path: 'sheet', component: PathReportComponent },
+      { path: 'mainpa', component: MainpaComponent }
 
 
     ]
@@ -29,6 +31,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+
 
   exports: [RouterModule]
 })

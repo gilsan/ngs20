@@ -342,7 +342,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.patientInfo.msiscore.split('').includes('(')) {
         this.msiTag = true;
       }
-      // console.log('[296]', this.patientInfo.msiscore.split('').includes('('));
+      // console.log('[345][msi 값]:', this.patientInfo.msiscore.split('').includes('('));
       this.msiScore = this.patientInfo.msiscore;
       this.extraction.msiscore = this.msiScore;
       // console.log('[검체]', this.extraction);

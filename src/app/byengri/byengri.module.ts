@@ -16,6 +16,7 @@ import { ManageUsersComponent } from './byengri/manage-users/manage-users.compon
 import { ManageStatisticsComponent } from './byengri/manage-statistics/manage-statistics.component';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { ScrollMonitorDirective } from './directives/scroll-monitor.directive';
+import { MainpaComponent } from './mainpa/mainpa.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ScrollMonitorDirective } from './directives/scroll-monitor.directive';
     ManageUsersComponent,
     ManageStatisticsComponent,
     ScrollMonitorDirective,
+    MainpaComponent,
 
 
   ],

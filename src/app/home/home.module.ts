@@ -22,6 +22,7 @@ import { DetailFunctionsComponent } from './components/detail-functions/detail-f
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { MaterialModule } from '../material.module';
 import { DiagScrollMonitorDirective } from './components/directive/diag-scroll-monitor.directive';
+import { MaindiagComponent } from './components/maindiag/maindiag.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DiagScrollMonitorDirective } from './components/directive/diag-scroll-m
     ManageFunctionsComponent,
     DetailFunctionsComponent,
     ManageUsersComponent,
-    DiagScrollMonitorDirective
+    DiagScrollMonitorDirective,
+    MaindiagComponent
   ],
   imports: [
     CommonModule,

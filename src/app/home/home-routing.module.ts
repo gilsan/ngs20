@@ -17,6 +17,7 @@ import { DetailFunctionsComponent } from './components/detail-functions/detail-f
 import { ManageStatisticsComponent } from './components/manage-statistics/manage-statistics.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { HomeComponent } from './home.component';
+import { MaindiagComponent } from './components/maindiag/maindiag.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'detailfunctions', component: DetailFunctionsComponent },
       { path: 'manageusers', component: ManageUsersComponent },
       { path: 'disease_test', component: DiseaseformComponent },
+      { path: 'maindiag', component: MaindiagComponent },
       { path: '**', component: MainscreenComponent },
 
     ]

@@ -1,3 +1,4 @@
+
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -9,12 +10,22 @@ import { IPatient } from '../../models/patients';
 import { PatientsListService } from '../../services/patientslist';
 import { SubSink } from 'subsink';
 import * as moment from 'moment';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+
+
 @Component({
-  selector: 'app-mainscreen',
-  templateUrl: './mainscreen.component.html',
-  styleUrls: ['./mainscreen.component.scss']
+  selector: 'app-maindiag',
+  templateUrl: './maindiag.component.html',
+  styleUrls: ['./maindiag.component.scss']
 })
-export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MaindiagComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  displayedColumns: string[] = ['no', 'accept_date', 'name', 'age', 'gender',
+    'patientID', 'test_code', 'specimenNo', 'tsvFilteredFilename', 'bamFilename', 'status',
+    'report', 'register'];
+
+  dataSource = new MatTableDataSource([]);
 
   private subs = new SubSink();
   lists$: Observable<IPatient[]>;
@@ -38,6 +49,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
   private apiUrl = emrUrl;
 
   @ViewChild('dbox100', { static: true }) dbox100: ElementRef;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private patientsList: PatientsListService,
@@ -51,11 +63,12 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.storeStartDay === null || this.storeEndDay === null) {
       this.init();
     }
-    // console.log('[51][ngOnInit]');
-    // this.search(this.startToday(), this.endToday(), '', '');
+
   }
 
   ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+
     setTimeout(() => {
       const scrolly = this.store.getScrollyPosition();
       this.dbox100.nativeElement.scrollTop = scrolly;
@@ -88,9 +101,9 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
         // tap(list => console.log(list)),
       )
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         this.lists.push(data);
-        console.log('[mainscreen][환자정보]', this.lists);
+        // console.log('[mainscreen][환자정보]', this.lists);
       });
   }
 
@@ -123,18 +136,19 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     this.patientID = patientid;
     this.store.setPatientID(patientid);
     this.store.setSpecimentNo(specimenNo);
-    // this.router.navigate(['/diag', 'fileupload', specimenNo]);  // 기존
+
     this.isVisible = !this.isVisible;  // 신규
   }
 
   // tslint:disable-next-line: typedef
-  goReporter(i: number) {
-    // console.log('[111][mainscreen][goReporter]', this.lists[i]);
-    const specimenno = this.store.getSpecimenNo();
-
-    this.patientsList.setTestedID(this.lists[i].specimenNo); // 검체번호
-    this.patientsList.setTestcode(this.lists[i].test_code);  // 검사지 타입 AML ALL
-    this.router.navigate(['/diag', 'jingum', this.lists[i].test_code]);
+  goReporter(el: IPatient) {
+    // const specimenno = this.store.getSpecimenNo();
+    const specimenno = el.specimenNo;
+    // this.patientsList.setTestedID(this.lists[i].specimenNo); // 검체번호
+    // this.patientsList.setTestcode(this.lists[i].test_code);  // 검사지 타입 AML ALL
+    this.patientsList.setTestedID(el.specimenNo);
+    this.patientsList.setTestcode(el.test_code);
+    this.router.navigate(['/diag', 'jingum', el.test_code]);
 
 
 
@@ -142,7 +156,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   goReporterClass(idx: number): any {
     const specimenno = this.store.getSpecimenNo();
-    // console.log('[154][main][goReporterClass]', idx, pathNum);
+
     if (this.lists[idx].specimenNo === specimenno) {
       return { btn_report: true };
     } else {
@@ -152,7 +166,7 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // tslint:disable-next-line: typedef
   getDate(event) {
-    // console.log(event.toString().replace(/-/gi, ''));
+
   }
 
   // tslint:disable-next-line: typedef
@@ -161,12 +175,12 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const year = today.getFullYear(); // 년도
     const month = today.getMonth() + 1;  // 월
-    // const date = today.getDate();  // 날짜
+
     const day = today.getDay() - 1;  // 요일
     const newmon = ('0' + month).substr(-2);
     const newday = ('0' + day).substr(-2);
     const now = year + '-' + newmon + '-' + newday;
-    // console.log(date, now);
+
     if (this.storeStartDay) {
       return this.storeStartDay;
     }
@@ -205,9 +219,6 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getUrl(list: IPatient, type: string): SafeResourceUrl {
-    // http://112.169.53.30:3000//
-    // path/2020/12/05
-    // M20-11575_v1_faf05a1d-f4da-4bed-9023-63b11029114a_2020-10-11_19-10-25-443_All_OR.tsv
 
     const irpath = list.path;
     const irfilename = list.tsvFilteredFilename;
@@ -224,13 +235,11 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     this.status = this.store.getStatus();
     this.sheet = this.store.getSheet();
     const whichstate = this.store.getWhichstate();
-    // console.log('[207][mainscreen][checkStore]',
-    // this.storeSpecimenID, this.storePatientID, this.status, this.sheet, this.storeStartDay, this.storeEndDay, whichstate);
+
     this.startday = this.storeStartDay;
     this.endday = this.storeEndDay;
     this.specimenno = this.storeSpecimenID;
     this.patientid = this.storePatientID;
-    // console.log('[208][mainscreen][echeckStore] ', this.storeStartDay, this.storeEndDay);
 
     this.lists = [];
     if (whichstate === 'searchscreen') {
@@ -264,7 +273,6 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     //
     const startdate = start.toString().replace(/-/gi, '');
     const enddate = end.toString().replace(/-/gi, '');
-    // console.log('[97][진검검색]', startdate, enddate, specimenNo, patientId);
 
     if (patientId !== undefined) {
       patientId = patientId.trim();
@@ -294,15 +302,12 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
         }),
         // tap(list => console.log(list)),
       ).subscribe((data) => {
-        // console.log('[286][mainscreen][search][검색]', data);
-        // this.lists = data;
-
+        // console.log('', data);
         this.lists.push(data);
         this.patientID = '';
         this.specimenNo = '';
+        this.dataSource.data = this.lists;
 
-        // const scrolly = this.store.getScrollyPosition();
-        // console.log('[304][스크롤][검색]', scrolly);
       });
 
   }
@@ -315,9 +320,11 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     this.specimenNo = id;
   }
 
-  processingStatus(i: number): string {
-    const status = this.lists[i].screenstatus;
-    const filename = this.lists[i].tsvFilteredFilename;
+  processingStatus(el: IPatient): string {
+    // const status = this.lists[i].screenstatus;
+    // const filename = this.lists[i].tsvFilteredFilename;
+    const status = el.screenstatus;
+    const filename = el.tsvFilteredFilename;
     if (parseInt(status, 10) === 0 && filename.length) {
       return '시작';
     } else if (parseInt(status, 10) === 1) {
@@ -350,8 +357,5 @@ export class MainscreenComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     return { table_bg: false };
   }
-
-
-
 
 }
