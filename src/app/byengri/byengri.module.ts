@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { ByengriComponent } from './byengri/byengri.component';
 import { ByengriRouting } from './byengri.routing';
@@ -17,6 +17,8 @@ import { ManageStatisticsComponent } from './byengri/manage-statistics/manage-st
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { ScrollMonitorDirective } from './directives/scroll-monitor.directive';
 import { MainpaComponent } from './mainpa/mainpa.component';
+import { PwchangeComponent } from './pwchange/pwchange.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,8 +34,7 @@ import { MainpaComponent } from './mainpa/mainpa.component';
     ManageStatisticsComponent,
     ScrollMonitorDirective,
     MainpaComponent,
-
-
+    PwchangeComponent,
   ],
   imports: [
 
@@ -45,6 +46,11 @@ import { MainpaComponent } from './mainpa/mainpa.component';
     ClarityModule,
     MaterialModule,
     NgxBarcodeModule
+  ],
+  entryComponents: [
+    PwchangeComponent,
+
   ]
+
 })
 export class ByengriModule { }
