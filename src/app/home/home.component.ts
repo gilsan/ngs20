@@ -51,12 +51,14 @@ export class HomeComponent implements OnInit {
         }))
       )
       .subscribe(data => {
-        this.passwdInfo = data[0];
-        this.username = data[0].user_nm;
-        if (data[0].part_nm === 'Tester') {
-          this.work = '임상병리사';
-        } else if (data[0].part_nm === 'Doctor') {
-          this.work = '의사';
+        if (data.length > 0) {
+          this.passwdInfo = data[0];
+          this.username = data[0].user_nm;
+          if (data[0].part_nm === 'Tester') {
+            this.work = '임상병리사';
+          } else if (data[0].part_nm === 'Doctor') {
+            this.work = '의사';
+          }
         }
       });
   }
@@ -130,7 +132,7 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('[dialogRef]', this.passwdInfo, data);
+      // console.log('[dialogRef]', this.passwdInfo, data);
       if (data !== undefined) {
         const id = this.passwdInfo.id;
         const passwd = data.newpassword;
@@ -147,7 +149,12 @@ export class HomeComponent implements OnInit {
           part = 'D';
         }
         this.service.updateMangeUser(id, this.userid, passwd, userNm, userGb, 'D', pickselect, part)
-          .subscribe(val => console.log(val));
+          .subscribe(val => {
+            console.log(val.rowsAffected[0]);
+            if (Number(val.rowsAffected[0]) === 1) {
+              alert('변경 되었습니다.');
+            }
+          });
       }
     });
   }
