@@ -30,7 +30,7 @@ export class ByengriComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const userinfo = localStorage.getItem('diaguser');
+    const userinfo = localStorage.getItem('pathuser');
     this.userid = JSON.parse(userinfo).userid;
     const pw = JSON.parse(userinfo).pw;
 
