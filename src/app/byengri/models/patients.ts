@@ -247,6 +247,18 @@ export interface IMent {
   content: string;
 }
 
-
-
-
+export interface IPasswd {
+  id: string;
+  user_id: string;
+  password: string;
+  user_nm: string;
+  user_gb: string;
+  dept: string;
+  login_date?: string;
+  approved: string;
+  dept_nm: string;
+  user_gb_nm: string;
+  uuid?: string;
+  pickselect: string;
+  part_nm: string;
+}

@@ -130,7 +130,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   tempCommentVariants = '';
   tempCommentreference = '';
   tempCommentComment = '';
-  vusstatus = false;
+  vusstatus = true;
   preview = true;
   isVisible = false;
 
@@ -149,7 +149,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   // variant detect 선택값 저장소
   vd: { sequence: number, selectedname: string, gene: string }[] = [];
   // tslint:disable-next-line:max-line-length
-  vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관철되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
+  vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관찰되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
 
   methodmsg = `Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6.`;
 
@@ -1684,6 +1684,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   clamp(value: number, max: number): number {
     return Math.max(0, Math.min(max, value));
   }
+
 
 
   ///////////////////////////////////////////////////////////////////// 

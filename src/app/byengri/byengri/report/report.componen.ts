@@ -342,7 +342,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.patientInfo.msiscore.split('').includes('(')) {
         this.msiTag = true;
       }
-      // console.log('[296]', this.patientInfo.msiscore.split('').includes('('));
+      // console.log('[345][msi 값]:', this.patientInfo.msiscore.split('').includes('('));
       this.msiScore = this.patientInfo.msiscore;
       this.extraction.msiscore = this.msiScore;
       // console.log('[검체]', this.extraction);
@@ -688,11 +688,11 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe(([filteredOriginaDataVal, msiscoreVal, tumorMutationalBurdenVal,
         tumortypeVal, clinicallyVal, clinicalVal, prevalentVal, tumorcellpercentageVal]) => {
 
-        if (filteredOriginaDataVal.length === 0) {
-          alert('변환된 TSV 파일이 없습니다.');
-          this.router.navigate(['/pathology']);
-          return;
-        }
+        // if (filteredOriginaDataVal.length === 0) {
+        //   alert('변환된 TSV 파일이 없습니다.');
+        //   this.router.navigate(['/pathology']);
+        //   return;
+        // }
         this.filteredOriginData = filteredOriginaDataVal; // filtered 된 데이터 가져옴
         // MSISCORE
         // console.log('==== [686][MSI SCORE]', msiscoreVal);
@@ -1242,7 +1242,7 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
     // }
     const per = percentage.replace('/\%/g', '');
     this.extraction.tumorcellpercentage = per;
-    // console.log('******* [916][PERCENTAGE] ', this.extraction.tumorcellpercentage);
+    console.log('******* [1245][퍼센티지] ', percentage, per, this.extraction.tumorcellpercentage);
   }
   setOrgan(organ: string): void {
     // console.log('[672][setDNAandRNAextraction]', organ);

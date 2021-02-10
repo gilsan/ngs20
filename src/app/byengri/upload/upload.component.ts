@@ -392,10 +392,10 @@ export class UploadComponent implements OnInit {
           lists.push(item[0]);
         }
       });
-      // console.log('==== [382][nonfilter]', lists);
+      console.log('==== [382][nonfilter]', lists);
       lists.forEach(list => {
         const msiList = list.split('##')[1].split('=');
-
+        console.log('==== [398][nonfilter]', msiList);
         if (msiList[0] === 'sampleDiseaseType') {
           this.type = msiList[1].replace(/(\r\n|\r)/gm, '');
           this.pathologyService.setTumortype(this.type, this.pathologyNum);
@@ -428,7 +428,7 @@ export class UploadComponent implements OnInit {
           this.fields = list;
         }
         if (index >= 19) {
-          // console.log('==== [372][filteredOriginData] ', list);
+          console.log('==== [431][UPLOAD][filteredOriginData] ', list);
           this.filteredOriginData.push({
             locus: list[this.findGenePostion('Locus')].trim(),
             readcount: list[this.findGenePostion('Read Counts')].trim(),

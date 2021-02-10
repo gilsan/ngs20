@@ -1,0 +1,185 @@
+<div id="wrap111">
+    <app-upload [hidden]="!isVisible"    (onSelected)="onSelected()" (onCanceled)="onCanceled()"></app-upload>         
+    
+  <div id="container" style="margin-top: 0px;">
+    <div id="content" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mg_b10">
+            <tr>
+                <td  class="mail_title">WorkList</td>
+                <td class="main_btn"> </td>
+            </tr>
+        </table>
+        <div class="box mg_b20 pd_20">
+           <input type="text" class="input_01" 
+            #pathologynum    placeholder="분자병리번호"  [value]="pathologyno"
+            (keyup.enter)="searchData(start.value, end.value, pathologynum.value, patient.value, 'Y')" />&nbsp;&nbsp;
+            <input name="" type="text"   placeholder="환자ID"  #patient  [value]="patientid"
+            class="input_01" />&nbsp;&nbsp; 
+            <input type="date" [value]="startToday()" class="input_01" #start  style="width:150px;"/>
+            ~
+            <input type="date" [value]="endToday()" class="input_01" #end  style="width:150px;"/> &nbsp;&nbsp;          
+            <button type="button" class="btn btn_02" (click)="search(start.value, end.value, pathologynum.value, patient.value, 'Y')"
+             >조회</button>
+        </div>
+        <div class="box">
+            <div class="box_100 "  appScrollMonitor  #pbox100>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort style="width:100%;">
+             
+              <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+              </ng-container>
+            
+              <ng-container matColumnDef="prescription_date">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>접수일</th>
+                <td mat-cell *matCellDef="let element"> {{element.prescription_date}} </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>환자이름</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>나이</th>
+                <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>성별</th>
+                <td mat-cell *matCellDef="let element" >{{element.gender}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="patientID">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>환자ID</th>
+                <td mat-cell *matCellDef="let element" >{{element.patientID}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="pathology_num">
+                <th mat-header-cell *matHeaderCellDef  mat-sort-header>분자병리번호</th>
+                <td mat-cell *matCellDef="let element" >{{element.pathology_num}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="tsvirfilename">
+                <th mat-header-cell *matHeaderCellDef>IR TSV</th>
+                <td mat-cell *matCellDef="let element" >
+                  <button class="btn btn_03"  style="font-size: 14px;" [matTooltip]="element.tsvorfilename">IR파일</button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tsvorfilename">
+                <th mat-header-cell *matHeaderCellDef>OR TSV</th>
+                <td mat-cell *matCellDef="let element" >
+                   <button class="btn btn_03"  style="font-size: 14px;" [matTooltip]="element.tsvorfilename">OR파일</button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>진행상태</th>
+                <td mat-cell *matCellDef="let element; let i = index" >{{processingStatus(i)}}</td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="report">
+                <th mat-header-cell *matHeaderCellDef >결과지</th>
+                <td mat-cell *matCellDef="let element; let i = index;" >
+                   <button mat-raised-button color="primary"
+                   (click)="goReporter(element, i)">결과지/보고서</button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="register">
+                <th mat-header-cell *matHeaderCellDef>등록</th>
+                <td mat-cell *matCellDef="let element; let i = index;" >
+                  <button mat-raised-button color="primary" 
+                  *ngIf="element.tsvirfilename  && element.tsvorfilename ; else printing"
+                     (click)="goUploadpage(element,i, 'R')"
+                  >재등록</button>
+                  <ng-template #printing>
+                     <button type="button" class="btn btn_03" 
+                         (click)="goUploadpage(element, i, 'N')">파일등록/변환</button>
+                  </ng-template>
+                </td>
+              </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <!-- 
+            <table border="0" cellpadding="0" cellspacing="0" class="table_list  fixed_header table_resul_x">
+                <colgroup>
+                    <col width="40px">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="6%">
+                    <col width="6%">
+                    <col width="9%">
+                    <col width="*">
+                    <col width="9%">
+                    <col width="9%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="9%">
+                </colgroup>
+                <thead class="fixheader">
+                    <tr>
+                        <th>No.</th>
+                        <th>접수일</th>
+                        <th>환자이름</th>
+                        <th>나이</th>
+                        <th>성별</th>
+                        <th>환자ID</th>
+                        <th>분자병리번호</th>
+                        <th>IR TSV</th>
+                        <th>OR TSV</th>
+                        <th>진행상태</th>
+                        <th>&nbsp;</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody class="bodytable">
+                    <tr [ngClass]="toggle(i)"  *ngFor="let list of (lists$ | async) as lists; let i = index">
+                        <td class="txt_c">{{i + 1}}</td>
+                        <td class="txt_c">{{list.prescription_date}}</td>
+                        <td class="txt_c">{{list.name}}</td>
+                        <td class="txt_c">{{list.age}}</td>
+                        <td class="txt_c">{{list.gender}}</td>                      
+                        <td class="txt_c">{{list.patientID}}</td>
+                        <td class="txt_c">{{list.pathology_num}}</td>
+                        <td class="txt_c"><a  [href]="getUrl(list, 'IR')" [download]="list.tsvirfilename" *ngIf="list.tsvirfilename">
+                            <button class="btn btn_03" style="font-size: 14px;" [matTooltip]="list.tsvirfilename">IR파일</button>
+                        </a></td>
+                        <td class="txt_c">
+                            <a  [href]="getUrl(list, 'OR')" [download]="list.tsvorfilename" *ngIf="list.tsvorfilename">
+                               <button class="btn btn_03"  style="font-size: 14px;" [matTooltip]="list.tsvorfilename">OR파일</button>
+                           </a></td>
+                        <td class="txt_c">{{processingStatus(i)}}</td>
+                        <td class="txt_c">
+                            <button type="button" class="btn btn_03 "
+                            *ngIf="list.tsvirfilename  && list.tsvorfilename ; else printing"  
+                            (click)="goReporter(i)"
+                            >결과지/보고서</button>
+                            <ng-template  #printing>
+                              <button type="button" class="btn btn_03" 
+                                  (click)="goUploadpage(list.pathology_num, i, 'N')">파일등록/변환</button>
+                           </ng-template> 
+                        </td>
+                        <td class="txt_c">
+                          <button type="button" class="btn btn_03"
+                          *ngIf="list.tsvirfilename  && list.tsvorfilename;"
+                          (click)="goUploadpage(list.pathology_num,i, 'R')"
+                          >재등록</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            -->
+           </div>  
+        </div>
+       
+    </div>
+</div>
+ </div> 
+

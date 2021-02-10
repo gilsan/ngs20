@@ -2,6 +2,7 @@
   <div id="container" style="position: relative;">
       <h2 style="margin-top: 5px;">MDS/MPN NGS</h2>     
       <button type="button" class="preview__button" (click)="previewToggle()">미리보기</button>
+      <button type="button" class="excel" (click)="excelDownload()">Excel</button>
       <div id="content">
           <div class="box pd_20">
               <app-filtered [tsvLists]="tsvLists"></app-filtered>
@@ -167,18 +168,15 @@
             
             <td  class="txt_c">
               <select class="select_01" style="width: 100%;" name="options" (change)="saveInhouse(i, inhouse.value)" 
-              *ngIf="checkType(i)" #inhouse>
+               #inhouse>
                 <option value="mutation" selected>Mutation</option>
                 <option value="artifacts">Artifacts</option>
                 <option value="benign">Benign</option>
               </select>                    
             </td>
-            <!-- <td class="txt_c" (click)="save(i)" *ngIf="checkType(i)"  class="save_mute">
-                저장 -->
             <td> 
-               <button class="btn-s blue"  (click)="save(i)" 
-               *ngIf="checkType(i)">저장</button>
-               <!-- 작업후 td class="save_mute" 삭제해주세요 -->
+               <button class="btn-s blue"  (click)="save(i)" >저장</button>
+               
             </td>   
  
             </tr>                               
@@ -188,7 +186,7 @@
  
   </form>
  
-<!---  ---------------------------   -->
+<!--    -->
       </div>
       <div>
         <div  class="font_14 pd_t15">

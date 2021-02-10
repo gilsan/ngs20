@@ -5,7 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { ClarityModule } from '@clr/angular';
 import { FileuploadComponent } from './components/fileupload/fileupload.component';
 import { DiseaseformComponent } from '../forms/diseaseform/diseaseform.component';
@@ -22,6 +22,8 @@ import { DetailFunctionsComponent } from './components/detail-functions/detail-f
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { MaterialModule } from '../material.module';
 import { DiagScrollMonitorDirective } from './components/directive/diag-scroll-monitor.directive';
+import { MaindiagComponent } from './components/maindiag/maindiag.component';
+import { DiagpasswdchangeComponent } from './diagpasswdchange/diagpasswdchange.component';
 
 @NgModule({
   declarations: [
@@ -33,15 +35,21 @@ import { DiagScrollMonitorDirective } from './components/directive/diag-scroll-m
     ManageFunctionsComponent,
     DetailFunctionsComponent,
     ManageUsersComponent,
-    DiagScrollMonitorDirective
+    DiagScrollMonitorDirective,
+    MaindiagComponent,
+    DiagpasswdchangeComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule
     //  ClarityModule
+  ],
+  entryComponents: [
+    DiagpasswdchangeComponent
   ]
 })
 export class HomeModule { }

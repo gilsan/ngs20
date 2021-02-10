@@ -11,7 +11,7 @@ import { emrUrl } from 'src/app/config';
 export class MutationService {
 
   mutationInfo: IMutation[];
-  
+
   // private apiUrl = 'http://160.1.17.79:3000';  // EMR 서버
   // private apiUrl = 'http://112.169.53.30:3000';
   private apiUrl = emrUrl;
@@ -19,31 +19,35 @@ export class MutationService {
     private http: HttpClient
   ) { }
 
-  public getMutationList(genes: String): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/mutation/list`, { genes });
+  public getMutationList(genes: string, coding: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/mutation/list`, { genes, coding });
   }
 
-  public insertMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string, 
-        gene : string, functionalImpact: string,  transcript: string, exonIntro: String, nucleotideChange: string, 
-        aminoAcidChange: string, zygosity : string, vaf : string, reference : String, 
-        siftPolyphenMutationTaster: String, buccal2: string, igv: string, sanger: string, cosmicId: string ): Observable<any> {  
-     return this.http.post(`${this.apiUrl}/mutation/insert`, { id, buccal, name, registerNumber, fusion, gene,
-      functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference, 
-      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId }); 
+  public insertMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string,
+    gene: string, functionalImpact: string, transcript: string, exonIntro: string, nucleotideChange: string,
+    aminoAcidChange: string, zygosity: string, vaf: string, reference: string,
+    siftPolyphenMutationTaster: string, buccal2: string, igv: string, sanger: string, cosmicId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/mutation/insert`, {
+      id, buccal, name, registerNumber, fusion, gene,
+      functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference,
+      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId
+    });
   }
 
-  public updateMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string, 
-      gene : string, functionalImpact: string,  transcript: string, exonIntro: String, nucleotideChange: string,
-      aminoAcidChange: string,    zygosity : string, vaf : string, reference : String, 
-      siftPolyphenMutationTaster: String, buccal2: string, igv: string, sanger: string, cosmicId: string ): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/mutation/update`, { id, buccal, name, registerNumber, fusion, gene,
-      functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference, 
-      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId }); 
+  public updateMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string,
+    gene: string, functionalImpact: string, transcript: string, exonIntro: string, nucleotideChange: string,
+    aminoAcidChange: string, zygosity: string, vaf: string, reference: string,
+    siftPolyphenMutationTaster: string, buccal2: string, igv: string, sanger: string, cosmicId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/mutation/update`, {
+      id, buccal, name, registerNumber, fusion, gene,
+      functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference,
+      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId
+    });
   }
 
-  public deleteMutationList(id: string, genes: string): Observable<any> {  
+  public deleteMutationList(id: string, genes: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/mutation/delete`, { id });
   }
- 
+
 }
 

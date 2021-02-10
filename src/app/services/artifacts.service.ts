@@ -19,8 +19,8 @@ export class ArtifactsService {
     private http: HttpClient
   ) { }
 
-  public getArtifactsList(genes: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/artifacts/list`, { genes });
+  public getArtifactsList(genes: string, coding: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/artifacts/list`, { genes, coding });
   }
 
   public insertArtifactsList(id: string, genes: string, locat: string, exon: string, transcript:
