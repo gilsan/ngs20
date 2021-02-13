@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(DiagpasswdchangeComponent, {
       height: '480px',
       width: '800px',
+      disableClose: true,
       data: {
         userid: this.userid,
         username: this.username,

@@ -110,6 +110,7 @@ export class ByengriComponent implements OnInit {
     const dialogRef = this.dialog.open(PwchangeComponent, {
       height: '480px',
       width: '800px',
+      disableClose: true,
       data: {
         userid: this.userid,
         username: this.username,
