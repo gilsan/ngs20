@@ -147,6 +147,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
   genelists: IGeneList[] = [];
   deleteRowNumber: number;
   // variant detect 선택값 저장소
+  vdcount = 0;
   vd: { sequence: number, selectedname: string, gene: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관찰되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
@@ -308,6 +309,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     // 디비에서 Detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
+      this.recoverVariants.forEach((list, index) => this.vd.push({ sequence: index, selectedname: 'mutation', gene: list.gene }));
       console.log('[204][form2][Detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // Detected variant 저장
       this.recoverVariants.forEach(item => {
@@ -405,6 +407,7 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
         console.log('==== [350][detected variants]', data);
         if (data.length > 0) {
           this.recoverVariants = data;
+          this.recoverVariants.forEach((list, index) => this.vd.push({ sequence: index, selectedname: 'mutation', gene: list.gene }));
           this.store.setDetactedVariants(data); // Detected variant 저장
           this.recoverVariants.forEach(item => {
             // console.log('[270][recoverDetected]', item.functional_impact);
@@ -646,7 +649,8 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
           }
 
         }
-
+        this.vd.push({ sequence: this.vdcount, selectedname: 'mutation', gene });
+        this.vdcount++;
         this.addVarient(type, dvariable, gene, data.coding, data.tsv);
 
       }); // End of Subscribe
