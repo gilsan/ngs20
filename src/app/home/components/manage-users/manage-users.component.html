@@ -45,7 +45,7 @@
                         <td class="txt_c" ><span *ngIf="list.dept =='D'">진검</span><span *ngIf="list.dept =='P'">병리</span></td> 
                         <td class="txt_c" ><span *ngIf="list.user_gb =='U'">사용자</span><span *ngIf="list.user_gb =='A'">관리자</span></td>
                         <td class="txt_c" ><span>{{list.user_nm}}</span></td>
-                        <td class="txt_c" ><span>{{list.reg_date | date: yy-mm-dd}}</span></td>
+                        <td class="txt_c" ><span>{{list.reg_date}}</span></td>
                         <td class="txt_c" ><span>{{list.login_date}}</span></td>  
                         <td class="txt_c"><span *ngIf="list.approved =='Y'" >
                             <input type="radio"  [checked]='true'   name="pick{{list.id}}" id="confirm{{list.id}}" (click)="confirm(list.id,'Y')">&nbsp;&nbsp;승인
