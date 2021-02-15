@@ -138,6 +138,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   genelists: IGeneList[] = [];
   deleteRowNumber: number;
   // variant detect 선택값 저장소
+  vdcount = 0;
   vd: { sequence: number, selectedname: string, gene: string }[] = [];
   // tslint:disable-next-line:max-line-length
   vusmsg = `VUS는 ExAC, KRGDB등의 Population database에서 관찰되지 않았거나, 임상적 의의가 불분명합니다. 해당변이의 의의를 명확히 하기 위하여 환자의 buccal swab 검체로 germline variant 여부에 대한 확인이 필요 합니다.`;
@@ -187,7 +188,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   }
 
   allLukemia(lukemia: string): void {
-    console.log('[188][allLukemia][profile.leukemia]', this.profile.leukemia);
+    console.log('[190][allLukemia][profile.leukemia]', this.profile.leukemia);
   }
 
   findType(): void {
@@ -195,14 +196,14 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       filter(data => data !== null || data !== undefined),
       map(route => route.get('type'))
     ).subscribe(data => {
-      // console.log('[196][findType]', data);
+      // console.log('[198][findType]', data);
       this.reportType = data;
       this.getGeneList(this.reportType); // 진검 유전자 목록 가져옴.
     });
   }
 
   loadForm(): void {
-    // console.log('[120][loadForm] ', this.comments);
+    // console.log('[205][loadForm] ', this.comments);
     this.tablerowForm = this.fb.group({
       tableRows: this.fb.array(this.mockData.map(list => this.createRow(list))),
       commentsRows: this.fb.array([])
@@ -272,7 +273,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     this.patientInfo = this.getPatientinfo(this.form2TestedId);
-    console.log('[273][환자정보]', this.patientInfo);
+    console.log('[275][환자정보]', this.patientInfo);
     this.store.setPatientInfo(this.patientInfo); // 환자정보 저장
 
     this.requestDate = this.patientInfo.accept_date;
@@ -302,14 +303,14 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.specimenMessage = 'Genomic DNA isolated from Bone marrow';
       this.store.setSpecimenMsg(this.specimenMsg);
     }
-    console.log('=====[261][환자정보]', this.patientInfo, this.specimenMessage);
+    console.log('=====[305][환자정보]', this.patientInfo, this.specimenMessage);
     // 필터링된 tsv 파일 가져오기
     this.filteredTSV$ = this.patientsListService.getFilteredTSVtList(this.form2TestedId)
       .pipe(
         shareReplay()
       );
     this.subs.sink = this.filteredTSV$.subscribe(data => {
-      // console.log('[168][form2][fileredTSVFile]', data);
+      // console.log('[312][form2][fileredTSVFile]', data);
       this.tsvLists = data;
     });
 
@@ -326,6 +327,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // 디비에서 Detected variant_id 와 comments 가져오기
     this.subs.sink = this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
       this.recoverVariants = data;
+      this.recoverVariants.forEach((list, index) => this.vd.push({ sequence: index, selectedname: 'mutation', gene: list.gene }));
       console.log('[329][form2][Detected variant_id]', this.recoverVariants);
       this.store.setDetactedVariants(data); // Detected variant 저장
       this.recoverVariants.forEach(item => {
@@ -451,9 +453,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   init(form2TestedId: string): void {
     if (this.form2TestedId) {
       this.variantsService.screenSelect(this.form2TestedId).subscribe(data => {
-        console.log('==== [417][detected variants]', data);
+        console.log('==== [454][detected variants]', data);
         if (data.length > 0) {
           this.recoverVariants = data;
+          this.recoverVariants.forEach((list, index) => this.vd.push({ sequence: index, selectedname: 'mutation', gene: list.gene }));
           this.store.setDetactedVariants(data); // Detected variant 저장
           this.recoverVariants.forEach(item => {
             this.recoverVariant(item);  // 354
@@ -565,7 +568,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       if (this.reportType === 'AML') {
         this.analysisService.getAanlysisAMLInfo(this.form2TestedId)
           .subscribe(data => {
-            console.log('========[566][AML]', data);
+            console.log('========[568][AML]', data);
             if (data.length > 0) {
               this.profile.leukemia = data[0].leukemiaassociatedfusion;
               this.profile.flt3itd = data[0].FLT3ITD;
@@ -582,7 +585,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       if (this.reportType === 'ALL') {
         this.analysisService.getAanlysisALLInfo(this.form2TestedId)
           .subscribe(data => {
-            console.log('========[582][ALL]', data);
+            console.log('========[585][ALL]', data);
             if (data.length > 0) {
               this.profile.leukemia = data[0].leukemiaassociatedfusion;
               this.profile.flt3itd = data[0].IKZK1Deletion;
@@ -640,7 +643,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         let type: string;
         let gene: string;
         let dvariable: IAFormVariant;
-        // console.log('********** [필터링원시자료][571]', data);
+        // console.log('********** [필터링원시자료][643]', data);
 
         // 타입 분류
         if (data.mtype === 'M') {  // mutation
@@ -672,7 +675,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           // } else {
           //   this.store.setVUSStatus(this.vusstatus);
           // }
-
         }
 
         // 유전자명
@@ -714,9 +716,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
               tempArray = [];
             }
           }
-
         }
-
+        this.vd.push({ sequence: this.vdcount, selectedname: 'mutation', gene });
+        this.vdcount++;
         this.addVarient(type, dvariable, gene, data.coding, data.tsv);
 
       }); // End of Subscribe
@@ -727,7 +729,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   // 검사일/검사보고일/수정보고일 관리
   setReportdaymgn(patientInfo: IPatient): void {
     // 전송횟수, 검사보고일, 수정보고일  저장
-    console.log('[658][검사일/검사보고일/수정보고일 관리]', patientInfo);
+    console.log('[730][검사일/검사보고일/수정보고일 관리]', patientInfo);
     this.sendEMR = Number(patientInfo.sendEMR);
     if (patientInfo.sendEMRDate.length) {
       this.firstReportDay = patientInfo.sendEMRDate.replace(/-/g, '.').slice(0, 10);
@@ -814,7 +816,6 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   // tslint:disable-next-line: typedef
   addVarient(type: string, item: IAFormVariant, gene: string, coding: string, tsv: IFilteredTSV) {
     let tempvalue;
-
     if (type === 'M') {
       tempvalue = {
         igv: '',
@@ -859,6 +860,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     for (let i = 0; i < this.detactedVariants.length; i++) {
       this.checkboxStatus.push(i);
     }
+
   }
 
   recoverVariant(item: IRecoverVariants): void {
@@ -901,10 +903,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   createRow(item: IAFormVariant): FormGroup {
     let checktype: boolean;
 
-    console.log('==== [832][createRow]', item);
+    console.log('==== [904][createRow]', item);
 
     if (String(item.checked) === 'false') {
-      console.log('==== [835][createRow]', item.id, item.gene, item.checked);
+      console.log('==== [907][createRow]', item.id, item.gene, item.checked);
       checktype = false;
     } else {
       checktype = true;
@@ -1094,13 +1096,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   save(index: number) {
+    console.log('[1097][저장] ', index, this.vd);
     const selected = this.vd.find(item => item.sequence === index);
     this.selectedItem = selected.selectedname;
-    console.log('[1022][저장] ', index, this.vd, selected);
+    console.log('[1100][저장] ', index, this.vd, this.selectedItem);
     const control = this.tablerowForm.get('tableRows') as FormArray;
-
     const row = control.value[index];
-    // console.log('[814][저장][mutation/artifacts] ', row, this.patientInfo);
+    // console.log('[1104][저장][mutation/artifacts] ', row, this.patientInfo);
     if (this.selectedItem === 'mutation') {
       this.subs.sink = this.patientsListService.saveMutation(
         row.igv,
@@ -1118,7 +1120,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         row.references,
         row.cosmicID
       ).subscribe((data: any) => {
-
+        console.log('[1122][mustation 저장 응답]', data);
         alert('mutation에 추가 했습니다.');
         this.selectedItem = '';
       });
@@ -1211,7 +1213,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
       //  this.patientInfo.recheck = this.
       // tslint:disable-next-line:max-line-length
-      console.log('[1137][screenRead][profile] ', this.profile);
+      console.log('[1215][screenRead][profile] ', this.profile);
       if (this.reportType === 'AML') {
         this.analysisService.putAnalysisAML(
           this.form2TestedId,
@@ -1289,7 +1291,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       this.patientInfo.vusmsg = this.vusmsg;
       this.subs.sink = this.variantsService.screenUpdate(this.form2TestedId, formData, this.comments, this.profile, this.patientInfo)
         .subscribe(data => {
-          console.log('[판독완료] screen Updated ....[1181]', data);
+          console.log('[판독완료] screen Updated ....[1293]', data);
           alert('저장되었습니다.');
           this.patientsListService.getScreenStatus(this.form2TestedId)
             .subscribe(msg => {
@@ -1354,7 +1356,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       const index = this.checkboxStatus.findIndex(idx => idx === i);
       this.checkboxStatus.splice(index, 1);
     }
-    console.log('[1251][상태][boxstatus]', this.checkboxStatus.sort());
+    console.log('[1358][상태][boxstatus]', this.checkboxStatus.sort());
   }
 
   goEMR(): void {
@@ -1368,8 +1370,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1267][EMR로 보내기, 체크박스]', this.checkboxStatus);
-    console.log('[1276][EMR로 보내기 DV]', reformData);
+    console.log('[1372][EMR로 보내기, 체크박스]', this.checkboxStatus);
+    console.log('[1373][EMR로 보내기 DV]', reformData);
     // 코멘트가 있는경우
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
@@ -1462,8 +1464,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     }
 
     const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1345][ALL][EMR로 보내기, 체크박스]', this.checkboxStatus);
-    console.log('[1345][ALL][EMR로 보내기 DV]', reformData);
+    console.log('[1466][ALL][EMR로 보내기, 체크박스]', this.checkboxStatus);
+    console.log('[1467][ALL][EMR로 보내기 DV]', reformData);
     // 코멘트가 있는경우
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
@@ -1521,7 +1523,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         // 환자정보 가져오기
         this.patientsListService.getPatientInfo(this.form2TestedId)
           .subscribe(patient => {
-            console.log('[1389][ALL EMR][검체정보]', this.sendEMR, patient);
+            console.log('[1525][ALL EMR][검체정보]', this.sendEMR, patient);
             // this.setReportdaymgn(patient);
           });
       });
@@ -1534,8 +1536,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.checkboxStatus.push(i);
       }
     }
-    console.log('[1417][putCheckboxInit]', this.detactedVariants);
-    console.log('[1418][putCheckboxInit]', this.checkboxStatus);
+    console.log('[1538][putCheckboxInit]', this.detactedVariants);
+    console.log('[1539][putCheckboxInit]', this.checkboxStatus);
   }
 
   // detected varient 줄이 증가/삭제 시 체크상태 길이 변경
@@ -1575,7 +1577,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // Detected variants 값을 store에 저장
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue() as IAFormVariant[];
-    console.log('[1441][form2][previewToggle][] ', formData);
+    console.log('[1579][form2][previewToggle][] ', formData);
     this.store.setDetactedVariants(formData);
 
     const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
@@ -1654,13 +1656,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
 
   tempSave(): void {
-    console.log('[1331][tempSave]');
+    console.log('[1658][tempSave]');
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
-    console.log('[1334][tableerowForm]', formData);
+    console.log('[1661][tableerowForm]', formData);
     // console.log('[1335][checkbox]', this.checkboxStatus);
     // const reformData = formData.filter((data, index) => this.checkboxStatus.includes(index));
-    console.log('[1337][Detected variants]', formData);
+    console.log('[1664][Detected variants]', formData);
     if (this.comments.length) {
       const commentControl = this.tablerowForm.get('commentsRows') as FormArray;
       this.comments = commentControl.getRawValue();
@@ -1669,7 +1671,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     this.patientInfo.recheck = this.recheck;
     this.patientInfo.examin = this.examin;
     this.patientInfo.vusmsg = this.vusmsg;
-    console.log('[1345][tempSave]patient,reform,comment]', this.patientInfo, formData, this.comments);
+    console.log('[1673][tempSave]patient,reform,comment]', this.patientInfo, formData, this.comments);
 
     this.store.setRechecker(this.patientInfo.recheck);
     this.store.setExamin(this.patientInfo.examin);
@@ -1683,7 +1685,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.profile.flt3itd,
         this.profile.chron).subscribe(data => console.log('AML INSERT'));
     } else if (this.reportType === 'ALL') {
-      console.log('*****[1681][ALL]', this.profile);
+      console.log('*****[1687][ALL]', this.profile);
       this.analysisService.putAnalysisALL(
         this.form2TestedId,
         this.profile.leukemia,
@@ -1694,7 +1696,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // tslint:disable-next-line:max-line-length
     this.subs.sink = this.variantsService.screenTempSave(this.form2TestedId, formData, this.comments, this.profile, this.resultStatus, this.patientInfo)
       .subscribe(data => {
-        console.log('[1545]', data);
+        console.log('[1698]', data);
         alert('저장되었습니다.');
       });
   }
@@ -1738,8 +1740,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.checkboxStatus.push(i);
       }
     }
-    console.log('[1607][reset][checkboxStatus]', this.checkboxStatus);
-    console.log('[1608][reset]', temp);
+    console.log('[1742][reset][checkboxStatus]', this.checkboxStatus);
+    console.log('[1743][reset]', temp);
 
 
     const userid = localStorage.getItem('pathuser');
@@ -1762,7 +1764,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
     // this.createCommentRow(this.comments[0]);
     this.patientsListService.insertComments(this.comments)
       .subscribe(data => {
-        console.log('[1601][saveComments]', this.comments);
+        console.log('[1776][saveComments]', this.comments);
         console.log(data);
       });
   }
@@ -1771,7 +1773,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   //////////////////////////////////////////////////////////////////////
   //
   findMutationBygene(gene: string): void {
-    console.log('[1610][findMutationBygene]', this.resultStatus);
+    console.log('[1775][findMutationBygene]', this.resultStatus);
     const control = this.tablerowForm.get('tableRows') as FormArray;
     const formData = control.getRawValue();
     // console.log('[1411][tableerowForm]', formData);

@@ -13,7 +13,7 @@
                     </div>                    
                     <div class="field-id-input">
                         <input type="text" placeholder="아이디" class="input_02"  
-                         formControlName="userid">
+                         formControlName="userid"  readonly>
                     </div>
                     <div class="field-name-input">                       
                         <input type="text" placeholder="이름" class="input_02" formControlName="username">
@@ -37,10 +37,10 @@
                         <label>업무</label>
                     </div>
                     <div class="field-dept-input">
-                        <input type="text" placeholder="부서" class="input_02" formControlName="dept">
+                        <input type="text" placeholder="부서" class="input_02" formControlName="dept" readonly>
                     </div>
                     <div class="field-work-input">   
-                        <input type="text" placeholder="업무" class="input_02" formControlName="work">
+                        <input type="text" placeholder="업무" class="input_02" formControlName="work" readonly>
                     </div>  
                     <div class="submit-form">
                         <button class="btn btn_01" [disabled]="!formGroup.valid" (click)="save()">확인</button>

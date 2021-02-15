@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { emrUrl } from 'src/app/config';
 import { IComments } from '../models/comments';
 import { CommentsService } from 'src/app/services/comments.service';
-
+import { ExcelService } from 'src/app/home/services/excelservice';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
@@ -14,7 +14,8 @@ import { CommentsService } from 'src/app/services/comments.service';
 export class CommentsComponent implements OnInit {
 
   constructor(
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private excel: ExcelService,
   ) { }
   lists$: Observable<IComments[]>;
   lists: IComments[];
@@ -37,23 +38,23 @@ export class CommentsComponent implements OnInit {
     this.search('');
   }
 
-  deleteRow(id: string,type: string, gene: string): void {
-     if (id === "") {
-        const result = confirm('삭제 하시겠습니까?');
-    	if (result) {
-			this.lists = this.lists.slice(0, this.lists.length - 1);
-		}	
-      } else {
-		const result = confirm(type +'-'+gene +'를 삭제 하시겠습니까?');
-		if (result) {
-    	  this.commentsService.deleteCommentsList(id, gene)
-	          .subscribe((data) => {
-	            console.log('[170][benign 삭제]', data);
-	            alert("삭제 되었습니다.");
-	            this.search('');
-	      });
-      	}
+  deleteRow(id: string, type: string, gene: string): void {
+    if (id === "") {
+      const result = confirm('삭제 하시겠습니까?');
+      if (result) {
+        this.lists = this.lists.slice(0, this.lists.length - 1);
       }
+    } else {
+      const result = confirm(type + '-' + gene + '를 삭제 하시겠습니까?');
+      if (result) {
+        this.commentsService.deleteCommentsList(id, gene)
+          .subscribe((data) => {
+            console.log('[170][benign 삭제]', data);
+            alert("삭제 되었습니다.");
+            this.search('');
+          });
+      }
+    }
   }
 
   updateRow(id: string): void {
@@ -133,6 +134,11 @@ export class CommentsComponent implements OnInit {
       this.totRecords = this.listComments.length;
     });
 
+  }
+
+  excelDownload(): void {
+    // console.log('excel', this.listMutations);
+    this.excel.exportAsExcelFile(this.listComments, 'comments');
   }
 
 }

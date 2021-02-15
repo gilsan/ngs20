@@ -63,17 +63,23 @@
                         </div>
                         <div class="form-group">
                             <label for="department" style="font-weight: 500;">부서</label>
-                            <select class="form-select" id="dept">
-                                <option value="D">진검</option>
-                                <option value="P">병리</option>
+                            <select class="form-select" id="dept"  (change)="changeDepart(dept.value)" #dept>
+                                <option [value]="'D'">진검</option>
+                                <option [value]="'P'">병리</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="part" style="font-weight: 500;">업무</label>
-                            <select class="form-select" id="part">
+
+                            <select class="form-select" id="part" *ngIf="deptStatus('P')">
                                 <option value="D">의사</option>
                                 <option value="T">임상병리사</option>
                             </select>
+
+                            <select class="form-select" id="part" *ngIf="deptStatus('D')">
+                                <option value="D">의사</option>
+                                <option value="T">기사</option>
+                            </select>                            
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-primary" style="padding-top: 2px;" (click)="register()" >사용자등록</button>
