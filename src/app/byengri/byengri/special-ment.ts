@@ -1,18 +1,18 @@
 
 export const mentlists = [
   {
-    title: 'Bladder Cancer',
+    title: 'Bladder cancer',
     content: `- Mutation: ERBB2, FGFR3, NTRK1, NTRK3, TSC1
 - Fusion / Exon variant: FGFR2, FGFR3, NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Breast Cancer',
+    title: 'Breast cancer',
     content: `- Mutation: BRCA1, BRCA2, ERBB2, ESR1, NTRK1, NTRK3, PIK3CA
 - Amplification: ERBB2
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Cervical Cancer',
+    title: 'Cervical cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
@@ -22,25 +22,24 @@ export const mentlists = [
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Colorectal Cancer',
+    title: 'Colorectal cancer',
     content: `- Mutation: BRAF, ERBB2, KRAS, NRAS, NTRK1, NTRK3
 - Amplification: KRAS
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Endometrial Cancer',
-    content: `- Mutation: BRAF, ERBB2, KRAS, NRAS, NTRK1, NTRK3
-- Amplification: KRAS
-- Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
+    title: 'Endometrial cancer',
+    content: `- Mutation: ERBB2, NTRK1, NTRK3
+    - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Esophageal Cancer',
+    title: 'Esophageal cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Amplification: ERBB2
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Gastric Cancer',
+    title: 'Gastric cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Amplification: ERBB2
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
@@ -53,7 +52,7 @@ export const mentlists = [
   },
   {
     title: 'Gastrointestinal Stromal Tumor',
-    content: `- Mutation: ERBB2, IDH1, IDH2, NTRK1, NTRK3, TSC1, TSC2
+    content: `- Mutation: BRAF, ERBB2, KIT, NTRK1, NTRK3, PDGFRA
     - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
@@ -62,19 +61,19 @@ export const mentlists = [
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Head and neck Cancer',
+    title: 'Head and neck cancer',
     content: `- Mutation: AR, ERBB2, NTRK1, NTRK3
 - Amplification: ERBB2
 - Fusion / Exon variant: AR, NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Kidney Cancer',
+    title: 'Kidney cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3, TSC1, TSC2
 - Amplification: MET
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Liver Cancer',
+    title: 'Liver cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
@@ -90,7 +89,7 @@ export const mentlists = [
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Non-Small Cell Lung Cancer',
+    title: 'Non-Small Cell Lung cancer',
     content: `- Mutation: ALK, BRAF, EGFR, ERBB2, KRAS, NTRK1, NTRK3, ROS1
 - Amplification: MET
 - Fusion / Exon variant: ALK, MET, NTRK1, NTRK2, NTRK3, RET, ROS1`
@@ -101,17 +100,17 @@ export const mentlists = [
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Ovarian Cancer',
+    title: 'Ovarian cancer',
     content: `- Mutation: BRCA1, BRCA2, ERBB2, FOXL2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Pancreatic Cancer',
+    title: 'Pancreatic cancer',
     content: `- Mutation: BRCA1, BRCA2, ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Prostate Cancer',
+    title: 'Prostate cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
@@ -121,7 +120,7 @@ export const mentlists = [
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Small Cell Lung Cancer',
+    title: 'Small Cell Lung cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
@@ -143,12 +142,12 @@ export const mentlists = [
 - Fusion / Exon variant: ALK, NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Testicular Cancer',
+    title: 'Testicular cancer',
     content: `- Mutation: ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
-    title: 'Thyroid Cancer',
+    title: 'Thyroid cancer',
     content: `- Mutation: BRAF, ERBB2, NTRK1, NTRK3
 - Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
@@ -175,7 +174,8 @@ export const mentlists = [
   {
     title: 'Neuroblastoma',
     content: `- Mutation: ALK, ERBB2, NTRK1, NTRK3
-- Amplification: MYC, MYCN`
+- Amplification: MYC, MYCN
+- Fusion / Exon variant: NTRK1, NTRK2, NTRK3`
   },
   {
     title: 'Thymic tumor',
