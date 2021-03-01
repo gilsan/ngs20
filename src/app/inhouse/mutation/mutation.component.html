@@ -71,6 +71,12 @@
                     <col width="5%" />
                     <col width="5%" />
                     <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />                    
                     <col/>
                     <col  width="7%"/>
                 </colgroup>
@@ -93,6 +99,12 @@
                         <th >COSMIC ID</th>
                         <th >SIFT/Polyphen/Mutation Taster</th>
                         <th >Buccal2</th>
+                        <th>ExAC</th>
+                        <th>ExAC_East</th>
+                        <th>KRGDB</th>
+                        <th>ETC1</th>
+                        <th>ETC2</th>
+                        <th>ETC3</th>
                         <th >Ivg</th>
                         <th >Sanger</th>
                         <th >수정/삭제</th>  
@@ -181,6 +193,36 @@
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.buccal2}}" id="buccal2{{list.id}}"  > 
                                 </span> 
+                            </td>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ExAC</span>
+                                <span class="clr-input" *ngIf="status.value === 'U'">
+                                    <input type="text"  class="clr-input" value="ExAC"> 
+                                </span>                             
+                            </td>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ExAC_East</span>
+                                <span class="clr-input" *ngIf="status.value === 'U'">
+                                    <input type="text"  class="clr-input" value="ExAC_East"> 
+                                </span>                             
+                            </td>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">KRGDB</span>
+                                <span class="clr-input" *ngIf="status.value === 'U'">
+                                    <input type="text"  class="clr-input" value="KRGDB"> 
+                                </span>                             
+                            </td>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ETC1</span>
+                                <span class="clr-input" *ngIf="status.value === 'U'">
+                                    <input type="text"  class="clr-input" value="ETC1"> 
+                                </span>                             
+                            </td>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ETC2</span>
+                                <span class="clr-input" *ngIf="status.value === 'U'">
+                                    <input type="text"  class="clr-input" value="ETC2"> 
+                                </span>                             
+                            </td>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ETC3</span>
+                                <span class="clr-input" *ngIf="status.value === 'U'">
+                                    <input type="text"  class="clr-input" value="ETC3"> 
+                                </span>                             
                             </td>
                             <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.igv}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">

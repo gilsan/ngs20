@@ -25,6 +25,7 @@ export class MaindiagComponent implements OnInit, AfterViewInit, OnDestroy {
     'patientID', 'test_code', 'specimenNo', 'tsvFilteredFilename', 'bamFilename', 'status',
     'report', 'register'];
 
+  isProgress = false;
   dataSource = new MatTableDataSource([]);
 
   private subs = new SubSink();
@@ -228,6 +229,7 @@ export class MaindiagComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkStore(): void {
+    this.isProgress = true;
     this.storeStartDay = this.store.getSearchStartDay();
     this.storeEndDay = this.store.getSearchEndDay();
     this.storePatientID = this.store.getamlPatientID();
@@ -304,6 +306,7 @@ export class MaindiagComponent implements OnInit, AfterViewInit, OnDestroy {
       ).subscribe((data) => {
         // console.log('', data);
         this.lists.push(data);
+        this.isProgress = false;
         this.patientID = '';
         this.specimenNo = '';
         this.dataSource.data = this.lists;

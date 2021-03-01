@@ -278,10 +278,11 @@ export class Form1Component implements OnInit, OnDestroy {
           } else if (parseInt(data.artifacts1Count, 10) > 0 ||
             parseInt(data.artifacts2Count, 10) > 0) {
             type = 'A';
-          } else if (parseInt(data.benign1Count, 10) > 0 ||
-            parseInt(data.benign2Count, 10) > 0) {
-            type = 'B';
           }
+          /*  else if (parseInt(data.benign1Count, 10) > 0 ||
+              parseInt(data.benign2Count, 10) > 0) {
+              type = 'B';
+            }  */
           let item;
           if (data.mutationList1 !== 'none') {
             item = data.mutationList1;

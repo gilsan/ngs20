@@ -14,7 +14,7 @@
            <!-- <a href="#"><img [src]="'assets/images/btn_logout.png'" alt="로그아웃" /> -->
           <!-- </a></div> -->
           &nbsp;&nbsp;&nbsp;
-          <img [src]="'assets/images/btn_logout.png'" (click)="logout()" alt="로그아웃" class="btn-logout" />
+          <img [src]="'assets/images/btn_logout.png'" (click)="logout()" width="40" height="22" alt="로그아웃" class="btn-logout" />
       </div>
       <div id="menu">
           <table border="0" cellspacing="0" cellpadding="0">
@@ -27,7 +27,7 @@
                     <a routerLink="/diag/benignComponent"><span class="nav-text"></span></a>
                      
                      <ul class="sub-menu"> 
-                      <li><span (click)="link('benign')">Benign</span></li>
+                     <!-- <li><span (click)="link('benign')">Benign</span></li>  -->
                       <li><span (click)="link('artifacts')">Artifacts</span></li>
                       <li><span (click)="link('mutation')">Mutation</span></li>
                       <li><span (click)="link('comments')">Comments</span></li>

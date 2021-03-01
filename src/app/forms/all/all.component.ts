@@ -288,10 +288,12 @@ export class AllComponent implements OnInit, OnDestroy, AfterViewInit {
           } else if (parseInt(data.artifacts1Count, 10) > 0 ||
             parseInt(data.artifacts2Count, 10) > 0) {
             type = 'A';
-          } else if (parseInt(data.benign1Count, 10) > 0 ||
-            parseInt(data.benign2Count, 10) > 0) {
-            type = 'B';
-          } else {
+          }
+          /*  else if (parseInt(data.benign1Count, 10) > 0 ||
+             parseInt(data.benign2Count, 10) > 0) {
+             type = 'B';
+           } */
+          else {
             type = 'New';
           }
           if (dvariable) {

@@ -658,13 +658,13 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           parseInt(data.artifacts2Count, 10) > 0) {
           type = 'A';
           // this.resultStatus = 'Not Detected';
-        } else if (parseInt(data.benign1Count, 10) > 0 ||
+        }
+        /* else if (parseInt(data.benign1Count, 10) > 0 ||
           parseInt(data.benign2Count, 10) > 0) {
           type = 'B';
-          // this.resultStatus = 'Not Detected';
-        } else {
+        } */
+        else {
           type = 'New';
-          // this.resultStatus = 'Not Detected';
         }
         if (dvariable) {
           // console.log('[595][form2][dvariable]', dvariable.functional_impact);
@@ -1131,7 +1131,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         alert('artifacts에 추가 했습니다.');
         this.selectedItem = '';
       });
-    } else if (this.selectedItem === 'benign') {
+    }
+    /* else if (this.selectedItem === 'benign') {
 
       this.subs.sink = this.patientsListService.insertBenign(
         row.gene, '', '', row.transcript, row.nucleotideChange, row.aminoAcidChange
@@ -1141,8 +1142,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
         this.selectedItem = '';
 
       });
-
-    }
+    } */
   }
 
   // tslint:disable-next-line: typedef

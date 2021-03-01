@@ -358,7 +358,6 @@ export class PatientsListService {
 
           return combineLatest([gene1$, gene2$]).pipe(
             map(data => {
-              // console.log('[patients ][285]', data, item.gene1, item.gene2);
               if (data[0] !== null || data[1] !== null) {
                 return { ...item, artifacts1Count: data[0][0].count, artifacts2Count: data[1][0].count };
               }
@@ -367,6 +366,7 @@ export class PatientsListService {
           );
         }
       }),
+      /*
       concatMap(item => {
         if (item.gene2 === 'none') {
           return this.benignInfoCount(item.gene1, item.coding).pipe(
@@ -382,12 +382,12 @@ export class PatientsListService {
           const gene2$ = this.benignInfoCount(item.gene2, item.coding);
           return combineLatest([gene1$, gene2$]).pipe(
             map(data => {
-              // console.log('[292]benignInfoCount', data);
               return { ...item, benign1Count: data[0][0].count, benign2Count: data[1][0].count };
             })
           );
         }
       }),
+      */
       concatMap(item => {
         // console.log('===[392][patientslists][뮤테이션] getMutationInfoLists', item);
         if (item.gene2 === 'none') {
