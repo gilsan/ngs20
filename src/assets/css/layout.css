@@ -869,7 +869,7 @@
   display: none;
   position: absolute;
   border: 3px solid #2196f3;
-  width: 570px;
+  width: 475px;
   top: 65px;
   left: 20%;
   padding: 10px 0;
@@ -920,4 +920,9 @@
   content: '';
   display: inline-block;
   clear: both;
+}
+
+.box_100.full {
+  height: auto !important;
+  min-height: 500px;
 }
