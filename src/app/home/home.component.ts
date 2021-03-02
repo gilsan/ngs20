@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
           this.passwdInfo = data[0];
           this.username = data[0].user_nm;
           if (data[0].part_nm === 'Tester') {
-            this.work = '임상병리사';
+            this.work = '기사';
           } else if (data[0].part_nm === 'Doctor') {
             this.work = '의사';
           }
