@@ -87,6 +87,7 @@ export class MutationComponent implements OnInit {
     const etc1: HTMLInputElement = document.getElementById('etc1' + id) as HTMLInputElement;
     const etc2: HTMLInputElement = document.getElementById('etc2' + id) as HTMLInputElement;
     const etc3: HTMLInputElement = document.getElementById('etc3' + id) as HTMLInputElement;
+
     /*
         if(buccal.value ==""){
           alert("buccal 값은 필수 입니다.");
@@ -106,7 +107,7 @@ export class MutationComponent implements OnInit {
       return;
     }
 
-    if (id !== "") {
+    if (id !== '') {
       this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
         zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value,
@@ -182,7 +183,7 @@ export class MutationComponent implements OnInit {
     this.lists$ = this.mutationService.getMutationList(genes, coding);
     this.lists$.subscribe((data) => {
       // console.log('[170][Mutation 검색]', data);
-      // this.lists = data;
+      this.lists = data;
       this.listMutations = data;
       this.lists = data.slice(0, 10);
       this.curPage = 1;
