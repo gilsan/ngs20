@@ -26,22 +26,24 @@ export class MutationService {
   public insertMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string,
     gene: string, functionalImpact: string, transcript: string, exonIntro: string, nucleotideChange: string,
     aminoAcidChange: string, zygosity: string, vaf: string, reference: string,
-    siftPolyphenMutationTaster: string, buccal2: string, igv: string, sanger: string, cosmicId: string): Observable<any> {
+    siftPolyphenMutationTaster: string, buccal2: string, igv: string, sanger: string, cosmicId: string,
+    exac: string, exac_east_asia: string, krgdb: string, etc1: string, etc2: string, etc3: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/mutation/insert`, {
       id, buccal, name, registerNumber, fusion, gene,
       functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference,
-      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId
+      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId, exac, exac_east_asia, krgdb, etc1, etc2, etc3
     });
   }
 
   public updateMutationList(id: string, buccal: string, name: string, registerNumber: string, fusion: string,
     gene: string, functionalImpact: string, transcript: string, exonIntro: string, nucleotideChange: string,
     aminoAcidChange: string, zygosity: string, vaf: string, reference: string,
-    siftPolyphenMutationTaster: string, buccal2: string, igv: string, sanger: string, cosmicId: string): Observable<any> {
+    siftPolyphenMutationTaster: string, buccal2: string, igv: string, sanger: string, cosmicId: string,
+    exac: string, exac_east_asia: string, krgdb: string, etc1: string, etc2: string, etc3: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/mutation/update`, {
       id, buccal, name, registerNumber, fusion, gene,
       functionalImpact, transcript, exonIntro, nucleotideChange, aminoAcidChange, zygosity, vaf, reference,
-      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId
+      siftPolyphenMutationTaster, buccal2, igv, sanger, cosmicId, exac, exac_east_asia, krgdb, etc1, etc2, etc3
     });
   }
 

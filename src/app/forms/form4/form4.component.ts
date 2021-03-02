@@ -157,6 +157,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   technique = `The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test.`;
 
+  maxHeight = 500;
   genetictest = `  LPC139
   LPC174
   LPC188
@@ -164,6 +165,7 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   @ViewChild('box100', { static: true }) box100: ElementRef;
+  @ViewChild('table', { static: true }) table: ElementRef;
   constructor(
     private patientsListService: PatientsListService,
     private router: Router,
@@ -198,6 +200,11 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     // this.checker();
+  }
+
+
+  resizeHeight() {
+    return { height: `${this.maxHeight}px` };
   }
 
   findType(): void {
@@ -998,9 +1005,13 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   addRow() {
+    const rect = this.table.nativeElement.getBoundingClientRect();
+    this.maxHeight = rect.height + 120;
+
     const control = this.tablerowForm.get('tableRows') as FormArray;
     control.push(this.addTableRowGroup());
     this.addBoxStatus(control.length - 1); // 체크박스 추가
+
   }
 
   // tslint:disable-next-line: typedef
@@ -1022,7 +1033,9 @@ export class Form4Component implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     this.removeBoxStatus(index); // 체크박스 아이템 삭제
-    // console.log('[725][deleteRow]', index, idx, this.vd);
+
+    const rect = this.table.nativeElement.getBoundingClientRect();
+    this.maxHeight = rect.height - 60;
   }
   /////////////////////////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef

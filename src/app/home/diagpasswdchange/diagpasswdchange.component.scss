@@ -20,16 +20,15 @@ $yellow: #ffc914;
 
 
 .title-info {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  display: inline-block;
+  border-bottom: 1px solid #ccc;
   margin: 0 0 0 15px !important;
 }
 
 label {
   font-size: 0.8rem;
   font-weight: bold;
-  color: $white;
+  color: #666;
 }
 
 input[type="text"],
@@ -37,6 +36,7 @@ input[type="password"] {
   height: 2rem;
   font-size: 0.9rem;
   font-weight: 500;
+  width: 100%;
 }
 
 input[type="submit"] {
@@ -52,26 +52,52 @@ button:disabled {
 #contact {
   display: grid;
   grid-template-rows: 50px auto;
-  background-color: $blue;
+  // background-color: $blue;
 }
 
 .search-form-container {
-  background-color: $gray;
+  // background-color: $gray;
   padding: 1rem;
   border-radius: 5px;
 }
 
 .form-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(6, auto);
-  grid-row-gap: 1rem;
-  justify-items: center;
-  align-items: center;
+  display: inline-block;
+  font-size: 0;
+  width: 100%;
+}
 
-  .submit-form {
-    grid-column: 1/3;
-    justify-self: center;
-    align-self: flex-end;
-  }
+.submit-form {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 40px;
+}
+.btn.btn-button {
+  color: white;
+  border: 1px solid black;
+  font-size: 16px;
+  background-color: blue;
+  border-radius: 20px;
+
+}
+
+.btn.btn-button:hover,
+.btn.btn-button:active,
+.btn.btn-button:visited {
+  outline: none;
+}
+
+
+.w50p {
+  display: inline-block;
+  width: 50%;
+}
+.w50p label {
+  display: inline-block;
+  margin: 20px 0 5px 0;
+}
+.w50p.p-l-15 {
+  box-sizing: border-box;
+  padding-left: 15px;
 }

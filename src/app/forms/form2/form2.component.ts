@@ -149,8 +149,10 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   allLuk: string[] = ['BCR-ABL1(e1a2)', 'BCR-ABL1(b2a2)', 'BCR-ABL1(b3a2)', 'BCR-ABL1',
     'KMT2A-AFF1', 'KMT2A-MLLT1', 'KMT2A-MLLT3', 'ETV6-RUNX1', 'IGH-IL3', 'TCF3-PBX1'];
 
+  maxHeight = 500;
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   @ViewChild('box100', { static: true }) box100: ElementRef;
+  @ViewChild('table', { static: true }) table: ElementRef;
   constructor(
     private patientsListService: PatientsListService,
     private router: Router,
@@ -186,6 +188,11 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit(): void {
     // this.checker();
   }
+
+  resizeHeight() {
+    return { height: `${this.maxHeight}px` };
+  }
+
 
   allLukemia(lukemia: string): void {
     console.log('[190][allLukemia][profile.leukemia]', this.profile.leukemia);
@@ -691,6 +698,7 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
           if (typeof data.commentList1 !== 'undefined' && data.commentList1 !== 'none') {
             if (parseInt(data.comments1Count, 10) > 0) {
 
+              // tslint:disable-next-line:variable-name
               const variant_id = data.tsv.amino_acid_change;
               const comment = { ...data.commentList1, variant_id, type: this.reportType };
 
@@ -1043,6 +1051,9 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   addRow() {
+    const rect = this.table.nativeElement.getBoundingClientRect();
+    this.maxHeight = rect.height + 120;
+
     const control = this.tablerowForm.get('tableRows') as FormArray;
     control.push(this.addTableRowGroup());
     this.addBoxStatus(control.length - 1); // 체크박스 추가
@@ -1066,6 +1077,8 @@ export class Form2Component implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     this.removeBoxStatus(index); // 체크박스 아이템 삭제
+    const rect = this.table.nativeElement.getBoundingClientRect();
+    this.maxHeight = rect.height - 60;
   }
   /////////////////////////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef

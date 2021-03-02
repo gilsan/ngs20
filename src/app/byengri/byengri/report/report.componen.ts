@@ -2327,16 +2327,16 @@ export class ReportComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
   }
-
+  // polymorphismList에 3개가 동일하면 삭제
   removeGeneCheck(gene: string, amino: string, nucleotide: string): number {
     const result = this.polymorphismList.findIndex(item =>
       item.gene === gene && item.amino_acid_change === amino && item.nucleotide_change === nucleotide
     );
     // console.log('[2210][removeGeneCheck]', this.polymorphismList);
     // console.log('[2211]', gene, amino, nucleotide, result);
-    // return result;
-    // 검증완료후 삭제 1.17
-    return -1;
+    return result;
+    // 검증완료후 삭제 1.17 => 2021.03.01 적용
+    // return -1;
   }
 
   tumormutationalburdenChange(burden: string): void {

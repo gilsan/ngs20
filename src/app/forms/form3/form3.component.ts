@@ -156,8 +156,10 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   technique = `The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.`;
 
+  maxHeight = 500;
   @ViewChild('commentbox') private commentbox: TemplateRef<any>;
   @ViewChild('box100', { static: true }) box100: ElementRef;
+  @ViewChild('table', { static: true }) table: ElementRef;
   constructor(
     private patientsListService: PatientsListService,
     private router: Router,
@@ -176,7 +178,6 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
     this.findType();
     this.box100.nativeElement.scrollLeft += 250;
 
-
     this.initLoad();
     if (parseInt(this.screenstatus, 10) >= 1 || parseInt(this.screenstatus, 10) === 2) {
       this.recoverDetected();
@@ -193,6 +194,10 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     // this.checker();
+  }
+
+  resizeHeight() {
+    return { height: `${this.maxHeight}px` };
   }
 
   findType(): void {
@@ -994,9 +999,13 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
 
   // tslint:disable-next-line: typedef
   addRow() {
+    const rect = this.table.nativeElement.getBoundingClientRect();
+    this.maxHeight = rect.height + 120;
+
     const control = this.tablerowForm.get('tableRows') as FormArray;
     control.push(this.addTableRowGroup());
     this.addBoxStatus(control.length - 1); // 체크박스 추가
+
   }
 
   // tslint:disable-next-line: typedef
@@ -1017,6 +1026,9 @@ export class Form3Component implements OnInit, OnDestroy, AfterViewInit {
       }
     }
     this.removeBoxStatus(index); // 체크박스 아이템 삭제
+
+    const rect = this.table.nativeElement.getBoundingClientRect();
+    this.maxHeight = rect.height - 60;
   }
   /////////////////////////////////////////////////////////////////////////////////
   // tslint:disable-next-line: typedef

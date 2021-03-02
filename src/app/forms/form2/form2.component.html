@@ -250,11 +250,11 @@
               </table>
               <div class="sub_title">Detected variants</div>
     <div class="box">
-              <div class="box_100" #box100>
+              <div class="box_100"  [ngStyle]="resizeHeight()" #box100>
 <!--    -------------------------------------                     -->
 <form [formGroup]="tablerowForm"> 
      
-    <table class="table_list header-fix"  style="text-align: center;">
+    <table class="table_list header-fix"  style="text-align: center;" #table>
         <colgroup>  
             <col style="width:50px"/>         
             <col style="width:80px"/>

@@ -80,9 +80,13 @@ export class MutationComponent implements OnInit {
     const buccal2: HTMLInputElement = document.getElementById("buccal2" + id) as HTMLInputElement;
     const igv: HTMLInputElement = document.getElementById("igv" + id) as HTMLInputElement;
     const sanger: HTMLInputElement = document.getElementById("sanger" + id) as HTMLInputElement;
-
-
-
+    const exac: HTMLInputElement = document.getElementById('exac' + id) as HTMLInputElement;
+    // tslint:disable-next-line:variable-name
+    const exac_east_asia: HTMLInputElement = document.getElementById('exac_east_asia' + id) as HTMLInputElement;
+    const krgdb: HTMLInputElement = document.getElementById('krgdb' + id) as HTMLInputElement;
+    const etc1: HTMLInputElement = document.getElementById('etc1' + id) as HTMLInputElement;
+    const etc2: HTMLInputElement = document.getElementById('etc2' + id) as HTMLInputElement;
+    const etc3: HTMLInputElement = document.getElementById('etc3' + id) as HTMLInputElement;
     /*
         if(buccal.value ==""){
           alert("buccal 값은 필수 입니다.");
@@ -105,45 +109,53 @@ export class MutationComponent implements OnInit {
     if (id !== "") {
       this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
-        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value)
+        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value,
+        exac.value, exac_east_asia.value, krgdb.value, etc1.value, etc2.value, etc3.value)
         .subscribe((data) => {
           console.log('[170][Mutation 수정]', data);
-          alert("수정 되었습니다.");
+          alert('수정 되었습니다.');
           this.search(gene.value);
         });
     } else {
       this.mutationService.insertMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
-        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value)
+        zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value,
+        exac.value, exac_east_asia.value, krgdb.value, etc1.value, etc2.value, etc3.value)
         .subscribe((data) => {
           console.log('[170][Mutation 저장]', data);
-          alert("저장 되었습니다.");
+          alert('저장 되었습니다.');
           this.search(gene.value);
         });
     }
   }
 
-  insertRow() {
+  insertRow(): void {
     this.lists.push({
-      'id': '',
-      'buccal': '',
-      'patient_name': '',
-      'register_number': '',
-      'fusion': '',
-      'gene': '',
-      'functional_impact': '',
-      'transcript': '',
-      'exon_intro': '',
-      'nucleotide_change': '',
-      'amino_acid_change': '',
-      'zygosity': '',
-      'vaf': '',
-      'reference': '',
-      'cosmic_id': '',
-      'sift_polyphen_mutation_taster': '',
-      'buccal2': '',
-      'igv': '',
-      'sanger': ''
+      id: '',
+      buccal: '',
+      patient_name: '',
+      register_number: '',
+      fusion: '',
+      gene: '',
+      functional_impact: '',
+      transcript: '',
+      exon_intro: '',
+      nucleotide_change: '',
+      amino_acid_change: '',
+      zygosity: '',
+      vaf: '',
+      reference: '',
+      cosmic_id: '',
+      sift_polyphen_mutation_taster: '',
+      buccal2: '',
+      igv: '',
+      sanger: '',
+      exac: '',
+      exac_east_asia: '',
+      krgdb: '',
+      etc1: '',
+      etc2: '',
+      etc3: '',
     });
   }
   myFunc(status: string) {
@@ -161,7 +173,7 @@ export class MutationComponent implements OnInit {
     } else {
       if (page != "<" && page != ">")
         this.curPage = Number(page);
-    } 6
+    }
     page = this.curPage + "";
     this.lists = this.listMutations.slice((Number(page) - 1) * 10, (Number(page)) * 10);
   }
@@ -170,7 +182,7 @@ export class MutationComponent implements OnInit {
     this.lists$ = this.mutationService.getMutationList(genes, coding);
     this.lists$.subscribe((data) => {
       // console.log('[170][Mutation 검색]', data);
-      this.lists = data;
+      // this.lists = data;
       this.listMutations = data;
       this.lists = data.slice(0, 10);
       this.curPage = 1;

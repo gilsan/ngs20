@@ -18,4 +18,10 @@ export interface IMutation {
   buccal2: string;
   igv: string;
   sanger: string;
+  exac?: string;
+  exac_east_asia?: string;
+  krgdb?: string;
+  etc1?: string;
+  etc2?: string;
+  etc3?: string;
 }

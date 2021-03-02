@@ -50,7 +50,7 @@
     </div>
     <div class="table-box-wrap">
         <div class="table-box box" style="overflow-x: auto;">         
-            <table border="0" cellpadding="0" cellspacing="0" class="header-fix table_list" style="min-width:2200px; width:100%">
+            <table border="0" cellpadding="0" cellspacing="0" class="header-fix table_list" style="min-width:2600px; width:100%">
             	<colgroup>
                     <col width="3%" />
                     <col width="5%" />
@@ -76,7 +76,11 @@
                     <col width="5%" />
                     <col width="5%" />
                     <col width="5%" />
+<<<<<<< HEAD
                     <col width="5%" />                    
+=======
+                    <col width="5%" />
+>>>>>>> 9b62a7d950bdacf34400db03aed3497abd555ee5
                     <col/>
                     <col  width="7%"/>
                 </colgroup>
@@ -194,34 +198,34 @@
                                     <input type="text"  class="clr-input" value="{{list.buccal2}}" id="buccal2{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ExAC</span>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.exac}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
-                                    <input type="text"  class="clr-input" value="ExAC"> 
+                                    <input type="text"  class="clr-input" value="{{list.exac}}"  id="exac{{list.id}}"> 
                                 </span>                             
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ExAC_East</span>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.exac_east_asia}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
-                                    <input type="text"  class="clr-input" value="ExAC_East"> 
+                                    <input type="text"  class="clr-input" value="{{list.exac_east_asia}}" id="exac_east_asia{{list.id}}"> 
                                 </span>                             
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">KRGDB</span>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.krgdb}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
-                                    <input type="text"  class="clr-input" value="KRGDB"> 
+                                    <input type="text"  class="clr-input" value="{{list.krgdb}}" id="krgdb{{list.id}}"> 
                                 </span>                             
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ETC1</span>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.etc1}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
-                                    <input type="text"  class="clr-input" value="ETC1"> 
+                                    <input type="text"  class="clr-input" value="{{list.etc1}}" id="etc{{list.id}}"> 
                                 </span>                             
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ETC2</span>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.etc2}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
-                                    <input type="text"  class="clr-input" value="ETC2"> 
+                                    <input type="text"  class="clr-input" value="{{list.etc2}}" id="etc{{list.id}}"> 
                                 </span>                             
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">ETC3</span>
+                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.etc3}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
-                                    <input type="text"  class="clr-input" value="ETC3"> 
+                                    <input type="text"  class="clr-input" value="{{list.etc3}}" id="etc{{list.id}}"> 
                                 </span>                             
                             </td>
                             <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.igv}}</span>

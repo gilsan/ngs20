@@ -5,48 +5,59 @@
            <div>
             <form class="search-form-container"  [formGroup]="formGroup">
                 <div class="form-container">
-                    
-                    <div class="field-id">
-                        <label>ID</label>
+                    <div class="w50p">
+                        <div class="field-id">
+                            <label>ID</label>
+                        </div>
+                        <div class="field-id-input">
+                            <input type="text" placeholder="아이디" class="input_02"  
+                             formControlName="userid" readonly>
+                        </div>
                     </div>
-                    <div class="field-name">
-                        <label>이름</label>
-                    </div>                    
-                    <div class="field-id-input">
-                        <input type="text" placeholder="아이디" class="input_02"  
-                         formControlName="userid" readonly>
+                    <div class="w50p p-l-15">
+                        <div class="field-name">
+                            <label>이름</label>
+                        </div>                  
+                        <div class="field-name-input">                       
+                            <input type="text" placeholder="이름" class="input_02" formControlName="username">
+                        </div>
                     </div>
-                    <div class="field-name-input">                       
-                        <input type="text" placeholder="이름" class="input_02" formControlName="username">
+                    <div class="w50p">
+                        <div class="field-oldpw">
+                            <label>Password</label>
+                        </div>
+                        <div class="field-oldpw-input">
+                            <input type="password" placeholder="신암호" class="input_02" formControlName="newpassword" >
+                        </div>
                     </div>
-                    <div class="field-oldpw">
-                        <label>Password</label>
+                    <div class="w50p p-l-15">
+                        <div class="field-newpw">                           
+                            <label>Password Confirm</label>
+                        </div>
+                        <div class="field-newpw-input">   
+                            <input type="password" placeholder="암호확인" class="input_02"required formControlName="repassword">
+                        </div>
                     </div>
-                    <div class="field-newpw">                           
-                        <label>Password Confirm</label>
+                    <div class="w50p">
+                        <div class="field-dept">
+                            <label>부서</label>
+                        </div>
+                        <div class="field-dept-input">
+                            <input type="text" placeholder="부서" class="input_02" formControlName="dept" readonly>
+                        </div>
                     </div>
-                    <div class="field-oldpw-input">
-                        <input type="password" placeholder="신암호" class="input_02" formControlName="newpassword" >
+                    <div class="w50p p-l-15">
+                        <div class="field-work">                           
+                            <label>업무</label>
+                        </div>
+                        <div class="field-work-input">   
+                            <input type="text" placeholder="업무" class="input_02" formControlName="work" readonly>
+                        </div>  
                     </div>
-                    <div class="field-newpw-input">   
-                        <input type="password" placeholder="암호확인" class="input_02"required formControlName="repassword">
-                    </div>
-                    <div class="field-dept">
-                        <label>부서</label>
-                    </div>
-                    <div class="field-work">                           
-                        <label>업무</label>
-                    </div>
-                    <div class="field-dept-input">
-                        <input type="text" placeholder="부서" class="input_02" formControlName="dept" readonly>
-                    </div>
-                    <div class="field-work-input">   
-                        <input type="text" placeholder="업무" class="input_02" formControlName="work" readonly>
-                    </div>  
                     <div class="submit-form">
-                        <button class="btn btn_01" [disabled]="!formGroup.valid" (click)="save()">확인</button>
+                        <button class="btn btn-button" [disabled]="!formGroup.valid" (click)="save()">확인</button>
                         &nbsp;&nbsp;
-                        <button class="btn btn_01" (click)="cancel()">취소</button>
+                        <button class="btn btn-button" (click)="cancel()">취소</button>
                     </div>                    
 
                 </div> 

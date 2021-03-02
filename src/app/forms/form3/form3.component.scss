@@ -1,3 +1,7 @@
+:host {
+  --y: 90px;
+}
+
 table {
   table-layout: fixed;
 }
@@ -11,9 +15,7 @@ table {
 }
 
 /*** /테이블 헤더 고정 ***/
-.table_height {
-  height: 20px;
-}
+
 
 .preview__button {
   color: red;
@@ -55,19 +57,7 @@ h2 {
   text-align: center;
 }
 
-// td {
-//   padding-left: 0 !important;
-//   padding-right: 0 !important;
-//   padding-bottom: 0 !important;
-//   padding-top: 0 !important;
-// }
 
-// input[type="text"] {
-//   width: 80%;
-//   box-sizing: border-box;
-//   -webkit-box-sizing: border-box;
-//   -moz-box-sizing: border-box;
-// }
 
 .save_mute {
   cursor: pointer;
@@ -115,126 +105,15 @@ h2 {
 }
 
 
-// .ckbox {
-//   display: flex;
-//   align-items: flex-end;
-//   margin-top: 35px;
-//   width: 100%;
-// }
-
-// img {
-//   display: flex;
-//   align-items: flex-end;
-//   margin-top: 30px;
-//   margin-left: 40px;
-//   justify-content: center;
-// }
 
 .tdbox {
-  // display: flex;
-  // align-items: flex-end;
-  // margin-top: 20px;
+
   width: 96%;
 }
 
 /*
-.tdbox {
- width: 120px !important;
- overflow: hidden;
- white-space: nowrap;
- text-overflow: ellipsis;
-}
-
-td {
- padding-top: 0 !important;
- padding-bottom: 0 !important;
-}
-
-.preview__button {
- background-color: #f0e5e5;
- height: 2rem;
- width: 7rem;
- position: fixed;
- top: 0.1rem;
- right: 0.5rem;
- border-radius: 10px;
- // border-radius: 50%;
- z-index: 2000;
- -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
- box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
- text-align: center;
- cursor: pointer;
-}
-
-h2 {
- font-size: 16px;
- font-weight: bold;
- text-align: center;
-}
-
-.geneOntology {
- width: 100%;
- height: 80px;
- overflow-y: scroll;
-}
-
-.fathmm {
- width: 200px;
- height: 80px;
- overflow: scroll;
-}
-
-.pfam {
- width: 200px;
- height: 80px;
- overflow: scroll;
-}
-
-
-
-.textarea_01 {
- padding: 0 !important;
- width: 100% !important;
- margin-top: 0 !important;
- margin-bottom: 0 !important;
-}
-
-.textarea01 {
- padding: 0 !important;
-}
-
-
-
-.th {
- padding: 0 !important;
-}
-
-img:hover {
- cursor: pointer;
-}
-
-.trash:hover {
- cursor: pointer;
-}
-
-
 */
 /*
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  table-layout: fixed;
-}
-
-
-td {
-  vertical-align: middle;
-  padding: 5px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 */
 
 .btn-s {
