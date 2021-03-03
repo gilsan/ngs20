@@ -74,12 +74,12 @@ export function makeDForm(
 				<Col id="rsltleft1">Diagosis</Col>
 				<Col id="rsltleft2">${profile.leukemia}</Col>
 				<Col id="rsltcenter1">Genetic test</Col>
-				<Col id="rsltcenter2">${profile.flt3itd}</Col>
+				<Col id="rsltcenter2"><![CDATA[${profile.flt3itd}]]></Col>
 				<Col id="rsltright1">Chromosomal analysis</Col>
-				<Col id="rsltright2">${profile.chron}</Col>
+				<Col id="rsltright2"><![CDATA[${profile.chron}]]></Col>
 				<Col id="testinfo1">TARGET DISEASE: MDS/MPN</Col>
 				<Col id="testinfo2">METHOD: *Massively parallel sequencing</Col>
-				<Col id="testinfo3">SPECIMEN:  ${specimenMessage}</Col>
+				<Col id="testinfo3">SPECIMEN:  <![CDATA[${specimenMessage}]]></Col>
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
 				<Col id="title">MDS/MPN NGS</Col>
@@ -152,7 +152,7 @@ export function makeDForm(
 <Row>
 <Col id="gene">${comment[i].gene}</Col>
 <Col id="variants">${comment[i].variant_id}</Col>
-<Col id="comments">${comment[i].comment}</Col>
+<Col id="comments"><![CDATA[${comment[i].comment}]]></Col>
 <Col id="reference">${comment[i].reference}</Col>
 </Row>`;
 		}

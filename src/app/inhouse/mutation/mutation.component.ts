@@ -80,6 +80,7 @@ export class MutationComponent implements OnInit {
     const buccal2: HTMLInputElement = document.getElementById("buccal2" + id) as HTMLInputElement;
     const igv: HTMLInputElement = document.getElementById("igv" + id) as HTMLInputElement;
     const sanger: HTMLInputElement = document.getElementById("sanger" + id) as HTMLInputElement;
+    /* 03.02
     const exac: HTMLInputElement = document.getElementById('exac' + id) as HTMLInputElement;
     // tslint:disable-next-line:variable-name
     const exac_east_asia: HTMLInputElement = document.getElementById('exac_east_asia' + id) as HTMLInputElement;
@@ -87,7 +88,7 @@ export class MutationComponent implements OnInit {
     const etc1: HTMLInputElement = document.getElementById('etc1' + id) as HTMLInputElement;
     const etc2: HTMLInputElement = document.getElementById('etc2' + id) as HTMLInputElement;
     const etc3: HTMLInputElement = document.getElementById('etc3' + id) as HTMLInputElement;
-
+    */
     /*
         if(buccal.value ==""){
           alert("buccal 값은 필수 입니다.");
@@ -108,20 +109,30 @@ export class MutationComponent implements OnInit {
     }
 
     if (id !== '') {
+/* 2021.03.02
       this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
         zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value,
         exac.value, exac_east_asia.value, krgdb.value, etc1.value, etc2.value, etc3.value)
-        .subscribe((data) => {
+        */
+        this.mutationService.updateMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
+          functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
+          zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value)
+          .subscribe((data) => {
           console.log('[170][Mutation 수정]', data);
           alert('수정 되었습니다.');
           this.search(gene.value);
         });
     } else {
+      /* 2021.03.02
       this.mutationService.insertMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
         functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
         zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value,
         exac.value, exac_east_asia.value, krgdb.value, etc1.value, etc2.value, etc3.value)
+      */
+        this.mutationService.insertMutationList(id, buccal.value, patientName.value, registerNumber.value, fusion.value, gene.value,
+          functionalImpact.value, transcript.value, exonIntro.value, nucleotideChange.value, aminoAcidChange.value,
+          zygosity.value, vaf.value, reference.value, siftPolyphen.value, buccal2.value, igv.value, sanger.value, cosmicId.value)
         .subscribe((data) => {
           console.log('[170][Mutation 저장]', data);
           alert('저장 되었습니다.');

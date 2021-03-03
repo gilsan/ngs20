@@ -69,18 +69,14 @@
                     <col width="5%" />
                     <col width="5%" />
                     <col width="5%" />
+                    <!--col width="5%" />
+                    col width="5%" />
                     <col width="5%" />
                     <col width="5%" />
                     <col width="5%" />
+                    <col width="5%" /-->
                     <col width="5%" />
-                    <col width="5%" />
-                    <col width="5%" />
-                    <col width="5%" />
-<<<<<<< HEAD
                     <col width="5%" />                    
-=======
-                    <col width="5%" />
->>>>>>> 9b62a7d950bdacf34400db03aed3497abd555ee5
                     <col/>
                     <col  width="7%"/>
                 </colgroup>
@@ -103,12 +99,12 @@
                         <th >COSMIC ID</th>
                         <th >SIFT/Polyphen/Mutation Taster</th>
                         <th >Buccal2</th>
-                        <th>ExAC</th>
+                        <!--th>ExAC</th>
                         <th>ExAC_East</th>
                         <th>KRGDB</th>
                         <th>ETC1</th>
                         <th>ETC2</th>
-                        <th>ETC3</th>
+                        <th>ETC3</th-->
                         <th >Ivg</th>
                         <th >Sanger</th>
                         <th >수정/삭제</th>  
@@ -198,7 +194,7 @@
                                     <input type="text"  class="clr-input" value="{{list.buccal2}}" id="buccal2{{list.id}}"  > 
                                 </span> 
                             </td>
-                            <td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.exac}}</span>
+                            <!--td  class="txt_c"><span *ngIf="status.value === 'R'">{{list.exac}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.exac}}"  id="exac{{list.id}}"> 
                                 </span>                             
@@ -227,7 +223,7 @@
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.etc3}}" id="etc3{{list.id}}"> 
                                 </span>                             
-                            </td>
+                            </td-->
                             <td class="txt_c"><span *ngIf="status.value === 'R'">{{list.igv}}</span>
                                 <span class="clr-input" *ngIf="status.value === 'U'">
                                     <input type="text"  class="clr-input" value="{{list.igv}}" id="igv{{list.id}}" > 
