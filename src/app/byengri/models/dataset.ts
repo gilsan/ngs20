@@ -96,7 +96,7 @@ export function makeReport(
               <Col id="tumorcellpercentage">${extraction.tumorcellpercentage}</Col>
               <Col id="organ">${extraction.organ}</Col>
               <Col id="tumortype">${extraction.tumortype}</Col>
-              <Col id="pathologicaldiagnosis">${extraction.diagnosis}</Col>
+              <Col id="pathologicaldiagnosis"> <![CDATA[${extraction.diagnosis}]]></Col>
               <Col id="execprcpuniqno">1234567890123456789</Col>
               <Col id="reptdt" >${emrDate}</Col>
 			        <Col id="examid" >${examedno}</Col>
