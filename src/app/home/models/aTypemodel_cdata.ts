@@ -7,7 +7,7 @@ export const METHODS = 'Total genomic DNA was extracted from the each sample. Te
 export const GENERAL = 'The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.';
 
 
-export function makeBForm(
+export function makeAForm(
 	resultStatus: string, // detected, not detected
 	examin: string, // 검사자
 	recheck: string, // 확인자
@@ -21,7 +21,7 @@ export function makeBForm(
 	comment: IComment[],
 	firstReportDay: string,
 	lastReportDay: string,
-	genelists: IGeneList[]
+	genelists: IGeneList[],
 ): string {
 
 	// 금일날자:
@@ -43,15 +43,9 @@ export function makeBForm(
 	}
 
 	const today = formatDate(new Date());
-	// examin = examin.slice(0, -2);
-	// recheck = recheck.slice(0, -2);
 	///////////////////////////////////////////////
 	// 강제로 값넣기
 
-
-	// 검사의뢰일은 db에 accept_date
-	// 검사보고일은 당일
-	// 수정보고일 현재는 "-""
 	/////////////////////////////////////////////////////
 	const patient = `<root>
 	<Dataset id="ds_1">
@@ -80,16 +74,16 @@ export function makeBForm(
 				<Col id="result">${resultStatus}</Col>
 				<Col id="rsltleft1">Leukemia associated fusion</Col>
 				<Col id="rsltleft2">${profile.leukemia}</Col>
-				<Col id="rsltcenter1">FLT3-ITD</Col>
-				<Col id="rsltcenter2">${profile.flt3itd}</Col>
+				<Col id="rsltcenter1">IKZF1 deletion</Col>
+				<Col id="rsltcenter2">><![CDATA[${profile.flt3itd}]]></Col>
 				<Col id="rsltright1">Chromosomal analysis</Col>
-				<Col id="rsltright2">${profile.chron}</Col>
-				<Col id="testinfo1">TARGET DISEASE: Acute myeloid leukemia</Col>
+				<Col id="rsltright2"><![CDATA[${profile.chron}]]></Col>
+				<Col id="testinfo1">TARGET DISEASE: Acute lymphoblastic leukemia</Col>
 				<Col id="testinfo2">METHOD: *Massively parallel sequencing</Col>
-				<Col id="testinfo3">SPECIMEN:  <![CDATA[${specimenMessage}]]></Col>
+				<Col id="testinfo3">SPECIMEN: <![CDATA[${specimenMessage}]]> </Col>
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
-				<Col id="title">Acute Myeloid Leukemia NGS</Col>
+				<Col id="title">Acute Lymphoblastic Leukemia NGS</Col>
 				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay}</Col>
 				<Col id="examid">${examin}</Col>
 				<Col id="signid">${recheck}</Col>
@@ -134,13 +128,12 @@ export function makeBForm(
 			`;
 	}
 
-
 	const variantBottom = `
 		</Rows>
 </Dataset>
 	`;
 
-
+	let comments = '';
 	const commentHeader = `
 <Dataset id="ds_3">
 	<ColumnInfo>
@@ -159,19 +152,19 @@ export function makeBForm(
 		<Row>
 		<Col id="gene">${comment[i].gene}</Col>
 		<Col id="variants">${comment[i].variant_id}</Col>
-		<Col id="comments">${comment[i].comment}</Col>
+		<Col id="comments"><![CDATA[${comment[i].comment}]]></Col>
 		<Col id="reference">${comment[i].reference}</Col>
 	</Row>`;
 		}
 	} else {
 		commentContent = `
-	 <Row>
-	 <Col id="gene"></Col>
-	 <Col id="variants"></Col>
-	 <Col id="comments"></Col>
-	 <Col id="reference"></Col>
- </Row>
-	 `;
+ <Row>
+ <Col id="gene"></Col>
+ <Col id="variants"></Col>
+ <Col id="comments"></Col>
+ <Col id="reference"></Col>
+</Row>
+ `;
 	}
 
 	commentContent = `<Rows>
@@ -181,7 +174,8 @@ export function makeBForm(
 	const commentBottom = `
 	</Dataset>
 	`;
-	const comments = commentHeader + commentContent + commentBottom;
+
+	comments = commentHeader + commentContent + commentBottom;
 
 	const fixedMent = `
 	<Dataset id="ds_4">
@@ -219,8 +213,7 @@ export function makeBForm(
 		<Column id="tg8" type="STRING" size="256"/>
 		<Column id="tg9" type="STRING" size="256"/>
 	</ColumnInfo>
-	<Rows>`;
-
+	<Rows>`
 	let list = '';
 
 	// tslint:disable-next-line:no-unused-expression
@@ -245,10 +238,6 @@ export function makeBForm(
 	</Dataset>
 </root>`;
 
-
-
 	return patient + variantHeader + data + variantBottom + comments + fixedMent + list + rootbottom;
 
 }
-
-

@@ -7,7 +7,7 @@ export const METHODS = 'Total genomic DNA was extracted from the each sample. Te
 export const GENERAL = 'The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.';
 
 
-export function makeBForm(
+export function makeDForm(
 	resultStatus: string, // detected, not detected
 	examin: string, // 검사자
 	recheck: string, // 확인자
@@ -21,7 +21,7 @@ export function makeBForm(
 	comment: IComment[],
 	firstReportDay: string,
 	lastReportDay: string,
-	genelists: IGeneList[]
+	genelist: IGeneList[]
 ): string {
 
 	// 금일날자:
@@ -43,15 +43,8 @@ export function makeBForm(
 	}
 
 	const today = formatDate(new Date());
-	// examin = examin.slice(0, -2);
-	// recheck = recheck.slice(0, -2);
 	///////////////////////////////////////////////
-	// 강제로 값넣기
 
-
-	// 검사의뢰일은 db에 accept_date
-	// 검사보고일은 당일
-	// 수정보고일 현재는 "-""
 	/////////////////////////////////////////////////////
 	const patient = `<root>
 	<Dataset id="ds_1">
@@ -78,19 +71,19 @@ export function makeBForm(
 			<Row>
 				<Col id="patient">${patientInfo.name}, ${patientInfo.patientID} (${patientInfo.gender}/${patientInfo.age})</Col>
 				<Col id="result">${resultStatus}</Col>
-				<Col id="rsltleft1">Leukemia associated fusion</Col>
+				<Col id="rsltleft1">Diagosis</Col>
 				<Col id="rsltleft2">${profile.leukemia}</Col>
-				<Col id="rsltcenter1">FLT3-ITD</Col>
-				<Col id="rsltcenter2">${profile.flt3itd}</Col>
+				<Col id="rsltcenter1">Genetic test</Col>
+				<Col id="rsltcenter2"><![CDATA[${profile.flt3itd}]]></Col>
 				<Col id="rsltright1">Chromosomal analysis</Col>
-				<Col id="rsltright2">${profile.chron}</Col>
-				<Col id="testinfo1">TARGET DISEASE: Acute myeloid leukemia</Col>
+				<Col id="rsltright2"><![CDATA[${profile.chron}]]></Col>
+				<Col id="testinfo1">TARGET DISEASE: MDS/MPN</Col>
 				<Col id="testinfo2">METHOD: *Massively parallel sequencing</Col>
 				<Col id="testinfo3">SPECIMEN:  <![CDATA[${specimenMessage}]]></Col>
 				<Col id="testinfo4">REQUEST: ${patientInfo.request}</Col>
 				<Col id="opnion">${ment}</Col>
-				<Col id="title">Acute Myeloid Leukemia NGS</Col>
-				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay}</Col>
+				<Col id="title">MDS/MPN NGS</Col>
+				<Col id="examdt">${acceptdate}/${firstReportDay}/${lastReportDay} </Col>
 				<Col id="examid">${examin}</Col>
 				<Col id="signid">${recheck}</Col>
 			</Row>
@@ -156,32 +149,36 @@ export function makeBForm(
 		// tslint:disable-next-line: prefer-for-of
 		for (let i = 0; i < comment.length; i++) {
 			commentContent = commentContent + `
-		<Row>
-		<Col id="gene">${comment[i].gene}</Col>
-		<Col id="variants">${comment[i].variant_id}</Col>
-		<Col id="comments">${comment[i].comment}</Col>
-		<Col id="reference">${comment[i].reference}</Col>
-	</Row>`;
+<Row>
+<Col id="gene">${comment[i].gene}</Col>
+<Col id="variants">${comment[i].variant_id}</Col>
+<Col id="comments"><![CDATA[${comment[i].comment}]]></Col>
+<Col id="reference">${comment[i].reference}</Col>
+</Row>`;
 		}
 	} else {
 		commentContent = `
-	 <Row>
-	 <Col id="gene"></Col>
-	 <Col id="variants"></Col>
-	 <Col id="comments"></Col>
-	 <Col id="reference"></Col>
- </Row>
-	 `;
+<Row>
+<Col id="gene"></Col>
+<Col id="variants"></Col>
+<Col id="comments"></Col>
+<Col id="reference"></Col>
+</Row>
+`;
 	}
 
 	commentContent = `<Rows>
-		${commentContent}
-		</Rows>
-	`;
+${commentContent}
+</Rows>
+`;
 	const commentBottom = `
-	</Dataset>
-	`;
+</Dataset>
+`;
 	const comments = commentHeader + commentContent + commentBottom;
+
+
+
+
 
 	const fixedMent = `
 	<Dataset id="ds_4">
@@ -190,7 +187,7 @@ export function makeBForm(
 	</ColumnInfo>
 	<Rows>
 		<Row>
-			<Col id="methods">Total genomic DNA was extracted from the each sample. Template and automated libraries were prepared on the Ion Chef System(Thermo Fisher Scientific) and subsequently sequenced on the Ion S5 system (Thermo Fisher Scientific) with the Ion 530 Chip kit. Alignment of sequences to the reference human genome (GRCh37/hg19) and base calling were performed using the Torrent Suite software version 5.8.0 (Thermo Fisher Scientific). The Torrent Variant Caller v5.8.0.19 (Thermo Fisher Scientific) was used for calling variants from mapped reads and the called variants were annotated by the Ion Reporter software v5.6.</Col>
+			<Col id="methods">Total genomic DNA was extracted from the each sample.  The TruSeq DNA Sample Preparation kit of Illumina was used to make the library. The Agilent SureSelect Target enrichment kit was used for in-solution enrichment of target regions. The enriched fragments were then amplified and sequenced on the MiSeqDx system (illumina). After demultiplexing, the reads were aligned to the human reference genome hg19 (GRCh37) using BWA (0.7.12) and duplicate reads were removed with Picard MarkDuplicates (1.98). Local realignment, score recalibiration and filtering sequence data were performed with GATK (2.3-9). Variants were annotated using SnpEff (4.2).</Col>
 		</Row>
 	</Rows>
 </Dataset>
@@ -201,7 +198,7 @@ export function makeBForm(
 	</ColumnInfo>
 	<Rows>
 		<Row>
-			<Col id="technique">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test. Evaluation of germline mutation can be performed using buccal swab speciman.</Col>
+			<Col id="technique">The analysis was optimised to identify base pair substitutions with a high sensitivity. The sensitivity for small insertions and deletions was lower. Deep-intronic mutations, mutations in the promoter region, repeats, large exonic deletions and duplications, and other structural variants were not detected by this test.</Col>
 		</Row>
 	</Rows>
 </Dataset>
@@ -224,7 +221,7 @@ export function makeBForm(
 	let list = '';
 
 	// tslint:disable-next-line:no-unused-expression
-	genelists.forEach(gene => {
+	genelist.forEach(gene => {
 		list = list + `
 		<Row>
 			<Col id="tg0">${gene.g0}</Col>
@@ -246,9 +243,6 @@ export function makeBForm(
 </root>`;
 
 
-
 	return patient + variantHeader + data + variantBottom + comments + fixedMent + list + rootbottom;
 
 }
-
-
