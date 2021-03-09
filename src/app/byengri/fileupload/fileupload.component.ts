@@ -282,7 +282,7 @@ export class FileuploadComponent implements OnInit {
       const lists = [];
 
       const data = this.loadData(reader.result);
-      // console.log(data);
+      console.log(data);
       // 기본자료 수집
 
       data.forEach((list, index) => {
@@ -306,7 +306,7 @@ export class FileuploadComponent implements OnInit {
         }
 
       });
-      // console.log('[upload]', this.filteredOriginData);
+      // console.log('[upload][]', this.filteredOriginData);
       this.fileUploadService.setFilteredTSV(this.filteredOriginData);
 
 

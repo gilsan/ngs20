@@ -49,7 +49,7 @@ export class UploadComponent implements OnInit {
 
   fields: string[] = [];
   constructor(
-    // private fileUploadService: PathologyService,
+
     private pathologyService: PathologyService,
     private uploadfileService: FileUploadService,
     private store: StorePathService,
@@ -146,14 +146,13 @@ export class UploadComponent implements OnInit {
       const filename = event.target.files[0].name;
       const file = event.target.files[0];
 
-      //  console.log('[fileupload][병리 파일명][96]', filename);
+
       if (filename === 'Statistic.txt') {
-        // this.Statistic(file);
+
       } else {
         const diseaseFilename = filename.split('_');
         this.diseaseNumber = diseaseFilename[0];
-        //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
-        // this.pathologyNum = this.pathologyService.getPathologyNum();
+
         this.pathologyNum = this.store.getPathologyNo();
         console.log('[142][pathologyNum]', this.pathologyNum);
         this.type = this.pathologyService.getType();
@@ -186,7 +185,7 @@ export class UploadComponent implements OnInit {
         const diseaseFilename = filename.split('_');
         this.diseaseNumber = diseaseFilename[0];
         //  console.log('[fileupload][병리 파일분류][102]', diseaseFilename);
-        // this.pathologyNum = this.pathologyService.getPathologyNum();
+
         this.pathologyNum = this.store.getPathologyNo();
         if (this.pathologyNum === undefined || this.pathologyNum === null) {
           this.pathologyNum = this.store.getPathologyNo();
@@ -232,7 +231,7 @@ export class UploadComponent implements OnInit {
           if (list[0].length > 0) {
             if (list[0].trim() === 'Sample Cancer Type') {
               this.tumorType = list[1].trim();
-              // this.pathologyService.setTumortype(list[1].trim(), this.pathologyNum);
+
             }
             const temp1 = list[0].split('(');
 
@@ -310,7 +309,7 @@ export class UploadComponent implements OnInit {
               } else if (len > 1) {
                 const tempGene = list[0].split(';');
                 const tempfre = list[3].split('(')[0].split(';');
-                // console.log('==== [322][네번째][clinically]', this.clinically, clinicallyCount);
+
                 for (let i = 0; i < tempGene.length; i++) {
                   const onetier = list[2].substring(0, list[2].length - 1);
                   const tempfilteredlist = tempGene[i].trim().split(' ');
@@ -340,24 +339,13 @@ export class UploadComponent implements OnInit {
                 return member[1] !== 'deletion';
 
               });
-              // console.log('===== [330][prevalent][전]', this.prevalent);
               this.prevalent.forEach((item, idx) => {
                 this.prevalent2.push({ gene: item.trim(), seq: idx.toString() });
               });
-              // console.log('===== [333][prevalent][후]', this.prevalent2);
             }
           }
         });  // End of ForEach
-      // console.log('==== [325][디비전송]' + '[clinically2]' + this.clinically2 + ' [prevalent2]' + this.prevalent2);
-      // from(this.clinically)
-      //   .pipe(
-      //     map(clinicallydata => [clinicallydata]),
-      //     concatMap(item => this.pathologyService.setClinically(item, this.pathologyNum))
-      //   ).subscribe(result => {
-      //     this.clinically = [];
-      //   });
 
-      // this.pathologyService.setClinically(this.clinically, this.pathologyNum)
       this.pathologyService.setClinically2(this.clinically2, this.pathologyNum)
         .pipe(
           concatMap(() => this.pathologyService.setTumortype(this.tumorType, this.pathologyNum)),
@@ -420,8 +408,7 @@ export class UploadComponent implements OnInit {
 
       const data = this.loadData(reader.result);
       this.filteredOriginData = [];
-      // console.log('==== [411][filteredOriginData] ', data);
-      // console.log('==== [412][filteredOriginData] ', this.filteredOriginData);
+
       // 기본자료 수집
       data.forEach((list, index) => {
         if (index === 18) {
@@ -445,20 +432,7 @@ export class UploadComponent implements OnInit {
             variantName: list[this.findGenePostion('Variant Name')].trim(),
             pathologyNum: this.pathologyNum
             /*
-            locus: list[0].trim(),
-            readcount: list[21].trim(),
-            OncomineVariant: list[12].trim(),
-            oncomine: list[13].trim(),
-            type: list[5].trim(),
-            gene: list[9].trim(),
-            aminoAcidChange: list[20].trim(),
-            coding: list[35].trim(),
-            frequency: list[19].trim(),
-            comsmicID: list[30].trim(),
-            cytoband: list[15].trim(),
-            variantID: list[17].trim(),
-            variantName: list[18].trim(),
-            pathologyNum: this.pathologyNum,
+
             */
           });
           // console.log('==== [313][upload][filteredOriginData] ', this.filteredOriginData);
@@ -481,7 +455,7 @@ export class UploadComponent implements OnInit {
         }
         if (msiList[0] === 'MSI Score') {
           this.msiScore = msiList[1];
-          // this.pathologyService.setMSIScore(this.msiScore, this.pathologyNum);
+
           this.status$.next('msi');
         }
       });
@@ -517,8 +491,7 @@ export class UploadComponent implements OnInit {
         scenarios.push(row);
       }
     });
-    // console.log('=================\n, scenarios', scenarios);
-    // console.log('===================\n');
+
     return scenarios;
   }
 
@@ -528,22 +501,6 @@ export class UploadComponent implements OnInit {
     return num.length;
   }
 
-  /*
-             locus : Locus
-             readcount : Read Counts
-             OncomineVariant : Oncomine Variant Class
-             oncomine : Oncomine Gene Class
-             type  : Type
-             gene : Genes (Exons), Genes
-             aminoAcidChange : Amino Acid Chang
-             coding  : Coding
-             frequency : % Frequency
-             comsmicID : Variant ID
-             cytoband : CytoBand
-             variantID : Variant ID
-             variantName : Variant Name
-             pathologyNum
-  *///
   // 유전자의 위치 찿음
   findGenePostion(item: string): number {
     return this.fields.findIndex(field => field === item);
